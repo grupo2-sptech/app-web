@@ -2,6 +2,8 @@ package org.example;
 
 public class Utilitarios {
 
+    FucionalidadeConsole func = new FucionalidadeConsole();
+
     void exibirMenu() throws InterruptedException {
         System.out.println("\n");
         for (int i = 0; i < 70; i++) {
@@ -52,19 +54,6 @@ public class Utilitarios {
         }
     }
 
-    public static void limparConsole() {
-        try {
-            final String os = System.getProperty("os.name");
-            if (os.contains("Windows")) {
-                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            } else {
-                Runtime.getRuntime().exec("clear");
-            }
-        } catch (final Exception exception) {
-            System.out.println("Erro ao Limpar o console!");
-        }
-    }
-
     void barraLoad(Integer quantidade) throws InterruptedException {
         for (int i = 0; i < quantidade; i++) {
             centralizaTelaVertical(5);
@@ -73,23 +62,9 @@ public class Utilitarios {
                 Thread.sleep(10);
             }
             Thread.sleep(500);
-            limparConsole();
-        }
-    }
-
-    void matarProcessos() {
-        try {
-            while (true) {
-                final String os = System.getProperty("os.name");
-                if (os.contains("Windows")) {
-                    new ProcessBuilder("cmd", "/c", "taskkill", "/f", "/im", "WhatsApp.exe").inheritIO().start().waitFor();
-                } else {
-                    Runtime.getRuntime().exec("Erro");
-                }
-                Thread.sleep(5000);
-            }
-        } catch (final Exception exception) {
-            System.out.println("Erro ao Limpar o console!");
+            FucionalidadeConsole.limparConsole();
         }
     }
 }
+
+

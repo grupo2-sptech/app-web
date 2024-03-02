@@ -30,7 +30,7 @@ public class Main {
             utils.centralizaTelaHorizontal(22);
             String senha = sc.next();
             if (emailValido.equals(email) && senhavalida.equals(senha)) {
-                Utilitarios.limparConsole();
+                FucionalidadeConsole.limparConsole();
                 utils.barraLoad(3);
                 utils.centralizaTelaVertical(5);
                 utils.centralizaTelaHorizontal(35);
@@ -38,15 +38,16 @@ public class Main {
                 utils.centralizaTelaVertical(5);
                 break;
             } else {
-                Utilitarios.limparConsole();
-                utils.centralizaTelaHorizontal(20);
+                FucionalidadeConsole.limparConsole();
+                utils.centralizaTelaVertical(5);
+                utils.centralizaTelaHorizontal(25);
                 System.out.println("SENHA OU EMAIL INCORRETO!");
-                Thread.sleep(2000);
-                Utilitarios.limparConsole();
+                Thread.sleep(4000);
+                FucionalidadeConsole.limparConsole();
             }
         } while (true);
 
-        utils.matarProcessos();
+        FucionalidadeConsole.matarProcessos();
     }
 
 
