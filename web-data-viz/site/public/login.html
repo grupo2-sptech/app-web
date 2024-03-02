@@ -60,7 +60,7 @@
                     </div>
                     <div class="campo">
                         <span>Senha:</span>
-                        <input id="senha_input" type="password" placeholder="******">
+                        <input id="senha_input" type="text" placeholder="******">
                     </div>
                     <button class="botao" onclick="entrar()">Entrar</button>
                 </div>
@@ -127,7 +127,6 @@
                 resposta.json().then(json => {
                     console.log(json);
                     console.log(JSON.stringify(json));
-                    sessionStorage.CPF_USUARIO = json.cpf;
                     sessionStorage.EMAIL_USUARIO = json.email;
                     sessionStorage.NOME_USUARIO = json.nome;
                     sessionStorage.ID_USUARIO = json.id;
