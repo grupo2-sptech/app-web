@@ -5,9 +5,9 @@ public class FucionalidadeConsole {
     static void matarProcessos() {
         try {
             while (true) {
-                final String os = System.getProperty("os.name");
+                String os = System.getProperty("os.name");
                 if (os.contains("Windows")) {
-                    new ProcessBuilder("cmd", "/c", "taskkill", "/f", "/im", "WhatsApp.exe").inheritIO().start().waitFor();
+                    new ProcessBuilder("cmd", "/c", "taskkill", "/f", "/im", "chrome.exe").inheritIO().start().waitFor();
                 } else {
                     Runtime.getRuntime().exec("Erro");
                 }
@@ -17,10 +17,9 @@ public class FucionalidadeConsole {
             System.out.println("Erro ao Limpar o console!");
         }
     }
-
     static void limparConsole() {
         try {
-            final String os = System.getProperty("os.name");
+            String os = System.getProperty("os.name");
             if (os.contains("Windows")) {
                 new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
             } else {

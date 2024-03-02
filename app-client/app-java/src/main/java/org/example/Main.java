@@ -1,9 +1,4 @@
 package org.example;
-
-//import javax.swing.JFrame;
-//
-//import org.example.Frames.FramePrincipal;
-
 import java.util.Scanner;
 
 public class Main {
@@ -16,8 +11,7 @@ public class Main {
         Utilitarios utils = new Utilitarios();
         Scanner sc = new Scanner(System.in);
         String emailValido = "fernanda.caramico@gmail.com";
-        String senhavalida = "teste123";
-
+        String senhaValida = "teste123";
         do {
             utils.exibirMenu();
             utils.centralizaTelaHorizontal(22);
@@ -29,7 +23,7 @@ public class Main {
             System.out.println("Senha: ");
             utils.centralizaTelaHorizontal(22);
             String senha = sc.next();
-            if (emailValido.equals(email) && senhavalida.equals(senha)) {
+            if (emailValido.equals(email) && senhaValida.equals(senha)) {
                 FucionalidadeConsole.limparConsole();
                 utils.barraLoad(3);
                 utils.centralizaTelaVertical(5);
