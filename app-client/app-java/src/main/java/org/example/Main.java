@@ -1,4 +1,5 @@
 package org.example;
+
 import java.util.Scanner;
 
 public class Main {
@@ -12,7 +13,9 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         String emailValido = "fernanda.caramico@gmail.com";
         String senhaValida = "teste123";
+
         do {
+            utils.exibirLogo();
             utils.exibirMenu();
             utils.centralizaTelaHorizontal(22);
             System.out.println("Email:");
@@ -41,7 +44,7 @@ public class Main {
             }
         } while (true);
 
-        FucionalidadeConsole.matarProcessos();
+       FucionalidadeConsole.matarProcessos();
     }
 
 
