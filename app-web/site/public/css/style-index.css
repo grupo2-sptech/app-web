@@ -18,7 +18,7 @@
   --color01: #0d1a26;
   --color02: #2e4959;
   --color03: #647d8c;
-  --color-font: #aab7bf;
+  --color-font: white;
 }
 
 .container_header_banner {
@@ -38,7 +38,7 @@
   align-items: center;
 }
 
-.header_logo {
+.logo {
   background-color: rgb(255, 255, 255);
   width: 4rem;
   height: 4rem;
@@ -127,14 +127,16 @@ hr {
   align-items: center;
   height: 60vh;
   background-color: var(--color01);
-  justify-content: space-around;
+  justify-content: space-evenly;
 }
 
 .sobrenos h1 {
   color: white;
-  height: 100px;
+  height: 90px;
+  width: 100%;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .card {
@@ -142,6 +144,27 @@ hr {
   width: 30%;
   border: solid 2px white;
   border-radius: 30px;
+}
+
+footer {
+  height: 25vh;
+  background-color: var(--color01);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.contatos {
+  display: flex;
+  width: 15%;
+  justify-content: space-around;
+}
+
+.icons {
+  height: 30px;
+  width: 30px;
+  border: solid 1px white;
+  border-radius: 5px;
 }
 
 .div_banner_text h1 {
