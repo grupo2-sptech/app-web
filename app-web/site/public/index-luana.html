@@ -1,71 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./css/style-index.css">
 </head>
+
 <body>
-    <div class="container_header_banner">
-        <header>
-            <nav>
-                <ul class="ul_header">
-                    <li>
-                        <a href="#">
-                            <img src="#" alt="" class="header_logo">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">Sobre nós</a>
-                    </li>
-                    <li>
-                        <a href="">Dashboard</a>
-                    </li>
-                    <li>
-                        <a href="">Contato</a>
-                    </li>
-                </ul>
-            </nav>
-        </header>
-        
-        <section class="div_banner">
-            <div class="div_banner_text">
-				<h1>
-					<strong>sim sim sim</strong>
-				</h1>
-				<p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Al
-				</p>
-			</div>
 
-			<div class="div_banner_img">
-				<img class="img_banner_server" src="./img/Server-amico 2.svg" alt="">
-                imagem de vcs
-			</div>
-        </section>
-    </div>
-
-    <div class="div_sobrenos">
-        
-        <div class="div_sobrenos_texto">
-            <h1 class="titulo_sobreNos">SOBRE NÓS</h1>
-
-            <p class="texto1_sobreNos">
-                sobre nos da empresa
-            </p>
-
-            <ul class="texto2_sobrenos">
-                <li> <img src="" class="div_img_texto">text1.</li>
-                <li> <img src="" class="div_img_texto">text2.</li>
-                <li> <img src="" class="div_img_texto">text3.</li>
+    <header class="container_header_banner">
+        <nav>
+            <div class="logo">
+                <a href="#">
+                    <img src="#" alt="LOGO">
+                </a>
+            </div>
+            <ul class="ul_header">
+                <li>
+                    <a href="">Login</a>
+                </li>
+                <li>
+                    <a href="">Sobre nós</a>
+                </li>
+                <li>
+                    <a href="">Contato</a>
+                </li>
             </ul>
+        </nav>
+    </header>
+
+
+    <section class="div_banner">
+        <div class="container">
+            <div class="div_banner_text">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Est quae, dolorem necessitatibus voluptates
+            </div>
+
+            <button onclick="">
+                Entre em contato!
+            </button>
 
         </div>
-
-        <div class="div_sobrenos_img">
-            <img src="./img/Rectangle 50.svg">
-        </div>
+    </section>
     </div>
+    <hr>
+    <section class="sobrenos">
+        <h1>Sobre Nós</h1>
+        <div class="cards-sobrenos container">
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+        </div>
+        <!--   <div class="div_sobrenos">
+            <div class="div_sobrenos_texto">
+                <h1 class="titulo_sobreNos">SOBRE NÓS</h1>
+                <p class="texto1_sobreNos">
+                    sobre nos da empresa
+                </p>
+
+                <ul class="texto2_sobrenos">
+                    <li> <img src="" class="div_img_texto">text1.</li>
+                    <li> <img src="" class="div_img_texto">text2.</li>
+                    <li> <img src="" class="div_img_texto">text3.</li>
+                </ul>
+
+            </div>
+
+            <div class="div_sobrenos_img">
+                <img src="./img/Rectangle 50.svg">
+            </div>
+        </div> -->
+    </section>
+    <hr>
+
+    <footer>
+        <div class="div_footer container">
+            <div
+                style="text-align: center; color: white; display: flex; justify-content: center; flex-direction: column;align-items: center;">
+                <div class="logo">
+                    <img src="" alt="LOGO">
+                </div>
+                <div>
+                    <h2>
+                        Hardware Security <span style="font-size: 13px;">₢</span>
+                    </h2>
+
+
+
+                </div>
+            </div>
+
+            <div class="contatos">
+                <div class="icons"></div>
+                <div class="icons"></div>
+                <div class="icons"></div>
+                <div class="icons"></div>
+            </div>
+        </div>
+    </footer>
+
 </body>
+
 </html>

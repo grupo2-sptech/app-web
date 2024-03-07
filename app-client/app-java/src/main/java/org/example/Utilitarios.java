@@ -4,42 +4,76 @@ public class Utilitarios {
 
     FucionalidadeConsole func = new FucionalidadeConsole();
 
-    void exibirMenu() throws InterruptedException {
-        System.out.println("\n");
-        for (int i = 0; i < 70; i++) {
-            System.out.print("-");
-            Thread.sleep(2);
-        }
+    void exibirLogo() throws InterruptedException {
+        System.out.println("\n\n             __  __                       __                                    ");
+        Thread.sleep(90);
+        System.out.println("            / / / /  ____ _   _____  ____/ / _      __  ____ _   _____  ___     ");
+        Thread.sleep(90);
+        System.out.println("           / /_/ /  / __  /  / ___/ / __  / | | /| / / / __  /  / ___/ / _ |    ");
+        Thread.sleep(90);
+        System.out.println("          / __  /  / /_/ /  / /    / /_/ /  | |/ |/ / / /_/ /  / /    /  __/    ");
+        Thread.sleep(90);
+        System.out.println("         /_/ /_/   |____/  /_/     |____/   |__/|__/  |____/  /_/     |___/     ");
+        Thread.sleep(90);
         System.out.println();
-        for (int i = 0; i < 2; i++) {
-            System.out.print("-");
-            Thread.sleep(2);
-        }
-        for (int i = 0; i < 28; i++) {
-            System.out.print(" ");
-            Thread.sleep(2);
-        }
-        System.out.print("BEM VINDO!");
-        for (int i = 0; i < 28; i++) {
-            System.out.print(" ");
-            Thread.sleep(2);
-        }
-        for (int i = 0; i < 2; i++) {
-            System.out.print("-");
-            Thread.sleep(2);
-        }
-        System.out.println();
-        for (int i = 0; i < 70; i++) {
-            System.out.print("-");
-            Thread.sleep(2);
-        }
-        System.out.println("\n");
+        System.out.println("            _____                                  _    __                      ");
+        Thread.sleep(90);
+        System.out.println("           / ___/  ___    _____  __  __   _____   (_)  / /_   __  __            ");
+        Thread.sleep(90);
+        System.out.println("           |__ |  / _ |  / ___/ / / / /  / ___/  / /  / __/  / / / /            ");
+        Thread.sleep(90);
+        System.out.println("          ___/ / /  __/ / /__  / /_/ /  / /     / /  / /_   / /_/ /             ");
+        Thread.sleep(90);
+        System.out.println("         /____/  |___/  |___/  |____/  /_/     /_/   |__/   |___ /              ");
+        Thread.sleep(90);
+        System.out.println("                                                           /____/               ");
 
-//        System.out.println("""
-//                ----------------------------------------------------------------------
-//                --                            BEM VINDO!                            --
-//                ----------------------------------------------------------------------
-//                """);
+//        for (int i = 0; i < 70; i++) {
+//            System.out.print("-");
+//            Thread.sleep(2);
+//        }
+//        System.out.println();
+//        for (int i = 0; i < 2; i++) {
+//            System.out.print("-");
+//            Thread.sleep(2);
+//        }
+//        for (int i = 0; i < 28; i++) {
+//            System.out.print(" ");
+//            Thread.sleep(2);
+//        }
+//        System.out.print("BEM VINDO!");
+//        for (int i = 0; i < 28; i++) {
+//            System.out.print(" ");
+//            Thread.sleep(2);
+//        }
+//        for (int i = 0; i < 2; i++) {
+//            System.out.print("-");
+//            Thread.sleep(2);
+//        }
+//        System.out.println();
+//        for (int i = 0; i < 70; i++) {
+//            System.out.print("-");
+//            Thread.sleep(2);
+//        }
+
+
+    }
+
+
+    void exibirMenu(){
+        System.out.println("""
+                         
+                         __________________________________________________________________
+                         |                     B E M  V I N D O !                         |
+                         |________________________________________________________________|
+                         
+                """);
+        System.out.println("""
+                    Faça login com suas credenciais para acessar nossa plataforma de monitoramento
+                    e visualização de hardware. Nossa aplicação é projetada para otimizar e aumentar
+                    a segurança no ambiente corporativo, fornecendo controle abrangente sobre os
+                    recursos de hardware.
+                """);
     }
 
     void centralizaTelaHorizontal(Integer espaco) {
