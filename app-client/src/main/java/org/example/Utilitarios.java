@@ -55,11 +55,7 @@ public class Utilitarios {
 //            System.out.print("-");
 //            Thread.sleep(2);
 //        }
-
-
     }
-
-
     void exibirMenu(){
         System.out.println("""
                          

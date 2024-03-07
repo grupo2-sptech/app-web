@@ -1,5 +1,7 @@
 package org.example;
 
+import com.github.britooo.looca.api.core.Looca;
+
 import java.util.Scanner;
 
 public class Main {
@@ -13,7 +15,6 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         String emailValido = "fernanda.caramico@gmail.com";
         String senhaValida = "teste123";
-
         do {
             utils.exibirLogo();
             utils.exibirMenu();
