@@ -22,3 +22,13 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+# A linha abaixo determina que o diretório node_modules não será enviado ao repositório remoto
+node_modules
+package-lock.json
+
+# Caso você renomeie seu diretório /site, altere também nas linhas abaixo:
+site/node_modules
+site/package-lock.json
+
+.github
