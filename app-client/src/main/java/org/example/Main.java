@@ -31,8 +31,14 @@ public class Main {
                 FucionalidadeConsole.limparConsole();
                 utils.barraLoad(3);
                 utils.centralizaTelaVertical(5);
-                utils.centralizaTelaHorizontal(35);
+                utils.centralizaTelaHorizontal(30);
                 System.out.println("LOGADO!");
+                utils.centralizaTelaVertical(3);
+                utils.centralizaTelaHorizontal(7);
+                System.out.println("Nenhum programa indevido encontrado");
+                utils.centralizaTelaVertical(2);
+                utils.centralizaTelaHorizontal(3);
+                System.out.println("Monitoramento ativo! Caso seja encontrado algum programa indevido ele será finalizado!");
                 utils.centralizaTelaVertical(5);
                 break;
             } else {

@@ -10,19 +10,25 @@ public class FucionalidadeConsole {
             while (true) {
                 String os = System.getProperty("os.name");
                 if (os.contains("Windows")) {
-                    if (isProcessRunning("WhatsApp.exe")) {
+                    if (isProcessRunning("chrome.exe")) {
                         limparConsole();
                         utilitarios.centralizaTelaVertical(5);
-                        System.out.println("Processo indevido localizado");
-                        System.out.println("Tentando ecerrar o Processo!");
+                        System.out.println("Programa indevido localizado");
+                        System.out.println("Encerrando programa indevido!");
                         Thread.sleep(3000);
                         utilitarios.barraLoad(1);
-                        new ProcessBuilder("cmd", "/c", "taskkill", "/f", "/im", "WhatsApp.exe").inheritIO().start().waitFor();
+                        new ProcessBuilder("cmd", "/c", "taskkill", "/f", "/im", "chrome.exe").inheritIO().start().waitFor();
                         Thread.sleep(5000);
                         limparConsole();
                         utilitarios.centralizaTelaVertical(5);
-                        utilitarios.centralizaTelaHorizontal(20);
-                        System.out.println("Programa encerrado com sucesso!");
+                        utilitarios.centralizaTelaHorizontal(30);
+                        System.out.println("LOGADO!");
+                        utilitarios.centralizaTelaVertical(3);
+                        utilitarios.centralizaTelaHorizontal(7);
+                        System.out.println("Programa indevido foi encerrado com sucesso!");
+                        utilitarios.centralizaTelaVertical(2);
+                        utilitarios.centralizaTelaHorizontal(3);
+                        System.out.println("Monitoramento ativo! Caso seja encontrado algum programa indevido ele será finalizado!");
                     }
                 } else {
                     Runtime.getRuntime().exec("Erro");

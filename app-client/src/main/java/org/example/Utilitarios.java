@@ -65,11 +65,16 @@ public class Utilitarios {
                          
                 """);
         System.out.println("""
-                    Faça login com suas credenciais para acessar nossa plataforma de monitoramento
-                    e visualização de hardware. Nossa aplicação é projetada para otimizar e aumentar
-                    a segurança no ambiente corporativo, fornecendo controle abrangente sobre os
-                    recursos de hardware.
+                      Faça login com suas credenciais para acessar nosso aplicativo de encerramento de processos indevidos. 
+                      Nossa plataforma é projetada para otimizar e aumentar a segurança no ambiente corporativo, 
+                      fornecendo controle abrangente sobre os recursos de hardware.
                 """);
+//        System.out.println("""
+//                    Faça login com suas credenciais para acessar nossa plataforma de monitoramento
+//                    e visualização de hardware. Nossa aplicação é projetada para otimizar e aumentar
+//                    a segurança no ambiente corporativo, fornecendo controle abrangente sobre os
+//                    recursos de hardware.
+//                """);
     }
 
     void centralizaTelaHorizontal(Integer espaco) {
