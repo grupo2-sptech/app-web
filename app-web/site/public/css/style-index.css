@@ -15,7 +15,7 @@
 }
 
 :root {
-  --color01: #0d1a26;
+  --color01: #0a151f;
   --color02: #2e4959;
   --color03: #647d8c;
   --color-font: white;
@@ -39,9 +39,8 @@
 }
 
 .logo {
-  background-color: rgb(255, 255, 255);
-  width: 4rem;
-  height: 4rem;
+  background-color: var(--color01);
+  padding-top: 8px;
 }
 
 nav {
@@ -60,8 +59,9 @@ nav {
   display: block;
   transition: 0.5s;
 }
+
 .ul_header a:hover {
-  color: #647d8c;
+  color: #4d585f;
 }
 
 .div_banner::after {
@@ -80,12 +80,13 @@ nav {
   display: flex;
   justify-content: space-around;
   height: 80vh;
-  background-image: url(https://images.unsplash.com/photo-1667984390527-850f63192709?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+  background-image: url(https://media.licdn.com/dms/image/D4D12AQF_g5sJtESoog/article-cover_image-shrink_720_1280/0/1697923771451?e=2147483647&v=beta&t=acEmlDyI6GDxhkr57kZQCJib9X5dfMxLP4IVg6Yy8ZI);
   background-size: cover;
   background-position: center;
   position: relative;
   align-items: center;
 }
+
 .container {
   height: 100%;
   width: 80%;
@@ -108,116 +109,218 @@ nav {
 }
 
 .div_banner button {
+  border: none;
+  position: relative;
+  text-align: center;
+  transition: 800ms ease all;
+  outline: none;
   font-size: 20px;
   cursor: pointer;
   width: 20%;
   height: 8%;
-  border-radius: 20px;
+  border-radius: 10px;
   color: white;
-  background-color: var(--color03);
+  background-color: var(--color02);
+}
+
+.div_banner button:hover {
+  background: #2e49595e;
+  color: #ffffff;
 }
 
 hr {
-  border: solid 1px rgb(210, 210, 210);
+  border: solid 1px var(--color02);
 }
 
-.sobrenos {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 60vh;
-  background-color: var(--color01);
-  justify-content: space-evenly;
-}
-
-.sobrenos h1 {
-  color: white;
-  height: 90px;
+.proposito {
   width: 100%;
-  display: flex;
-  align-items: center;
+  display: grid;
   justify-content: center;
+  text-align: center;
+  background: var(--color01);
 }
 
-.card {
-  height: 80%;
-  width: 30%;
-  border: solid 2px white;
-  border-radius: 30px;
+.proposito_titulo {
+  margin: 40px;
+  display: block;
+  text-align: center;
+  font-size: 32px;
+  color: rgb(255, 255, 255);
 }
+
+.proposito h2 {
+  font-style: italic;
+  font-size: 18px;
+  color: white;
+}
+
+.proposito_cardbox {
+  margin: 50px 0 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.proposito_card {
+  width: 400px;
+  height: 350px;
+  border-radius: 10px;
+  padding: 5px;
+  box-shadow: 1px 4px 10px var(--color03);
+  margin: 0 50px 10%;
+  background-color: var(--color02);
+}
+
+.proposito_card h2 {
+  margin-bottom: 15px;
+}
+
+.proposito_card_vetor {
+  margin: 20px;
+  width: 80px;
+  height: 80px;
+}
+
+.proposito_visao {
+  height: 50%;
+  font-size: 18px;
+  color: rgb(255, 255, 255);
+}
+
+.proposito_missao {
+  height: 50%;
+  font-size: 18px;
+  color: rgb(255, 255, 255);
+}
+
+.proposito_valores {
+  height: 50%;
+  font-size: 18px;
+  color: rgb(255, 255, 255);
+}
+
+
+/* footer */
+
 
 footer {
-  height: 25vh;
   background-color: var(--color01);
-  width: 100%;
-  display: flex;
+	color:white;
+	background-position: center;
+	background-size: cover;
+	background-attachment: fixed;
+}
+
+.footer_cima {
+	display: flex;
+	justify-content: space-between;
+  height: 160px;
+}
+
+.footer_cima p{
+  font-size: 15px;
+}
+
+.footer_cima01,
+.footer_cima02,
+.footer_cima03 {
+	margin: 10px 40px 10px;
+}
+
+.footer_cima01 div{
+  font-size: 15px;
+}
+
+.footer_titulo {
+	margin-bottom: 20px;
+	font-size: 20px;
+}
+
+.footer_titulo02,
+.footer_titulo03 {
+	text-align: center;
+	margin-bottom: 22px;
+	font-size: 20px;
+}
+
+.footer_cima02 ul {
+	list-style: none;
+	font-size: 15px;
+	columns: 2;
+}
+.footer_cima02 ul a
+	{
+	text-decoration: none;
+	color: white;
+	}
+.footer_cima02 ul li::before {
+	font-size: 18px;
+	content: "> ";
+	color: white;
+	flex-shrink: 0;
+}
+
+.footer_linha {
+	width:100%;
+	height: 1px;
+	background-color: white;
+}
+
+.footer_baixo {
+	padding: 20px 2px 10px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.footer_copyright {
+	display: grid;
+	align-content: end;
+	width: 350px;
+	margin: 0 0 5px 30px;
+  font-size: 15px;
+}
+
+.footer_medias {
+	margin-right: 20px;
+	list-style: none;
+	display: flex;
+}
+
+.footer_circle {
+	margin: 0 10px;
+	border-radius: 50%;
+	width: 40px;
+	height: 40px;
+	justify-content: center;
+	align-content: center;
+	display: grid;
+}
+
+.footer_social {
   justify-content: center;
+	align-content: center;
+	display: grid;
+	width: 25px;
+	height: 25px;
 }
 
-.contatos {
-  display: flex;
-  width: 15%;
-  justify-content: space-around;
+.footer_baixo>ul>div>li {
+	width: 25px;
+	height: 25px;
 }
 
-.icons {
-  height: 30px;
-  width: 30px;
-  border: solid 1px white;
-  border-radius: 5px;
+::-webkit-scrollbar {
+  width: 10px;
 }
 
-.div_banner_text h1 {
-  font-size: 35px;
-  color: white;
-  margin-bottom: 10px;
+::-webkit-scrollbar-thumb {
+  background: var(--color03);
+  border-radius: 10px;
 }
 
-.div_banner_text p {
-  font-size: 18px;
-  text-align: left;
+::-webkit-scrollbar-track {
+  background: var(--color01);
 }
 
-.div_banner_img {
-  width: 50%;
-  background-color: blue;
-}
-
-.div_sobrenos {
-  width: 100%;
-  margin: 0 auto;
-  padding: 0 5%;
-  display: flex;
-  justify-content: center;
-}
-
-.div_sobrenos_texto {
-  background-color: thistle;
-  padding: 0.5%;
-  width: 50%;
-}
-
-.titulo_sobreNos,
-.texto1_sobreNos {
-  padding-left: 5%;
-}
-
-.texto2_sobrenos {
-  list-style: none;
-  margin-top: 5px;
-  font-size: 18px;
-}
-
-.texto2_sobrenos li {
-  font-size: 18px;
-  display: flex;
-  align-items: center;
-  margin-bottom: 15px;
-  padding-left: 6%;
-}
-
-.div_sobrenos_img {
-  width: 50%;
-  margin: 0 40px;
-  background-color: salmon;
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color02);
 }
