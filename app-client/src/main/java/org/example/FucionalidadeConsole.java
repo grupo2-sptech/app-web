@@ -39,7 +39,6 @@ public class FucionalidadeConsole {
             System.out.println("Erro ao Limpar o console!");
         }
     }
-
     static void limparConsole() {
         try {
             String os = System.getProperty("os.name");
@@ -52,7 +51,6 @@ public class FucionalidadeConsole {
             System.out.println("Erro ao Limpar o console!");
         }
     }
-
     public static boolean isProcessRunning(String processName) throws IOException {
         Process process = new ProcessBuilder("tasklist", "/fi", "imagename eq " + processName).start();
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {

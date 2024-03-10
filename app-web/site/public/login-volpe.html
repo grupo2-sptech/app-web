@@ -1,38 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/style-login.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/style-login.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
     <title>Tela de Login</title>
-
-</head>
-<body>
-    
+  </head>
+  <body>
     <div class="container" id="container">
-        <div class="form-container sign-in">
-            <form>
-                <h1>Entrar</h1>
-                <div class="social"> 
-                </div>
-                <span>Entre com email e senha</span>
-                <input type="text" placeholder="Nome">
-                <input type="email" placeholder="Email">
-                <input type="password" placeholder="senha">
-
-                <button>Entrar</button>
-            </form>
+      <div class="form-container sign-in">
+        <form>
+          <h1>Entrar</h1>
+          <div class="social"></div>
+          <span>Entre com email e senha</span>
+          <input type="email" placeholder="Email" />
+          <input type="password" placeholder="senha" />
+          <div class="div_button">
+            <button>Entrar</button>
+            <button><a style="width: 100%; height: 100%;" href="./index-luana.html">Voltar</a></button>
+          </div>
+        </form>
+      </div>
+      <div class="painel-container">
+        <div class="painel">
+          <div class="toggle-panel painel-direita">
+            <h1>Seja bem vindo!</h1>
+            <p>
+              Entre com seus dados pessoais para usar todos os recursos do site
+            </p>
+          </div>
         </div>
-        <div class="painel-container">
-            <div class="painel">
-                <div class="toggle-panel painel-direita">
-                    <h1>Seja bem vindo!</h1>
-                    <p>Entre com seus dados pessoais para usar todos os recursos do site</p>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
-
-</body>
+  </body>
 </html>
+
+<script>
+  function direct() {
+    window.location.href =
+      "https://jonathancarvalho39.github.io/ambiente-teste/";
+  }
+</script>

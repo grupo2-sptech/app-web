@@ -28,33 +28,6 @@ public class Utilitarios {
         Thread.sleep(90);
         System.out.println("                                                           /____/               ");
 
-//        for (int i = 0; i < 70; i++) {
-//            System.out.print("-");
-//            Thread.sleep(2);
-//        }
-//        System.out.println();
-//        for (int i = 0; i < 2; i++) {
-//            System.out.print("-");
-//            Thread.sleep(2);
-//        }
-//        for (int i = 0; i < 28; i++) {
-//            System.out.print(" ");
-//            Thread.sleep(2);
-//        }
-//        System.out.print("BEM VINDO!");
-//        for (int i = 0; i < 28; i++) {
-//            System.out.print(" ");
-//            Thread.sleep(2);
-//        }
-//        for (int i = 0; i < 2; i++) {
-//            System.out.print("-");
-//            Thread.sleep(2);
-//        }
-//        System.out.println();
-//        for (int i = 0; i < 70; i++) {
-//            System.out.print("-");
-//            Thread.sleep(2);
-//        }
     }
     void exibirMenu(){
         System.out.println("""
@@ -69,12 +42,6 @@ public class Utilitarios {
                       Nossa plataforma é projetada para otimizar e aumentar a segurança no ambiente corporativo, 
                       fornecendo controle abrangente sobre os recursos de hardware.
                 """);
-//        System.out.println("""
-//                    Faça login com suas credenciais para acessar nossa plataforma de monitoramento
-//                    e visualização de hardware. Nossa aplicação é projetada para otimizar e aumentar
-//                    a segurança no ambiente corporativo, fornecendo controle abrangente sobre os
-//                    recursos de hardware.
-//                """);
     }
 
     void centralizaTelaHorizontal(Integer espaco) {
