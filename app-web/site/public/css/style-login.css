@@ -6,14 +6,24 @@
   box-sizing: border-box;
   font-family: "Montserrat", sans-serif;
 }
+
+:root {
+  --color01: #02080d;
+  --color02: #0d1a26;
+  --color03: #2e4959;
+  --color04: #647d8c;
+  --color05: #aab7bf;
+  --color-font: white;
+}
+
 a{
   text-decoration-line: none;
   color: white;
 }
 
 body {
-  background-color: #c9d6ff;
-  background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+  background-color: var(--color05);
+  /* background: linear-gradient(to right, #e2e2e2, #c9d6ff); */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -45,7 +55,7 @@ body {
 }
 
 button {
-  background-color: #512da8;
+  background-color: var(--color01);
   color: #fff;
   font-size: 12px;
   padding: 10px 2rem;
@@ -117,9 +127,9 @@ button {
 }
 
 .painel {
-  background-color: #512da8;
+  background-color: var(--color03);
   height: 100%;
-  background: linear-gradient(to right, #5c6bc0, #512da8);
+  /* background: var(--color02); */
   color: #fff;
   position: absolute;
   left: -100%;
