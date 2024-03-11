@@ -3,6 +3,8 @@ package org.example;
 
 import java.util.Scanner;
 
+import static org.example.FucionalidadeConsole.limparConsole;
+
 public class Main {
     public static void main(String[] args) throws InterruptedException {
 //        System.out.println("Hello world!");
@@ -16,7 +18,8 @@ public class Main {
         String senhaValida = "teste123";
         do {
             utils.exibirLogo();
-            utils.exibirMenu();
+//            utils.exibirMenu();
+            utils.exibirMensagem();
             utils.centralizaTelaHorizontal(22);
             System.out.println("Email:");
             utils.centralizaTelaHorizontal(22);
@@ -27,26 +30,32 @@ public class Main {
             utils.centralizaTelaHorizontal(22);
             String senha = sc.next();
             if (emailValido.equals(email) && senhaValida.equals(senha)) {
-                FucionalidadeConsole.limparConsole();
-                utils.barraLoad(3);
+                limparConsole();
+                utils.exibirLogo();
                 utils.centralizaTelaVertical(5);
                 utils.centralizaTelaHorizontal(30);
-                System.out.println("LOGADO!");
+                utils.exibirMenu();
+                Thread.sleep(3000);
+                limparConsole();
+//                System.out.println("LOGADO!");
                 utils.centralizaTelaVertical(1);
-                utils.centralizaTelaHorizontal(1);
-                System.out.println("Nenhum programa indevido encontrado");
+                utils.centralizaTelaHorizontal(60);
+                System.out.println("Monitoramento ativo!");
                 utils.centralizaTelaVertical(1);
-                utils.centralizaTelaHorizontal(1);
-                System.out.println("Monitoramento ativo! Caso seja encontrado algum programa indevido ele será finalizado!");
+                utils.centralizaTelaHorizontal(0);
+                System.out.println("""
+                                     
+                         Este computador é monitorado em tempo real, incluindo o hardware, para assegurar conformidade com as políticas da empresa. 
+                        Todas as atividades serão verificadas e, se necessário, medidas serão tomadas automaticamente pelo sistema.""");
                 utils.centralizaTelaVertical(5);
                 break;
             } else {
-                FucionalidadeConsole.limparConsole();
+                limparConsole();
                 utils.centralizaTelaVertical(5);
                 utils.centralizaTelaHorizontal(25);
                 System.out.println("SENHA OU EMAIL INCORRETO!");
                 Thread.sleep(4000);
-                FucionalidadeConsole.limparConsole();
+                limparConsole();
             }
         } while (true);
 

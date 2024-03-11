@@ -31,16 +31,19 @@ public class Utilitarios {
     }
     void exibirMenu(){
         System.out.println("""
-                         
+                           
                          __________________________________________________________________
                          |                     B E M  V I N D O !                         |
                          |________________________________________________________________|
                          
                 """);
+
+    }
+
+
+    void exibirMensagem() {
         System.out.println("""
-                      Faça login com suas credenciais para acessar nosso aplicativo de encerramento de processos indevidos. 
-                      Nossa plataforma é projetada para otimizar e aumentar a segurança no ambiente corporativo, 
-                      fornecendo controle abrangente sobre os recursos de hardware.
+                     Faça login com suas credenciais para acessar nosso aplicativo de monitoramento de Hardware.
                 """);
     }
 
