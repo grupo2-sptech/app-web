@@ -11,6 +11,7 @@ public class FucionalidadeConsole {
                 String os = System.getProperty("os.name");
                 if (os.contains("Windows")) {
                     if (isProcessRunning("chrome.exe")) {
+                        Thread.sleep(5000);
                         limparConsole();
                         utilitarios.centralizaTelaVertical(5);
                         System.out.println("Programa indevido localizado");
@@ -20,14 +21,14 @@ public class FucionalidadeConsole {
                         new ProcessBuilder("cmd", "/c", "taskkill", "/f", "/im", "chrome.exe").inheritIO().start().waitFor();
                         Thread.sleep(5000);
                         limparConsole();
-                        utilitarios.centralizaTelaVertical(5);
-                        utilitarios.centralizaTelaHorizontal(30);
-                        System.out.println("LOGADO!");
-                        utilitarios.centralizaTelaVertical(3);
-                        utilitarios.centralizaTelaHorizontal(7);
+//                        utilitarios.centralizaTelaVertical(5);
+//                        utilitarios.centralizaTelaHorizontal(30);
+//                        System.out.println("LOGADO!");
+                        utilitarios.centralizaTelaVertical(1);
+                        utilitarios.centralizaTelaHorizontal(1);
                         System.out.println("Programa indevido foi encerrado com sucesso!");
-                        utilitarios.centralizaTelaVertical(2);
-                        utilitarios.centralizaTelaHorizontal(3);
+                        utilitarios.centralizaTelaVertical(1);
+                        utilitarios.centralizaTelaHorizontal(1);
                         System.out.println("Monitoramento ativo! Caso seja encontrado algum programa indevido ele será finalizado!");
                     }
                 } else {
