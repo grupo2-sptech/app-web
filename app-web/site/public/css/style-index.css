@@ -57,7 +57,10 @@ html {
 
 .logo {
   background-color: var(--color01);
-  padding-top: 8px;
+}
+
+.logo img{
+  width: 5rem;
 }
 
 nav {
@@ -174,7 +177,7 @@ nav {
 
 /* Banner Responsivo */
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 500px) {
   .div_banner {
     flex-direction: column;
   }
@@ -253,6 +256,13 @@ hr {
   font-size: 50px;
 }
 
+.icon-views {
+  font-size: 50px;
+}
+
+.icon-diamond {
+  font-size: 50px;
+}
 
 /* Icones Section sobre nos */
 
@@ -266,6 +276,13 @@ hr {
     font-size: 30px;
   }
 
+  .icon-views {
+    font-size: 30px;
+  }
+
+  .icon-diamond {
+    font-size: 30px;
+  }
 
   /* Icones Section sobre nos */
 

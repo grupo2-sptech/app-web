@@ -1,19 +1,20 @@
 /** @format */
 
 @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,700;1,100&family=Roboto+Slab:wght@100;500;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap");
 
 
 
 :root {
-    --color01: #0a151f;
-    --color02: #2e4959;
-    --color03: #647d8c;
-    --color-font: white;
-  }
+  --color01: #0a151f;
+  --color02: #2e4959;
+  --color03: #647d8c;
+  --color-font: white;
+}
 
 body {
   margin: 0;
-  font-family: 'Roboto Slab', serif;
+  font-family: "Montserrat", sans-serif;
   background-color: #ffffff;
   overflow-x: hidden;
   overflow-y: hidden;
@@ -22,7 +23,7 @@ body {
 /* CSS NAVBAR E LOGO */
 
 .itensDaNav {
-    width: 100%;
+  width: 100%;
   color: white;
   display: flex;
   text-decoration: none;
@@ -33,7 +34,7 @@ body {
   margin: 0;
   cursor: pointer;
   transition: 300ms;
-}   
+}
 
 .itensDaNav:hover {
   background-color: #647d8c;
@@ -41,28 +42,92 @@ body {
 }
 
 .menuLateral {
-  background-color: #0a151f;  
+  background-color: #0a151f;
   height: 100vh;
   width: 20vw;
   position: absolute;
   display: flex;
   flex-direction: column;
-  gap: 80px;
+  gap: 15%;
   align-items: center;
   justify-content: center;
+  transition: 0.5s;
+  border-radius: 0 15px 15px 0;
 }
+
 
 /* sub menu */
 
 .div_dashboard {
-  border-radius: 40px 0 0 40px;
   background-color: white;
   display: flex;
   flex-direction: column;
-  align-items: center;  
+  align-items: center;
   justify-content: center;
   height: 100vh;
   width: 80vw;
   margin-left: 20vw;
-  position: absolute;
+  transition: 0.5s;
+  text-align: center;
+}
+
+.itens_menu {
+  height: 50%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  justify-content: space-between;
+}
+
+.logo {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+}
+
+#logotipo {
+  width: 5rem;
+  margin-bottom: -2rem;
+}
+
+.logo img {
+  width: 3.5rem;
+}
+
+.logo span {
+  font-size: 12px;
+}
+
+#seta {
+  margin-top: 3rem;
+  transform: rotate(270deg)
+}
+
+/* #sair {
+  display: none;
+} */
+
+@media only screen and (max-width: 500px) {
+
+  .menuLateral {
+    display: none;
+  }
+
+  .div_dashboard {
+    z-index: -1;
+  }
+
+  #sair {
+    position: absolute;
+    display: flex;
+    color: black;
+    text-decoration: none;
+    font-size: 30px;
+  }
+
 }

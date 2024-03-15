@@ -1,57 +1,52 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hardware Security</title>
-    <link rel="stylesheet" href="css/dashboards.css" />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  </head>
 
-  <body style="background-color: black">
-    <!-- menu lateral -->
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hardware Security</title>
+  <link rel="stylesheet" href="./css/dashboards.css" />
+  <script src="./js/index.js"></script>
+</head>
 
-    <div class="menuLateral">
-      <a style="color: white; cursor: pointer">
-        <div class="logo">
-            <img src="assets/icon/seguranca.png" alt="">
-        </div>
-      </a>
+<body>
+  <!-- menu lateral -->
 
-      <a id="link_dashboard" href="#" class="itensDaNav">
-        <div ></div>
+  <div id="menu" class="menuLateral">
+    <a style="color: white; cursor: pointer">
+      <div onclick="sumirMenu()" class="logo">
+        <img id="logotipo" src="assets/icon/seguranca.png" alt="">
+  <img id="seta" src="https://static.wixstatic.com/media/078327_a04336273e6040239474eaaee38a18fe~mv2.gif" alt="">
+ <!--        <img  id="seta" src="https://sindiconet-files.s3.amazonaws.com/GoogleWebStories/como-funciona-energia-fotovoltaica/assets/5.gif" alt="">
+ -->      </div>
+    </a>
+    <div id="itens_menu" class="itens_menu">
+      <a id="link_dashboard" href="#" class="itensDaNav ">
+        <div></div>
         Dashboard
       </a>
       <a href="#" class="itensDaNav">
-        <div ></div>
+        <div></div>
         Perfil
       </a>
-      <a class="itensDaNav">
-       
-          <div ></div>
-          Suporte
-        
+      <a class="itensDaNav ">
+        <div></div>
+        Suporte
       </a>
-      <a
-        style="margin-left: -15px"  
-        id="sair"
-        href="./index-luana.html"
-        class="itensDaNav"
-      >
+      <a style="margin-left: -15px" id="sair" href="./index-luana.html" class="itensDaNav">
         <div></div>
         Sair
       </a>
     </div>
-    <!-- DashBoard -->
+  </div>
+  <!-- DashBoard -->
 
-    <div id="tela_principal" class="div_dashboard">
-      <img
-        src="https://www.gov.br/mre/pt-br/consulado-chicago/chicago-arquivos/em-manutencao.gif"
-        alt=""
-      />
-      <h1>Pedimos desculpa pelo incômodo!</h1>
-      <h2>Página em construção</h2>
-    </div>
+  <div id="tela_principal" class="div_dashboard">
+    <img src="https://www.gov.br/mre/pt-br/consulado-chicago/chicago-arquivos/em-manutencao.gif" alt="" />
+    <h1>Pedimos desculpa pelo incômodo!</h1>
+    <h2>Página em construção</h2>
+  </div>
 
-  </body>
+</body>
+
 </html>
