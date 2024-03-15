@@ -28,8 +28,14 @@ public class FucionalidadeConsole {
                         utilitarios.centralizaTelaHorizontal(1);
                         System.out.println("Programa indevido foi encerrado com sucesso!");
                         utilitarios.centralizaTelaVertical(1);
+                        utilitarios.centralizaTelaHorizontal(45);
+                        System.out.println("Monitoramento ativo!");
+                        utilitarios.centralizaTelaVertical(1);
                         utilitarios.centralizaTelaHorizontal(1);
-                        System.out.println("Monitoramento ativo! Caso seja encontrado algum programa indevido ele será finalizado!");
+                        System.out.println("""
+                                     
+                        Este computador é monitorado em tempo real, incluindo o hardware, para assegurar conformidade com as políticas da empresa. 
+                        Todas as atividades serão verificadas e, se necessário, medidas serão tomadas automaticamente pelo sistema.""");
                     }
                 } else {
                     Runtime.getRuntime().exec("Erro");
