@@ -226,7 +226,7 @@ hr {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 80vh;
+  height: 90vh;
   background-color: var(--color01);
   justify-content: space-evenly;
 }
@@ -244,9 +244,22 @@ hr {
   justify-content: center;
 }
 
-.sobrenos p {
+
+.text-sobre-nos {
+  width: 90%;
+  color: white;
+  height: 25vh;
+  text-align: justify;
   font-size: 18px;
+  line-height: 1.5;
+  font-weight: 100;
 }
+
+
+/* .sobrenos p {
+  font-size: 18px;
+  background-color: white;
+} */
 
 .card {
   display: flex;
