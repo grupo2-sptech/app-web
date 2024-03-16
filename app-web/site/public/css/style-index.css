@@ -71,12 +71,9 @@ html {
   align-items: center;
 }
 
-.logo {
-  background-color: var(--color01);
-}
-
 .logo img{
-  width: 5rem;
+  margin-top: 9px;
+  width: 4rem;
 }
 
 nav {
