@@ -27,6 +27,7 @@
 
 .icon-mail:before {
   content: "\e91a";
+  font-size: 20px;
 }
 .icon-instagram:before {
   content: "\e90f";
@@ -69,6 +70,7 @@
 }
 .icon-linkedin1:before {
   content: "\e913";
+  font-size: 20px;
 }
 .icon-facebook:before {
   content: "\e914";
@@ -77,6 +79,7 @@
   content: "\e915";
 }
 .icon-instagram1:before {
+  font-size: 20px;
   content: "\e916";
 }
 .icon-brand:before {
