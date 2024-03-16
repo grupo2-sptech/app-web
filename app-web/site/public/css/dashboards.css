@@ -41,7 +41,7 @@ body {
   font-size: 2rem;
 }
 
-#button-sair{
+#button-sair {
   display: none;
   color: black;
   text-decoration: none;
@@ -128,7 +128,7 @@ body {
     z-index: -1;
   }
 
-  #button-sair{
+  #button-sair {
     position: absolute;
     display: flex;
     color: black;
