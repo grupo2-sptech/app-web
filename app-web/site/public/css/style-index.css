@@ -15,6 +15,23 @@
   font-family: "Montserrat", sans-serif;
 }
 
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color03);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color01);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color02);
+}
+
 :root {
   --color01: #0a151f;
   --color02: #2e4959;
@@ -469,19 +486,46 @@ footer {
   height: 25px;
 }
 
-::-webkit-scrollbar {
-  width: 10px;
-}
+@media only screen and (max-width: 600px) {
 
-::-webkit-scrollbar-thumb {
-  background: var(--color03);
-  border-radius: 10px;
-}
+  .footer_cima {
+    height: 37vh;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
+  }
 
-::-webkit-scrollbar-track {
-  background: var(--color01);
-}
+.footer_cima01 h2 {
+  font-size: 18px;
+} 
 
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color02);
+  .footer_cima01 {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .footer_cima03 a {
+    width: 100%;
+    font-size: 15px;
+  }
+
+  .footer_cima03 {
+    width: 100%;
+  }
+
+  .footer_baixo {
+    height: 12vh;
+  }
+
+  .icons-footer {
+    width: 100%;
+    align-items: center;
+  }
+
+  .icon-linkedin1 {
+    font-size: 10px;
+  }
+ 
 }
