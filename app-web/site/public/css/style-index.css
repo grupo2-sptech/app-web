@@ -299,6 +299,11 @@ hr {
 
   /* Icones Section sobre nos */
 
+  .text-sobre-nos {
+    font-size: 12px;
+    margin-bottom: 1.5rem;
+  }
+
   .icon-rocket {
     font-size: 30px;
   }
@@ -326,9 +331,6 @@ hr {
     margin-bottom: 1rem;
   }
 
-  .sobrenos p {
-    font-size: 15px;
-  }
 
   .sobrenos h2 {
     font-size: 18px;
@@ -347,6 +349,8 @@ hr {
   .sobrenos .container {
     width: 100%;
   }
+
+
 
 }
 
