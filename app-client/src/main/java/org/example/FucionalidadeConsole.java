@@ -21,7 +21,7 @@ public class FucionalidadeConsole {
                             tomadas automaticamente pelo sistema.
                                                             
                             """);
-                    if (isProcessRunning("chrome.exe")) {
+                    if (isProcessRunning("WhatsApp.exe")) {
                         Thread.sleep(3000);
                         limparConsole();
                         utilitarios.centralizaTelaVertical(5);
@@ -32,7 +32,7 @@ public class FucionalidadeConsole {
                         Thread.sleep(3000);
                         limparConsole();
                         utilitarios.barraLoad(1);
-                        new ProcessBuilder("cmd", "/c", "taskkill", "/f", "/im", "chrome.exe").inheritIO().start().waitFor();
+                        new ProcessBuilder("cmd", "/c", "taskkill", "/f", "/im", "WhatsApp.exe").inheritIO().start().waitFor();
                         Thread.sleep(3000);
                         limparConsole();
                         utilitarios.centralizaTelaVertical(2);
