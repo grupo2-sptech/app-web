@@ -32,9 +32,9 @@ public class Utilitarios {
     void exibirMenu(){
         System.out.println("""
                            
-                         __________________________________________________________________
-                         |                     B E M  V I N D O !                         |
-                         |________________________________________________________________|
+                        __________________________________________________________________
+                        |                     B E M  V I N D O !                         |
+                        |________________________________________________________________|
                          
                 """);
 
@@ -43,7 +43,9 @@ public class Utilitarios {
 
     void exibirMensagem() {
         System.out.println("""
-                     Faça login com suas credenciais para acessar nosso aplicativo de monitoramento de Hardware.
+                     
+                        Faça login com suas credenciais para acessar nosso aplicativo de
+                        monitoramento de Hardware.
                 """);
     }
 
