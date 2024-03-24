@@ -1,9 +1,7 @@
 /** @format */
 
 @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,700;1,100&family=Roboto+Slab:wght@100;500;700&display=swap');
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap");
-
-
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 
 :root {
   --color01: #0a151f;
@@ -14,7 +12,7 @@
 
 body {
   margin: 0;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   background-color: #ffffff;
   overflow-x: hidden;
   overflow-y: hidden;
@@ -51,16 +49,65 @@ body {
   background-color: #0a151f;
   height: 100vh;
   width: 20vw;
-  position: absolute;
+  position: fixed;
   display: flex;
   flex-direction: column;
   gap: 15%;
   align-items: center;
   justify-content: center;
   transition: 0.5s;
-  border-radius: 0 15px 15px 0;
+  border-radius: 0 0 15px 0;
+}
+.acao-dashboard {
+  height: 40vh;
+  width: 100%;
+  border: solid 2px rgb(35, 60, 221);
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
+.card-acao {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30%;
+  height: 80%;
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.card-acao:active {
+  background-color: #dfe3e6;
+}
+
+.menu-principal {
+  border: solid 2px red;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+.amostragem {
+  width: 100%;
+  height: 100%;
+  gap: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lista-computadores {
+  width: 70%;
+  height: 90%;
+  border: solid 2px rgb(0, 255, 68);
+}
+
+.acoes {
+  width: 25%;
+  height: 90%;
+  border: solid 2px rgb(0, 255, 68);
+}
 
 /* sub menu */
 
@@ -74,7 +121,6 @@ body {
   width: 80vw;
   margin-left: 20vw;
   transition: 0.5s;
-  text-align: center;
 }
 
 .itens_menu {
@@ -111,7 +157,7 @@ body {
 
 #seta {
   margin-top: 3rem;
-  transform: rotate(270deg)
+  transform: rotate(270deg);
 }
 
 /* #sair {
@@ -119,7 +165,6 @@ body {
 } */
 
 @media only screen and (max-width: 500px) {
-
   .menuLateral {
     display: none;
   }
@@ -135,5 +180,8 @@ body {
     text-decoration: none;
     font-size: 30px;
   }
+}
 
+.dash {
+  width: 20%;
 }

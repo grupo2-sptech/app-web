@@ -53,22 +53,55 @@
     var email = input_email.value;
     var strong_senha_incorreta = document.getElementById('mensagem_senha_incorreta');
     var div_carregar = document.getElementById('carregar');
-    var email_valido = "teste@gmail.com";
-    var senha_valida = "12345678";
 
     if (senha == "" || email == "") {
       mensagem_senha_incorreta.innerHTML = `Preencha todos os campos!`;
-    } else if (senha_valida == senha && email_valido == email) {
+      return false;
       div_carregar.style.display = "block";
-      setTimeout(() => {
-        window.location.href = "dashboard.html";
-      }, 2000);
     } else {
-      div_carregar.style.display = "block";
-      setTimeout(() => {
-        mensagem_senha_incorreta.innerHTML = "Email ou senha incorretos!";
-        div_carregar.style.display = "none";
-      }, 2000);
+      fetch("/usuarios/autenticar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          emailServer: email,
+          senhaServer: senha
+        })
+      }).then(function (resposta) {
+        console.log("ESTOU NO THEN DO entrar()!")
+        debugger
+        if (resposta.ok) {
+          div_carregar.style.display = "block";
+          console.log(resposta);
+          resposta.json().then(json => {
+            console.log(json);
+            console.log(JSON.stringify(json));
+            sessionStorage.EMAIL_USUARIO = json.email;
+            sessionStorage.NOME_USUARIO = json.nome;
+            sessionStorage.ID_USUARIO = json.id;
+            sessionStorage.AQUARIOS = JSON.stringify(json.hardware)
+            setTimeout(() => {
+              window.location.href = "dashboard.html";
+            }, 2000);
+          });
+
+        } else {
+
+          resposta.text().then(texto => {
+            div_carregar.style.display = "block";
+            setTimeout(() => {
+              mensagem_senha_incorreta.innerHTML = texto;
+              div_carregar.style.display = "none";
+            }, 2000);
+            console.error(texto);
+          });
+        }
+
+      }).catch(function (erro) {
+        console.log(erro);
+      })
+      return false;
     }
   }
 
@@ -78,7 +111,7 @@
     event.preventDefault();
     carregar.style.display = "block"
     setInterval(() => {
-      window.location.href = "../../../index.html";
+      window.location.href = "index.html";
     }, 1000);
   }
 

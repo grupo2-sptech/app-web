@@ -6,12 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hardware Security</title>
   <link rel="stylesheet" href="./css/dashboards.css" />
-  <script src="./js/index.js"></script>
+  <link rel="stylesheet" href="./assets/icons/style.css">
+  <script src="./js/dashboard.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
   <!-- menu lateral -->
-  <a id="button-sair" href="../../../index.html" SAIR</a>
+  <a id="button-sair" href="index.html" SAIR</a>
     <div id="menu" class="menuLateral">
       <a style="color: white; cursor: pointer">
         <div onclick="sumirMenu()" class="logo">
@@ -35,7 +37,7 @@
           <div></div>
           Suporte
         </a>
-        <a style="margin-left: -15px" id="sair" href="../../../index.html" class="itensDaNav">
+        <a style="margin-left: -15px" id="sair" href="index.html" class="itensDaNav">
           <div></div>
           Sair
         </a>
@@ -44,11 +46,69 @@
     <!-- DashBoard -->
 
     <div id="tela_principal" class="div_dashboard">
-      <img src="https://www.gov.br/mre/pt-br/consulado-chicago/chicago-arquivos/em-manutencao.gif" alt="" />
-      <h1>Pedimos desculpa pelo incômodo!</h1>
-      <h2>Página em construção</h2>
+      <div class="menu-principal">
+        <div class="acao-dashboard">
+          <div class="card-acao">
+            <div class="icon-laptop1"></div>
+          </div>
+          <div class="card-acao">
+            <div class="icon-laptop1"></div>
+          </div>
+          <div class="card-acao">
+            <div class="icon-laptop1"></div>
+          </div>
+        </div>
+        <div class="amostragem">
+          <div class="lista-computadores">
+            <div class="dash">
+              <canvas id="myChart"></canvas>
+            </div>
+          </div>
+          <div class="acoes">
+            Olá mundo
+          </div>
+        </div>
+      </div>
     </div>
 
 </body>
 
 </html>
+
+
+
+
+<script>
+
+  const myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  )
+
+  function obterDadosGrafico(idAquario) {
+
+    alterarTitulo(idAquario)
+
+    if (proximaAtualizacao != undefined) {
+      clearTimeout(proximaAtualizacao);
+    }
+
+    fetch(`/medidas/ultimas/${idAquario}`, { cache: 'no-store' }).then(function (response) {
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+          resposta.reverse();
+
+          plotarGrafico(resposta, idAquario);
+
+        });
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+      }
+    })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      });
+  }
+
+</script>
