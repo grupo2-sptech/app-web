@@ -1,24 +1,29 @@
 package org.example;
 
 
+
+import com.github.britooo.looca.api.core.Looca;
+
+
 import java.util.Scanner;
 
 import static org.example.FucionalidadeConsole.limparConsole;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-//        System.out.println("Hello world!");
-//        FramePrincipal framePrincipal = new FramePrincipal();
-//        framePrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        framePrincipal.setSize( 325, 100 );
-//        framePrincipal.setVisible( true );
         Utilitarios utils = new Utilitarios();
         Scanner sc = new Scanner(System.in);
+        Looca looca = new Looca();
+
+        System.out.println(looca.getMemoria());
+        System.out.println(looca.getGrupoDeDiscos().getQuantidadeDeVolumes());
+        System.out.println(looca.getProcessador());
+
         String emailValido = "fernanda.caramico@gmail.com";
         String senhaValida = "teste123";
+        limparConsole();
         do {
             utils.exibirLogo();
-//            utils.exibirMenu();
             utils.exibirMensagem();
             utils.centralizaTelaHorizontal(22);
             System.out.println("Email:");
@@ -26,7 +31,7 @@ public class Main {
             String email = sc.next();
             System.out.println();
             utils.centralizaTelaHorizontal(22);
-            System.out.println("Senha: ");
+            System.out.println("Senha:");
             utils.centralizaTelaHorizontal(22);
             String senha = sc.next();
             if (emailValido.equals(email) && senhaValida.equals(senha)) {
@@ -37,17 +42,16 @@ public class Main {
                 utils.exibirMenu();
                 Thread.sleep(3000);
                 limparConsole();
-//                System.out.println("LOGADO!");
                 utils.centralizaTelaVertical(1);
                 utils.centralizaTelaHorizontal(60);
-                System.out.println("Monitoramento ativo!");
-                utils.centralizaTelaVertical(1);
-                utils.centralizaTelaHorizontal(0);
                 System.out.println("""
-                                     
-                         Este computador é monitorado em tempo real, incluindo o hardware, para assegurar conformidade com as políticas da empresa. 
-                        Todas as atividades serão verificadas e, se necessário, medidas serão tomadas automaticamente pelo sistema.""");
-                utils.centralizaTelaVertical(5);
+                                                  
+                                                  Monitoramento ativo!
+                                           
+                        Este computador é monitorado em tempo real, incluindo o hardware, para
+                        assegurar conformidade com as políticas da empresa.
+                        Todas as atividades serão verificadas e, se necessário, medidas serão
+                        tomadas automaticamente pelo sistema.""");
                 break;
             } else {
                 limparConsole();
@@ -59,7 +63,7 @@ public class Main {
             }
         } while (true);
 
-          FucionalidadeConsole.matarProcessos();
+        FucionalidadeConsole.matarProcessos();
 
     }
 

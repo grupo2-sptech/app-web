@@ -10,32 +10,34 @@ public class FucionalidadeConsole {
             while (true) {
                 String os = System.getProperty("os.name");
                 if (os.contains("Windows")) {
-                    if (isProcessRunning("chrome.exe")) {
-                        Thread.sleep(5000);
+                    limparConsole();
+                    System.out.println("""
+                                  
+                                               Monitoramento ativo!
+                                               
+                            Este computador é monitorado em tempo real, incluindo o hardware, para
+                            assegurar conformidade com as políticas da empresa.
+                            Todas as atividades serão verificadas e, se necessário, medidas serão
+                            tomadas automaticamente pelo sistema.
+                                                            
+                            """);
+                    if (isProcessRunning("WhatsApp.exe")) {
+                        Thread.sleep(3000);
                         limparConsole();
                         utilitarios.centralizaTelaVertical(5);
+                        utilitarios.centralizaTelaHorizontal(15);
                         System.out.println("Programa indevido localizado");
+                        utilitarios.centralizaTelaHorizontal(15);
                         System.out.println("Encerrando programa indevido!");
                         Thread.sleep(3000);
-                        utilitarios.barraLoad(1);
-                        new ProcessBuilder("cmd", "/c", "taskkill", "/f", "/im", "chrome.exe").inheritIO().start().waitFor();
-                        Thread.sleep(5000);
                         limparConsole();
-//                        utilitarios.centralizaTelaVertical(5);
-//                        utilitarios.centralizaTelaHorizontal(30);
-//                        System.out.println("LOGADO!");
-                        utilitarios.centralizaTelaVertical(1);
-                        utilitarios.centralizaTelaHorizontal(1);
+                        utilitarios.barraLoad(1);
+                        new ProcessBuilder("cmd", "/c", "taskkill", "/f", "/im", "WhatsApp.exe").inheritIO().start().waitFor();
+                        Thread.sleep(3000);
+                        limparConsole();
+                        utilitarios.centralizaTelaVertical(2);
+                        utilitarios.centralizaTelaHorizontal(7);
                         System.out.println("Programa indevido foi encerrado com sucesso!");
-                        utilitarios.centralizaTelaVertical(1);
-                        utilitarios.centralizaTelaHorizontal(45);
-                        System.out.println("Monitoramento ativo!");
-                        utilitarios.centralizaTelaVertical(1);
-                        utilitarios.centralizaTelaHorizontal(1);
-                        System.out.println("""
-                                     
-                        Este computador é monitorado em tempo real, incluindo o hardware, para assegurar conformidade com as políticas da empresa. 
-                        Todas as atividades serão verificadas e, se necessário, medidas serão tomadas automaticamente pelo sistema.""");
                     }
                 } else {
                     Runtime.getRuntime().exec("Erro");
@@ -46,6 +48,7 @@ public class FucionalidadeConsole {
             System.out.println("Erro ao Limpar o console!");
         }
     }
+
     static void limparConsole() {
         try {
             String os = System.getProperty("os.name");
@@ -58,6 +61,7 @@ public class FucionalidadeConsole {
             System.out.println("Erro ao Limpar o console!");
         }
     }
+
     public static boolean isProcessRunning(String processName) throws IOException {
         Process process = new ProcessBuilder("tasklist", "/fi", "imagename eq " + processName).start();
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
