@@ -81,7 +81,12 @@ function cadastrar(req, res) {
   }
 }
 
+// function listar(req, res) {
+
+
+// }
+  
 module.exports = {
   autenticar,
-  cadastrar
+  cadastrar  // listar
 }

@@ -34,7 +34,25 @@ function cadastrar(nome, email, senha, empresaId) {
   return database.executar(instrucao)
 }
 
+function listar() {
+  console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
+  var instrucao = `
+      SELECT * FROM usuario 
+          JOIN hardware
+              ON usuario_id = fk_usuario
+                  WHERE usuario_id = 1;
+  `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
+function forgotPassword() {
+  var intrucao = `
+    UPDATE hardware SET `
+}
+
 module.exports = {
   autenticar,
-  cadastrar
+  cadastrar,
+  listar
 }
