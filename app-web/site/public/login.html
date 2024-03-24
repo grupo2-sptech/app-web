@@ -10,6 +10,7 @@
 </head>
 
 <body>
+
   <div class="container" id="container">
     <div class="form-container sign-in">
       <form>
@@ -24,7 +25,8 @@
           <button onclick="entrar()">Entrar</button>
           <button onclick="voltar()">Voltar</button>
         </div>
-        <a style="color: black; cursor: pointer; margin-top: 2rem;" onclick="forgotPassword()">Esqueci a senha</a>
+        <a style="color: black; cursor: pointer; margin-top: 2rem;" onclick="openPop()">Esqueci a senha</a>
+
         <strong id="mensagem_senha_incorreta"></strong>
         <div id="carregar" class="gif_carregar">
           <img src="https://c.tenor.com/I6kN-6X7nhAAAAAj/loading-buffering.gif" alt="">
@@ -39,6 +41,13 @@
             Entre com seus dados pessoais para usar todos os recursos do site
           </p>
         </div>
+      </div>
+    </div>
+    <div id="pop-up">
+      <div class="pop" id="pop-content">
+        <h3>insira seu email:</h3>
+        <input type="text" id="userInput">
+        <button onclick="forgotPassword()">Recuperar senha</button>
       </div>
     </div>
   </div>
@@ -104,6 +113,18 @@
       })
       return false;
     }
+  }
+
+  function openPop() {
+    document.getElementById('pop-up').style.display = 'block';
+  }
+
+  function forgotPassword(){
+    var aleatorio = 0
+    aleatorio = Math.random() * (100000000 - 0) + 0
+    console.log(aleatorio.toFixed())
+    pop = document.getElementById('pop-up');
+    pop.style.display = 'none'
   }
 
 
