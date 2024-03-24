@@ -81,6 +81,15 @@ function cadastrar(req, res) {
   }
 }
 
+function forgotPassword() {
+  var email = req.body.emailServer
+
+  usuarioModel
+    .forgotPassword(email)
+    .then(function(resultado) {
+    res.json(resultado)})
+}
+
 // function listar(req, res) {
 
 
@@ -88,5 +97,6 @@ function cadastrar(req, res) {
   
 module.exports = {
   autenticar,
-  cadastrar  // listar
+  cadastrar,
+  forgotPassword
 }

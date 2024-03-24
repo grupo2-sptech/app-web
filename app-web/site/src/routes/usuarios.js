@@ -10,10 +10,15 @@ router.post("/cadastrar", function (req, res) {
 
 router.post("/autenticar", function (req, res) {
     usuarioController.autenticar(req, res);
-});
+}); 
 
 router.post("/listar", function(req, res){
     usuarioController.listar(req, res);
 })
+
+router.post("/forgotPassword", function(req, res){
+    usuarioController.forgotPassword(req, res);
+})
+
 
 module.exports = router;
