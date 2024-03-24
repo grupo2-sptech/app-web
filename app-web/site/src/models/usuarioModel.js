@@ -48,11 +48,15 @@ function listar() {
 
 function forgotPassword() {
   var intrucao = `
-    UPDATE hardware SET `
+    UPDATE usuario SET password = ${senhaAleatoria}
+      WHERE email = ${emailTroca}`;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao)
 }
 
 module.exports = {
   autenticar,
   cadastrar,
-  listar
+  listar,
+  forgotPassword
 }
