@@ -220,6 +220,40 @@ hr {
   border: solid 1px var(--color02);
 }
 
+/* Nossos Produtos */
+
+.nossosprodutos{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  background-color: var(--color01);
+  /* justify-content: space-evenly; */
+}
+
+
+.text-nossos-produtos{
+width: 90%;
+color: white;
+height: 25vh;
+text-align: justify;
+font-size: 18px;
+line-height: 1.5;
+font-weight: 100;
+}
+
+.nossosprodutos h1 {
+  color: white;
+  height: 90px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 3%;
+}
+
+
+
 /* Sobre Nós */
 
 .sobrenos {
