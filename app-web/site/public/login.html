@@ -121,10 +121,37 @@
 
   function forgotPassword(){
     var aleatorio = 0
-    aleatorio = Math.random() * (100000000 - 0) + 0
-    console.log(aleatorio.toFixed())
+    aleatorio = (Math.random() * (100000000 - 0) + 0).toFixed();
+    console.log(aleatorio)
     pop = document.getElementById('pop-up');
     pop.style.display = 'none'
+
+    var email = userInput.value;
+
+    fetch("/usuarios/updatePassword", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          emailServer: email,
+          senhaServer: aleatorio
+        })
+      }).then(function (resposta) {
+        console.log("Then antes do if");
+        debugger
+        if (resposta.ok) {
+          console.log("funcionando");
+
+        } else {
+          console.log("email inválido");
+
+        }
+
+      }).catch(function (erro) {
+        console.log(erro);
+      })
+      return false;
   }
 
 
@@ -136,6 +163,6 @@
       window.location.href = "index.html";
     }, 1000);
   }
-
+ 
 
 </script>

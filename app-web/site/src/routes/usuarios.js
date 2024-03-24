@@ -16,8 +16,8 @@ router.post("/listar", function(req, res){
     usuarioController.listar(req, res);
 })
 
-router.post("/forgotPassword", function(req, res){
-    usuarioController.forgotPassword(req, res);
+router.put("/updatePassword", function(req, res){
+    usuarioController.updatePassword(req, res);
 })
 
 

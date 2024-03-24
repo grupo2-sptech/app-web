@@ -81,13 +81,18 @@ function cadastrar(req, res) {
   }
 }
 
-function forgotPassword() {
+function updatePassword(req, res) {
   var email = req.body.emailServer
+  var senha = req.body.senhaServer
 
-  usuarioModel
-    .forgotPassword(email)
+  if (email == undefined) {
+    res.status(400).send('Seu email está undefined!') }
+    else {
+    usuarioModel
+    .updatePassword(email, senha)
     .then(function(resultado) {
     res.json(resultado)})
+}
 }
 
 // function listar(req, res) {
@@ -98,5 +103,5 @@ function forgotPassword() {
 module.exports = {
   autenticar,
   cadastrar,
-  forgotPassword
+  updatePassword
 }

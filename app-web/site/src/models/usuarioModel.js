@@ -46,10 +46,10 @@ function listar() {
   return database.executar(instrucao);
 }
 
-function forgotPassword() {
-  var intrucao = `
-    UPDATE usuario SET password = ${senhaAleatoria}
-      WHERE email = ${emailTroca}`;
+function updatePassword(email, senhaAleatoria) {
+  var instrucao = `
+    UPDATE usuario SET senha = ${senhaAleatoria}
+      WHERE email = "${email}"`;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao)
 }
@@ -58,5 +58,5 @@ module.exports = {
   autenticar,
   cadastrar,
   listar,
-  forgotPassword
+  updatePassword
 }
