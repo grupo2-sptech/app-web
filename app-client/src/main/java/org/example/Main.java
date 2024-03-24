@@ -1,6 +1,8 @@
 package org.example;
 
 
+import com.github.britooo.looca.api.core.Looca;
+
 import java.util.Scanner;
 
 import static org.example.FucionalidadeConsole.limparConsole;
@@ -14,6 +16,12 @@ public class Main {
 //        framePrincipal.setVisible( true );
         Utilitarios utils = new Utilitarios();
         Scanner sc = new Scanner(System.in);
+        Looca looca = new Looca();
+
+        System.out.println(looca.getMemoria());
+        System.out.println(looca.getGrupoDeDiscos().getQuantidadeDeVolumes());
+        System.out.println(looca.getProcessador());
+
         String emailValido = "fernanda.caramico@gmail.com";
         String senhaValida = "teste123";
         do {
