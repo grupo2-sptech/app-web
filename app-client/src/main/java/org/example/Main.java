@@ -15,13 +15,16 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         Looca looca = new Looca();
 
-        System.out.println(looca.getMemoria());
-        System.out.println(looca.getGrupoDeDiscos().getQuantidadeDeVolumes());
-        System.out.println(looca.getProcessador());
+        System.out.println(looca.getMemoria().getTotal());
+        System.out.println(looca.getMemoria().getEmUso());
+        System.out.println(looca.getGrupoDeDiscos().getTamanhoTotal());
+        System.out.println(looca.getGrupoDeDiscos().getVolumes().get(0).getDisponivel());
+        System.out.println(looca.getProcessador().getUso());
 
         String emailValido = "fernanda.caramico@gmail.com";
         String senhaValida = "teste123";
         limparConsole();
+
         do {
             utils.exibirLogo();
             utils.exibirMensagem();
