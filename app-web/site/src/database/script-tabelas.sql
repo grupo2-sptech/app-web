@@ -6,10 +6,9 @@
 comandos para mysql - banco local - ambiente de desenvolvimento
 */
 
+drop database hardware_security;
+
 create database hardware_security;
-
--- drop database hardware;
-
 use hardware_security;
 
 create table usuario(
@@ -19,31 +18,46 @@ email varchar(150) unique,
 senha varchar(100)
 );
 
-insert into usuario values(null, "Jonathan", "teste@gmail.com", "123");
+insert into usuario values(null, "Jonathan", "jonathanaparecido80@gmail.com", "123");
 
-create table hardware(
-hardware_id int primary key,
-cpu_ocupada double,
-ram_ocupada double,
+create table maquina(
+maquina_id int primary key auto_increment,
+modelo_maquina varchar(100),
+modelo_processador varchar(100),
+total_ram double,
 memoria_total_disco double,
 memoria_ocupada double,
-modelo_processador varchar(100)
-);
+status_maquina int,
+fk_usuario int
+) auto_increment 100;
 
-alter table hardware add column modell varchar(50);
-alter table hardware add
+alter table maquina add
  constraint foreign key(fk_usuario) references usuario(usuario_id);
+ 
+ select * from maquina;
 
-SELECT usuario_id, nome_usuario, email from usuario WHERE email = 'teste@gmail.com' AND senha = '123';
+insert into maquina values
+(null, "Dell", "Intel core i5", 8259321856, 256052966400, 126138990592,  0, 1);
 
- select * from usuario;
+create table hitorico_hardware(
+hardware_historico_id int primary key auto_increment,
+cpu_ocupada double,
+ram_ocupada double,
+fk_maquina int
+) auto_increment 1000;
 
-select * from usuario join hardware
-      on usuario_id = fk_usuario
+alter table hitorico_hardware add
+ constraint foreign key(fk_maquina) references maquina(maquina_id);
+ 
+insert into hitorico_hardware values
+(null,7.9,7.7, 100);
+
+
+
+/*SELECT usuario_id, nome_usuario, email from usuario WHERE email = 'teste@gmail.com' AND senha = '123';*/
+
+
+select * from usuario join maquina
+      on usuario_id = fk_usuario join hitorico_hardware on maquina_id = fk_maquina
       where usuario_id = 1;
-
-insert into hardware values
-(0,  11.3, 6.8, 200000, 150000, "xxxxxxxxxxxxxxxxxx");
-
-update hardware set fk_usuario = 1 where hardware_id = 0;
 

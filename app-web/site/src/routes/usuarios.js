@@ -8,15 +8,19 @@ router.post("/cadastrar", function (req, res) {
     usuarioController.cadastrar(req, res);
 })
 
+router.post("/enviarEmail", function (email, senha) {
+    usuarioController.enviarEmail(email, senha)
+})
+
 router.post("/autenticar", function (req, res) {
     usuarioController.autenticar(req, res);
-}); 
+});
 
-router.post("/listar", function(req, res){
+router.post("/listar", function (req, res) {
     usuarioController.listar(req, res);
 })
 
-router.put("/updatePassword", function(req, res){
+router.put("/updatePassword", function (req, res) {
     usuarioController.updatePassword(req, res);
 })
 

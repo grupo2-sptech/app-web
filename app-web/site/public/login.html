@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="./assets/icons/style.css" />
   <link rel="stylesheet" href="./css/style-login.css">
+  <script src="./js/login.js"></script>
   <title>Hardware Security</title>
 </head>
 
@@ -46,12 +47,11 @@
     <div id="pop-up">
       <div class="pop" id="pop-content">
         <h3>insira seu email:</h3>
-        <form action="https://formsubmit.co/kaiquevsilva19@gmai.com" method="POST">
-          <input type="hidden" name="_subject" value="Recuperar senha">
-          <input type="text" name="_honey" style="display: none;" >
-     </form>
         <input type="text" id="userInput">
-        <button onclick="forgotPassword()">Recuperar senha</button>
+        <div class="div_button_popup">
+          <button onclick="forgotPassword()">Recuperar senha</button>
+          <button onclick="closePopUp()">Voltar</button>
+        </div>
       </div>
     </div>
   </div>
@@ -60,79 +60,18 @@
 </html>
 
 <script>
-  function entrar() {
-    event.preventDefault();
-    mensagem_senha_incorreta.innerHTML = ""
-    var senha = input_senha.value;
-    var email = input_email.value;
-    var strong_senha_incorreta = document.getElementById('mensagem_senha_incorreta');
-    var div_carregar = document.getElementById('carregar');
 
-    if (senha == "" || email == "") {
-      mensagem_senha_incorreta.innerHTML = `Preencha todos os campos!`;
-      return false;
-      div_carregar.style.display = "block";
-    } else {
-      fetch("/usuarios/autenticar", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          emailServer: email,
-          senhaServer: senha
-        })
-      }).then(function (resposta) {
-        console.log("ESTOU NO THEN DO entrar()!")
-        debugger
-        if (resposta.ok) {
-          div_carregar.style.display = "block";
-          console.log(resposta);
-          resposta.json().then(json => {
-            console.log(json);
-            console.log(JSON.stringify(json));
-            sessionStorage.EMAIL_USUARIO = json.email;
-            sessionStorage.NOME_USUARIO = json.nome;
-            sessionStorage.ID_USUARIO = json.id;
-            sessionStorage.AQUARIOS = JSON.stringify(json.hardware)
-            setTimeout(() => {
-              window.location.href = "dashboard.html";
-            }, 2000);
-          });
 
-        } else {
 
-          resposta.text().then(texto => {
-            div_carregar.style.display = "block";
-            setTimeout(() => {
-              mensagem_senha_incorreta.innerHTML = texto;
-              div_carregar.style.display = "none";
-            }, 2000);
-            console.error(texto);
-          });
-        }
 
-      }).catch(function (erro) {
-        console.log(erro);
-      })
-      return false;
-    }
-  }
-
-  function openPop() {
-    document.getElementById('pop-up').style.display = 'block';
-  }
-
-  function forgotPassword(){
+  function forgotPassword() {
     var aleatorio = 0
     aleatorio = (Math.random() * (100000000 - 0) + 0).toFixed();
-    console.log(aleatorio)
     pop = document.getElementById('pop-up');
-    pop.style.display = 'none'
-
     var email = userInput.value;
-
-    fetch("/usuarios/updatePassword", {
+    if (email != "") {
+      pop.style.display = 'none'
+      fetch("/usuarios/updatePassword", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json"
@@ -142,35 +81,35 @@
           senhaServer: aleatorio
         })
       }).then(function (resposta) {
-        console.log("Then antes do if");
-        debugger
-        if (resposta.ok) {
-          console.log("funcionando");
-
-        } else {
-          console.log("email inválido");
-
-        }
-
-      }).catch(function (erro) {
-        console.log(erro);
+        return resposta.json();
       })
+        .then(function (data) {
+          console.log(data)
+          if (data.affectedRows != 0) {
+            alert()
+            fetch("/usuarios/enviarEmail", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                emailServer: email,
+                senhaServer: aleatorio
+              })
+              
+            }).catch(function (err) {
+              console.log(err)
+            })
+          } else {
+            console.log("Email não existe")
+          }
+        }).catch(function (erro) {
+          console.log(erro);
+        })
       return false;
-  }
-
-
-  function voltar() {
-    mensagem_senha_incorreta.innerHTML = ""
-    event.preventDefault();
-    carregar.style.display = "block"
-    setInterval(() => {
-      window.location.href = "index.html";
-    }, 1000);
-  }
- 
-
-  function sendemail(){
-
+    } else {
+      email.style.bo
+    }
   }
 
 </script>

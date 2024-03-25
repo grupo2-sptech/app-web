@@ -24,7 +24,7 @@ var mySqlConfig = {
   host: 'localhost',
   database: 'hardware_security',
   user: 'root',
-  password: 'italo'
+  password: 'jhow'
 }
 
 function executar(instrucao) {

@@ -2,6 +2,29 @@
 
 var usuarioModel = require('../models/usuarioModel')
 var medidaModel = require('../models/medidaModel')
+var nodemailer = require('nodemailer')
+const { response } = require('express')
+
+function enviarEmail(req, res) {
+  var email = req.body.emailServer
+  var senha = req.body.senhaServer
+  const transport = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
+    auth: {
+      user: 'hardware.recuperasenha@gmail.com',
+      pass: 'yanhdfljbkppyzob'
+    }
+  })
+  debugger
+  transport.sendMail({
+    from: "Hardware Security <hardware.recuperasenha@gmail.com>",
+    to: email,
+    subject: 'Recuperação de senha',
+    text: `Senha provisoria de acesso ${senha}`
+  }).then((response) => console.log(response)).catch((err) => res.status(403))
+}
 
 async function autenticar(req, res) {
   try {
@@ -86,22 +109,25 @@ function updatePassword(req, res) {
   var senha = req.body.senhaServer
 
   if (email == undefined) {
-    res.status(400).send('Seu email está undefined!') }
-    else {
+    res.status(400).send('Seu email está undefined!')
+  }
+  else {
     usuarioModel
-    .updatePassword(email, senha)
-    .then(function(resultado) {
-    res.json(resultado)})
-}
+      .updatePassword(email, senha)
+      .then(function (resultado) {
+        res.json(resultado)
+      })
+  }
 }
 
 // function listar(req, res) {
 
 
 // }
-  
+
 module.exports = {
   autenticar,
   cadastrar,
-  updatePassword
+  updatePassword,
+  enviarEmail
 }
