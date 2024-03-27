@@ -222,36 +222,81 @@ hr {
 
 /* Nossos Produtos */
 
-.nossosprodutos{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100vh;
+.about2{
+  height: 90vh;
+  width: 100%; 
   background-color: var(--color01);
-  /* justify-content: space-evenly; */
+  display: flex;
+  flex-direction: row-reverse;
+  
+}
+
+.backgroud-about2{
+   width: 50%;
+   height: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+
+}
+
+.img-wrapper2{
+   width: 70%;
+   position: relative;
+   border-radius: 10%;  
+}
+
+.img-wrapper2 img{
+   height: 100%;
+   width: 100%;
+   object-fit: cover;
+   opacity: 70%;
 }
 
 
-.text-nossos-produtos{
-width: 90%;
-color: white;
-height: 25vh;
-text-align: justify;
-font-size: 18px;
-line-height: 1.5;
-font-weight: 100;
+.img-wrapper2::after{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+ 
+  background: linear-gradient(.75turn, transparent 99%, black);
+  
+} 
+
+
+.box-about2{
+   display: flex;
+   flex-direction: column;
+   width: 50%;
+   padding: 3rem;
+  color: white;
+
 }
 
-.nossosprodutos h1 {
+.box-about2 h1{
   color: white;
   height: 90px;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 3%;
+  margin-top: 5%;
 }
 
+.text-nossos-produtos{
+  width: 100%;
+  color: white;
+  text-align: justify;
+  font-size: 18px;
+  line-height: 1.5;
+  font-weight: 100;
+  height: 100%;
+}
+
+/* fim */
 
 
 /* Sobre Nós */
@@ -389,6 +434,7 @@ font-weight: 100;
 
 
 }
+
 
 /* footer */
 
@@ -553,3 +599,4 @@ footer {
   }
 
 }
+
