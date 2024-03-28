@@ -27,7 +27,7 @@ replay_pid*
 node_modules
 package-lock.json
 
-# Ignorar o arquivo config.js em app-web/site/src/database/
-app-web/site/src/database/config.js
+# Ignorar o arquivo config.js em/site/src/database/
+config.js
 
 .github
