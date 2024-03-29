@@ -13,7 +13,7 @@
 body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
-  background-color: #ffffff;
+  background-color: #b6b6b6;
   overflow-x: hidden;
   overflow-y: hidden;
 }
@@ -26,7 +26,7 @@ body {
   display: flex;
   text-decoration: none;
   gap: 10px;
-  font-size: 1.5rem;
+  font-size: 1rem;
   align-items: center;
   justify-content: center;
   margin: 0;
@@ -34,9 +34,12 @@ body {
   transition: 300ms;
 }
 
+.ico {
+  display: block;
+}
+
 .itensDaNav:hover {
-  background-color: #647d8c;
-  font-size: 2rem;
+  font-size: 1.1rem;
 }
 
 #button-sair {
@@ -48,78 +51,12 @@ body {
 .menuLateral {
   background-color: #0a151f;
   height: 100vh;
-  width: 20vw;
+  width: 3vw;
   position: fixed;
   display: flex;
   flex-direction: column;
   gap: 15%;
   align-items: center;
-  justify-content: center;
-  transition: 0.5s;
-  border-radius: 0 0 15px 0;
-}
-.acao-dashboard {
-  height: 40vh;
-  width: 100%;
-  border: solid 2px rgb(35, 60, 221);
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-}
-
-.card-acao {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 20%;
-  height: 80%;
-  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.card-acao:active {
-  background-color: #dfe3e6;
-}
-
-.menu-principal {
-  border: solid 2px red;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-}
-.amostragem {
-  width: 100%;
-  height: 100%;
-  gap: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.lista-computadores {
-  width: 70%;
-  height: 90%;
-  border: solid 2px rgb(0, 255, 68);
-}
-
-.acoes {
-  width: 25%;
-  height: 90%;
-  border: solid 2px rgb(0, 255, 68);
-}
-
-/* sub menu */
-
-.div_dashboard {
-  background-color: white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  width: 80vw;
-  margin-left: 20vw;
   transition: 0.5s;
 }
 
@@ -129,9 +66,49 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  justify-content: space-between;
+  gap: 2rem;
 }
+
+#itens_menu .nome-acao {
+  display: none;
+}
+
+.nome-acao-oculta {
+  color: black;
+  position: absolute;
+  margin-left: 20vh;
+  display: flex;
+  font-size: 0.9rem;
+  display: none;
+  font-weight: bold;
+  z-index: 999;
+}
+
+.ico {
+  font-size: 1.1rem;
+  transition: 300ms;
+}
+
+#sair {
+  margin-right: 3rem;
+}
+
+#suporte {
+  margin-right: 2rem;
+}
+
+#dasbord {
+  margin-right: 3rem;
+}
+
+#perfil {
+  margin-right: 3rem;
+}
+
+.ico:hover {
+  font-size: 1.3rem;
+}
+
 
 .logo {
   width: 100%;
@@ -143,9 +120,144 @@ body {
 }
 
 #logotipo {
-  width: 5rem;
-  margin-bottom: -2rem;
+  width: 2.3rem;
+  margin-top: 2rem;
+  transition: 300ms;
 }
+
+#logotipo:hover {
+  width: 2.5rem;
+}
+
+.filtro {
+  height: 10vh;
+  background-color: #e1e1e1;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+#filtro_date {
+  border-radius: 5px;
+  width: 150px;
+  height: 40%;
+  text-align: center;
+  font-size: 15px;
+}
+
+.input_filtro {
+  border-radius: 5px;
+  height: 40%;
+  text-align: center;
+  width: auto;
+}
+
+.inputs{
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  font-size: 13px;
+  font-weight: bold;
+  justify-content: center;
+}
+
+.acao-dashboard {
+  height: 100%;
+  width: 95.8%;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.pai-acao{
+  height: 30vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e1e1e1;
+}
+
+.icon-search{
+  font-size: 1.3rem;
+  cursor: pointer;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.card-acao {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20%;
+  height: 95%;
+/*   margin-left: 2rem;
+ */  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.2s;
+  background-color: white;
+}
+
+.card-acao:active {
+  background-color: #dfe3e6;
+}
+
+
+
+.menu-principal {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.amostragem {
+  width: 100%;
+  height: 100%;
+  gap: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e1e1e1;
+}
+
+.lista-computadores {
+  width: 70%;
+  height: 95%;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+.acoes {
+  border-radius: 10px;
+  width: 25%;
+  height: 95%;
+  background-color: white;
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* sub menu */
+
+.div_dashboard {
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 97vw;
+  margin-left: 3vw;
+  transition: 0.5s;
+}
+
+
 
 .logo img {
   width: 3.5rem;

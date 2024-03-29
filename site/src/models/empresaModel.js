@@ -6,9 +6,8 @@ function buscarPorId(id) {
   return database.executar(query);
 }
 
-function listar() {
-  var query = `select * from empresa`;
-
+function listar(tabela) {
+  var query = `select * from ${tabela};`;
   return database.executar(query);
 }
 
