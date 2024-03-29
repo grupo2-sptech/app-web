@@ -20,16 +20,33 @@ senha varchar(100)
 
 insert into usuario values(null, "Jonathan", "jonathanaparecido80@gmail.com", "123");
 
+ SELECT usuario_id, nome_usuario, email from usuario WHERE email = 'jonathanaparecido80@gmail.com' AND senha = '92315503';
+ 
+create table setor(
+setor_id int primary key auto_increment,
+nome_setor varchar (100),
+nome_gestor varchar(100),
+numero_funcionario int
+) auto_increment = 2000;
+
+insert into setor values
+(null, "TI", "Anderson", 16);
+
+
 create table maquina(
 maquina_id int primary key auto_increment,
 modelo_maquina varchar(100),
+nome_usuario varchar(100),
 modelo_processador varchar(100),
 total_ram double,
 memoria_total_disco double,
 memoria_ocupada double,
 status_maquina int,
-fk_usuario int
+fk_usuario int,
+fk_setor int
 ) auto_increment 100;
+
+alter table maquina add constraint foreign key (fk_setor) references setor(setor_id);
 
 alter table maquina add
  constraint foreign key(fk_usuario) references usuario(usuario_id);
@@ -37,7 +54,8 @@ alter table maquina add
  select * from maquina;
 
 insert into maquina values
-(null, "Dell", "Intel core i5", 8259321856, 256052966400, 126138990592,  0, 1);
+(null, "Dell", "Felipe", "Intel core i5", 8259321856, 256052966400, 126138990592,  0, 1, 2000);
+
 
 create table hitorico_hardware(
 hardware_historico_id int primary key auto_increment,
@@ -53,11 +71,19 @@ insert into hitorico_hardware values
 (null,7.9,7.7, 100);
 
 
-
+select * from usuario;
 /*SELECT usuario_id, nome_usuario, email from usuario WHERE email = 'teste@gmail.com' AND senha = '123';*/
 
 
-select * from usuario join maquina
+select usuario.nome_usuario, usuario.usuario_id, usuario.email, maquina.*, hitorico_hardware.* from usuario join maquina
       on usuario_id = fk_usuario join hitorico_hardware on maquina_id = fk_maquina
       where usuario_id = 1;
+      
+select * from maquina join setor on setor_id = fk_setor;
+
+select * from setor;
+
+select * from setor;
+
+
 
