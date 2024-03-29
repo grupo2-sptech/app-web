@@ -13,7 +13,7 @@
 body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
-  background-color: #b6b6b6;
+  background-color: #e1e1e1;
   overflow-x: hidden;
   overflow-y: hidden;
 }
@@ -59,6 +59,19 @@ body {
   align-items: center;
   transition: 0.5s;
 }
+
+.div_dashboard {
+  background-color: #e1e1e1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 97vw;
+  margin-left: 3vw;
+  transition: 0.5s;
+}
+
 
 .itens_menu {
   height: 50%;
@@ -165,22 +178,73 @@ body {
   justify-content: center;
 }
 
-.acao-dashboard {
-  height: 100%;
-  width: 95.8%;
+.pai-acao{
+  width: 100%;
+  height: 40%;
+  padding-left: 2%;
   display: flex;
-  gap: 1rem;
-  align-items: center;
+  gap: 2%;
+  overflow: scroll;
+  margin-right: 5%;
 }
 
-.pai-acao{
-  height: 30vh;
-  width: 100%;
+.pai-acao::-webkit-scrollbar {
+  width: 6px;
+  margin-left: 10%;
+}
+
+
+.pai-acao::-webkit-scrollbar-thumb {
+background-color: var(--color01);
+border-radius: 6px;
+margin-top: 2%;
+margin-left: 5%;
+}
+
+/* .acao-dashboard {
+  height: 100%;
+  width: auto; 
   display: flex;
   align-items: center;
-  justify-content: center;
-  background-color: #e1e1e1;
+  white-space: nowrap; 
+  flex-direction: row;
+  margin-left: 80%;
+  margin-right: 2%;
+} */
+
+.card-acao {
+  display: flex;
+  align-items: center;
+  width: 400px;
+  height: 90%;
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.2s;
+  background-color: white;
+  margin-right: 1rem;
 }
+
+.card-acao p{
+  font-size: 14px;
+  line-height: 60%;
+}
+
+.bolinha {
+  width: 20px;
+  height: 20px;
+  border: 1px;
+  border-radius: 50%;
+  background-color: #0a151f;
+  content: "";
+}
+
+.descricao-componenete {
+  display: flex;
+  align-items: center;
+  gap:  1rem;
+}
+
 
 .icon-search{
   font-size: 1.3rem;
@@ -190,22 +254,27 @@ body {
   align-items: center;
 }
 
-.card-acao {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 20%;
-  height: 95%;
-/*   margin-left: 2rem;
- */  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
-  border-radius: 10px;
-  cursor: pointer;
-  transition: 0.2s;
-  background-color: white;
-}
 
 .card-acao:active {
   background-color: #dfe3e6;
+}
+
+.icon-laptop1 {
+  margin-top: 10%;
+  height: 100%;
+  width: 50%;
+  font-size: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.descricao-laptop {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  height: 100%;
+  justify-content: space-around;
 }
 
 
@@ -244,18 +313,6 @@ body {
 }
 
 /* sub menu */
-
-.div_dashboard {
-  background-color: rgb(255, 255, 255);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  width: 97vw;
-  margin-left: 3vw;
-  transition: 0.5s;
-}
 
 
 
