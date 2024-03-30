@@ -9,8 +9,8 @@ function buscarPorCnpj(req, res) {
 }
 
 function listar(req, res) {
- let tabela = req.params.tabela
-  empresaModel.listar(tabela).then((resultado) => {
+ let id_setor = req.params.id_setor
+  empresaModel.listar(id_setor).then((resultado) => {
     res.status(200).json(resultado);
   });
 }

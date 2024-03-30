@@ -10,7 +10,7 @@ function autenticar(email, senha) {
   )
   debugger
   var instrucao = `
-        SELECT usuario_id, nome_usuario, email from usuario WHERE email = '${email}' AND senha = '${senha}';
+  SELECT funcionario_id, nome_funcionario, email_funcionario, acesso_plataforma, permissao_total, setor.setor_id from funcionario join setor on fk_setor = setor_id WHERE email_funcionario  = '${email}' AND senha_acesso = '${senha}' OR login_acesso = '${email}' AND senha_acesso = '${senha}';
     `
   console.log('Executando a instrução SQL: \n' + instrucao)
   return database.executar(instrucao)
@@ -50,8 +50,8 @@ function updatePassword(email, senhaAleatoria) {
   var instrucao = `
     UPDATE usuario SET senha = ${senhaAleatoria}
       WHERE email = "${email}"`;
-    console.log("Executando a instrução SQL: \n" + instrucao);
-    return database.executar(instrucao)
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao)
 }
 
 module.exports = {

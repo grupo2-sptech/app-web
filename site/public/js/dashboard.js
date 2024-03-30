@@ -1,20 +1,22 @@
 /** @format */
-
+let setor_id = sessionStorage.SETOR
 
 let id_setor = [];
 
-function listar(tabela, id_select) {
+function listar(id_setor, id_select) {
+
   let select = document.getElementById(id_select);
-  fetch(`/empresas/listar/${tabela}`, {
+  fetch(`/empresas/listar/${id_setor}`, {
     method: "GET",
     cache: 'no-store'
   })
     .then(function (resposta) {
       resposta.json().then((tabelas) => {
         tabelas.forEach((tabela) => {
+          console.log(tabela)
           var option = document.createElement("option");
           option.value = tabela.setor_id == undefined ? tabela.maquina_id : tabela.setor_id;
-          option.text = tabela.nome_setor == undefined ? tabela.nome_usuario : tabela.nome_setor;
+          option.text = tabela.nome_funcionario == undefined ? tabela.nome_setor : tabela.nome_funcionario;
           select.appendChild(option);
         });
       });
@@ -23,6 +25,10 @@ function listar(tabela, id_select) {
       console.log(`#ERRO: ${erro}`);
     });
 }
+
+
+
+
 
 
 let interuptor = 1
@@ -46,9 +52,9 @@ function sumirMenu() {
     })
     interuptor = 0
   } else {
-    menu.style.width = '3vw'
-    dash.style.width = '97vw'
-    dash.style.marginLeft = '3vw'
+    menu.style.width = '5vw'
+    dash.style.width = '95vw'
+    dash.style.marginLeft = '5vw'
     acao.forEach(function (acao) {
       acao.style.display = 'none';
     })

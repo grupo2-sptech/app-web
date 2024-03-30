@@ -43,7 +43,7 @@ async function autenticar(req, res) {
     console.log(JSON.stringify(resultadoAutenticar))
 
     if (resultadoAutenticar && resultadoAutenticar.length == 1) {
-      const usuario_id = resultadoAutenticar[0].usuario_id
+      const usuario_id = resultadoAutenticar[0].funcionario_id
 
       const [resultHardware] = await Promise.all([
         medidaModel.buscarMedidasEmTempoReal(usuario_id)
@@ -53,7 +53,10 @@ async function autenticar(req, res) {
         res.json({
           id: usuario_id,
           email: resultadoAutenticar[0].email,
-          nome: resultadoAutenticar[0].nome,
+          nome: resultadoAutenticar[0].nome_funcionario,
+          permissao: resultadoAutenticar[0].acesso_plataforma,
+          permissao_total: resultadoAutenticar[0].permissao_total,
+          setor: resultadoAutenticar[0].setor_id,
           hardware: resultHardware
         })
       } else {

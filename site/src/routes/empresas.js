@@ -16,7 +16,7 @@ router.get("/buscar/:id", function (req, res) {
   empresaController.buscarPorId(req, res);
 });
 
-router.get("/listar/:tabela", function (req, res) {
+router.get("/listar/:id_setor", function (req, res) {
   empresaController.listar(req, res);
 });
 

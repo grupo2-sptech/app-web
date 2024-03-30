@@ -51,7 +51,7 @@ body {
 .menuLateral {
   background-color: #0a151f;
   height: 100vh;
-  width: 3vw;
+  width: 5vw;
   position: fixed;
   display: flex;
   flex-direction: column;
@@ -67,8 +67,8 @@ body {
   align-items: center;
   justify-content: center;
   height: 100vh;
-  width: 97vw;
-  margin-left: 3vw;
+  width: 95vw;
+  margin-left: 5vw;
   transition: 0.5s;
 }
 
@@ -89,9 +89,9 @@ body {
 .nome-acao-oculta {
   color: black;
   position: absolute;
-  margin-left: 20vh;
+  margin-left: 25vh;
   display: flex;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   display: none;
   font-weight: bold;
   z-index: 999;
@@ -103,19 +103,19 @@ body {
 }
 
 #sair {
-  margin-right: 3rem;
+  margin-left: 10rem;
 }
 
 #suporte {
-  margin-right: 2rem;
+  margin-left: 10rem;
 }
 
 #dasbord {
-  margin-right: 3rem;
+  margin-left: 200px;
 }
 
 #perfil {
-  margin-right: 3rem;
+  margin-left: 10rem;
 }
 
 .ico:hover {
@@ -168,7 +168,11 @@ body {
   width: auto;
 }
 
-.inputs{
+#campo_setor {
+  display: none;
+}
+
+.inputs {
   height: 100%;
   display: flex;
   align-items: center;
@@ -178,7 +182,7 @@ body {
   justify-content: center;
 }
 
-.pai-acao{
+.pai-acao {
   width: 100%;
   height: 40%;
   padding-left: 2%;
@@ -195,10 +199,10 @@ body {
 
 
 .pai-acao::-webkit-scrollbar-thumb {
-background-color: var(--color01);
-border-radius: 6px;
-margin-top: 2%;
-margin-left: 5%;
+  background-color: var(--color01);
+  border-radius: 6px;
+  margin-top: 2%;
+  margin-left: 5%;
 }
 
 /* .acao-dashboard {
@@ -225,7 +229,7 @@ margin-left: 5%;
   margin-right: 1rem;
 }
 
-.card-acao p{
+.card-acao p {
   font-size: 14px;
   line-height: 60%;
 }
@@ -242,11 +246,11 @@ margin-left: 5%;
 .descricao-componenete {
   display: flex;
   align-items: center;
-  gap:  1rem;
+  gap: 1rem;
 }
 
 
-.icon-search{
+.icon-search {
   font-size: 1.3rem;
   cursor: pointer;
   height: 100%;
