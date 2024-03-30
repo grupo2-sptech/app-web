@@ -36,7 +36,7 @@ function buscarUltimasMedidas(idAquario, limite_linhas) {
 
 function buscarMedidasEmTempoReal(usuario_id) {
   instrucaoSql = ''
-  instrucaoSql = `select maquina.*, hitorico_hardware.* from funcionario join maquina on funcionario_id = fk_funcionario join hitorico_hardware on maquina_id = fk_maquina where fk_funcionario = ${usuario_id};
+  instrucaoSql = `select maquina.*, historico_hardware.* from funcionario join maquina on funcionario_id = fk_funcionario join historico_hardware on maquina_id = fk_maquina where fk_funcionario = ${usuario_id};
   `
   console.log('Executando a instrução SQL: \n' + instrucaoSql)
   return database.executar(instrucaoSql)

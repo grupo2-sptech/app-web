@@ -12,7 +12,7 @@
   <script src="./js/sessao.js"></script>
 </head>
 
-<body onload="validarSessao(), listar(sessionStorage.SETOR, 'inp_maquina')">
+<body onload="validarSessao(), listar(sessionStorage.SETOR, 'inp_maquina'),listarMaquinas(sessionStorage.EMPRESA)">
   <!-- menu lateral -->
   <div id="menu" class="menuLateral">
     <a style="color: white; cursor: pointer">
@@ -53,9 +53,9 @@
     </div>
   </div>
   <!-- DashBoard -->
-
-  <div id="tela_principal" class="div_dashboard">
-    <div class="filtro">
+  <main class="dashboard">
+    <!-- Filtro -->
+    <div class="superior-filtro">
       <div class="inputs">
         Insira uma data
         <input id="filtro_date" type="date" />
@@ -76,172 +76,40 @@
       <div class="icon-search"></div>
     </div>
 
-    <div class="menu-principal">
+    <!-- Lista Maquinas -->
+    <div class="central-maquinas">
 
-      <div class="pai-acao">
+      <div class="titulo-maquinas">
+        <h1>Minhas máquinas</h1>
+      </div>
 
-        <div class="card-acao">
-          <div class="icon-laptop1"></div>
-          <div class="descricao-laptop">
-            <div class="descricao-titulo">
-              <p>Nome Maquina</p>
-              <p>Nome Funcionario</p>
-            </div>
-            <div class="descricao-status">
-              <div class="descricao-componenete">
-                <div class="bolinha" id="icone-cpu"></div>
-                <p>CPU</p>
-              </div>
-              <div class="descricao-componenete">
-                <div class="bolinha" id="icone-disco"></div>
-                <p>Disco</p>
-              </div>
-              <div class="descricao-componenete">
-                <div class="bolinha" id="icone-ram"></div>
-                <p>Ram</p>
-              </div>
-            </div>
 
-          </div>
-        </div>
+      <div id="div_funcaoMaquina" class="lista-maquinas">
 
-        <div class="card-acao">
-          <div class="icon-laptop1"></div>
-          <div class="descricao-laptop">
-            <div class="descricao-titulo">
-              <p>Nome Maquina</p>
-              <p>Nome Funcionario</p>
-            </div>
-            <div class="descricao-status">
-              <div class="descricao-componenete">
-                <div class="bolinha" id="icone-cpu"></div>
-                <p>CPU</p>
-              </div>
-              <div class="descricao-componenete">
-                <div class="bolinha" id="icone-disco"></div>
-                <p>Disco</p>
-              </div>
-              <div class="descricao-componenete">
-                <div class="bolinha" id="icone-ram"></div>
-                <p>Ram</p>
-              </div>
-            </div>
+       
 
-          </div>
-        </div>
-
-        <div class="card-acao">
-          <div class="icon-laptop1"></div>
-          <div class="descricao-laptop">
-            <div class="descricao-titulo">
-              <p>Nome Maquina</p>
-              <p>Nome Funcionario</p>
-            </div>
-            <div class="descricao-status">
-              <div class="descricao-componenete">
-                <div class="bolinha" id="icone-cpu"></div>
-                <p>CPU</p>
-              </div>
-              <div class="descricao-componenete">
-                <div class="bolinha" id="icone-disco"></div>
-                <p>Disco</p>
-              </div>
-              <div class="descricao-componenete">
-                <div class="bolinha" id="icone-ram"></div>
-                <p>Ram</p>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <div class="card-acao">
-          <div class="icon-laptop1"></div>
-          <div class="descricao-laptop">
-            <div class="descricao-titulo">
-              <p>Nome Maquina</p>
-              <p>Nome Funcionario</p>
-            </div>
-            <div class="descricao-status">
-              <div class="descricao-componenete">
-                <div class="bolinha" id="icone-cpu"></div>
-                <p>CPU</p>
-              </div>
-              <div class="descricao-componenete">
-                <div class="bolinha" id="icone-disco"></div>
-                <p>Disco</p>
-              </div>
-              <div class="descricao-componenete">
-                <div class="bolinha" id="icone-ram"></div>
-                <p>Ram</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="card-acao">
-          <div class="icon-laptop1"></div>
-          <div class="descricao-laptop">
-            <div class="descricao-titulo">
-              <p>Nome Maquina</p>
-              <p>Nome Funcionario</p>
-            </div>
-            <div class="descricao-status">
-              <div class="descricao-componenete">
-                <div class="bolinha" id="icone-cpu"></div>
-                <p>CPU</p>
-              </div>
-              <div class="descricao-componenete">
-                <div class="bolinha" id="icone-disco"></div>
-                <p>Disco</p>
-              </div>
-              <div class="descricao-componenete">
-                <div class="bolinha" id="icone-ram"></div>
-                <p>Ram</p>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <div class="card-acao">
-          <div class="icon-laptop1"></div>
-          <div class="descricao-laptop">
-            <div class="descricao-titulo">
-              <p>Nome Maquina</p>
-              <p>Nome Funcionario</p>
-            </div>
-            <div class="descricao-status">
-              <div class="descricao-componenete">
-                <div class="bolinha" id="icone-cpu"></div>
-                <p>CPU</p>
-              </div>
-              <div class="descricao-componenete">
-                <div class="bolinha" id="icone-disco"></div>
-                <p>Disco</p>
-              </div>
-              <div class="descricao-componenete">
-                <div class="bolinha" id="icone-ram"></div>
-                <p>Ram</p>
-              </div>
-            </div>
-
-          </div>
-        </div>
+       
 
 
       </div>
 
 
-      <div class="amostragem">
-        <div class="lista-computadores">
-          <div class="dash">
-            <canvas id="myChart"></canvas>
-          </div>
-        </div>
-        <div class="acoes">Olá mundo</div>
-      </div>
     </div>
-  </div>
+
+
+    <div class="inferior-graficos"></div>
+
+
+
+
+
+
+  </main>
+
+
+
+
+
 </body>
 
 </html>
@@ -290,10 +158,10 @@
       });
   }
 
-  function listar1(idUsuario) {
-    var listaMaquinas = document.getElementById("div_funcaoMeta");
+  function listarMaquinas(fkEmpresa) {
+    var listaMaquinas = document.getElementById("div_funcaoMaquina");
 
-    fetch(`/dashboard/listar/${sessionStorage.ID_USUARIO}`, {
+    fetch(`/dashboard/listar/${fkEmpresa}`, {
       method: "GET",
     })
       .then(function (resposta) {
@@ -306,9 +174,30 @@
             listaMaquinas.innerHTML = "";
 
             maquinas.forEach((maquinas) => {
-              listaMaquinas += `<div class="card-acao">
-              <div class = "icon-laptop1></div>
-              </div>`;
+              listaMaquinas.innerHTML += `<div class="card-acao">
+          <div class="icon-laptop1"></div>
+          <div class="descricao-laptop">
+            <div class="descricao-titulo">
+              <p>${maquinas.modelo_maquina}</p>
+              <p>${maquinas.nome_funcionario}</p>
+            </div>
+            <div class="descricao-status">
+              <div class="descricao-componenete">
+                <div class="bolinha" id="icone-cpu"></div>
+                <p>CPU</p>
+              </div>
+              <div class="descricao-componenete">
+                <div class="bolinha" id="icone-disco"></div>
+                <p>Disco</p>
+              </div>
+              <div class="descricao-componenete">
+                <div class="bolinha" id="icone-ram"></div>
+                <p>Ram</p>
+              </div>
+            </div>
+
+          </div>
+        </div>`;
             });
           }
         });
@@ -317,4 +206,5 @@
         console.log(`#ERRO: ${resposta}`);
       });
   }
+
 </script>

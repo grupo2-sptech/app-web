@@ -57,7 +57,8 @@ async function autenticar(req, res) {
           permissao: resultadoAutenticar[0].acesso_plataforma,
           permissao_total: resultadoAutenticar[0].permissao_total,
           setor: resultadoAutenticar[0].setor_id,
-          hardware: resultHardware
+          hardware: resultHardware,
+          empresa: resultadoAutenticar[0].fk_empresa_func
         })
       } else {
         res.status(200)

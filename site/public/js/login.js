@@ -53,6 +53,7 @@ function entrar() {
           sessionStorage.ACESSO_TOTAL = json.permissao_total;
           sessionStorage.SETOR = json.setor;
           sessionStorage.MAQUINA = JSON.stringify(json.hardware)
+          sessionStorage.EMPRESA = json.empresa;
           if (json.permissao == 1) {
             setTimeout(() => {
               window.location.href = "dashboard.html";

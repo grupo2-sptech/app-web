@@ -8,7 +8,7 @@ function buscarPorId(id) {
 
 function listar(id_setor) {
   var query = `
-  select f.nome_funcionario, f.funcionario_id, f.cargo_funcionario, s.nome_setor from funcionario f join setor s on fk_setor = setor_id where s.setor_id = ${id_setor};`;
+  select f.nome_funcionario, f.funcionario_id, f.cargo_funcionario,f.fk_empresa_func,  s.nome_setor from funcionario f join setor s on fk_setor = setor_id where s.setor_id = ${id_setor};`;
   return database.executar(query);
 }
 

@@ -14,8 +14,11 @@ body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
   background-color: #e1e1e1;
+  width: 100%;
+  height: 100%;
   overflow-x: hidden;
   overflow-y: hidden;
+  display: flex;
 }
 
 /* CSS NAVBAR E LOGO */
@@ -50,25 +53,13 @@ body {
 
 .menuLateral {
   background-color: #0a151f;
-  height: 100vh;
-  width: 5vw;
+  height: 100%;
+  width: 5%;
   position: fixed;
   display: flex;
   flex-direction: column;
   gap: 15%;
   align-items: center;
-  transition: 0.5s;
-}
-
-.div_dashboard {
-  background-color: #e1e1e1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  width: 95vw;
-  margin-left: 5vw;
   transition: 0.5s;
 }
 
@@ -182,51 +173,77 @@ body {
   justify-content: center;
 }
 
-.pai-acao {
+.dashboard {
   width: 100%;
-  height: 40%;
-  padding-left: 2%;
-  display: flex;
-  gap: 2%;
-  overflow: scroll;
-  margin-right: 5%;
-}
-
-.pai-acao::-webkit-scrollbar {
-  width: 6px;
-  margin-left: 10%;
-}
-
-
-.pai-acao::-webkit-scrollbar-thumb {
-  background-color: var(--color01);
-  border-radius: 6px;
-  margin-top: 2%;
-  margin-left: 5%;
-}
-
-/* .acao-dashboard {
   height: 100%;
-  width: auto; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.superior-filtro {
+  width: 100%;
+  height: 20%;
   display: flex;
   align-items: center;
-  white-space: nowrap; 
-  flex-direction: row;
-  margin-left: 80%;
-  margin-right: 2%;
-} */
+  justify-content: center;
+  gap: 2rem;
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+.central-maquinas {
+  width: 100%;
+  height: 40%;
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+
+.titulo-maquinas {
+  width: 100%;
+  height: 30%;
+}
+
+.titulo-maquinas h1 {
+  font-size: 12px;
+  margin-left: 6%;
+}
+
+.lista-maquinas {
+  width: 90%;
+  height: 80%;
+  display: flex;
+  gap: 2%;
+  margin-left: 6%;
+  flex-wrap: nowrap; 
+  overflow: hidden;
+  overflow-x: auto;
+ padding-right: 5%;
+}
+
+::-webkit-scrollbar{
+  height: 10px;
+  background-color: white;
+}
+
+::-webkit-scrollbar-thumb{
+  background-color: #2e4959;
+}
+
+::-webkit-scrollbar-track{
+  width: 10px;
+}
 
 .card-acao {
   display: flex;
   align-items: center;
-  width: 400px;
-  height: 90%;
-  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+  min-width: 300px; 
+  height: auto; 
+  box-shadow: 2px 2px 2px 2px rgba(0.4, 0.4, 0.4, 0.4);
   border-radius: 10px;
   cursor: pointer;
   transition: 0.2s;
   background-color: white;
-  margin-right: 1rem;
 }
 
 .card-acao p {
@@ -235,8 +252,8 @@ body {
 }
 
 .bolinha {
-  width: 20px;
-  height: 20px;
+  width: 10px;
+  height: 10px;
   border: 1px;
   border-radius: 50%;
   background-color: #0a151f;
@@ -337,7 +354,7 @@ body {
   display: none;
 } */
 
-@media only screen and (max-width: 500px) {
+/* @media only screen and (max-width: 500px) {
   .menuLateral {
     display: none;
   }
@@ -357,4 +374,4 @@ body {
 
 .dash {
   width: 20%;
-}
+} */
