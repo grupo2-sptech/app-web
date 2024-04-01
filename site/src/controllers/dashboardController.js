@@ -4,9 +4,10 @@ const dashboardModel = require('../models/dashboardModels')
 
 function listarMaquinas(req, res) {
   var idUsuario = req.params.idUsuario
+  var acesso = req.params.acesso
 
   dashboardModel
-    .listarMaquinas(idUsuario)
+    .listarMaquinas(idUsuario, acesso)
     .then(function (resultado) {
       if (resultado.length > 0) {
         res.status(200).json(resultado)

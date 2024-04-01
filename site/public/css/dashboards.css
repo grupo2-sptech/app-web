@@ -221,11 +221,20 @@ body {
 }
 
 ::-webkit-scrollbar {
-  height: 10px;
+  height: 8px;
   background-color: white;
+  display: none;
 }
 
 ::-webkit-scrollbar-thumb {
+  background-color: #2e495934;
+  border-radius: 10px;
+  transition: background-color 0.9s ease;
+  cursor: pointer;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  transition: background-color 0.9s ease;
   background-color: #2e4959;
 }
 

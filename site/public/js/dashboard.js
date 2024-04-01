@@ -3,32 +3,60 @@ let setor_id = sessionStorage.SETOR
 
 let id_setor = []
 
-function listar(id_setor, id_select) {
+function listar(id_setor, id_select, acesso_total) {
   let select = document.getElementById(id_select)
-  fetch(`/empresas/listar/${id_setor}`, {
-    method: 'GET',
-    cache: 'no-store'
-  })
-    .then(function (resposta) {
-      resposta.json().then(tabelas => {
-        debugger
-        titulo_setor.innerHTML += tabelas[0].nome_setor
-        tabelas.forEach(tabela => {
-          console.log(tabela)
-          var option = document.createElement('option')
-          option.value =
-            tabela.setor_id == undefined ? tabela.maquina_id : tabela.setor_id
-          option.text =
-            tabela.nome_funcionario == undefined
-              ? tabela.nome_setor
-              : tabela.nome_funcionario
-          select.appendChild(option)
+
+  if (acesso_total == 0) {
+    fetch(`/empresas/listar/${id_setor}`, {
+      method: 'GET',
+      cache: 'no-store'
+    })
+      .then(function (resposta) {
+        resposta.json().then(tabelas => {
+          titulo_setor.innerHTML += tabelas[0].nome_setor
+          tabelas.forEach(tabela => {
+            console.log(tabela)
+            const option = document.createElement('option') // Cria uma nova opção em cada iteração
+            option.value = tabela.funcionario_id
+            option.text = tabela.nome_funcionario
+            select.appendChild(option)
+          })
+        })
+      })
+      .catch(function (erro) {
+        console.log(`#ERRO: ${erro}`)
+      })
+  } else {
+    const select_setor = document.getElementById('inp_setor')
+    const select_funcionario = document.getElementById('inp_maquina')
+    const titulo_setor = document.getElementById('titulo_setor')
+    titulo_setor.innerHTML = 'Todas as máquinas'
+
+    fetch(`/empresas/listar_tudo`, {
+      method: 'GET',
+      cache: 'no-store'
+    }).then(function (resposta) {
+      resposta.json().then(data => {
+        const setores = data.setores
+        const funcionarios = data.funcionarios
+
+        setores.forEach(setor => {
+          const option = document.createElement('option')
+          option.value = setor.setor_id
+          option.text = setor.nome_setor
+          select_setor.appendChild(option)
+        })
+
+        funcionarios.forEach(funcionario => {
+          const option = document.createElement('option')
+          option.value = funcionario.funcionario_id
+          option.text = funcionario.nome_funcionario
+          select_funcionario.appendChild(option)
         })
       })
     })
-    .catch(function (erro) {
-      console.log(`#ERRO: ${erro}`)
-    })
+    return false
+  }
 }
 
 let interuptor = 1

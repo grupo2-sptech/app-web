@@ -1,43 +1,63 @@
-var empresaModel = require("../models/empresaModel");
+/** @format */
+
+var empresaModel = require('../models/empresaModel')
 
 function buscarPorCnpj(req, res) {
-  var cnpj = req.query.cnpj;
+  var cnpj = req.query.cnpj
 
-  empresaModel.buscarPorCnpj(cnpj).then((resultado) => {
-    res.status(200).json(resultado);
-  });
+  empresaModel.buscarPorCnpj(cnpj).then(resultado => {
+    res.status(200).json(resultado)
+  })
 }
 
 function listar(req, res) {
- let id_setor = req.params.id_setor
-  empresaModel.listar(id_setor).then((resultado) => {
-    res.status(200).json(resultado);
-  });
+  let id_setor = req.params.id_setor
+  empresaModel.listar(id_setor).then(resultado => {
+    res.status(200).json(resultado)
+  })
+}
+/* function listar_setores(req, res) {
+  empresaModel.listar_setores().then(resultado => {
+    res.status(200).json(resultado)
+  })
+} */
+
+async function listar_tudo(req, res) {
+  try {
+    const [setores, funcionarios] = await Promise.all([
+      empresaModel.listar_setores(),
+      empresaModel.listar_funcionario()
+    ])
+
+    res.status(200).json({ setores, funcionarios })
+  } catch (err) {
+    res.status(500).json({ error: err.message })
+  }
 }
 
 function buscarPorId(req, res) {
-  var id = req.params.id;
+  var id = req.params.id
 
-  empresaModel.buscarPorId(id).then((resultado) => {
-    res.status(200).json(resultado);
-  });
+  empresaModel.buscarPorId(id).then(resultado => {
+    res.status(200).json(resultado)
+  })
 }
 
 function cadastrar(req, res) {
-  var cnpj = req.body.cnpj;
-  var razaoSocial = req.body.razaoSocial;
+  var cnpj = req.body.cnpj
+  var razaoSocial = req.body.razaoSocial
 
-  empresaModel.buscarPorCnpj(cnpj).then((resultado) => {
+  empresaModel.buscarPorCnpj(cnpj).then(resultado => {
     if (resultado.length > 0) {
       res
         .status(401)
-        .json({ mensagem: `a empresa com o cnpj ${cnpj} já existe` });
+        .json({ mensagem: `a empresa com o cnpj ${cnpj} já existe` })
     } else {
-      empresaModel.cadastrar(razaoSocial, cnpj).then((resultado) => {
-        res.status(201).json(resultado);
-      });
+      empresaModel.cadastrar(razaoSocial, cnpj).then(resultado => {
+        res.status(201).json(resultado)
+      })
     }
-  });
+  })
 }
 
 module.exports = {
@@ -45,4 +65,5 @@ module.exports = {
   buscarPorId,
   cadastrar,
   listar,
-};
+  listar_tudo
+}

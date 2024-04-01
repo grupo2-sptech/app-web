@@ -12,7 +12,8 @@
   <script src="./js/sessao.js"></script>
 </head>
 
-<body onload="validarSessao(), listar(sessionStorage.SETOR, 'inp_maquina'),listarMaquinas(sessionStorage.SETOR)">
+<body
+  onload="validarSessao(), listar(sessionStorage.SETOR, 'inp_maquina', sessionStorage.ACESSO_TOTAL),listarMaquinas(sessionStorage.SETOR, sessionStorage.ACESSO_TOTAL)">
   <!-- menu lateral -->
   <div id="menu" class="menuLateral">
     <a style="color: white; cursor: pointer">
@@ -155,15 +156,15 @@
       });
   }
 
-  function listarMaquinas(fksetor) {
+  function listarMaquinas(fksetor, acesso) {
     var listaMaquinas = document.getElementById("div_funcaoMaquina");
-    fetch(`/dashboard/listar/${fksetor}`, {
+    debugger
+    fetch(`/dashboard/listar/${fksetor}/${acesso}`, {
       method: "GET",
     })
       .then(function (resposta) {
         resposta.json().then((maquinas) => {
           console.log(maquinas);
-
           if (maquinas.length == 0) {
             listaMaquinas.innerHTML = `Você ainda não possui nenhuma máquina cadastrada, cadastre a sua primeira máquina`;
           } else {

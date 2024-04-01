@@ -1,11 +1,12 @@
-var express = require("express");
-var router = express.Router();
+/** @format */
+
+var express = require('express')
+var router = express.Router()
 
 var dashboardController = require(`../controllers/dashboardController`)
 
-router.get("/listar/:idUsuario", function(req, res) {
-    dashboardController.listarMaquinas(req, res);
+router.get('/listar/:idUsuario/:acesso', function (req, res) {
+  dashboardController.listarMaquinas(req, res)
 })
 
-
-module.exports = router;
+module.exports = router
