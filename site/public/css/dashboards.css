@@ -313,23 +313,24 @@ body {
 
 .amostragem {
   width: 100%;
-  height: 100%;
-  gap: 1rem;
+  height: 65vh;
   display: flex;
   align-items: center;
-  justify-content: center;
-  background-color: #e1e1e1;
+  justify-content: left;
+  gap: 2rem;
+  transition: 0.5s;
 }
 
-.lista-computadores {
-  width: 70%;
+.graficos {
+  margin-left: 6%;
+  width: 65%;
   height: 95%;
   background-color: white;
   border-radius: 10px;
   box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
 }
 
-.acoes {
+.detalhes_maquinas {
   border-radius: 10px;
   width: 25%;
   height: 95%;

@@ -66,8 +66,11 @@ function sumirMenu() {
   let dash = document.getElementById('tela_principal')
   let acao = document.querySelectorAll('.nome-acao')
   let ico = document.querySelectorAll('.ico')
+  const amostragem = document.getElementById('amostragem')
 
   if (interuptor == 1) {
+    amostragem.style.width = '95%'
+    amostragem.style.marginRight = '4%'
     menu.style.width = '10vw'
     dash.style.width = '100vw'
     dash.style.marginLeft = '5vw'
@@ -79,6 +82,8 @@ function sumirMenu() {
     })
     interuptor = 0
   } else {
+    amostragem.style.width = '100%'
+    amostragem.style.marginRight = '0%'
     menu.style.width = '5vw'
     dash.style.width = '100vw'
     dash.style.marginLeft = '0vw'
