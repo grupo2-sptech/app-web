@@ -1,45 +1,9 @@
-drop database hardware_security;
-
-create database hardware_security;
-use hardware_security;
-
--- SELECT usuario_id, nome_usuario, email from usuario WHERE email = 'jonathanaparecido80@gmail.com' AND senha = '92315503';
-
-create table endereco (
-endereco_id int primary key auto_increment,
-estado char(2),
-cidade varchar(100),
-municipio varchar (100),
-bairro varchar(100),
-rua varchar(100),
-numero varchar(45),
-cep char(15));
-
+-- Inserções para fk_maquina de 500 até 531
 INSERT INTO endereco (estado, cidade, municipio, bairro, rua, numero, cep)
 VALUES ('SP', 'São Paulo', 'São Paulo', 'Centro', 'Rua Teste', '123', '01234-567');
 
-
-create table empresa (
-empresa_id int primary key auto_increment,
-nome_empresa varchar(200),
-cnpj char(14) unique,
-telefone_contato char(11),
-fk_endereco int
-) auto_increment = 100;
-
-alter table empresa add constraint foreign key(fk_endereco) references endereco(endereco_id);
-
 insert into empresa values
 (null, "Flesh", "62173620009306", "11999999999", 1);
-
-select * from empresa;
-
-
-create table setor(
-setor_id int primary key auto_increment,
-nome_setor varchar (100),
-fk_empresa int
-) auto_increment = 300;
 
 insert into setor values
 (null, "TI", 100),
@@ -48,24 +12,7 @@ insert into setor values
 (null, "RH", 100),
 (null, "Finanças", 100);
 
-select * from setor;
-
-alter table setor add constraint foreign key(fk_empresa) references empresa(empresa_id);
-
-create table funcionario(
-funcionario_id int primary key auto_increment,
-nome_funcionario varchar(100),
-email_funcionario varchar(200),
-login_acesso varchar(100),
-senha_acesso varchar(100),
-cargo_funcionario varchar(100),
-fk_setor int,
-fk_empresa_func int,
-acesso_plataforma boolean,
-permissao_total boolean
- ) auto_increment = 200;
-
- insert into funcionario values
+insert into funcionario values
 (null, "Jonathan Carvalho", "jonathanaparecido80@gmail.com", "jonathan.carvalho", "123", "Gerente", 300,100, true, true),
 (null, "Julia Silva", "julia@gmail.com", "julia.silva", "123", "Gestor", 301,100, true, false),
 (null, "Andre Pereira", "andre@gmail.com", "andre.pereira", "123", "Gestor", 302, 100, true, false),
@@ -102,63 +49,6 @@ insert into funcionario values
 (null, "Lucas Costa", "lucas.c@gmail.com", "lucas.costa", "123", "Desenvolvedor", 301, 100, false, false),
 (null, "Isabella Rodrigues", "isabella.r@gmail.com", "isabella.rodrigues", "123", "Analista", 300, 100, false, false);
 
- alter table funcionario add constraint foreign key (fk_setor) references setor(setor_id);
- alter table funcionario add constraint foreign key (fk_empresa_func) references empresa(empresa_id);
-
-create table maquina(
-maquina_id int primary key auto_increment,
-modelo_maquina varchar(100),
-modelo_processador varchar(100),
-total_ram double,
-memoria_total_disco double,
-memoria_ocupada double,
-status_maquina int,
-fk_funcionario int,
--- fk_setor int,
- fk_empresa int
-) auto_increment = 500;
-
--- alter table maquina add constraint foreign key (fk_setor) references setor(setor_id);
-
-alter table maquina add constraint foreign key(fk_funcionario) references funcionario(funcionario_id);
- alter table maquina add constraint foreign key(fk_empresa) references empresa(empresa_id);
-
-
-/*insert into maquina values
-(null, "Samsung", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 200, 300, 100),
-(null, "Dell", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 201, 300, 100),
-(null, "HP", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 202, 300, 100),
-(null, "Lenovo", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 203, 300, 100),
-(null, "Samsung", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 204, 300, 100),
-(null, "Dell", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 205, 300, 100),
-(null, "HP", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 206, 300, 100),
-(null, "Lenovo", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 207, 300, 100),
-(null, "Samsung", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 208, 300, 100),
-(null, "Dell", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 209, 300, 100),
-(null, "HP", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 210, 300, 100),
-(null, "Lenovo", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 211, 300, 100),
-(null, "Samsung", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 212, 300, 100),
-(null, "Dell", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 213, 300, 100),
-(null, "HP", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 214, 300, 100),
-(null, "Lenovo", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 215, 300, 100),
-(null, "Samsung", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 216, 300, 100),
-(null, "Dell", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 217, 300, 100),
-(null, "HP", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 218, 300, 100),
-(null, "Lenovo", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 219, 300, 100),
-(null, "Samsung", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 220, 300, 100),
-(null, "Dell", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 221, 300, 100),
-(null, "HP", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 222, 300, 100),
-(null, "Lenovo", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 223, 300, 100),
-(null, "Samsung", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 224, 300, 100),
-(null, "Dell", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 225, 300, 100),
-(null, "HP", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 226, 300, 100),
-(null, "Lenovo", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 227, 300, 100),
-(null, "Samsung", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 228, 300, 100),
-(null, "Dell", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 229, 300, 100),
-(null, "HP", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 230, 300, 100),
-(null, "Lenovo", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 231, 300, 100);*/
-
-
 insert into maquina values
 (null, "Samsung", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 200, 100),
 (null, "Dell", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 201, 100),
@@ -194,60 +84,90 @@ insert into maquina values
 (null, "Lenovo", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 231, 100);
 
 
-select * from maquina;
-select * from funcionario;
-
-create table processos_bloqueados(
-processo_id int primary key auto_increment,
-nome_imagem_processo varchar (100)
-)auto_increment = 600;
-
 insert into processos_bloqueados values
 (null, "Discord"),
 (null, "You Tube"),
 (null, "Net Flix");
-
-create table processos_bloqueados_nas_maquinas(
-id_processos_bloqueados_maquinas int auto_increment,
-fk_maquina int,
-fk_processo int,
-primary key(id_processos_bloqueados_maquinas, fk_processo, fk_maquina)
-) auto_increment = 700;
-
-alter table processos_bloqueados_nas_maquinas add constraint foreign key (fk_processo) references processos_bloqueados(processo_id);
-alter table processos_bloqueados_nas_maquinas add constraint foreign key (fk_maquina) references maquina(maquina_id);
-
 
 insert into processos_bloqueados_nas_maquinas values
 (null, 500, 600),
 (null, 500, 601),
 (null, 500, 602);
 
-create table historico_hardware(
-hardware_historico_id int primary key auto_increment,
-cpu_ocupada double,
-ram_ocupada double,
-fk_maquina int
-) auto_increment = 800;
 
-alter table historico_hardware add constraint foreign key(fk_maquina) references maquina(maquina_id);
+INSERT INTO historico_hardware (cpu_ocupada, ram_ocupada, fk_maquina)
+VALUES
+    (35.2, 5984628134, 501),
+    (29.8, 6523874198, 502),
+    (31.6, 7251093467, 503),
+    (28.4, 5162847956, 504),
+    (32.1, 7439501825, 505),
+    (33.7, 6743128953, 506),
+    (27.9, 5112374902, 507),
+    (36.5, 7824930685, 508),
+    (29.3, 6930152471, 509),
+    (34.8, 7378240632, 510),
+    (30.9, 7258092415, 511),
+    (31.2, 7284179350, 512),
+    (32.6, 7621359806, 513),
+    (29.1, 6542890172, 514),
+    (28.7, 5769418209, 515),
+    (30.4, 7135982468, 516),
+    (33.0, 7673910842, 517),
+    (35.9, 7926483016, 518),
+    (28.2, 5327491825, 519),
+    (31.8, 7149236873, 520),
+    (32.3, 7361490825, 521),
+    (33.5, 7693240861, 522),
+    (34.2, 7724950318, 523),
+    (30.1, 6942815067, 524),
+    (29.6, 6314295802, 525),
+    (35.7, 7836912045, 526),
+    (32.8, 7213850964, 527),
+    (31.4, 7369415280, 528),
+    (30.6, 7135928450, 529),
+    (34.6, 7428519370, 530),
+    (28.9, 6713492583, 531);
+    
+ 
+ 
+/*insert into maquina values
+(null, "Samsung", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 200, 300, 100),
+(null, "Dell", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 201, 300, 100),
+(null, "HP", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 202, 300, 100),
+(null, "Lenovo", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 203, 300, 100),
+(null, "Samsung", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 204, 300, 100),
+(null, "Dell", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 205, 300, 100),
+(null, "HP", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 206, 300, 100),
+(null, "Lenovo", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 207, 300, 100),
+(null, "Samsung", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 208, 300, 100),
+(null, "Dell", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 209, 300, 100),
+(null, "HP", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 210, 300, 100),
+(null, "Lenovo", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 211, 300, 100),
+(null, "Samsung", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 212, 300, 100),
+(null, "Dell", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 213, 300, 100),
+(null, "HP", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 214, 300, 100),
+(null, "Lenovo", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 215, 300, 100),
+(null, "Samsung", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 216, 300, 100),
+(null, "Dell", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 217, 300, 100),
+(null, "HP", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 218, 300, 100),
+(null, "Lenovo", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 219, 300, 100),
+(null, "Samsung", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 220, 300, 100),
+(null, "Dell", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 221, 300, 100),
+(null, "HP", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 222, 300, 100),
+(null, "Lenovo", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 223, 300, 100),
+(null, "Samsung", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 224, 300, 100),
+(null, "Dell", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 225, 300, 100),
+(null, "HP", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 226, 300, 100),
+(null, "Lenovo", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 227, 300, 100),
+(null, "Samsung", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 228, 300, 100),
+(null, "Dell", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 229, 300, 100),
+(null, "HP", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 230, 300, 100),
+(null, "Lenovo", "Intel core i5", 8259321856, 256052966400, 126138990592, 0, 231, 300, 100);*/
 
-insert into historico_hardware values
-(null,7.9,7.7, 500);
-
-create table historico_hardware_tempo_real(
-hardware_historico_id int primary key auto_increment,
-cpu_ocupada_tempo_real double,
-media_ram_ocupada_tempo_real double,
-fk_maquina int
-) auto_increment 1000;
-
-alter table historico_hardware_tempo_real add constraint foreign key(fk_maquina) references maquina(maquina_id);
-
-insert into historico_hardware_tempo_real values
-(null,7.9,7.7, 500);
 
 
-SELECT m.modelo_maquina, m.total_ram, m.memoria_total_disco, f.*, s.nome_setor
-    FROM maquina AS m
-    JOIN funcionario AS f ON f.funcionario_id join setor s on setor_id = fk_setor = m.fk_Funcionario where f.fk_setor = 300;
+update historico_hardware set cpu_ocupada = 60 where fk_maquina = 519;
+select * from maquina;
+select * from historico_hardware;
+

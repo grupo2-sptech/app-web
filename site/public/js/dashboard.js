@@ -59,6 +59,58 @@ function listar(id_setor, id_select, acesso_total) {
   }
 }
 
+function atualizar_maquina_tempo_real(id_maquina, id_bolinha_cpu, id_bolinha_ram, id_bolinha_disco) {
+
+
+  fetch(`/dashboard/cap_dados/${id_maquina}`, {
+    method: 'GET',
+    cache: 'no-store'
+  }).then(function (resposta) {
+
+    resposta.json().then(result => {
+      result.forEach(result_maquina => {
+        let bolinha_cpu = document.getElementById(`${id_bolinha_cpu}`)
+        let bolinha_ram = document.getElementById(`${id_bolinha_ram}`)
+        let bolinha_disco = document.getElementById(`${id_bolinha_disco}`)
+        console.log(result)
+        debugger
+        if (result_maquina.cpu_ocupada > 80) {
+          bolinha_cpu.style.background = '#ff0000'
+          bolinha_cpu.style.animation = 'piscar 1s infinite'
+        } else if (result_maquina.cpu_ocupada > 50) {
+          bolinha_cpu.style.background = '#ff9d00'
+          bolinha_cpu.style.animation = 'none'
+        } else {
+          bolinha_cpu.style.background = '#2bff00'
+          bolinha_cpu.style.animation = 'none'
+        }
+
+        if (result_maquina.ram_ocupada_gb / result_maquina.ram_total_gb * 100 > 80) {
+          bolinha_ram.style.background = '#ff0000';
+          bolinha_ram.style.animation = 'piscar 1s infinite'
+        } else if (result_maquina.ram_ocupada_gb / result_maquina.ram_total_gb * 100 > 50) {
+          bolinha_ram.style.background = '#ff9d00';
+          bolinha_ram.style.animation = 'none'
+        } else {
+          bolinha_ram.style.background = '#2bff00';
+          bolinha_ram.style.animation = 'none'
+        }
+        if (result.disco_ocupado_gb / result_maquina.memoria_disponivel_gb * 100 > 80) {
+          bolinha_disco.style.background = '#ff0000';
+          bolinha_disco.style.animation = 'piscar 1s infinite'
+        } else if (result.disco_ocupado_gb / result_maquina.memoria_disponivel_gb * 100 > 50) {
+          bolinha_disco.style.background = '#ff9d00';
+          bolinha_disco.style.animation = 'none'
+        } else {
+          bolinha_disco.style.background = '#2bff00';
+          bolinha_disco.style.animation = 'none'
+        }
+
+      })
+    })
+  })
+}
+
 let interuptor = 1
 
 function sumirMenu() {

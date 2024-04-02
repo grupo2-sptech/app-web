@@ -259,14 +259,29 @@ body {
   line-height: 1%;
 }
 
-.bolinha {
-  width: 10px;
-  height: 10px;
-  border: 1px;
-  border-radius: 50%;
-  background-color: #0a151f;
-  content: '';
+@keyframes piscar {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 1;
+  }
 }
+
+.bolinha {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background-color: #d2d2d2;
+  content: '';
+  animation: piscar 1s infinite;
+  transition: 0.5s;
+}
+
+
 
 .descricao-componenete {
   display: flex;
