@@ -94,6 +94,8 @@ insert into processos_bloqueados_nas_maquinas values
 (null, 500, 601),
 (null, 500, 602);
 
+select * from processos_bloqueados_nas_maquinas;
+
 
 INSERT INTO historico_hardware (cpu_ocupada, ram_ocupada, fk_maquina)
 VALUES

@@ -73,11 +73,11 @@ function atualizar_maquina_tempo_real(id_maquina, id_bolinha_cpu, id_bolinha_ram
         let bolinha_ram = document.getElementById(`${id_bolinha_ram}`)
         let bolinha_disco = document.getElementById(`${id_bolinha_disco}`)
         console.log(result)
-        debugger
-        if (result_maquina.cpu_ocupada > 80) {
+        if (result_maquina.cpu_ocupada * 10 > 75) {
           bolinha_cpu.style.background = '#ff0000'
-          bolinha_cpu.style.animation = 'piscar 1s infinite'
-        } else if (result_maquina.cpu_ocupada > 50) {
+          /*bolinha_cpu.style.animation = 'piscar 1s infinite'*/
+          bolinha_cpu.style.animation = 'none'
+        } else if (result_maquina.cpu_ocupada * 10 > 50) {
           bolinha_cpu.style.background = '#ff9d00'
           bolinha_cpu.style.animation = 'none'
         } else {
@@ -85,10 +85,11 @@ function atualizar_maquina_tempo_real(id_maquina, id_bolinha_cpu, id_bolinha_ram
           bolinha_cpu.style.animation = 'none'
         }
 
-        if (result_maquina.ram_ocupada_gb / result_maquina.ram_total_gb * 100 > 80) {
+        if (result_maquina.ram_ocupada_gb / result_maquina.ram_total_gb * 10 > 80) {
           bolinha_ram.style.background = '#ff0000';
-          bolinha_ram.style.animation = 'piscar 1s infinite'
-        } else if (result_maquina.ram_ocupada_gb / result_maquina.ram_total_gb * 100 > 50) {
+          /*bolinha_ram.style.animation = 'piscar 1s infinite'*/
+          bolinha_ram.style.animation = 'none'
+        } else if (result_maquina.ram_ocupada_gb / result_maquina.ram_total_gb * 10 > 50) {
           bolinha_ram.style.background = '#ff9d00';
           bolinha_ram.style.animation = 'none'
         } else {
@@ -97,7 +98,8 @@ function atualizar_maquina_tempo_real(id_maquina, id_bolinha_cpu, id_bolinha_ram
         }
         if (result.disco_ocupado_gb / result_maquina.memoria_disponivel_gb * 100 > 80) {
           bolinha_disco.style.background = '#ff0000';
-          bolinha_disco.style.animation = 'piscar 1s infinite'
+          /* bolinha_disco.style.animation = 'piscar 1s infinite'*/
+          bolinha_disco.style.animation = 'none'
         } else if (result.disco_ocupado_gb / result_maquina.memoria_disponivel_gb * 100 > 50) {
           bolinha_disco.style.background = '#ff9d00';
           bolinha_disco.style.animation = 'none'
@@ -180,22 +182,22 @@ lista_maquina.forEach(function (select_maquina) {
   option.text = select_setor[i];
   selectSetor.appendChild(option);
 }) */
-
 const data = {
-  labels: ['Grupo Cárdio'],
+  labels: ["1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1"],
   datasets: [
     {
-      data: [1, 2],
+      data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       label: 'My First Dataset',
-      backgroundColor: ['red', '#ded9d9f0'],
-      borderWidth: 0,
+      fill: true, // Preencher a área abaixo da linha
+      backgroundColor: 'rgba(255, 99, 132, 0.2)', // Cor de preenchimento com opacidade
+      borderColor: 'rgba(255, 99, 132, 1)', // Cor da borda
+      borderWidth: 1,
       hoverOffset: 4
     }
   ]
 }
-
 const config = {
-  type: 'doughnut',
+  type: 'line',
   data: data,
   options: {
     plugins: {
@@ -203,7 +205,77 @@ const config = {
         display: false
       }
     },
-    circumference: 210,
-    rotation: 255
+    scales: {
+      y: {
+        min: 2,
+      }
+    },
+    elements: {
+      line: {
+        tension: 0 // Desativar a suavização da linha
+      }
+    }
   }
-}
+};
+
+
+const data1 = {
+  labels: ["1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1"],
+  datasets: [
+    {
+      data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      label: 'Uso de Memória RAM',
+      fill: true,
+      backgroundColor: 'rgba(000, 99, 132, 0.2)',
+      borderColor: 'rgba(000, 99, 132, 1)',
+      borderWidth: 1,
+      hoverOffset: 4
+    }
+  ]
+};
+
+// Código para renderizar os gráficos usando os dados
+
+
+const config1 = {
+  type: 'line',
+  data: data1,
+  options: {
+    plugins: {
+      legend: {
+        display: false
+      }
+    },
+    scales: {
+      y: {
+        min: 5
+      }
+    },
+    elements: {
+      line: {
+        tension: 0 // Desativar a suavização da linha
+      }
+    }
+  }
+};
+const data2 = {
+  labels: [
+    'Ocupado',
+    'Livre'
+  ],
+  datasets: [{
+    label: 'My First Dataset',
+    data: [117, 120],
+    backgroundColor: [
+      'green',
+      'rgb(255, 99, 132)',
+    ],
+    hoverOffset: 4
+  }]
+};
+const config2 = {
+  type: 'pie',
+  data: data2,
+};
+
+

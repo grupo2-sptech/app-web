@@ -59,10 +59,6 @@
     <!-- Filtro -->
     <div class="superior-filtro">
       <div class="inputs">
-        Insira uma data
-        <input id="filtro_date" type="date" />
-      </div>
-      <div class="inputs">
         Selecione o Funcionário
         <select class="input_filtro" id="inp_maquina">
           <option value="" disabled selected hidden>Funcionário</option>
@@ -97,20 +93,37 @@
     <div id="amostragem" class="amostragem">
 
       <div class="graficos">
-
+        <span style="margin: 1%; position: absolute; font-size: 10px; font-weight: bold;"
+          id="nome_usuario_maquina"></span>
+        <div class="pesquisa">
+          <div class="input_data">
+            Insira uma data
+            <input id="filtro_date" type="date" />
+          </div>
+          <div class="icon-search"></div>
+        </div>
+        <div style="display: flex;">
+          <div class="graficos_esquerda">
+            <h3>Uso de CPU</h3>
+            <div class="grafico">
+              <canvas id="myChartCpu"></canvas>
+            </div>
+            <h3>Uso de Memória Ram</h3>
+            <div class="grafico">
+              <canvas id="myChartRam"></canvas>
+            </div>
+          </div>
+          <div class="grafico_direita">
+            <div class="grafico">
+              <canvas id="myChartDisco"></canvas>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="detalhes_maquinas">
-
       </div>
     </div>
-
-
   </main>
-
-
-
-
-
 </body>
 
 </html>
@@ -131,7 +144,10 @@
     campo_setor.style.display = 'flex'
   }
 
-  const myChart = new Chart(document.getElementById("myChart"), config);
+  const myChartCpu = new Chart(document.getElementById("myChartCpu"), config);
+  const myChartRam = new Chart(document.getElementById("myChartRam"), config1);
+  const myChartDisco = new Chart(document.getElementById("myChartDisco"), config2);
+
 
   function obterDadosGrafico(idAquario) {
     alterarTitulo(idAquario);
@@ -168,14 +184,13 @@
     })
       .then(function (resposta) {
         resposta.json().then((maquinas) => {
-          debugger
           console.log(maquinas);
           if (maquinas.length == 0) {
             listaMaquinas.innerHTML = `Você ainda não possui nenhuma máquina cadastrada, cadastre a sua primeira máquina`;
           } else {
             listaMaquinas.innerHTML = "";
             maquinas.forEach((maquinas) => {
-              listaMaquinas.innerHTML += `<div class="card-acao">
+              listaMaquinas.innerHTML += `<div onclick="atualizar_grafico_tempo_real(${maquinas.maquina_id})" id = "${maquinas.maquina_id}" class="card-acao">
           <div class="icon-laptop1"></div>
           <div class="descricao-laptop">
             <div class="descricao-titulo">
@@ -201,8 +216,7 @@
         </div>`;
               setInterval(() => {
                 atualizar_maquina_tempo_real(maquinas.maquina_id, `icone-cpu${maquinas.maquina_id}`, `icone-ram${maquinas.maquina_id}`, `icone-disco${maquinas.maquina_id}`)
-                id_maquinas.push(maquinas.maquina_id)
-              }, 3000);
+              }, 2000);
             });
           }
         });
@@ -211,5 +225,52 @@
         console.log(`#ERRO: ${resposta}`);
       });
   }
+
+  let intervalo
+
+
+
+  function atualizar_grafico_tempo_real(id_maquina) {
+    let dadoGraficoCpu = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    let dadoGraficoRam = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    let dadosGraficoDisco = [0, 0]
+    clearInterval(intervalo);
+
+    intervalo = setInterval(() => {
+      fetch(`/dashboard/atualizar_grafico_tempo_real/${id_maquina}`, {
+        method: "GET",
+        cache: 'no-store'
+      }).then(function (resposta) {
+        resposta.json().then((informacoes) => {
+
+          nome_usuario_maquina.innerHTML = `Monitoramento em tempo real da máquina de ${informacoes[0].nome_funcionario}`
+          dadoGraficoRam.shift();
+          dadoGraficoRam.push(informacoes[0].ram_ocupada_gb)
+          myChartRam.data.datasets[0].data = dadoGraficoRam
+          myChartRam.update();
+
+
+          dadoGraficoCpu.shift();
+          dadoGraficoCpu.push(informacoes[0].cpu_ocupada * 10);
+          myChartCpu.data.datasets[0].data = dadoGraficoCpu
+          myChartCpu.update();
+
+          if (dadosGraficoDisco[0] == 0 || dadosGraficoDisco[1] == 0) {
+            dadosGraficoDisco[0] = informacoes[0].disco_ocupado_gb
+            dadosGraficoDisco[1] = informacoes[0].memoria_disponivel_gb
+            myChartDisco.data.datasets[0].data = dadosGraficoDisco
+            myChartDisco.update()
+          }
+
+
+        }).catch((erro) => {
+          console.error("Erro ao converter resposta para JSON:", erro);
+        });
+      }).catch((erro) => {
+        console.error("Erro na requisição fetch:", erro);
+      });
+    }, 1000);
+  }
+
 
 </script>

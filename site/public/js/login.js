@@ -27,7 +27,7 @@ function entrar() {
     mensagem_senha_incorreta.innerHTML = `Preencha todos os campos!`;
     return false;
   } else {
-    debugger
+    
     fetch("/usuarios/autenticar", {
       method: "POST",
       headers: {
@@ -39,7 +39,7 @@ function entrar() {
       })
     }).then(function (resposta) {
       console.log("ESTOU NO THEN DO entrar()!")
-      debugger
+      
       if (resposta.ok) {
         div_carregar.style.display = "block";
         console.log(resposta);
