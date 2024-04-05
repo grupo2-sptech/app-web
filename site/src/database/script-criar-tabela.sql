@@ -3,6 +3,7 @@ drop database hardware_security;
 create database hardware_security;
 use hardware_security;
 
+
 -- SELECT usuario_id, nome_usuario, email from usuario WHERE email = 'jonathanaparecido80@gmail.com' AND senha = '92315503';
 
 create table endereco (
@@ -54,9 +55,9 @@ create table maquina(
 maquina_id int primary key auto_increment,
 modelo_maquina varchar(100),
 modelo_processador varchar(100),
-total_ram double,
-memoria_total_disco double,
-memoria_ocupada double,
+total_ram long,
+memoria_total_disco long,
+memoria_ocupada long,
 status_maquina int,
 fk_funcionario int,
 -- fk_setor int,
@@ -87,24 +88,25 @@ create table historico_hardware(
 hardware_historico_id int primary key auto_increment,
 cpu_ocupada double,
 ram_ocupada double,
-fk_maquina int
+fk_maquina int,
+data_hora datetime default current_timestamp
+-- primary key(hardware_historico_id, fk_maquina)
 ) auto_increment = 800;
-
-alter table historico_hardware add constraint foreign key(fk_maquina) references maquina(maquina_id);
-
 /*insert into historico_hardware values
 (null,7.9,7.7, 500);*/
 
+
+
 create table historico_hardware_tempo_real(
-hardware_historico_id int primary key auto_increment,
+hardware_historico_id int auto_increment,
 cpu_ocupada_tempo_real double,
 media_ram_ocupada_tempo_real double,
-fk_maquina int
+fk_maquina int,
+data_hora datetime default current_timestamp,
+primary key(hardware_historico_id, fk_maquina)
 ) auto_increment 1000;
 
 alter table historico_hardware_tempo_real add constraint foreign key(fk_maquina) references maquina(maquina_id);
-
-
 
 
       
