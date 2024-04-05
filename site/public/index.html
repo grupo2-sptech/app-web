@@ -23,10 +23,10 @@
           <a href="#home">Início</a>
         </li>
         <li>
-          <li>
-            <a href="#nossos-produtos">Nossos produtos</a>
-          </li>
-          <a href="#sobre">Sobre nós</a>
+        <li>
+          <a href="#nossos-produtos">Nossos produtos</a>
+        </li>
+        <a href="#sobre">Sobre nós</a>
         </li>
         <li>
           <a href="#divFooterCima">Contato</a>
@@ -44,7 +44,7 @@
         garantir a integridade e desempenho dos seus sistemas.
       </div>
 
-      <button onclick="">
+      <button onclick="abrirAtendimento()">
         Entre em contato
       </button>
     </div>
@@ -52,7 +52,7 @@
   </div>
   <hr>
 
-  <section class="nossosprodutos">
+  <section class="nossosprodutos" id="nossosprodutos">
     <hr id="nossos-produtos">
     <div class="about2">
       <div class="backgroud-about2">
@@ -60,20 +60,22 @@
           <img src="assets/icon/images1.jpg">
         </div>
       </div>
-  
+
       <div class="box-about2">
-       <h1>Conheça um pouco mais sobre nossos produtos!</h1>
-       <p class="text-nossos-produtos">A Hardware Security é uma empresa especializada em soluções de monitoramento de hardware,
-        fundada em 2024 com o objetivo de proporcionar tranquilidade e segurança aos seus clientes. <br>
-        Nossa missão é garantir a integridade e o desempenho dos sistemas tecnológicos essenciais para o funcionamento das
-        operações de nossos clientes, por meio de soluções inovadoras e personalizadas.
-        Acreditamos que a tecnologia deve ser um aliado, não um obstáculo.</p>
+        <h1>Conheça um pouco mais sobre nossos produtos!</h1>
+        <p class="text-nossos-produtos">A Hardware Security é uma empresa especializada em soluções de monitoramento de
+          hardware,
+          fundada em 2024 com o objetivo de proporcionar tranquilidade e segurança aos seus clientes. <br>
+          Nossa missão é garantir a integridade e o desempenho dos sistemas tecnológicos essenciais para o funcionamento
+          das
+          operações de nossos clientes, por meio de soluções inovadoras e personalizadas.
+          Acreditamos que a tecnologia deve ser um aliado, não um obstáculo.</p>
       </div>
     </div>
-</section>
+  </section>
 
   <hr id="sobre">
-  <section class="sobrenos">
+  <section class="sobrenos" id="sobrenos">
     <h1>Sobre Nós</h1>
     <p class="text-sobre-nos">A Hardware Security é uma empresa especializada em soluções de monitoramento de hardware,
       fundada em 2024 com o objetivo de proporcionar tranquilidade e segurança aos seus clientes. <br>
@@ -111,7 +113,7 @@
   </section>
   <hr>
 
-  <footer>
+  <footer id="footer">
     <div class="footer_cima" id="divFooterCima">
       <section class="footer_cima01">
         <h2 class="footer_titulo">Hardware Security</h2>
@@ -144,11 +146,55 @@
 
     <div class="footer_baixo">
       <p>© Hardware Security. All Rights Reserved</p>
-      <a href="https://github.com/grupo2-sptech"><img class="footer_social"
-          src="./assets/imgs/github.png" alt=""></a>
+      <a href="https://github.com/grupo2-sptech"><img class="footer_social" src="./assets/imgs/github.png" alt=""></a>
     </div>
   </footer>
+
+
+  <div style="display: none;" id="containerAtendimento" class="containerAtendimento">
+    <div class="pop-up-completo">
+      <div id="fecharAbaAtendimento" class="fecharAbaAtendimento" onclick="fecharAtendimento()">X</div>
+      <div id="Atendimento">
+        <iframe width='560' height='580' frameborder='0'></iframe>
+      </div>
+    </div>
+  </div>
+
 
 </body>
 
 </html>
+
+<script>
+
+
+  function abrirAtendimento() {
+
+    containerAtendimento.style.display = `flex`;
+
+    Atendimento.innerHTML = `
+<iframe width='560' height='620'
+src='https://app.pipefy.com/public/form/fQkn3YmF?embedded=true'
+  frameborder='0'
+></iframe>`
+
+    fecharAbaAtendimento.classList.add('fecharAbaAtendimento');
+    header.classList.add('blur');
+    home.classList.add('blur');
+    nossosprodutos.classList.add('blur');
+    sobrenos.classList.add('blur');
+    footer.classList.add('blur');
+
+  }
+
+  function fecharAtendimento() {
+    containerAtendimento.style.display = `none`;
+
+    fecharAbaAtendimento.classList.add('fecharAbaAtendimento');
+    header.classList.remove('blur');
+    home.classList.remove('blur');
+    nossosprodutos.classList.remove('blur');
+    sobrenos.classList.remove('blur');
+    footer.classList.remove('blur');
+  }
+</script>
