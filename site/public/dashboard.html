@@ -93,14 +93,15 @@
     <div id="amostragem" class="amostragem">
 
       <div class="graficos">
-        <span style="margin: 1%; position: absolute; font-size: 10px; font-weight: bold;"
+        <span style="margin: 1%; position: absolute; font-size: 12px; font-weight: bold;"
           id="nome_usuario_maquina"></span>
         <div class="pesquisa">
+          <div class="icon-search"></div>
           <div class="input_data">
+            Pesquise o histórico de uso dessa maquina<br>
             Insira uma data
             <input id="filtro_date" type="date" />
           </div>
-          <div class="icon-search"></div>
         </div>
         <div style="display: flex;">
           <div class="graficos_esquerda">
@@ -191,12 +192,13 @@
             listaMaquinas.innerHTML = "";
             maquinas.forEach((maquinas) => {
               listaMaquinas.innerHTML += `<div onclick="atualizar_grafico_tempo_real(${maquinas.maquina_id})" id = "${maquinas.maquina_id}" class="card-acao">
-          <div class="icon-laptop1"></div>
+          <div id="maquina_${maquinas.maquina_id}" class="icon-laptop1"></div>
           <div class="descricao-laptop">
             <div class="descricao-titulo">
               <p>${maquinas.modelo_maquina}</p>
               <p>${maquinas.nome_funcionario}</p>
               <p>${maquinas.cargo_funcionario}</p>
+              <p>Status: <strong id="status_maquina${maquinas.maquina_id}"></strong></p>
             </div>
             <div class="descricao-status">
               <div class="descricao-componenete">
@@ -228,12 +230,13 @@
 
   let intervalo
 
-
-
   function atualizar_grafico_tempo_real(id_maquina) {
-    let dadoGraficoCpu = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    let dadoGraficoRam = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+    let dadoGraficoCpu = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    let dadoGraficoRam = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     let dadosGraficoDisco = [0, 0]
+    let min
+
     clearInterval(intervalo);
 
     intervalo = setInterval(() => {
@@ -242,27 +245,36 @@
         cache: 'no-store'
       }).then(function (resposta) {
         resposta.json().then((informacoes) => {
-
-          nome_usuario_maquina.innerHTML = `Monitoramento em tempo real da máquina de ${informacoes[0].nome_funcionario}`
-          dadoGraficoRam.shift();
-          dadoGraficoRam.push(informacoes[0].ram_ocupada_gb)
-          myChartRam.data.datasets[0].data = dadoGraficoRam
-          myChartRam.update();
-
-
-          dadoGraficoCpu.shift();
-          dadoGraficoCpu.push(informacoes[0].cpu_ocupada * 10);
-          myChartCpu.data.datasets[0].data = dadoGraficoCpu
-          myChartCpu.update();
-
-          if (dadosGraficoDisco[0] == 0 || dadosGraficoDisco[1] == 0) {
-            dadosGraficoDisco[0] = informacoes[0].disco_ocupado_gb
-            dadosGraficoDisco[1] = informacoes[0].memoria_disponivel_gb
+          let minuto = new Date;
+          min = minuto.getMinutes()
+          if (min != informacoes[0].minuto) {
+            nome_usuario_maquina.innerHTML = `A máquina associada ao usuário ${informacoes[0].nome_funcionario}  está inativa.`
+            myChartRam.data.datasets[0].data = dadoGraficoRam
+            myChartRam.update();
+            myChartCpu.data.datasets[0].data = dadoGraficoCpu
+            myChartCpu.update();
             myChartDisco.data.datasets[0].data = dadosGraficoDisco
             myChartDisco.update()
+          } else {
+            nome_usuario_maquina.innerHTML = `Monitoramento em tempo real da máquina de ${informacoes[0].nome_funcionario}`
+            dadoGraficoRam.shift();
+            dadoGraficoRam.push(informacoes[0].ram_ocupada_gb)
+            myChartRam.data.datasets[0].data = dadoGraficoRam
+            myChartRam.update();
+
+
+            dadoGraficoCpu.shift();
+            dadoGraficoCpu.push(informacoes[0].cpu_ocupada * 10);
+            myChartCpu.data.datasets[0].data = dadoGraficoCpu
+            myChartCpu.update();
+
+            if (dadosGraficoDisco[0] == 0 || dadosGraficoDisco[1] == 0) {
+              dadosGraficoDisco[0] = informacoes[0].disco_ocupado_gb
+              dadosGraficoDisco[1] = informacoes[0].memoria_disponivel_gb
+              myChartDisco.data.datasets[0].data = dadosGraficoDisco
+              myChartDisco.update()
+            }
           }
-
-
         }).catch((erro) => {
           console.error("Erro ao converter resposta para JSON:", erro);
         });

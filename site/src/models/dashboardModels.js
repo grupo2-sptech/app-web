@@ -19,7 +19,7 @@ function listarMaquinas(fk_setor, acesso) {
 }
 
 function cap_dados(id_maquina) {
-  let query = `SELECT m.maquina_id, m.modelo_maquina,  
+  let query = `SELECT m.maquina_id, MINUTE(h.data_hora) as minuto_uso, m.modelo_maquina,  
   ROUND(m.memoria_ocupada / (1024 * 1024 * 1024), 2) AS disco_ocupado_gb,
   ROUND(m.memoria_total_disco / (1024 * 1024 * 1024), 2) AS disco_total_gb,
   round(m.total_ram / (1024 * 1024 * 1024), 2) AS ram_total_gb,
@@ -34,7 +34,7 @@ function cap_dados(id_maquina) {
 }
 
 function atualizar_grafico_tempo_real_model(id_maquina) {
-  let query = `select f.nome_funcionario, 
+  let query = `select f.nome_funcionario, minute(h.data_hora) as minuto, day(h.data_hora) as dia,
   ROUND((m.memoria_total_disco - m.memoria_ocupada) / (1024 * 1024 * 1024), 2) AS memoria_disponivel_gb,
   ROUND(m.memoria_ocupada / (1024 * 1024 * 1024), 2) AS disco_ocupado_gb,
   ROUND(h.ram_ocupada / (1024 * 1024 * 1024), 2) as ram_ocupada_gb, h.cpu_ocupada from historico_hardware  as h

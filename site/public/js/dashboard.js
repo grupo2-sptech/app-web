@@ -1,8 +1,6 @@
 /** @format */
 let setor_id = sessionStorage.SETOR
 
-let id_setor = []
-
 function listar(id_setor, id_select, acesso_total) {
   let select = document.getElementById(id_select)
 
@@ -59,59 +57,79 @@ function listar(id_setor, id_select, acesso_total) {
   }
 }
 
+
+
 function atualizar_maquina_tempo_real(id_maquina, id_bolinha_cpu, id_bolinha_ram, id_bolinha_disco) {
-
-
   fetch(`/dashboard/cap_dados/${id_maquina}`, {
     method: 'GET',
     cache: 'no-store'
   }).then(function (resposta) {
-
     resposta.json().then(result => {
       result.forEach(result_maquina => {
         let bolinha_cpu = document.getElementById(`${id_bolinha_cpu}`)
         let bolinha_ram = document.getElementById(`${id_bolinha_ram}`)
         let bolinha_disco = document.getElementById(`${id_bolinha_disco}`)
-        console.log(result)
-        if (result_maquina.cpu_ocupada * 10 > 75) {
-          bolinha_cpu.style.background = '#ff0000'
-          /*bolinha_cpu.style.animation = 'piscar 1s infinite'*/
-          bolinha_cpu.style.animation = 'none'
-        } else if (result_maquina.cpu_ocupada * 10 > 50) {
-          bolinha_cpu.style.background = '#ff9d00'
+        let status = document.getElementById(`status_maquina${id_maquina}`)
+        let pc = document.getElementById(`maquina_${id_maquina}`)
+        let minuto = new Date()
+        let min = minuto.getMinutes()
+        if (result_maquina.minuto_uso != min) {
+          bolinha_cpu.style.background = '##d2d2d2'
+          bolinha_ram.style.background = '##d2d2d2';
+          bolinha_disco.style.background = '##d2d2d2';
+          status.innerHTML = 'Desligado'
+          pc.style.color = '#ff5930e5'
+          pc.style.animation = 'none'
+          bolinha_disco.style.background = '#d2d2d2';
+          bolinha_disco.style.animation = 'none'
+          bolinha_ram.style.background = '#d2d2d2';
+          bolinha_ram.style.animation = 'none'
+          bolinha_cpu.style.background = '#d2d2d2'
           bolinha_cpu.style.animation = 'none'
         } else {
-          bolinha_cpu.style.background = '#2bff00'
-          bolinha_cpu.style.animation = 'none'
-        }
+          status.innerHTML = 'Ligado'
+          pc.style.color = '#64ff27e5'
+          pc.style.animation = 'none'
+          if (result_maquina.cpu_ocupada * 10 > 75) {
+            bolinha_cpu.style.background = '#ff0000'
+            /*bolinha_cpu.style.animation = 'piscar 1s infinite'*/
+            bolinha_cpu.style.animation = 'none'
+          } else if (result_maquina.cpu_ocupada * 10 > 50) {
+            bolinha_cpu.style.background = '#ff9d00'
+            bolinha_cpu.style.animation = 'none'
+          } else {
+            bolinha_cpu.style.background = '#2bff00'
+            bolinha_cpu.style.animation = 'none'
+          }
 
-        if (result_maquina.ram_ocupada_gb / result_maquina.ram_total_gb * 10 > 80) {
-          bolinha_ram.style.background = '#ff0000';
-          /*bolinha_ram.style.animation = 'piscar 1s infinite'*/
-          bolinha_ram.style.animation = 'none'
-        } else if (result_maquina.ram_ocupada_gb / result_maquina.ram_total_gb * 10 > 50) {
-          bolinha_ram.style.background = '#ff9d00';
-          bolinha_ram.style.animation = 'none'
-        } else {
-          bolinha_ram.style.background = '#2bff00';
-          bolinha_ram.style.animation = 'none'
+          if (result_maquina.ram_ocupada_gb / result_maquina.ram_total_gb * 10 > 80) {
+            bolinha_ram.style.background = '#ff0000';
+            /*bolinha_ram.style.animation = 'piscar 1s infinite'*/
+            bolinha_ram.style.animation = 'none'
+          } else if (result_maquina.ram_ocupada_gb / result_maquina.ram_total_gb * 10 > 50) {
+            bolinha_ram.style.background = '#ff9d00';
+            bolinha_ram.style.animation = 'none'
+          } else {
+            bolinha_ram.style.background = '#2bff00';
+            bolinha_ram.style.animation = 'none'
+          }
+          if (result_maquina.memoria_disponivel_gb / result_maquina.disco_total_gb * 100 > 80) {
+            bolinha_disco.style.background = '#ff0000';
+            /* bolinha_disco.style.animation = 'piscar 1s infinite'*/
+            bolinha_disco.style.animation = 'none'
+          } else if (result_maquina.memoria_disponivel_gb / result_maquina.disco_total_gb * 100 > 50) {
+            bolinha_disco.style.background = '#ff9d00';
+            bolinha_disco.style.animation = 'none'
+          } else {
+            bolinha_disco.style.background = '#2bff00';
+            bolinha_disco.style.animation = 'none'
+          }
         }
-        if (result.disco_ocupado_gb / result_maquina.memoria_disponivel_gb * 100 > 80) {
-          bolinha_disco.style.background = '#ff0000';
-          /* bolinha_disco.style.animation = 'piscar 1s infinite'*/
-          bolinha_disco.style.animation = 'none'
-        } else if (result.disco_ocupado_gb / result_maquina.memoria_disponivel_gb * 100 > 50) {
-          bolinha_disco.style.background = '#ff9d00';
-          bolinha_disco.style.animation = 'none'
-        } else {
-          bolinha_disco.style.background = '#2bff00';
-          bolinha_disco.style.animation = 'none'
-        }
-
       })
     })
   })
 }
+
 
 let interuptor = 1
 
@@ -168,29 +186,14 @@ function ocultarAcao(id) {
   }
 }
 
-/* let lista_maquina = [];
-let lista_setor = [];
-
-lista_maquina.forEach(function (select_maquina) {
-  option.value = select_maquina[i];
-  option.text = select_maquina[i];
-  selectMaquina.appendChild(option);
-}) */
-
-/* lista_setor.forEach(function (select_setor) {
-  option.value = select_setor[i];
-  option.text = select_setor[i];
-  selectSetor.appendChild(option);
-}) */
 const data = {
-  labels: ["1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1"],
+  labels: ["0s", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "15s"],
   datasets: [
     {
-      data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       label: 'My First Dataset',
-      fill: true, // Preencher a área abaixo da linha
-      backgroundColor: 'rgba(255, 99, 132, 0.2)', // Cor de preenchimento com opacidade
-      borderColor: 'rgba(255, 99, 132, 1)', // Cor da borda
+      fill: true,
+      backgroundColor: 'rgba(255, 99, 132, 0.2)',
+      borderColor: 'rgba(255, 99, 132, 1)',
       borderWidth: 1,
       hoverOffset: 4
     }
@@ -212,7 +215,7 @@ const config = {
     },
     elements: {
       line: {
-        tension: 0 // Desativar a suavização da linha
+        tension: 0
       }
     }
   }
@@ -220,10 +223,8 @@ const config = {
 
 
 const data1 = {
-  labels: ["1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1"],
-  datasets: [
+  labels: ["0s", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "15s"],  datasets: [
     {
-      data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       label: 'Uso de Memória RAM',
       fill: true,
       backgroundColor: 'rgba(000, 99, 132, 0.2)',
@@ -233,9 +234,6 @@ const data1 = {
     }
   ]
 };
-
-// Código para renderizar os gráficos usando os dados
-
 
 const config1 = {
   type: 'line',
@@ -253,22 +251,22 @@ const config1 = {
     },
     elements: {
       line: {
-        tension: 0 // Desativar a suavização da linha
+        tension: 0
       }
     }
   }
 };
 const data2 = {
   labels: [
-    'Ocupado',
-    'Livre'
+    'Livre',
+    'Ocupado'
   ],
   datasets: [{
     label: 'My First Dataset',
-    data: [117, 120],
+    data: [],
     backgroundColor: [
       'green',
-      'rgb(255, 99, 132)',
+      'red',
     ],
     hoverOffset: 4
   }]
@@ -277,5 +275,4 @@ const config2 = {
   type: 'pie',
   data: data2,
 };
-
 
