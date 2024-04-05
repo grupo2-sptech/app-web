@@ -192,7 +192,13 @@
             listaMaquinas.innerHTML = "";
             maquinas.forEach((maquinas) => {
               listaMaquinas.innerHTML += `<div onclick="atualizar_grafico_tempo_real(${maquinas.maquina_id})" id = "${maquinas.maquina_id}" class="card-acao">
-          <div id="maquina_${maquinas.maquina_id}" class="icon-laptop1"></div>
+          <div class="icon-todos">
+            <div class="lixeira-lapis">
+               <div class="icon-trash1"></div>
+               <div onclick="alerta()" class="icon-pencil"></div>
+            </div>
+           <div id="maquina_${maquinas.maquina_id}" class="icon-laptop1"></div>
+        </div>
           <div class="descricao-laptop">
             <div class="descricao-titulo">
               <p>${maquinas.modelo_maquina}</p>
@@ -282,6 +288,11 @@
         console.error("Erro na requisição fetch:", erro);
       });
     }, 1000);
+  }
+
+
+  function alerta(){
+    alert('Você não possui permissão para editar essa máquina')
   }
 
 

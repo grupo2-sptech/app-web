@@ -441,3 +441,29 @@ body {
 .dash {
   width: 20%;
 } */
+
+.icon-trash1{
+  color: black;
+  width: 90%;
+  padding: 0.5rem;
+  font-size: 20px;
+  
+}
+
+.icon-todos{
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.lixeira-lapis{
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  margin-left: -60%;
+  gap: 0.3rem;
+
+}
