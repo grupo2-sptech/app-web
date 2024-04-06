@@ -244,7 +244,6 @@ body {
 ::-webkit-scrollbar {
   height: 8px;
   background-color: white;
-  display: none;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -442,15 +441,26 @@ body {
   width: 20%;
 } */
 
-.icon-trash1{
+.icon-trash1 {
   color: black;
-  width: 90%;
   padding: 0.5rem;
   font-size: 20px;
-  
+  transition: 0.5s;
 }
 
-.icon-todos{
+.icon-pencil´ {
+  color: black;
+  padding: 0.5rem;
+  font-size: 20px;
+  transition: 0.5s;
+}
+
+.icon-pencil:hover,
+.icon-trash1:hover {
+  color: #dd5c00;
+}
+
+.icon-todos {
   width: 50%;
   height: 100%;
   display: flex;
@@ -459,11 +469,10 @@ body {
   justify-content: space-evenly;
 }
 
-.lixeira-lapis{
+.lixeira-lapis {
   display: flex;
   align-items: center;
   justify-content: left;
   margin-left: -60%;
   gap: 0.3rem;
-
 }

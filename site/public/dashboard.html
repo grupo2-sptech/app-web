@@ -96,11 +96,13 @@
         <span style="margin: 1%; position: absolute; font-size: 12px; font-weight: bold;"
           id="nome_usuario_maquina"></span>
         <div class="pesquisa">
-          <div class="icon-search"></div>
           <div class="input_data">
             Pesquise o histórico de uso dessa maquina<br>
             Insira uma data
-            <input id="filtro_date" type="date" />
+            <div style="display: flex; gap: 1rem; height: 100%; justify-content: center;">
+              <input style="height: 100%;" id="filtro_date" type="date" />
+              <div onclick="buscarPorData()" class="icon-search"></div>
+            </div>
           </div>
         </div>
         <div style="display: flex;">
@@ -194,8 +196,8 @@
               listaMaquinas.innerHTML += `<div onclick="atualizar_grafico_tempo_real(${maquinas.maquina_id})" id = "${maquinas.maquina_id}" class="card-acao">
           <div class="icon-todos">
             <div class="lixeira-lapis">
-               <div class="icon-trash1"></div>
-               <div onclick="alerta()" class="icon-pencil"></div>
+                <div class="icon-trash1" onclick="event.stopPropagation(); event.preventDefault();"></div>
+                <div onclick="alerta(); event.stopPropagation(); event.preventDefault();" class="icon-pencil"></div>
             </div>
            <div id="maquina_${maquinas.maquina_id}" class="icon-laptop1"></div>
         </div>
@@ -235,6 +237,7 @@
   }
 
   let intervalo
+  let id_maquina_pesquisa;
 
   function atualizar_grafico_tempo_real(id_maquina) {
 
@@ -251,9 +254,13 @@
         cache: 'no-store'
       }).then(function (resposta) {
         resposta.json().then((informacoes) => {
-          let minuto = new Date;
-          min = minuto.getMinutes()
-          if (min != informacoes[0].minuto) {
+          id_maquina_pesquisa = id_maquina;
+          let data = new Date;
+          dia = data.getDay()
+          min = data.getMinutes()
+          sec = data.getSeconds()
+          time = data.getTime();
+          if (min != informacoes[0].minuto && data != informacoes[0].dia && sec > informacoes[0].segundos || sec < informacoes[0].segundos) {
             nome_usuario_maquina.innerHTML = `A máquina associada ao usuário ${informacoes[0].nome_funcionario}  está inativa.`
             myChartRam.data.datasets[0].data = dadoGraficoRam
             myChartRam.update();
@@ -291,8 +298,24 @@
   }
 
 
-  function alerta(){
-    alert('Você não possui permissão para editar essa máquina')
+  function alerta() {
+
+  }
+
+  function buscarPorData() {
+    if (id_maquina_pesquisa != undefined) {
+
+
+      let dataPesquisa = document.getElementById('filtro_date')
+      fetch(`/dashboard/buscarPorData/${id_maquina_pesquisa}/${data}`, {
+        method: "GET",
+        cache: 'no-store'
+      }).then(function (resposta) {
+        resposta.json().then(data_requerida => {
+          alert(data_requerida[0].cpu_ocupada_tempo_real)
+        })
+      })
+    }
   }
 
 
