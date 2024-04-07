@@ -61,16 +61,12 @@
 
 <script>
 
-
-
-
   function forgotPassword() {
     var aleatorio = 0
     aleatorio = (Math.random() * (100000000 - 0) + 0).toFixed();
     pop = document.getElementById('pop-up');
     var email = userInput.value;
     if (email != "") {
-      pop.style.display = 'none'
       fetch("/usuarios/updatePassword", {
         method: "PUT",
         headers: {
@@ -101,7 +97,8 @@
               console.log(err)
             })
           } else {
-            console.log("Email não existe")
+            console.log("Email não existe");
+            document.getElementById('pop-up').style.height = "70px";
           }
         }).catch(function (erro) {
           console.log(erro);
