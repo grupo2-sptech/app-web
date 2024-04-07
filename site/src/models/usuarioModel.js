@@ -48,8 +48,8 @@ function listar() {
 
 function updatePassword(email, senhaAleatoria) {
   var instrucao = `
-    UPDATE usuario SET senha = ${senhaAleatoria}
-      WHERE email = "${email}"`;
+    UPDATE funcionario SET senha_acesso = ${senhaAleatoria}
+      WHERE email_funcionario = "${email}"`;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao)
 }
