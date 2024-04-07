@@ -97,16 +97,16 @@ data_hora datetime default current_timestamp
 
 
 
-create table historico_todos_registros_hardware(
+create table todos_registros_hardware(
 hardware_historico_id int auto_increment,
 cpu_ocupada_tempo_real double,
-media_ram_ocupada_tempo_real double,
+ram_ocupada_tempo_real double,
 fk_maquina int,
 data_hora datetime default current_timestamp,
 primary key(hardware_historico_id, fk_maquina)
 ) auto_increment 1000;
 
-alter table historico_todos_registros_hardware add constraint foreign key(fk_maquina) references maquina(maquina_id);
+alter table todos_registros_hardware add constraint foreign key(fk_maquina) references maquina(maquina_id);
 
 
       
