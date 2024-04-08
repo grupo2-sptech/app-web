@@ -1,5 +1,4 @@
 drop database hardware_security;
-
 create database hardware_security;
 use hardware_security;
 
@@ -54,7 +53,11 @@ alter table funcionario add constraint foreign key (fk_empresa_func) references 
 create table maquina(
 maquina_id int primary key auto_increment,
 modelo_maquina varchar(100),
+sistema_operacional varchar(100),
+arquitetura_sistema_operacional varchar(100),
 modelo_processador varchar(100),
+fabricante_processador varchar(100),
+modelo_disco varchar(100),
 total_ram long,
 memoria_total_disco long,
 memoria_ocupada long,

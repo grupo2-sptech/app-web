@@ -478,11 +478,11 @@ span{
   font-size: 15px;
 }
 
-h3{
+.texto-info-maquina{
   display: flex;
-  align-items: center;
-  justify-content: center; 
- 
+  justify-content: center;
+  flex-direction: column;
+  margin-top: -80px;
 }
 
 .detalhes-janelas{
