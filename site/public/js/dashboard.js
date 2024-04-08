@@ -165,7 +165,7 @@ function listarMaquinas(fksetor, acesso) {
         } else {
           listaMaquinas.innerHTML = ''
           maquinas.forEach(maquinas => {
-            listaMaquinas.innerHTML += `<div onclick="atualizar_grafico_tempo_real(${maquinas.maquina_id})" id = "${maquinas.maquina_id}" class="card-acao">
+            listaMaquinas.innerHTML += `<div onclick="atualizar_grafico_tempo_real(${maquinas.maquina_id}); atualizarDadosDaMaquina(${maquinas.maquina_id})"  id = "${maquinas.maquina_id}" class="card-acao">
           <div class="icon-todos">
             <div class="lixeira-lapis">
                 <div class="icon-trash1" onclick="event.stopPropagation(); event.preventDefault();"></div>
@@ -220,6 +220,7 @@ function atualizar_grafico_tempo_real(id_maquina) {
   let dadoGraficoCpu = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   let dadoGraficoRam = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   let dadosGraficoDisco = [0, 0]
+
 
   clearInterval(intervalo)
 
@@ -354,6 +355,33 @@ function sumirMenu() {
     })
     interuptor = 1
   }
+}
+
+function atualizarDadosDaMaquina(id_maquina){
+  let modelo = document.getElementById('modelo')
+  let fabricante = document.getElementById('fabricante')
+  let ram = document.getElementById('ram')
+  let disco = document.getElementById('disco')
+  let volume = document.getElementById('volume')
+  let sistema = document.getElementById('sistema')
+  let arquitetura = document.getElementById('arquitetura')
+
+  fetch(`/dashboard/atualizar_grafico_tempo_real/${id_maquina}`, {
+    method: 'GET', 
+    cache: 'no-store'
+  }).then(function(resposta){
+    resposta.json().then(informacoes => {
+      modelo.innerHTML += informacoes[0].modelo_processador
+      fabricante.innerHTML += informacoes[0].fabricante_processador
+      ram.innerHTML += informacoes[0].memoria_disponivel_gb
+      disco.innerHTML += informacoes[0].modelo_disco
+      volume.innerHTML += informacoes[0].memoria_total_gb
+      sistema.innerHTML += informacoes[0].sistema_operacional
+      arquitetura.innerHTML += informacoes[0].arquitetura_sistema_operacional
+      
+
+    })
+  })
 }
 
 function mostrarAcao(id) {
