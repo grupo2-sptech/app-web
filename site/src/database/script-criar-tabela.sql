@@ -1,5 +1,4 @@
 drop database hardware_security;
-
 create database hardware_security;
 use hardware_security;
 
@@ -54,7 +53,11 @@ alter table funcionario add constraint foreign key (fk_empresa_func) references 
 create table maquina(
 maquina_id int primary key auto_increment,
 modelo_maquina varchar(100),
+sistema_operacional varchar(100),
+arquitetura_sistema_operacional varchar(100),
 modelo_processador varchar(100),
+fabricante_processador varchar(100),
+modelo_disco varchar(100),
 total_ram long,
 memoria_total_disco long,
 memoria_ocupada long,
@@ -97,16 +100,16 @@ data_hora datetime default current_timestamp
 
 
 
-create table historico_todos_registros_hardware(
+create table todos_registros_hardware(
 hardware_historico_id int auto_increment,
 cpu_ocupada_tempo_real double,
-media_ram_ocupada_tempo_real double,
+ram_ocupada_tempo_real double,
 fk_maquina int,
 data_hora datetime default current_timestamp,
 primary key(hardware_historico_id, fk_maquina)
 ) auto_increment 1000;
 
-alter table historico_todos_registros_hardware add constraint foreign key(fk_maquina) references maquina(maquina_id);
+alter table todos_registros_hardware add constraint foreign key(fk_maquina) references maquina(maquina_id);
 
 
       

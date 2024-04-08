@@ -46,8 +46,7 @@
         <samp class="nome-acao">Suporte</samp>
         <div id="suporte" class="nome-acao-oculta">Suporte</div>
       </a>
-      <a onmouseover="mostrarAcao('sair')" onmouseout="ocultarAcao('sair')" style="margin-left: -15px"
-        onclick="limparSessao()" class="itensDaNav">
+      <a onmouseover="mostrarAcao('sair')" onmouseout="ocultarAcao('sair')" onclick="limparSessao()" class="itensDaNav">
         <div class="icon-log-in ico"></div>
         <samp class="nome-acao">Sair</samp>
         <div id="sair" class="nome-acao-oculta">Sair</div>
@@ -107,23 +106,53 @@
         </div>
         <div style="display: flex;">
           <div class="graficos_esquerda">
-            <h3>Uso de CPU</h3>
+            <h3 id="uso_cpu">Uso de CPU</h3>
             <div class="grafico">
               <canvas id="myChartCpu"></canvas>
             </div>
-            <h3>Uso de Memória Ram</h3>
+            <h3 id="uso_ram">Uso de Memória Ram</h3>
             <div class="grafico">
               <canvas id="myChartRam"></canvas>
             </div>
           </div>
           <div class="grafico_direita">
             <div class="grafico">
+              <h3>Volume do disco</h3>
               <canvas id="myChartDisco"></canvas>
             </div>
           </div>
         </div>
       </div>
       <div class="detalhes_maquinas">
+        <div class="detalhes-hardware janelas-e-detalhamentos-hardware">
+          <h3 class="texto-info-maquina">
+          Informações da maquina
+          </h3>
+          
+          <b><span >Informações do processador</span></b>
+          <span id="modelo">Modelo do processador: </span>
+          <span id="fabricante">Fabricante: </span>
+          <br>
+          <b><span>Informações da ram</span></b>
+          <span id="ram" >Volume total de Ram: </span>
+          <br>
+          <b><span>Informações do Disco</span></b>
+          <span id="disco" >Modelo: </span>
+          <span id="volume">Volume total: </span>
+          <br>
+          <b><span>Informações do sistema operacional</span></b>
+          <span id="sistema" >Sistema operacional: </span>
+          <span id="arquitetura" >Arquitetura: </span>
+        </div>
+        <div class="detalhes-janelas janelas-e-detalhamentos-hardware"> 
+          <div class="detalhes-janelas-bloqueios"></div>
+          <div class="detalhes-janelas-imput">
+          <select name="" id="imput-janelas">
+            <option value="">Bloquear</option>
+            <option value="">Desbloquear</option>
+          </select>
+          </div>
+        </div>
       </div>
     </div>
   </main>
@@ -151,172 +180,6 @@
   const myChartRam = new Chart(document.getElementById("myChartRam"), config1);
   const myChartDisco = new Chart(document.getElementById("myChartDisco"), config2);
 
-
-  function obterDadosGrafico(idAquario) {
-    alterarTitulo(idAquario);
-
-    if (proximaAtualizacao != undefined) {
-      clearTimeout(proximaAtualizacao);
-    }
-
-    fetch(`/medidas/ultimas/${idAquario}`, { cache: "no-store" })
-      .then(function (response) {
-        if (response.ok) {
-          response.json().then(function (resposta) {
-            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-
-            resposta.reverse();
-            plotarGrafico(resposta, idAquario);
-          });
-        } else {
-          console.error("Nenhum dado encontrado ou erro na API");
-        }
-      })
-      .catch(function (error) {
-        console.error(
-          `Erro na obtenção dos dados p/ gráfico: ${error.message}`
-        );
-      });
-  }
-
-  let id_maquinas = [];
-  function listarMaquinas(fksetor, acesso) {
-    var listaMaquinas = document.getElementById("div_funcaoMaquina");
-    fetch(`/dashboard/listar/${fksetor}/${acesso}`, {
-      method: "GET",
-    })
-      .then(function (resposta) {
-        resposta.json().then((maquinas) => {
-          console.log(maquinas);
-          if (maquinas.length == 0) {
-            listaMaquinas.innerHTML = `Você ainda não possui nenhuma máquina cadastrada, cadastre a sua primeira máquina`;
-          } else {
-            listaMaquinas.innerHTML = "";
-            maquinas.forEach((maquinas) => {
-              listaMaquinas.innerHTML += `<div onclick="atualizar_grafico_tempo_real(${maquinas.maquina_id})" id = "${maquinas.maquina_id}" class="card-acao">
-          <div class="icon-todos">
-            <div class="lixeira-lapis">
-                <div class="icon-trash1" onclick="event.stopPropagation(); event.preventDefault();"></div>
-                <div onclick="alerta(); event.stopPropagation(); event.preventDefault();" class="icon-pencil"></div>
-            </div>
-           <div id="maquina_${maquinas.maquina_id}" class="icon-laptop1"></div>
-        </div>
-          <div class="descricao-laptop">
-            <div class="descricao-titulo">
-              <p>${maquinas.modelo_maquina}</p>
-              <p>${maquinas.nome_funcionario}</p>
-              <p>${maquinas.cargo_funcionario}</p>
-              <p>Status: <strong id="status_maquina${maquinas.maquina_id}"></strong></p>
-            </div>
-            <div class="descricao-status">
-              <div class="descricao-componenete">
-                <div class="bolinha" id="icone-cpu${maquinas.maquina_id}"></div>
-                <p>CPU</p>
-              </div>
-              <div class="descricao-componenete">
-                <div class="bolinha" id="icone-disco${maquinas.maquina_id}"></div>
-                <p>Disco</p>
-              </div>
-              <div class="descricao-componenete">
-                <div class="bolinha" id="icone-ram${maquinas.maquina_id}"></div>
-                <p>Ram</p>
-              </div>
-            </div>
-          </div>
-        </div>`;
-              setInterval(() => {
-                atualizar_maquina_tempo_real(maquinas.maquina_id, `icone-cpu${maquinas.maquina_id}`, `icone-ram${maquinas.maquina_id}`, `icone-disco${maquinas.maquina_id}`)
-              }, 2000);
-            });
-          }
-        });
-      })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-      });
-  }
-
-  let intervalo
-  let id_maquina_pesquisa;
-
-  function atualizar_grafico_tempo_real(id_maquina) {
-
-    let dadoGraficoCpu = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    let dadoGraficoRam = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    let dadosGraficoDisco = [0, 0]
-    let min
-
-    clearInterval(intervalo);
-
-    intervalo = setInterval(() => {
-      fetch(`/dashboard/atualizar_grafico_tempo_real/${id_maquina}`, {
-        method: "GET",
-        cache: 'no-store'
-      }).then(function (resposta) {
-        resposta.json().then((informacoes) => {
-          id_maquina_pesquisa = id_maquina;
-          let data = new Date;
-          dia = data.getDay()
-          min = data.getMinutes()
-          sec = data.getSeconds()
-          time = data.getTime();
-          if (min != informacoes[0].minuto && data != informacoes[0].dia && sec > informacoes[0].segundos || sec < informacoes[0].segundos) {
-            nome_usuario_maquina.innerHTML = `A máquina associada ao usuário ${informacoes[0].nome_funcionario}  está inativa.`
-            myChartRam.data.datasets[0].data = dadoGraficoRam
-            myChartRam.update();
-            myChartCpu.data.datasets[0].data = dadoGraficoCpu
-            myChartCpu.update();
-            myChartDisco.data.datasets[0].data = dadosGraficoDisco
-            myChartDisco.update()
-          } else {
-            nome_usuario_maquina.innerHTML = `Monitoramento em tempo real da máquina de ${informacoes[0].nome_funcionario}`
-            dadoGraficoRam.shift();
-            dadoGraficoRam.push(informacoes[0].ram_ocupada_gb)
-            myChartRam.data.datasets[0].data = dadoGraficoRam
-            myChartRam.update();
-
-
-            dadoGraficoCpu.shift();
-            dadoGraficoCpu.push(informacoes[0].cpu_ocupada * 10);
-            myChartCpu.data.datasets[0].data = dadoGraficoCpu
-            myChartCpu.update();
-
-            if (dadosGraficoDisco[0] == 0 || dadosGraficoDisco[1] == 0) {
-              dadosGraficoDisco[0] = informacoes[0].disco_ocupado_gb
-              dadosGraficoDisco[1] = informacoes[0].memoria_disponivel_gb
-              myChartDisco.data.datasets[0].data = dadosGraficoDisco
-              myChartDisco.update()
-            }
-          }
-        }).catch((erro) => {
-          console.error("Erro ao converter resposta para JSON:", erro);
-        });
-      }).catch((erro) => {
-        console.error("Erro na requisição fetch:", erro);
-      });
-    }, 1000);
-  }
-
-
-  function alerta() {
-
-  }
-
-  function buscarPorData() {
-    if (id_maquina_pesquisa != undefined) {
-
-
-      let dataPesquisa = document.getElementById('filtro_date')
-      fetch(`/dashboard/buscarPorData/${id_maquina_pesquisa}/${data}`, {
-        method: "GET",
-        cache: 'no-store'
-      }).then(function (resposta) {
-        resposta.json().then(data_requerida => {
-          alert(data_requerida[0].cpu_ocupada_tempo_real)
-        })
-      })
-    }
-  }
 
 
 </script>
