@@ -161,10 +161,16 @@ button {
 .div_button_popup button{
   padding: 12px;
 }
+
 .div_button_popup{
   gap: 1.4rem;
   width: 100%;
   display: flex;
+}
+
+.div_button_popup span{
+  display: none;
+  color: red;
 }
 
 #pop-up {
