@@ -299,7 +299,8 @@ function buscarPorData() {
           dados[0].cpu_ocupada_12_14,
           dados[0].cpu_ocupada_14_16,
           dados[0].cpu_ocupada_16_18
-        ][0]
+        ]
+        myChartCpu.update()
         myChartRam.data.datasets[0].data = [
           dados[0].ram_ocupada_08_10,
           dados[0].ram_ocupada_10_12,
@@ -307,13 +308,12 @@ function buscarPorData() {
           dados[0].ram_ocupada_14_16,
           dados[0].ram_ocupada_16_18
         ]
+        myChartRam.update()
         myChartDisco.data.datasets[0].data = [
           dados[0].disco_ocupado_gb,
           dados[0].memoria_disponivel_gb
         ]
         myChartDisco.update()
-        myChartRam.update()
-        myChartCpu.update()
       })
     })
   }
