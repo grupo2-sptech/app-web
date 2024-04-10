@@ -15,7 +15,6 @@ rua varchar(100),
 numero varchar(45),
 cep char(15));
 
-
 create table empresa (
 empresa_id int primary key auto_increment,
 nome_empresa varchar(200),
@@ -70,7 +69,7 @@ fk_funcionario int,
 -- alter table maquina add constraint foreign key (fk_setor) references setor(setor_id);
 
 alter table maquina add constraint foreign key(fk_funcionario) references funcionario(funcionario_id);
- alter table maquina add constraint foreign key(fk_empresa) references empresa(empresa_id);
+alter table maquina add constraint foreign key(fk_empresa) references empresa(empresa_id);
 
 create table processos_bloqueados(
 processo_id int primary key auto_increment,
@@ -88,17 +87,15 @@ alter table processos_bloqueados_nas_maquinas add constraint foreign key (fk_pro
 alter table processos_bloqueados_nas_maquinas add constraint foreign key (fk_maquina) references maquina(maquina_id);
 
 create table historico_hardware(
-hardware_historico_id int primary key auto_increment,
+hardware_historico_id int auto_increment,
 cpu_ocupada double,
 ram_ocupada double,
 fk_maquina int,
-data_hora datetime default current_timestamp
--- primary key(hardware_historico_id, fk_maquina)
+data_hora datetime default current_timestamp,
+primary key(hardware_historico_id, fk_maquina)
 ) auto_increment = 800;
-/*insert into historico_hardware values
-(null,7.9,7.7, 500);*/
 
-
+alter table historico_hardware add constraint fk_maquina foreign key (fk_maquina) references maquina(maquina_id);
 
 create table todos_registros_hardware(
 hardware_historico_id int auto_increment,
