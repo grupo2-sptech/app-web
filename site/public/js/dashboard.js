@@ -373,7 +373,7 @@ function atualizarDadosDaMaquina(id_maquina){
     resposta.json().then(informacoes => {
   modelo.innerHTML = `Modelo do processador: ${informacoes[0].modelo_processador}` 
       fabricante.innerHTML = `Fabricante: ${informacoes[0].fabricante_processador}` 
-      ram.innerHTML = `Volume total de Ram: ${informacoes[0].ram_ocupada_gb}` 
+      ram.innerHTML = `Volume total de Ram: ${informacoes[0].ram_total_gb}` 
       disco.innerHTML = `Modelo: ${informacoes[0].modelo_disco}` 
       volume.innerHTML = `Volume total: ${informacoes[0].memoria_total_gb}` 
       sistema.innerHTML = `Sistema operacional: ${informacoes[0].sistema_operacional}` 
