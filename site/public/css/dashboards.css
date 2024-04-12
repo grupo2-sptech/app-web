@@ -275,9 +275,9 @@ body {
   background-color: white;
 }
 
-.card-acao:active {
-  background-color: #dfe3e6;
-}
+ .card-acao:hover {
+  scale: 1.02;
+} 
 
 .card-acao p {
   font-size: 12px;

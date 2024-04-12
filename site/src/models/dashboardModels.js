@@ -4,15 +4,64 @@ const { query } = require('express')
 var database = require('../database/config')
 
 function listarMaquinas(fk_setor, acesso) {
-  var query = `SELECT m.maquina_id, m.modelo_maquina, m.memoria_total_disco, m.memoria_ocupada, f.nome_funcionario, f.cargo_funcionario, h.cpu_ocupada,
+  /* var query = `SELECT 
+  m.maquina_id, 
+  m.modelo_maquina, 
+  m.memoria_total_disco, 
+  m.memoria_ocupada, 
+  f.nome_funcionario, 
+  f.cargo_funcionario, 
+  h.cpu_ocupada,
   ROUND(h.ram_ocupada / (1024 * 1024 * 1024), 2) as ram_ocupada
-  FROM maquina AS m JOIN funcionario AS f ON f.funcionario_id = m.fk_Funcionario
-  join historico_hardware as h on maquina_id = fk_maquina where f.fk_setor = ${fk_setor} order by cpu_ocupada desc, ram_ocupada desc;`
+FROM 
+  maquina AS m 
+JOIN 
+  funcionario AS f ON f.funcionario_id = m.fk_Funcionario
+JOIN 
+  historico_hardware AS h ON m.maquina_id = h.fk_maquina 
+JOIN
+  (SELECT 
+      fk_maquina, 
+      MAX(cpu_ocupada) AS max_cpu_ocupada,
+      MAX(ram_ocupada) AS max_ram_ocupada
+  FROM 
+      historico_hardware
+  GROUP BY 
+      fk_maquina) AS max_values ON h.fk_maquina = max_values.fk_maquina
+JOIN
+  (SELECT 
+      fk_maquina, 
+      MAX(data_hora) AS max_data_hora
+  FROM 
+      historico_hardware
+  GROUP BY 
+      fk_maquina) AS max_datetime ON h.fk_maquina = max_datetime.fk_maquina
+WHERE 
+  f.fk_setor = ${fk_setor} AND
+  h.cpu_ocupada = max_values.max_cpu_ocupada AND
+  h.ram_ocupada = max_values.max_ram_ocupada AND
+  h.data_hora = max_datetime.max_data_hora
+ORDER BY 
+  max_datetime.max_data_hora DESC;
+` */
+
+  let query = `SELECT m.maquina_id, m.modelo_maquina, m.memoria_total_disco, m.memoria_ocupada, f.nome_funcionario, f.cargo_funcionario, h.cpu_ocupada,
+ROUND(h.ram_ocupada / (1024 * 1024 * 1024), 2) as ram_ocupada
+FROM maquina AS m 
+JOIN funcionario AS f ON f.funcionario_id = m.fk_Funcionario
+JOIN historico_hardware AS h ON m.maquina_id = h.fk_maquina 
+WHERE f.fk_setor = ${fk_setor}
+ORDER BY h.data_hora DESC;
+`;
 
   if (acesso == 1) {
-    query = `SELECT m.maquina_id, m.modelo_maquina, m.memoria_total_disco, m.memoria_ocupada, f.nome_funcionario, f.cargo_funcionario, h.cpu_ocupada, h.ram_ocupada
-    FROM maquina AS m
-    JOIN funcionario AS f ON f.funcionario_id = m.fk_Funcionario join historico_hardware as h on maquina_id = fk_maquina order by ram_ocupada desc;`
+    query = `SELECT m.maquina_id, m.modelo_maquina, m.memoria_total_disco, m.memoria_ocupada, f.nome_funcionario, f.cargo_funcionario, h.cpu_ocupada,
+  ROUND(h.ram_ocupada / (1024 * 1024 * 1024), 2) as ram_ocupada
+  FROM maquina AS m 
+  JOIN funcionario AS f ON f.funcionario_id = m.fk_Funcionario
+  JOIN historico_hardware AS h ON m.maquina_id = h.fk_maquina 
+  ORDER BY h.data_hora DESC;
+  `
   }
 
   return database.executar(query)
@@ -43,7 +92,7 @@ function atualizar_grafico_tempo_real_model(id_maquina) {
   from historico_hardware  as h join maquina as m on fk_maquina= maquina_id join
   funcionario as f on fk_funcionario = funcionario_id   where fk_maquina = ${id_maquina};
 `
-  
+
   return database.executar(query)
 }
 
