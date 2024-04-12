@@ -101,6 +101,10 @@ select f.nome_funcionario,  h.data_hora,
   m.modelo_processador, m.fabricante_processador, m.modelo_disco,
     ROUND(m.memoria_total_disco / (1024 * 1024 * 1024), 2) AS memoria_total_gb
   from historico_hardware  as h join maquina as m on fk_maquina= maquina_id join
-  funcionario as f on fk_funcionario = funcionario_id   where fk_maquina = 502;
+  funcionario as f on fk_funcionario = funcionario_id   where fk_maquina = 503;
   
+  
+  update maquina set total_ram = "8000000000" where maquina_id = 503;
+  
+  select * from maquina;
 

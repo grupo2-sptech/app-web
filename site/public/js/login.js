@@ -5,6 +5,7 @@ function openPop() {
 function closePopUp() {
   pop = document.getElementById('pop-up');
   pop.style.display = 'none'
+  texto_erro_2.style.visibility = 'hidden';
 }
 
 function voltar() {

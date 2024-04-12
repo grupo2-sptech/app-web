@@ -50,6 +50,8 @@
         <input type="text" id="userInput">
         <span style="font-size: 12px; color: red; height: 2.5%; width: 100%; visibility: hidden;" id="texto_erro">
           E-mail não encontrado.</span>
+          <span style="font-size: 12px; color: red; height: 3%; width: 100%; visibility: hidden;" id="texto_erro_2">
+            Insira um e-mail.</span>
         <div class="div_button_popup">
           <button style="background-color: orange" onclick="forgotPassword()">Recuperar senha</button>
           <button style="background-color: red;" onclick="closePopUp()">Voltar</button>
@@ -67,6 +69,7 @@
     var aleatorio = 0
     aleatorio = (Math.random() * (100000000 - 0) + 0).toFixed();
     pop = document.getElementById('pop-up');
+
     var email = userInput.value;
     if (email != "") {
       fetch("/usuarios/updatePassword", {
@@ -106,8 +109,8 @@
           console.log(erro);
         })
       return false;
-    } else {
-      email.style.bo
+    } else {   
+      texto_erro_2.style.visibility = 'visible';
     }
   }
 
