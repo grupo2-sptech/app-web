@@ -95,10 +95,12 @@ WHERE
 
 select f.nome_funcionario,  h.data_hora,
   ROUND((m.memoria_total_disco - m.memoria_ocupada) / (1024 * 1024 * 1024), 2) AS memoria_disponivel_gb,
-  ROUND(m.memoria_ocupada / (1024 * 1024 * 1024), 2) AS disco_ocupado_gb,
-  ROUND(h.ram_ocupada / (1024 * 1024 * 1024), 2) as ram_ocupada_gb, h.cpu_ocupada, m.sistema_operacional, m.arquitetura_sistema_operacional,
+  ROUND(m.memoria_total_disco / (1024 * 1024 * 1024), 2) AS disco_ocupado_gb,
+    ROUND(m.total_ram / (1024 * 1024 * 1024), 2) AS ram_total_gb,
+  ROUND(h.ram_ocupada / (1024 * 1024 * 1024), 2) as  ram_ocupada_gb, h.cpu_ocupada, m.sistema_operacional, m.arquitetura_sistema_operacional,
   m.modelo_processador, m.fabricante_processador, m.modelo_disco,
     ROUND(m.memoria_total_disco / (1024 * 1024 * 1024), 2) AS memoria_total_gb
   from historico_hardware  as h join maquina as m on fk_maquina= maquina_id join
   funcionario as f on fk_funcionario = funcionario_id   where fk_maquina = 502;
+  
 
