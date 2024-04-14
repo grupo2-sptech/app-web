@@ -158,11 +158,10 @@ function listarMaquinas(fksetor, acesso) {
     method: 'GET'
   })
     .then(function (resposta) {
-      resposta.json().then(maquinas => {
-        console.log(maquinas)
-        if (maquinas.length == 0) {
-          listaMaquinas.innerHTML = `Você ainda não possui nenhuma máquina cadastrada, cadastre a sua primeira máquina`
-        } else {
+      if (resposta.status == 204) {
+        listaMaquinas.innerHTML = `Você ainda não possui nenhuma máquina cadastrada, cadastre a sua primeira máquina`
+      } else {
+        resposta.json().then(maquinas => {
           listaMaquinas.innerHTML = ''
           maquinas.forEach(maquinas => {
             listaMaquinas.innerHTML += `<div onclick="atualizar_grafico_tempo_real(${maquinas.maquina_id}); atualizarDadosDaMaquina(${maquinas.maquina_id}); cardSelecionado(${maquinas.maquina_id})"  id = "${maquinas.maquina_id}" class="card-acao">
@@ -175,9 +174,9 @@ function listarMaquinas(fksetor, acesso) {
         </div>
           <div class="descricao-laptop">
             <div class="descricao-titulo">
-              <p>${maquinas.modelo_maquina}</p>
-              <p>${maquinas.nome_funcionario}</p>
-              <p>${maquinas.cargo_funcionario}</p>
+              <p>Modelo: ${maquinas.modelo_maquina}</p>
+              <br>
+              <p id = "user${maquinas.maquina_id}"></p>
               <p>Status: <strong id="status_maquina${maquinas.maquina_id}"></strong></p>
             </div>
             <div class="descricao-status">
@@ -205,8 +204,8 @@ function listarMaquinas(fksetor, acesso) {
               )
             }, 2000)
           })
-        }
-      })
+        })
+      }
     })
     .catch(function (resposta) {
       console.log(`#ERRO: ${resposta}`)
@@ -370,13 +369,13 @@ function atualizarDadosDaMaquina(id_maquina) {
     cache: 'no-store'
   }).then(function (resposta) {
     resposta.json().then(informacoes => {
-  modelo.innerHTML = `Modelo do processador: ${informacoes[0].modelo_processador}` 
-      fabricante.innerHTML = `Fabricante: ${informacoes[0].fabricante_processador}` 
-      ram.innerHTML = `Volume total de Ram: ${informacoes[0].ram_total_gb}` 
-      disco.innerHTML = `Modelo: ${informacoes[0].modelo_disco}` 
-      volume.innerHTML = `Volume total: ${informacoes[0].memoria_total_gb}` 
-      sistema.innerHTML = `Sistema operacional: ${informacoes[0].sistema_operacional}` 
-      arquitetura.innerHTML = `Arquitetura: ${informacoes[0].arquitetura_sistema_operacional}` 
+      modelo.innerHTML = `Modelo do processador: ${informacoes[0].modelo_processador}`
+      fabricante.innerHTML = `Fabricante: ${informacoes[0].fabricante_processador}`
+      ram.innerHTML = `Volume total de Ram: ${informacoes[0].ram_total_gb}`
+      disco.innerHTML = `Modelo: ${informacoes[0].modelo_disco}`
+      volume.innerHTML = `Volume total: ${informacoes[0].memoria_total_gb}`
+      sistema.innerHTML = `Sistema operacional: ${informacoes[0].sistema_operacional}`
+      arquitetura.innerHTML = `Arquitetura: ${informacoes[0].arquitetura_sistema_operacional}`
     })
   })
 }

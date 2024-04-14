@@ -45,22 +45,18 @@ ORDER BY
   max_datetime.max_data_hora DESC;
 ` */
 
-  let query = `SELECT m.maquina_id, m.modelo_maquina, m.memoria_total_disco, m.memoria_ocupada, f.nome_funcionario, f.cargo_funcionario, h.cpu_ocupada,
-ROUND(h.ram_ocupada / (1024 * 1024 * 1024), 2) as ram_ocupada
-FROM maquina AS m 
-JOIN funcionario AS f ON f.funcionario_id = m.fk_Funcionario
-JOIN historico_hardware AS h ON m.maquina_id = h.fk_maquina 
-WHERE f.fk_setor = ${fk_setor}
-ORDER BY h.data_hora DESC;
+  let query = `SELECT m.*, p.hora_data_processador
+  FROM maquina AS m join processador p on p.id_processador = m.fk_processador 
+  JOIN setor AS s ON s.setor_id = m.fk_setor
+  WHERE m.fk_setor = ${fk_setor}
+  ORDER BY p.hora_data_processador DESC;
 `;
 
   if (acesso == 1) {
-    query = `SELECT m.maquina_id, m.modelo_maquina, m.memoria_total_disco, m.memoria_ocupada, f.nome_funcionario, f.cargo_funcionario, h.cpu_ocupada,
-  ROUND(h.ram_ocupada / (1024 * 1024 * 1024), 2) as ram_ocupada
-  FROM maquina AS m 
-  JOIN funcionario AS f ON f.funcionario_id = m.fk_Funcionario
-  JOIN historico_hardware AS h ON m.maquina_id = h.fk_maquina 
-  ORDER BY h.data_hora DESC;
+    query = `SELECT m.*, p.hora_data_processador
+    FROM maquina AS m join processador p on p.id_processador = m.fk_processador 
+    JOIN setor AS s ON s.setor_id = m.fk_setor
+    ORDER BY p.hora_data_processador DESC;
   `
   }
 
@@ -68,17 +64,15 @@ ORDER BY h.data_hora DESC;
 }
 
 function cap_dados(id_maquina) {
-  let query = `SELECT m.maquina_id, h.data_hora,
-  ROUND(m.memoria_ocupada / (1024 * 1024 * 1024), 2) AS disco_ocupado_gb,
-  ROUND(m.memoria_total_disco / (1024 * 1024 * 1024), 2) AS disco_total_gb,
-  round(m.total_ram / (1024 * 1024 * 1024), 2) AS ram_total_gb,
-  ROUND(h.ram_ocupada / (1024 * 1024 * 1024), 2) as ram_ocupada_gb,
-  ROUND((m.memoria_total_disco - m.memoria_ocupada) / (1024 * 1024 * 1024), 2) AS memoria_disponivel_gb,
-  ROUND((m.total_ram - h.ram_ocupada) / (1024 * 1024 * 1024), 2) AS memoria_disponivel_ram_gb,
-  f.nome_funcionario, f.cargo_funcionario,  h.cpu_ocupada,  h.ram_ocupada, m.total_ram FROM
-  maquina AS m JOIN  funcionario AS f ON f.funcionario_id = m.fk_Funcionario JOIN historico_hardware AS h ON m.maquina_id = h.fk_maquina
-  where fk_maquina = ${id_maquina};`
-
+  let query = `select mr.uso_ram_gb as ram_ocupada_gb,
+  mr.total_ram_gb as ram_total_gb,
+  p.uso_processador as cpu_ocupada,
+  d.tamanho_total as disco_total_gb,
+  d.tamanho_disponivel as memoria_disponivel_gb,
+  p.hora_data_processador as data_hora
+  from maquina as m join processador as p on p.id_processador = m.fk_processador
+  join memoria_ram as mr on mr.id_memoria_ram = m.fk_ram
+  join disco as d on d.id_disco = m.fk_disco where maquina_id = '${id_maquina}';`
   return database.executar(query)
 }
 
