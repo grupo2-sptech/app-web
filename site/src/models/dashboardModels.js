@@ -77,15 +77,22 @@ function cap_dados(id_maquina) {
 }
 
 function atualizar_grafico_tempo_real_model(id_maquina) {
-  let query = `select f.nome_funcionario,  h.data_hora,
-  ROUND((m.memoria_total_disco - m.memoria_ocupada) / (1024 * 1024 * 1024), 2) AS memoria_disponivel_gb,
-  ROUND(m.memoria_total_disco / (1024 * 1024 * 1024), 2) AS disco_ocupado_gb,
-    ROUND(m.total_ram / (1024 * 1024 * 1024), 2) AS ram_total_gb,
-  ROUND(h.ram_ocupada / (1024 * 1024 * 1024), 2) as  ram_ocupada_gb, h.cpu_ocupada, m.sistema_operacional, m.arquitetura_sistema_operacional,
-  m.modelo_processador, m.fabricante_processador, m.modelo_disco,
-    ROUND(m.memoria_total_disco / (1024 * 1024 * 1024), 2) AS memoria_total_gb
-  from historico_hardware  as h join maquina as m on fk_maquina= maquina_id join
-  funcionario as f on fk_funcionario = funcionario_id   where fk_maquina = ${id_maquina};
+  let query = `select f.nome_funcionario,  p.hora_data_processador as data_hora,
+  d.tamanho_disponivel AS memoria_disponivel_gb,
+  d.tamanho_total - d.tamanho_disponivel AS disco_ocupado_gb,
+  mr.total_ram_gb AS ram_total_gb,
+  mr.uso_ram_gb as  ram_ocupada_gb,
+  p.uso_processador as cpu_ocupada,
+  m.sistema_operacional, m.arquitetura as arquitetura_sistema_operacional,
+  p.nome_processador as modelo_processador,
+  p.fabricante_processador,
+  d.modelo as modelo_disco
+  from maquina  as m join processador as p on m.fk_processador = p.id_processador
+  join disco as d on d.id_disco = m.fk_disco
+  join memoria_ram as mr on mr.id_memoria_ram = m.fk_ram
+  join setor as s on s.setor_id = m.fk_setor
+  join funcionario as f on f.fk_setor = s.setor_id
+  where maquina_id = ${id_maquina};
 `
 
   return database.executar(query)

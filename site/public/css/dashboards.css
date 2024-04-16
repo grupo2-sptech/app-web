@@ -477,7 +477,7 @@ body {
 }
 
 span {
-  font-size: 15px;
+  font-size: 11px;
 }
 
 .texto-info-maquina {
@@ -489,7 +489,6 @@ span {
 
 .detalhes-janelas {
   display: none;
-
 }
 
 .detalhes-hardware {
