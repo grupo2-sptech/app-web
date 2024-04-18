@@ -82,7 +82,7 @@ function atualizar_maquina_tempo_real(
         let bolinha_disco = document.getElementById(`${id_bolinha_disco}`)
         let status = document.getElementById(`status_maquina${id_maquina}`)
         let pc = document.getElementById(`maquina_${id_maquina}`)
-        if (validarHoraComTolerancia(result_maquina.data_hora, 5)) {
+        if (validarHoraComTolerancia(result_maquina.data_hora, 10)) {
           status.innerHTML = 'Ligado'
           pc.style.color = '#144a00'
           pc.style.animation = 'none'
@@ -97,13 +97,12 @@ function atualizar_maquina_tempo_real(
             bolinha_cpu.style.animation = 'none'
           }
           if (
-            (result_maquina.ram_ocupada_gb / result_maquina.ram_total_gb) * 10 >
-            80
+            (result_maquina.ram_ocupada_gb / result_maquina.ram_total_gb) * 100 > 75
           ) {
             bolinha_ram.style.background = '#ff0000'
             bolinha_ram.style.animation = 'none'
           } else if (
-            (result_maquina.ram_ocupada_gb / result_maquina.ram_total_gb) * 10 >
+            (result_maquina.ram_ocupada_gb / result_maquina.ram_total_gb) * 100 >
             50
           ) {
             bolinha_ram.style.background = '#ff9d00'
@@ -252,12 +251,14 @@ function atualizar_grafico_tempo_real(id_maquina) {
           .json()
           .then(informacoes => {
             id_maquina_pesquisa = id_maquina
-            if (validarHoraComTolerancia(informacoes[0].data_hora, 5)) {
+            if (validarHoraComTolerancia(informacoes[0].data_hora, 10)) {
               myChartCpu.data.labels = label
               myChartRam.data.labels = label
               nome_usuario_maquina.innerHTML = `Monitoramento em tempo real da máquina de ${informacoes[0].nome_funcionario}`
               dadoGraficoRam.shift()
               dadoGraficoRam.push(informacoes[0].ram_ocupada_gb)
+              myChartRam.options.scales.y.max = informacoes[0].ram_total_gb
+              ;
               myChartRam.data.datasets[0].data = dadoGraficoRam
               myChartRam.update()
 
@@ -343,11 +344,12 @@ function sumirMenu() {
   let dash = document.getElementById('tela_principal')
   let acao = document.querySelectorAll('.nome-acao')
   let ico = document.querySelectorAll('.ico')
-  const amostragem = document.getElementById('amostragem')
+  let amostragem = document.getElementById('amostragem')
+  let detalhes = document.getElementById('detathes');
+
 
   if (interuptor == 1) {
-    amostragem.style.width = '95%'
-    amostragem.style.marginRight = '4%'
+    amostragem.style.width = '100%'
     menu.style.width = '10vw'
     dash.style.width = '100vw'
     dash.style.marginLeft = '5vw'
@@ -526,7 +528,8 @@ const config = {
     },
     scales: {
       y: {
-        min: 1
+        min: 1,
+        max: 100
       }
     },
     elements: {

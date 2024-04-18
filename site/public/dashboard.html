@@ -29,27 +29,23 @@
     <div id="itens_menu" class="itens_menu">
       <div style="color: white; font-size: 12px; text-align: center;" class="nome-acao">Bem Vindo! <br><span
           id="nome_usuario"></span></div>
-      <a onmouseover="mostrarAcao('dashbord')" onmouseout="ocultarAcao('dashbord')" id="link_dashboard" href="#"
+      <a id="link_dashboard" href="#"
         class="itensDaNav">
         <div class="icon-stats-dots ico"></div>
         <span class="nome-acao">Dashboard</span>
-        <div id="dashbord" class="nome-acao-oculta">Dashboard</div>
       </a>
-      <a onmouseover="mostrarAcao('perfil')" onmouseout="ocultarAcao('perfil')" class="itensDaNav">
+      <a class="itensDaNav">
         <div class="icon-user ico"></div>
         <samp class="nome-acao">Perfil</samp>
-        <div id="perfil" class="nome-acao-oculta">Perfil</div>
       </a>
-      <a onmouseover="mostrarAcao('suporte')" onmouseout="ocultarAcao('suporte')" onmouseover="mostrarAcao('suporte')"
-        onmouseout="ocultarAcao('suporte')" class="itensDaNav">
+      <a
+        class="itensDaNav">
         <div class="icon-support_agent ico"></div>
         <samp class="nome-acao">Suporte</samp>
-        <div id="suporte" class="nome-acao-oculta">Suporte</div>
       </a>
-      <a onmouseover="mostrarAcao('sair')" onmouseout="ocultarAcao('sair')" onclick="limparSessao()" class="itensDaNav">
+      <a onclick="limparSessao()" class="itensDaNav">
         <div class="icon-log-in ico"></div>
         <samp class="nome-acao">Sair</samp>
-        <div id="sair" class="nome-acao-oculta">Sair</div>
       </a>
     </div>
   </div>
@@ -120,7 +116,7 @@
           </div>
         </div>
       </div>
-      <div class="detalhes_maquinas">
+      <div id="detathes" class="detalhes_maquinas">
         <div class="detalhes-hardware janelas-e-detalhamentos-hardware">
           <h3 class="texto-info-maquina">
           Informações da maquina
