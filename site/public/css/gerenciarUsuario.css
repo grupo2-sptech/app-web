@@ -1,0 +1,20 @@
+.mainGerenciarUsuario {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.tituloGerenciar {
+    width: 100%;
+    height: 10%;
+    display: flex;
+   
+}
+
+.menuGerenciar {
+    width: 100%;
+    height: 90%;
+    display: flex;
+    
+}
