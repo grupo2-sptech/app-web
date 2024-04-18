@@ -17,5 +17,8 @@ router.get('/atualizar_grafico_tempo_real/:maquina_id', function (req, res) {
 router.get('/buscarPorData/:maquina_id/:data', function (req, res) {
   dashboardController.buscarPorData(req, res)
 })
+router.delete('/deletar_maquina/:maquina_id', function (req, res) {
+  dashboardController.deletarMaquina(req, res)
+})
 
 module.exports = router

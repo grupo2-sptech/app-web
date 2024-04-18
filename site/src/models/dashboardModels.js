@@ -45,18 +45,18 @@ ORDER BY
   max_datetime.max_data_hora DESC;
 ` */
 
-  let query = `SELECT m.*, p.hora_data_processador
-  FROM maquina AS m join processador p on p.id_processador = m.fk_processador 
+  let query = `SELECT m.*, h.data_hora
+  FROM maquina AS m join historico_hardware as h on m.maquina_id = h.fk_maquina 
   JOIN setor AS s ON s.setor_id = m.fk_setor
   WHERE m.fk_setor = ${fk_setor}
-  ORDER BY p.hora_data_processador DESC;
+  ORDER BY h.data_hora DESC LIMIT 1;
 `;
 
   if (acesso == 1) {
-    query = `SELECT m.*, p.hora_data_processador
-    FROM maquina AS m join processador p on p.id_processador = m.fk_processador 
+    query = `SELECT m.*, h.data_hora
+    FROM maquina AS m join historico_hardware as h on m.maquina_id = h.fk_maquina 
     JOIN setor AS s ON s.setor_id = m.fk_setor
-    ORDER BY p.hora_data_processador DESC;
+    ORDER BY h.data_hora DESC LIMIT 1;
   `
   }
 
@@ -64,35 +64,62 @@ ORDER BY
 }
 
 function cap_dados(id_maquina) {
-  let query = `select mr.uso_ram_gb as ram_ocupada_gb,
-  mr.total_ram_gb as ram_total_gb,
-  p.uso_processador as cpu_ocupada,
-  d.tamanho_total as disco_total_gb,
-  d.tamanho_disponivel as memoria_disponivel_gb,
-  p.hora_data_processador as data_hora
-  from maquina as m join processador as p on p.id_processador = m.fk_processador
-  join memoria_ram as mr on mr.id_memoria_ram = m.fk_ram
-  join disco as d on d.id_disco = m.fk_disco where maquina_id = '${id_maquina}';`
+  let query = `select h.ram_ocupada as ram_ocupada_gb,
+  r.tamanho_total_gb as ram_total_gb,
+  h.cpu_ocupada as cpu_ocupada,
+  d.tamanho_total_gb as disco_total_gb,
+  d.tamanho_disponivel_gb as memoria_disponivel_gb, p.*,
+  h.data_hora as data_hora
+  from maquina as m join componente as r on r.fk_maquina = m.maquina_id and r.tipo_componente = "Memória Ram"
+  join componente as d on d.fk_maquina = m.maquina_id and d.tipo_componente = "Disco"
+  join componente as p on p.fk_maquina = m.maquina_id and p.tipo_componente = "Processador"
+  join historico_hardware as h on h.fk_maquina = m.maquina_id
+  where maquina_id = '${id_maquina}'
+  ORDER BY h.data_hora DESC
+  LIMIT 1;`
   return database.executar(query)
 }
 
+function deletarMaquina(id_maquina) {
+  let query_hardware = `DELETE FROM historico_hardware WHERE fk_maquina = ${id_maquina};`;
+  let query_componete = `DELETE FROM componente WHERE fk_maquina = ${id_maquina};`;
+  let query_maquina = `DELETE FROM maquina WHERE maquina_id = ${id_maquina};`;
+
+  return Promise.all([
+    database.executar(query_hardware),
+    database.executar(query_componete),
+    database.executar(query_maquina).catch(error => {
+      console.error("Erro ao deletar máquina:", error);
+    })
+  ]);
+}
+
+
+
 function atualizar_grafico_tempo_real_model(id_maquina) {
-  let query = `select f.nome_funcionario,  p.hora_data_processador as data_hora,
-  d.tamanho_disponivel AS memoria_disponivel_gb,
-  d.tamanho_total - d.tamanho_disponivel AS disco_ocupado_gb,
-  mr.total_ram_gb AS ram_total_gb,
-  mr.uso_ram_gb as  ram_ocupada_gb,
-  p.uso_processador as cpu_ocupada,
-  m.sistema_operacional, m.arquitetura as arquitetura_sistema_operacional,
-  p.nome_processador as modelo_processador,
-  p.fabricante_processador,
-  d.modelo as modelo_disco
-  from maquina  as m join processador as p on m.fk_processador = p.id_processador
-  join disco as d on d.id_disco = m.fk_disco
-  join memoria_ram as mr on mr.id_memoria_ram = m.fk_ram
-  join setor as s on s.setor_id = m.fk_setor
-  join funcionario as f on f.fk_setor = s.setor_id
-  where maquina_id = ${id_maquina};
+  let query = `SELECT f.nome_funcionario,
+  h.data_hora,
+  h.cpu_ocupada,
+  m.sistema_operacional,
+  m.arquitetura as arquitetura_sistema_operacional,
+  h.ram_ocupada as ram_ocupada_gb,
+  c_disco.tamanho_disponivel_gb AS memoria_disponivel_gb,
+  (c_disco.tamanho_total_gb - c_disco.tamanho_disponivel_gb) AS disco_ocupado_gb,
+  c_ram.tamanho_total_gb AS ram_total_gb,
+  c_cpu.modelo AS modelo_processador,
+  c_cpu.fabricante AS fabricante_processador,
+  c_disco.modelo AS modelo_disco,
+  c_disco.tamanho_total_gb as memoria_total_gb
+FROM maquina AS m
+JOIN componente AS c_cpu ON m.maquina_id = c_cpu.fk_maquina AND c_cpu.tipo_componente = 'Processador'
+JOIN componente AS c_ram ON m.maquina_id = c_ram.fk_maquina AND c_ram.tipo_componente = 'Memória Ram'
+JOIN componente AS c_disco ON m.maquina_id = c_disco.fk_maquina AND c_disco.tipo_componente = 'Disco'
+JOIN historico_hardware AS h ON h.fk_maquina = m.maquina_id
+JOIN setor AS s ON s.setor_id = m.fk_setor
+JOIN funcionario AS f ON f.fk_setor = s.setor_id
+WHERE m.maquina_id = ${id_maquina}
+ORDER BY h.data_hora DESC
+LIMIT 1;
 `
 
   return database.executar(query)
@@ -124,5 +151,6 @@ module.exports = {
   listarMaquinas,
   cap_dados,
   atualizar_grafico_tempo_real_model,
-  buscarPorData
+  buscarPorData,
+  deletarMaquina
 }

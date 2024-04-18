@@ -15,8 +15,8 @@ function listar(id_setor, id_select, acesso_total) {
           tabelas.forEach(tabela => {
             console.log(tabela)
             const option = document.createElement('option') // Cria uma nova opção em cada iteração
-            option.value = tabela.funcionario_id
-            option.text = tabela.nome_funcionario
+            option.value = tabela.maquina_id
+            option.text = tabela.nome_maquina
             select.appendChild(option)
           })
         })
@@ -167,7 +167,7 @@ function listarMaquinas(fksetor, acesso) {
             listaMaquinas.innerHTML += `<div onclick="atualizar_grafico_tempo_real(${maquinas.maquina_id}); atualizarDadosDaMaquina(${maquinas.maquina_id}); cardSelecionado(${maquinas.maquina_id})"  id = "${maquinas.maquina_id}" class="card-acao">
           <div class="icon-todos">
             <div class="lixeira-lapis">
-                <div class="icon-trash1" onclick="event.stopPropagation(); event.preventDefault();"></div>
+                <div class="icon-trash1" onclick="deletarMaquina(${maquinas.maquina_id}); event.stopPropagation(); event.preventDefault();"></div>
                 <div onclick="event.stopPropagation(); event.preventDefault();" class="icon-pencil"></div>
             </div>
            <div id="maquina_${maquinas.maquina_id}" class="icon-laptop1"></div>
@@ -175,7 +175,7 @@ function listarMaquinas(fksetor, acesso) {
           <div class="descricao-laptop">
             <div class="descricao-titulo">
               <p>Modelo: ${maquinas.modelo_maquina}</p>
-              <br>
+              <p>Nome: ${maquinas.nome_maquina}</p>
               <p id = "user${maquinas.maquina_id}"></p>
               <p>Status: <strong id="status_maquina${maquinas.maquina_id}"></strong></p>
             </div>
@@ -210,6 +210,25 @@ function listarMaquinas(fksetor, acesso) {
     .catch(function (resposta) {
       console.log(`#ERRO: ${resposta}`)
     })
+}
+
+function deletarMaquina(id_maquina) {
+  fetch(`/dashboard/deletar_maquina/${id_maquina}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  }).then(function (resposta) {
+    if (resposta.ok) {
+      location.reload();
+    } else if (resposta.status == 404) {
+      window.alert("Deu 404!");
+    } else {
+      throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+    }
+  }).catch(function (resposta) {
+    console.log(`#ERRO: ${resposta}`);
+  });
 }
 
 let intervalo

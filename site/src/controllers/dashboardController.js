@@ -79,9 +79,30 @@ function buscarPorData(req, res) {
     })
 }
 
+function deletarMaquina(req, res) {
+  let id_maquina = req.params.maquina_id;
+
+  if (id_maquina != undefined) {
+    dashboardModel.deletarMaquina(id_maquina).then(function (resultado) {
+          res.json(resultado);
+        }
+      )
+      .catch(
+        function (erro) {
+          console.log(erro);
+          console.log("Houve um erro ao deletar o post: ", erro.sqlMessage);
+          res.status(500).json(erro.sqlMessage);
+        }
+      )
+  } else {
+    console.log("Requisição undefined")
+  }
+}
+
 module.exports = {
   listarMaquinas,
   cap_dados,
   atualizar_grafico_tempo_real,
-  buscarPorData
+  buscarPorData,
+  deletarMaquina
 }

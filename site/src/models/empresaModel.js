@@ -11,7 +11,8 @@ function buscarPorId(id) {
 function listar(id_setor, permissao) {
   let query1
   var query = `
-  select f.nome_funcionario, f.funcionario_id, f.cargo_funcionario,f.fk_empresa_func, f.permissao_total,  s.nome_setor from funcionario f join setor s on fk_setor = setor_id where s.setor_id = ${id_setor};`
+  select m.nome_maquina, m.modelo_maquina, m.maquina_id, s.nome_setor
+  from maquina m join setor s on m.fk_setor = s.setor_id where s.setor_id = ${id_setor};`
 
   if (permissao == 1) {
     query1 = `select s.nome_setor, s.setor_id from setor s;`
@@ -26,7 +27,7 @@ function listar_setores() {
 }
 function listar_funcionario() {
   var query = `
-  select f.nome_funcionario, f.funcionario_id from funcionario f;`
+  select m.nome_maquina, m.maquina_id from maquina m;`
   return database.executar(query)
 }
 

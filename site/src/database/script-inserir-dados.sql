@@ -1,6 +1,6 @@
 -- Inserções para fk_maquina de 500 até 531
-INSERT INTO endereco (estado, cidade, municipio, bairro, rua, numero, cep)
-VALUES ('SP', 'São Paulo', 'São Paulo', 'Centro', 'Rua Teste', '123', '01234-567');
+INSERT INTO endereco (estado, cidade, municipio, bairro, logradouro, numero, cep)
+VALUES ('SP', 'São Paulo', 'São Paulo', 'Centro', 'Rua Teste', '123', '01234567');
 
 insert into empresa values
 (null, "Flesh", "62173620009306", "11999999999", 1);
@@ -11,6 +11,37 @@ insert into setor values
 (null, "Logistica", 100),
 (null, "RH", 100),
 (null, "Finanças", 100);
+
+-- Inserindo mais dados na tabela processos_janelas
+insert into processos_janelas (titulo_processo) values
+    ("Facebook"),
+    ("Instagram"),
+    ("Twitter"),
+    ("TikTok"),
+    ("WhatsApp"),
+    ("Snapchat"),
+    ("Pinterest"),
+    ("LinkedIn"),
+    ("Twitch"),
+    ("Spotify"),
+    ("Apple Music"),
+    ("Google Play Music"),
+    ("Amazon Music"),
+    ("SoundCloud"),
+    ("Hulu"),
+    ("Amazon Prime Video"),
+    ("Disney+"),
+    ("Tinder"),
+    ("Badoo"),
+    ("Discord");
+
+
+insert into processos_bloqueados_no_setor values
+(203, 800),
+(203, 801),
+(203, 802),
+(203, 803),
+(203, 804);
 
 insert into funcionario values
 (null, "Jonathan Carvalho", "jonathanaparecido80@gmail.com", "jonathan.carvalho", "123", "Gerente", 200,100, true, true),
@@ -49,7 +80,7 @@ insert into funcionario values
 (null, "Lucas Costa", "lucas.c@gmail.com", "lucas.costa", "123", "Desenvolvedor", 201, 100, false, false),
 (null, "Isabella Rodrigues", "isabella.r@gmail.com", "isabella.rodrigues", "123", "Analista", 200, 100, false, false);
 
-insert into processador (nome_processador, fabricante_processador, frequencia_processador, uso_processador) values
+/*insert into processador (nome_processador, fabricante_processador, frequencia_processador, uso_processador) values
 ("Intel Core i7", "Intel", "3.6 GHz", 40.5),
 ("AMD Ryzen 9", "AMD", "3.8 GHz", 35.2),
 ("Intel Core i9", "Intel", "4.0 GHz", 45.8),
@@ -193,41 +224,10 @@ insert into maquina (modelo_maquina, sistema_operacional, arquitetura, fk_proces
     ("Samsung", "Ubuntu 20.04", "64-bit", 431, 531, 631, 201, 100);
 
 
--- Inserindo mais dados na tabela processos_janelas
-insert into processos_janelas (titulo_processo) values
-    ("Facebook"),
-    ("Instagram"),
-    ("Twitter"),
-    ("TikTok"),
-    ("WhatsApp"),
-    ("Snapchat"),
-    ("Pinterest"),
-    ("LinkedIn"),
-    ("Twitch"),
-    ("Spotify"),
-    ("Apple Music"),
-    ("Google Play Music"),
-    ("Amazon Music"),
-    ("SoundCloud"),
-    ("Hulu"),
-    ("Amazon Prime Video"),
-    ("Disney+"),
-    ("Tinder"),
-    ("Badoo"),
-    ("Discord");
-    
-select * from processos_janelas;
-select * from setor;
 
 
-insert into processos_bloqueados_no_setor values
-(202, 800),
-(202, 801),
-(202, 802),
-(202, 803),
-(202, 804);
+insert into historico_hardware(cpu_ocupada, ram_ocupada, fk_maquina, data_hora) values(1.09, 7.31, 700, now());
 
-select * from processos_bloqueados_no_setor;
 
     INSERT INTO historico_hardware (cpu_ocupada, ram_ocupada, fk_maquina, data_hora)
 VALUES
