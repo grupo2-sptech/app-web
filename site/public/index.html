@@ -153,10 +153,10 @@
 
 
   <div style="display: none;" id="containerAtendimento" class="containerAtendimento">
-    <div class="pop-up-completo">
+    <div id="suportCompleto" class="pop-up-completo">
       <div id="fecharAbaAtendimento" class="fecharAbaAtendimento" onclick="fecharAtendimento()">X</div>
       <div id="Atendimento">
-        <iframe width='560' height='580' frameborder='0'></iframe>
+        <iframe width='500' height='580' frameborder='0'></iframe>
       </div>
     </div>
   </div>
@@ -174,7 +174,7 @@
     containerAtendimento.style.display = `flex`;
 
     Atendimento.innerHTML = `
-<iframe width='560' height='620'
+<iframe width='500' height='620'
 src='https://app.pipefy.com/public/form/fQkn3YmF?embedded=true'
   frameborder='0'
 ></iframe>`

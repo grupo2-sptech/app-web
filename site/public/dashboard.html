@@ -22,20 +22,34 @@
       </div>
     </a>
     <div id="itens_menu" class="itens_menu">
-      <div style="color: white; font-size: 12px; text-align: center;" class="nome-acao">Bem Vindo! <br><span
-          id="nome_usuario"></span></div>
-      <a id="link_dashboard" href="#" class="itensDaNav">
-        <div class="icon-stats-dots ico"></div>
-        <span class="nome-acao">Dashboard</span>
-      </a>
-      <a class="itensDaNav" href="./dashboard/gerenciarUsuarios.html">
-        <div class="icon-user ico"></div>
-        <samp class="nome-acao">Perfil</samp>
-      </a>
-      <a class="itensDaNav">
-        <div class="icon-support_agent ico"></div>
-        <samp class="nome-acao">Suporte</samp>
-      </a>
+
+      <div style="color: white; font-size: 12px; margin-top: -10%; text-align: center;" class="nome-acao">Bem Vindo!
+        <br>
+        <span id="nome_usuario"></span>
+      </div>
+      <div style="height: 60%; justify-content: space-around; display: flex; flex-direction: column;">
+        <a class="itensDaNav" href="#">
+          <div class="icon-stats-dots ico"></div>
+          <span class="nome-acao">Dashboard</span>
+        </a>
+        <a class="itensDaNav" href="./dashboard/gerenciarUsuarios.html">
+          <div class="icon-user ico"></div>
+          <samp class="nome-acao">Perfil</samp>
+        </a>
+        <a class="itensDaNav" href="./dashboard/gerenciarUsuarios.html">
+          <div class="icon-user-plus ico"></div>
+          <samp style="text-align: center;" class="nome-acao">Adicionar<br>Usuário</samp>
+        </a>
+        <a class="itensDaNav" href="./dashboard/gerenciarUsuarios.html">
+          <div style="font-weight: bold;" class="icon-document-forbidden1 ico"></div>
+          <samp style="text-align: center;" class="nome-acao">Lista de Bloqueios</samp>
+        </a>
+        <a class="itensDaNav">
+          <div class="icon-support_agent ico"></div>
+          <samp class="nome-acao">Suporte</samp>
+        </a>
+      </div>
+
       <a onclick="limparSessao()" class="itensDaNav">
         <div class="icon-log-in ico"></div>
         <samp class="nome-acao">Sair</samp>
@@ -69,28 +83,7 @@
         <h1 id="titulo_setor">Maquinas do setor de </h1>
         <button class="button-add-maquinas">ADICIONAR MAQUINA</button>
       </div>
-
-      <div class="pop-up-maquinas">
-        <div class="form">
-          <h1>Cadastro de maquina</h1>
-          <div class="form-element">
-            <label for="nome">Nome da maquina</label>
-            <input type="text" id="nome" placeholder="Insira o nome da maquina">
-          </div>
-          <div class="form-element">
-            <label for="modelo">Modelo da maquina</label>
-            <input type="text" id="modelo" placeholder="Insira o modelo da maquina">
-          </div>
-          <div class="form-element">
-            <button class="">Confirmar</button>
-            <button>Voltar</button>
-          </div>
-        </div>
-      </div>
-
-
       <div id="div_funcaoMaquina" class="lista-maquinas">
-
       </div>
     </div>
 
@@ -156,6 +149,40 @@
               <option value="">Bloquear</option>
               <option value="">Desbloquear</option>
             </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div style="display: none;" id="lista-processos" class="tela-lista-processos">
+      <div class="barra-lista">
+        <samp style="color: white; margin-left: 10px;">Lista de Processos Bloqueados no setor</samp>
+        <div class="icon-plus"></div>
+      </div>
+      <div class="lista">
+      </div>
+    </div>
+
+
+    <div id="pop-add-maquinas" class="tela-lista-processos">
+      <div class="barra-lista">
+        <samp style="color: white; margin-left: 10px;">Cadastre sua máquina</samp>
+        <div class="icon-plus"></div>
+      </div>
+      <div class="pop-maquina">
+        <div class="form">
+          <div class="form-element">
+            <label for="nome">Nome da máquina</label>
+            <input type="text" id="nome" placeholder="Insira o nome da maquina">
+          </div>
+          <div class="form-element">
+            <label for="modelo">Modelo da máquina</label>
+            <input type="text" id="modelo" placeholder="Insira o modelo da maquina">
+          </div>
+          <div class="form-element">
+            <button class="">Confirmar</button>
           </div>
         </div>
       </div>
