@@ -228,12 +228,14 @@ body {
 
 .button-add-maquinas {
   margin-left: 75%;
-  width: 10%;
+  margin-top: 0.5rem;
+  width: 8%;
+  height: 20px;
   border-radius: 6px;
   border: none;
   background-color: #2e4959;
   color: white;
-  font-size: 12px;
+  font-size: 10px;
   cursor: pointer;
   box-shadow: -10px 5px 6px rgba(0, 0, 0, 0.23);
   transition: 0.4s;
