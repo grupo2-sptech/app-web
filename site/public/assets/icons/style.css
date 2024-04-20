@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?qa77dl');
-  src:  url('fonts/icomoon.eot?qa77dl#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?qa77dl') format('truetype'),
-    url('fonts/icomoon.woff?qa77dl') format('woff'),
-    url('fonts/icomoon.svg?qa77dl#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?3ue8oj');
+  src:  url('fonts/icomoon.eot?3ue8oj#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?3ue8oj') format('truetype'),
+    url('fonts/icomoon.woff?3ue8oj') format('woff'),
+    url('fonts/icomoon.svg?3ue8oj#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -49,6 +49,12 @@
 .icon-caution:before {
   content: "\e905";
 }
+.icon-document-forbidden:before {
+  content: "\e930";
+}
+.icon-document-forbidden1:before {
+  content: "\e931";
+}
 .icon-weights:before {
   content: "\e900";
 }
@@ -57,6 +63,15 @@
 }
 .icon-pencil2:before {
   content: "\e92b";
+}
+.icon-profile:before {
+  content: "\e932";
+}
+.icon-user-plus:before {
+  content: "\e973";
+}
+.icon-user-check:before {
+  content: "\e975";
 }
 .icon-stats-dots:before {
   content: "\e99b";
@@ -204,12 +219,6 @@
 }
 .icon-github:before {
   content: "\e910";
-}
-.icon-trash1:before {
-  content: "\e929";
-}
-.icon-laptop3:before {
-  content: "\e921";
 }
 .icon-toggle-on:before {
   content: "\e92e";
