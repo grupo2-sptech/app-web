@@ -223,6 +223,24 @@ body {
 .titulo-maquinas {
   width: 100%;
   height: 30%;
+  display: flex;
+}
+
+.button-add-maquinas {
+  margin-left: 75%;
+  width: 10%;
+  border-radius: 6px;
+  border: none;
+  background-color: #2e4959;
+  color: white;
+  font-size: 12px;
+  cursor: pointer;
+  box-shadow: -10px 5px 6px rgba(0, 0, 0, 0.23); 
+  transition: 0.4s; 
+}	
+
+.button-add-maquinas:hover {
+  background-color: #0a151f;
 }
 
 .titulo-maquinas h1 {
@@ -493,3 +511,53 @@ span {
 .detalhes-hardware {
   text-align: left;
 }
+
+
+/* POP-UP ADD MAQUINAS */
+.pop-up-maquinas{
+  width: 50%;
+  height: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background-color: rgb(119, 110, 110);
+  position: absolute;
+  top: 20%;
+  left: 20%;
+}
+
+.pop-up-maquinas .form{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.pop-up-maquinas h1{
+  text-align: center;
+  font-size: 25px;
+  color: black;
+  margin: 10px 0px 20px;
+}
+
+.pop-up-maquinas .form .form-element{
+  margin: 15px 0px;
+}
+
+.pop-up-maquinas .form .form-element label{
+  font-size: 20px;
+  color: black;
+}
+
+.pop-up-maquinas .form .form-element input{
+  width: 100%;
+  height: 30px;
+  border-radius: 5px;
+  border: 1px solid black;
+  padding: 5px;
+  display: block;
+}
+
