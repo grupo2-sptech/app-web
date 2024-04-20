@@ -170,7 +170,7 @@ function listarMaquinas(fksetor, acesso) {
           <div class="icon-todos">
             <div class="lixeira-lapis">
                 <div class="icon-trash1" onclick="deletarMaquina(${maquinas.maquina_id}); event.stopPropagation(); event.preventDefault();"></div>
-                <div onclick="event.stopPropagation(); event.preventDefault();" class="icon-pencil"></div>
+                <div onclick="event.stopPropagation(); event.preventDefault(); abrirEditar(${maquinas.maquina_id});" class="icon-pencil"></div>
             </div>
            <div id="maquina_${maquinas.maquina_id}" class="icon-laptop1"></div>
         </div>
