@@ -97,12 +97,15 @@ function atualizar_maquina_tempo_real(
             bolinha_cpu.style.animation = 'none'
           }
           if (
-            (result_maquina.ram_ocupada_gb / result_maquina.ram_total_gb) * 100 > 75
+            (result_maquina.ram_ocupada_gb / result_maquina.ram_total_gb) *
+              100 >
+            75
           ) {
             bolinha_ram.style.background = '#ff0000'
             bolinha_ram.style.animation = 'none'
           } else if (
-            (result_maquina.ram_ocupada_gb / result_maquina.ram_total_gb) * 100 >
+            (result_maquina.ram_ocupada_gb / result_maquina.ram_total_gb) *
+              100 >
             50
           ) {
             bolinha_ram.style.background = '#ff9d00'
@@ -114,7 +117,7 @@ function atualizar_maquina_tempo_real(
           if (
             (result_maquina.memoria_disponivel_gb /
               result_maquina.disco_total_gb) *
-            100 >
+              100 >
             80
           ) {
             bolinha_disco.style.background = '#ff0000'
@@ -122,7 +125,7 @@ function atualizar_maquina_tempo_real(
           } else if (
             (result_maquina.memoria_disponivel_gb /
               result_maquina.disco_total_gb) *
-            100 >
+              100 >
             50
           ) {
             bolinha_disco.style.background = '#ff9d00'
@@ -213,31 +216,157 @@ function listarMaquinas(fksetor, acesso) {
 
 function deletarMaquina(id_maquina) {
   fetch(`/dashboard/deletar_maquina/${id_maquina}`, {
-    method: "DELETE",
+    method: 'DELETE',
     headers: {
-      "Content-Type": "application/json"
+      'Content-Type': 'application/json'
     }
-  }).then(function (resposta) {
-    if (resposta.ok) {
-      location.reload();
-    } else if (resposta.status == 404) {
-      window.alert("Deu 404!");
-    } else {
-      throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
-    }
-  }).catch(function (resposta) {
-    console.log(`#ERRO: ${resposta}`);
-  });
+  })
+    .then(function (resposta) {
+      if (resposta.ok) {
+        location.reload()
+      } else if (resposta.status == 404) {
+        window.alert('Deu 404!')
+      } else {
+        throw (
+          'Houve um erro ao tentar realizar a postagem! Código da resposta: ' +
+          resposta.status
+        )
+      }
+    })
+    .catch(function (resposta) {
+      console.log(`#ERRO: ${resposta}`)
+    })
 }
 
 let intervalo
 let id_maquina_pesquisa
 
 function atualizar_grafico_tempo_real(id_maquina) {
-  let dadoGraficoCpu = [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]
-  let dadoGraficoRam = [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]
+  let dadoGraficoCpu = [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ]
+  let dadoGraficoRam = [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ]
   let dadosGraficoDisco = [0, 0]
-
 
   clearInterval(intervalo)
 
@@ -258,7 +387,6 @@ function atualizar_grafico_tempo_real(id_maquina) {
               dadoGraficoRam.shift()
               dadoGraficoRam.push(informacoes[0].ram_ocupada_gb)
               myChartRam.options.scales.y.max = informacoes[0].ram_total_gb
-              ;
               myChartRam.data.datasets[0].data = dadoGraficoRam
               myChartRam.update()
 
@@ -275,8 +403,130 @@ function atualizar_grafico_tempo_real(id_maquina) {
               }
             } else {
               nome_usuario_maquina.innerHTML = `A máquina associada ao usuário ${informacoes[0].nome_funcionario}  está inativa.`
-              dadoGraficoCpu = [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]
-              dadoGraficoRam = [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]
+              dadoGraficoCpu = [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ]
+              dadoGraficoRam = [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ]
               dadosGraficoDisco = [0, 0]
               myChartRam.data.datasets[0].data = dadoGraficoRam
               myChartRam.update()
@@ -344,12 +594,8 @@ function sumirMenu() {
   let dash = document.getElementById('tela_principal')
   let acao = document.querySelectorAll('.nome-acao')
   let ico = document.querySelectorAll('.ico')
-  let amostragem = document.getElementById('amostragem')
-  let detalhes = document.getElementById('detathes');
-
 
   if (interuptor == 1) {
-    amostragem.style.width = '100%'
     menu.style.width = '10vw'
     dash.style.width = '100vw'
     dash.style.marginLeft = '5vw'
@@ -361,8 +607,6 @@ function sumirMenu() {
     })
     interuptor = 0
   } else {
-    amostragem.style.width = '100%'
-    amostragem.style.marginRight = '0%'
     menu.style.width = '5vw'
     dash.style.width = '100vw'
     dash.style.marginLeft = '0vw'
@@ -400,21 +644,21 @@ function atualizarDadosDaMaquina(id_maquina) {
     })
   })
 }
-let elementoSelecionado = null;
+let elementoSelecionado = null
 
 function cardSelecionado(id_maquina) {
-  const id = document.getElementById(`${id_maquina}`);
+  const id = document.getElementById(`${id_maquina}`)
 
   if (elementoSelecionado !== null) {
-    elementoSelecionado.style.background = "";
+    elementoSelecionado.style.background = ''
   }
 
-  if (id.style.background === "") {
-    id.style.background = "rgb(223, 227, 230)";
-    elementoSelecionado = id;
+  if (id.style.background === '') {
+    id.style.background = 'rgb(223, 227, 230)'
+    elementoSelecionado = id
   } else {
-    id.style.background = "";
-    elementoSelecionado = null;
+    id.style.background = ''
+    elementoSelecionado = null
   }
 }
 function mostrarAcao(id) {
@@ -554,7 +798,6 @@ const data1 = {
       pointRadius: 0, // Definindo o tamanho do ponto como zero
       hoverOffset: 4,
       borderWidth: 1.5
-
     }
   ]
 }

@@ -22,22 +22,32 @@
       </div>
     </a>
     <div id="itens_menu" class="itens_menu">
-      <div style="color: white; font-size: 12px; text-align: center;" class="nome-acao">Bem Vindo! <br><span
-          id="nome_usuario"></span></div>
-      <a id="link_dashboard" href="#"
-        class="itensDaNav">
-        <div class="icon-stats-dots ico"></div>
-        <span class="nome-acao">Dashboard</span>
-      </a>
-      <a class="itensDaNav" href="./dashboard/gerenciarUsuarios.html">
-        <div class="icon-user ico"></div>
-        <samp class="nome-acao">Perfil</samp>
-      </a>
-      <a
-        class="itensDaNav">
-        <div class="icon-support_agent ico"></div>
-        <samp class="nome-acao">Suporte</samp>
-      </a>
+      <div style="color: white; font-size: 12px; margin-top: -10%; text-align: center;" class="nome-acao">Bem Vindo!
+        <br>
+        <span id="nome_usuario"></span>
+      </div>
+      <div style="height: 60%; justify-content: space-around; display: flex; flex-direction: column;">
+        <a class="itensDaNav" href="#">
+          <div class="icon-stats-dots ico"></div>
+          <span class="nome-acao">Dashboard</span>
+        </a>
+        <a class="itensDaNav" href="./dashboard/gerenciarUsuarios.html">
+          <div class="icon-user ico"></div>
+          <samp class="nome-acao">Perfil</samp>
+        </a>
+        <a class="itensDaNav" href="./dashboard/gerenciarUsuarios.html">
+          <div class="icon-user-plus ico"></div>
+          <samp style="text-align: center;" class="nome-acao">Adicionar<br>Usuário</samp>
+        </a>
+        <a class="itensDaNav" href="./dashboard/gerenciarUsuarios.html">
+          <div style="font-weight: bold;" class="icon-document-forbidden1 ico"></div>
+          <samp style="text-align: center;" class="nome-acao">Lista de Bloqueios</samp>
+        </a>
+        <a class="itensDaNav">
+          <div class="icon-support_agent ico"></div>
+          <samp class="nome-acao">Suporte</samp>
+        </a>
+      </div>
       <a onclick="limparSessao()" class="itensDaNav">
         <div class="icon-log-in ico"></div>
         <samp class="nome-acao">Sair</samp>
@@ -114,31 +124,31 @@
       <div id="detathes" class="detalhes_maquinas">
         <div class="detalhes-hardware janelas-e-detalhamentos-hardware">
           <h3 class="texto-info-maquina">
-          Informações da maquina
+            Informações da maquina
           </h3>
-          
-          <b><span >Informações do processador</span></b>
+
+          <b><span>Informações do processador</span></b>
           <span id="modelo">Modelo do processador: </span>
           <span id="fabricante">Fabricante: </span>
           <br>
           <b><span>Informações da ram</span></b>
-          <span id="ram" >Volume total de Ram: </span>
+          <span id="ram">Volume total de Ram: </span>
           <br>
           <b><span>Informações do Disco</span></b>
-          <span id="disco" >Modelo: </span>
+          <span id="disco">Modelo: </span>
           <span id="volume">Volume total: </span>
           <br>
           <b><span>Informações do sistema operacional</span></b>
           <span id="sistema">Sistema operacional: </span>
           <span id="arquitetura">Arquitetura: </span>
         </div>
-        <div class="detalhes-janelas janelas-e-detalhamentos-hardware"> 
+        <div class="detalhes-janelas janelas-e-detalhamentos-hardware">
           <div class="detalhes-janelas-bloqueios"></div>
           <div class="detalhes-janelas-imput">
-          <select name="" id="imput-janelas">
-            <option value="">Bloquear</option>
-            <option value="">Desbloquear</option>
-          </select>
+            <select name="" id="imput-janelas">
+              <option value="">Bloquear</option>
+              <option value="">Desbloquear</option>
+            </select>
           </div>
         </div>
       </div>

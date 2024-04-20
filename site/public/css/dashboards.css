@@ -64,12 +64,12 @@ body {
 }
 
 .itens_menu {
-  height: 50%;
+  height: 70%;
   width: 100%;
   display: flex;
+  justify-content: space-between;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
 }
 
 #itens_menu .nome-acao {
@@ -275,9 +275,9 @@ body {
   background-color: white;
 }
 
- .card-acao:hover {
+.card-acao:hover {
   scale: 1.02;
-} 
+}
 
 .card-acao p {
   font-size: 12px;
@@ -344,8 +344,6 @@ body {
   align-items: center;
 }
 
-
-
 .icon-laptop1 {
   margin-top: 10%;
   height: 100%;
@@ -405,7 +403,7 @@ body {
 .detalhes_maquinas {
   border-radius: 10px;
   padding: 0.5rem;
-  width:25%;
+  width: 25%;
   height: 92%;
   background-color: white;
   box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
