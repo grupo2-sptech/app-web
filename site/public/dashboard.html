@@ -81,7 +81,10 @@
 
       <div class="titulo-maquinas">
         <h1 id="titulo_setor">Maquinas do setor de </h1>
-        <button class="button-add-maquinas">Adicionar maquinas</button>
+        <button class="button-add-maquinas">Adicionar maquinas
+          <div class="icon-plus"></div>
+        </button>
+        
       </div>
       <div id="div_funcaoMaquina" class="lista-maquinas">
       </div>
@@ -156,7 +159,7 @@
 
 
 
-    <div id="lista-processos" class="tela-lista-processos">
+    <div id="lista-processos" style="display: none;" class="tela-lista-processos">
       <div class="barra-lista">
         <samp style="color: white; margin-left: 10px;">Lista de Processos Bloqueados no setor</samp>
         <div class="icon-plus"></div>
@@ -166,7 +169,7 @@
     </div>
 
 
-    <div style="display: none;" id="pop-add-maquinas" class="tela-lista-processos">
+    <div  id="pop-add-maquinas" class="tela-lista-processos">
       <div class="barra-lista">
         <samp style="color: white; margin-left: 10px;">Cadastre sua máquina</samp>
         <div class="icon-plus"></div>
@@ -182,7 +185,7 @@
             <input type="text" id="modelo" placeholder="Insira o modelo da máquina">
           </div>
           <div class="form-element">
-            <button class="">Confirmar</button>
+            <button class="btm-confirmar">Confirmar</button>
           </div>
         </div>
       </div>
