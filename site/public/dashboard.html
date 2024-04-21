@@ -80,11 +80,10 @@
     <div class="central-maquinas">
 
       <div class="titulo-maquinas">
-        <h1 id="titulo_setor">Maquinas do setor de </h1>
-        <button id="adicionarmaquina" onclick="adicionarmaquina()" class="button-add-maquinas">Adicionar maquinas
+        <h1 id="titulo_setor">Máquinas do setor de </h1>
+        <button id="adicionarmaquina" onclick="adicionarmaquina()" class="button-add-maquinas">Adicionar máquina
           <div class="icon-plus"></div>
         </button>
-
       </div>
       <div id="div_funcaoMaquina" class="lista-maquinas">
       </div>
@@ -125,34 +124,81 @@
         </div>
       </div>
       <div id="detathes" class="detalhes_maquinas">
-        <div class="detalhes-hardware janelas-e-detalhamentos-hardware">
-          <h3 class="texto-info-maquina">
+        <div id="detalhes_hardware" style="display: none;" class="detalhes-hardware janelas-e-detalhamentos-hardware">
+          <h4>
             Informações da maquina
-          </h3>
-
-          <b><span>Informações do processador</span></b>
-          <span id="modelo">Modelo do processador: </span>
-          <span id="fabricante">Fabricante: </span>
-          <br>
-          <b><span>Informações da ram</span></b>
-          <span id="ram">Volume total de Ram: </span>
-          <br>
-          <b><span>Informações do Disco</span></b>
-          <span id="disco">Modelo: </span>
-          <span id="volume">Volume total: </span>
-          <br>
-          <b><span>Informações do sistema operacional</span></b>
-          <span id="sistema">Sistema operacional: </span>
-          <span id="arquitetura">Arquitetura: </span>
-        </div>
-        <div class="detalhes-janelas janelas-e-detalhamentos-hardware">
-          <div class="detalhes-janelas-bloqueios"></div>
-          <div class="detalhes-janelas-imput">
-            <select name="" id="imput-janelas">
-              <option value="">Bloquear</option>
-              <option value="">Desbloquear</option>
-            </select>
+          </h4>
+          <div class="corpo_inf">
+            <b><span>Informações do processador</span></b>
+            <span id="modelo">Modelo do processador: </span>
+            <span id="fabricante">Fabricante: </span>
+            <br>
+            <b><span>Informações da ram</span></b>
+            <span id="ram">Volume total de Ram: </span>
+            <br>
+            <b><span>Informações do Disco</span></b>
+            <span id="disco">Modelo: </span>
+            <span id="volume">Volume total: </span>
+            <br>
+            <b><span>Informações do sistema operacional</span></b>
+            <span id="sistema">Sistema operacional: </span>
+            <span id="arquitetura">Arquitetura: </span>
           </div>
+
+        </div>
+        <div id="kpi" class="kpi_setor">
+          <div class="informacoes_setor">
+            <h4>Informações gerais do setor</h4>
+            <table>
+              <thead>
+                <tr>
+                  <th>Total de máquinas</th>
+                  <th>Maquinas monitoradas</th>
+                  <th>Maquinas não monitoradas</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>50</td>
+                  <td>30</td>
+                  <td>20</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="informacoes_maquina">
+            <h4>Informações da máquina</h4>
+            <table>
+              <tr>
+                <th>Dados diários</th>
+                <th>Informações</th>
+              </tr>
+              <tr>
+                <td>Tempo de atividade da máquina no dia</td>
+                <td>15h</td>
+              </tr>
+              <tr>
+                <td>Tempo de inatividade da máquina no dia</td>
+                <td>9h</td>
+              </tr>
+              <tr>
+                <td>Quantidade de vezes que a RAM ultrapassou o limite</td>
+                <td>15</td>
+              </tr>
+              <tr>
+                <td>Quantidade de vezes que a CPU ultrapassou o limite</td>
+                <td>10</td>
+              </tr>
+              <tr>
+                <td>Quando o disco pode ultrapassar sua capacidade total</td>
+                <td>15 dias</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="selecao">
+          <div id="selecionarD" onclick="mudarDadosD()" class="selecionar selecionar_hover"></div>
+          <div id="selecionarE" onclick="mudarDadosE()" class="selecionar"></div>
         </div>
       </div>
     </div>
@@ -184,7 +230,7 @@
     <div style="display: none;" id="deletar_maquina" class="tela-lista-processos">
       <div class="barra-lista">
         <samp style="color: white; margin-left: 10px;">Deletar máquina</samp>
-        <div class="icon-plus"></div>
+        <div onclick="fechar_tela()" class="icon-plus xtela"></div>
       </div>
       <div class="lista2">
         <p>Essa ação irá deletar permanentemente os dados dessa máquina.
@@ -227,8 +273,35 @@
 
 <script>
 
+  function mudarDadosD() {
+    let selD = document.getElementById('selecionarD')
+    let selE = document.getElementById('selecionarE')
+    let div_kpi = document.getElementById('kpi')
+    let div_detalhe = document.getElementById('detalhes_hardware')
+    selE.classList.remove('selecionar_hover')
+    selD.classList.add('selecionar_hover')
+    div_kpi.style.display = 'flex'
+    div_detalhe.style.display = 'none'
+  }
+
+  function mudarDadosE() {
+    let selD = document.getElementById('selecionarD')
+    let selE = document.getElementById('selecionarE')
+
+    selE.classList.add('selecionar_hover')
+    selD.classList.remove('selecionar_hover')
+    let div_kpi = document.getElementById('kpi')
+    let div_detalhe = document.getElementById('detalhes_hardware')
+    div_kpi.style.display = 'none'
+    div_detalhe.style.display = 'flex'
+  }
+
   function adicionarmaquina() {
     document.getElementById('pop-add-maquinas').style.display = 'flex'
+    let lista = document.getElementById('deletar_maquina')
+    let deletar = document.getElementById('lista-processos')
+    lista.style.display = 'none';
+    deletar.style.display = 'none';
   }
 
   function fechar_tela() {
