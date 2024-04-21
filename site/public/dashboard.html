@@ -40,7 +40,7 @@
           <div class="icon-user-plus ico"></div>
           <samp style="text-align: center;" class="nome-acao">Adicionar<br>Usuário</samp>
         </a>
-        <a class="itensDaNav" href="./dashboard/gerenciarUsuarios.html">
+        <a onclick="abir_lista()" class="itensDaNav">
           <div style="font-weight: bold;" class="icon-document-forbidden1 ico"></div>
           <samp style="text-align: center;" class="nome-acao">Lista de Bloqueios</samp>
         </a>
@@ -84,7 +84,7 @@
         <button  id="adicionarmaquina" onclick="adicionarmaquina()" class="button-add-maquinas">Adicionar maquinas
           <div class="icon-plus"></div>
         </button>
-        
+
       </div>
       <div id="div_funcaoMaquina" class="lista-maquinas">
       </div>
@@ -160,38 +160,52 @@
     <div style="display: none;" id="lista-processos" class="tela-lista-processos">
       <div class="barra-lista">
         <samp style="color: white; margin-left: 10px;">Lista de Processos Bloqueados no setor</samp>
-        <div class="icon-plus"></div>
+        <div onclick="fechar_tela()" class="icon-plus xtela"></div>
+      </div>
+      <div class="lista">
+        <h4>Bloqueados ativos no setor</h4>
+        <div id="lista_bloqueios" class="lista_bloqueios">
+
+        </div>
+        <div class="add_processo">
+          <h4>Adicione um bloqueio na lista</h4>
+          <div>
+            <div class="select_processo">
+              <select id="selec-processo">
+              </select>
+              <div style="cursor: pointer;" class="icon-plus"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div style="display: none;" id="deletar_maquina" class="tela-lista-processos">
+      <div class="barra-lista">
+        <samp style="color: white; margin-left: 10px;">Lista de Processos Bloqueados no setor</samp>
+        <div onclick="fechar_tela()" class="icon-plus"></div>
       </div>
       <div class="lista">
 
       </div>
     </div>
 
-
-    <div id="deletar_maquina" style="display: none;" class="tela-lista-processos">
+    <div style="display: none;" id="editar_maquina" class="tela-lista-processos">
       <div class="barra-lista">
         <samp style="color: white; margin-left: 10px;">Lista de Processos Bloqueados no setor</samp>
         <div class="icon-plus"></div>
       </div>
       <div class="lista">
-
-      </div>
-    </div>
-
-    <div id="editar_maquina" style="display: none;" class="tela-lista-processos">
-      <div class="barra-lista">
-        <samp style="color: white; margin-left: 10px;">Lista de Processos Bloqueados no setor</samp>
-        <div class="icon-plus"></div>
-      </div>
-      <div class="lista">
       </div>
     </div>
 
 
-    <div  id="pop-add-maquinas"  class="tela-lista-processos">
+    <div style="display: none;" id="pop-add-maquinas" class="tela-lista-processos">
       <div class="barra-lista">
         <samp style="color: white; margin-left: 10px;">Cadastre sua máquina</samp>
-        <div id="fechar-adicionar-maquina" class="icon-plus"></div>
+        <div onclick="fechar_tela()" class="icon-plus"></div>
       </div>
       <div class="pop-maquina">
         <div class="form">
@@ -223,6 +237,18 @@
   document.getElementById('fechar-adicionar-maquina').addEventListener('click', function(){
     document.getElementById('pop-add-maquinas').style.display = 'none'
   })
+
+
+  function fechar_tela() {
+    let add_maquina = document.getElementById('pop-add-maquinas')
+    let lista = document.getElementById('deletar_maquina')
+    let deletar = document.getElementById('lista-processos')
+
+    add_maquina.style.display = 'none';
+    lista.style.display = 'none';
+    deletar.style.display = 'none';
+  }
+
 
   let inputDate = document.getElementById("filtro_date");
   let today = new Date().toISOString().split("T")[0];

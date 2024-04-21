@@ -20,6 +20,40 @@ function listarMaquinas(req, res) {
       res.status(500).json(erro.sqlMessage)
     })
 }
+function listar_processos_bloqueados(req, res) {
+  var id_setor = req.params.id_setor
+  dashboardModel
+    .listar_processos_bloqueados(id_setor)
+    .then(function (resultado) {
+      if (resultado.length > 0) {
+        res.status(200).json(resultado)
+      } else {
+        res.status(204).send('Nenhum resultado encontrado!')
+      }
+    })
+    .catch(function (erro) {
+      console.log(erro)
+      console.log('Houve um erro ao buscar os avisos: ', erro.sqlMessage)
+      res.status(500).json(erro.sqlMessage)
+    })
+}
+
+function listar_processos(req, res) {
+  dashboardModel
+    .listar_processos()
+    .then(function (resultado) {
+      if (resultado.length > 0) {
+        res.status(200).json(resultado)
+      } else {
+        res.status(204).send('Nenhum resultado encontrado!')
+      }
+    })
+    .catch(function (erro) {
+      console.log(erro)
+      console.log('Houve um erro ao buscar os avisos: ', erro.sqlMessage)
+      res.status(500).json(erro.sqlMessage)
+    })
+}
 
 function cap_dados(req, res) {
   let maquina_id = req.params.maquina_id
@@ -80,22 +114,21 @@ function buscarPorData(req, res) {
 }
 
 function deletarMaquina(req, res) {
-  let id_maquina = req.params.maquina_id;
+  let id_maquina = req.params.maquina_id
 
   if (id_maquina != undefined) {
-    dashboardModel.deletarMaquina(id_maquina).then(function (resultado) {
-          res.json(resultado);
-        }
-      )
-      .catch(
-        function (erro) {
-          console.log(erro);
-          console.log("Houve um erro ao deletar o post: ", erro.sqlMessage);
-          res.status(500).json(erro.sqlMessage);
-        }
-      )
+    dashboardModel
+      .deletarMaquina(id_maquina)
+      .then(function (resultado) {
+        res.json(resultado)
+      })
+      .catch(function (erro) {
+        console.log(erro)
+        console.log('Houve um erro ao deletar o post: ', erro.sqlMessage)
+        res.status(500).json(erro.sqlMessage)
+      })
   } else {
-    console.log("Requisição undefined")
+    console.log('Requisição undefined')
   }
 }
 
@@ -104,5 +137,7 @@ module.exports = {
   cap_dados,
   atualizar_grafico_tempo_real,
   buscarPorData,
-  deletarMaquina
+  deletarMaquina,
+  listar_processos_bloqueados,
+  listar_processos
 }

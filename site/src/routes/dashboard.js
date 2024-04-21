@@ -20,5 +20,11 @@ router.get('/buscarPorData/:maquina_id/:data', function (req, res) {
 router.delete('/deletar_maquina/:maquina_id', function (req, res) {
   dashboardController.deletarMaquina(req, res)
 })
+router.get('/listar_processos_bloqueados/:id_setor', function (req, res) {
+  dashboardController.listar_processos_bloqueados(req, res)
+})
+router.get('/listar_processos', function (req, res) {
+  dashboardController.listar_processos(req, res)
+})
 
 module.exports = router
