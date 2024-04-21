@@ -81,7 +81,7 @@
 
       <div class="titulo-maquinas">
         <h1 id="titulo_setor">Maquinas do setor de </h1>
-        <button  id="adicionarmaquina" onclick="adicionarmaquina()" class="button-add-maquinas">Adicionar maquinas
+        <button id="adicionarmaquina" onclick="adicionarmaquina()" class="button-add-maquinas">Adicionar maquinas
           <div class="icon-plus"></div>
         </button>
 
@@ -185,7 +185,7 @@
     <div style="display: none;" id="deletar_maquina" class="tela-lista-processos">
       <div class="barra-lista">
         <samp style="color: white; margin-left: 10px;">Lista de Processos Bloqueados no setor</samp>
-        <div onclick="fechar_tela()" class="icon-plus"></div>
+        <div onclick="fechar_tela()" class="icon-plus xtela"></div>
       </div>
       <div class="lista">
 
@@ -205,7 +205,7 @@
     <div style="display: none;" id="pop-add-maquinas" class="tela-lista-processos">
       <div class="barra-lista">
         <samp style="color: white; margin-left: 10px;">Cadastre sua máquina</samp>
-        <div onclick="fechar_tela()" class="icon-plus"></div>
+        <div onclick="fechar_tela()" class="icon-plus xtela"></div>
       </div>
       <div class="pop-maquina">
         <div class="form">
@@ -230,11 +230,11 @@
 </html>
 
 <script>
-  function adicionarmaquina(){
+  function adicionarmaquina() {
     document.getElementById('pop-add-maquinas').style.display = 'flex'
   }
 
-  document.getElementById('fechar-adicionar-maquina').addEventListener('click', function(){
+  document.getElementById('fechar-adicionar-maquina').addEventListener('click', function () {
     document.getElementById('pop-add-maquinas').style.display = 'none'
   })
 
