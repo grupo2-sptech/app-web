@@ -81,7 +81,7 @@
 
       <div class="titulo-maquinas">
         <h1 id="titulo_setor">Maquinas do setor de </h1>
-        <button class="button-add-maquinas">Adicionar maquinas
+        <button  id="adicionarmaquina" onclick="adicionarmaquina()" class="button-add-maquinas">Adicionar maquinas
           <div class="icon-plus"></div>
         </button>
         
@@ -168,7 +168,7 @@
     </div>
 
 
-    <div id="deletar_maquina" class="tela-lista-processos">
+    <div id="deletar_maquina" style="display: none;" class="tela-lista-processos">
       <div class="barra-lista">
         <samp style="color: white; margin-left: 10px;">Lista de Processos Bloqueados no setor</samp>
         <div class="icon-plus"></div>
@@ -178,7 +178,7 @@
       </div>
     </div>
 
-    <div id="editar_maquina" class="tela-lista-processos">
+    <div id="editar_maquina" style="display: none;" class="tela-lista-processos">
       <div class="barra-lista">
         <samp style="color: white; margin-left: 10px;">Lista de Processos Bloqueados no setor</samp>
         <div class="icon-plus"></div>
@@ -188,20 +188,20 @@
     </div>
 
 
-    <div  id="pop-add-maquinas" class="tela-lista-processos">
+    <div  id="pop-add-maquinas"  class="tela-lista-processos">
       <div class="barra-lista">
         <samp style="color: white; margin-left: 10px;">Cadastre sua máquina</samp>
-        <div class="icon-plus"></div>
+        <div id="fechar-adicionar-maquina" class="icon-plus"></div>
       </div>
       <div class="pop-maquina">
         <div class="form">
           <div class="form-element">
             <label for="nome">Nome da máquina</label>
-            <input type="text" id="nome" placeholder="Insira o nome da máquina">
+            <input type="text" id="nome" placeholder="Insira o nome da máquina...">
           </div>
           <div class="form-element">
             <label for="modelo">Modelo da máquina</label>
-            <input type="text" id="modelo" placeholder="Insira o modelo da máquina">
+            <input type="text" id="modelo" placeholder="Insira o modelo da máquina...">
           </div>
           <div class="form-element">
             <button class="btm-confirmar">Confirmar</button>
@@ -216,6 +216,13 @@
 </html>
 
 <script>
+  function adicionarmaquina(){
+    document.getElementById('pop-add-maquinas').style.display = 'flex'
+  }
+
+  document.getElementById('fechar-adicionar-maquina').addEventListener('click', function(){
+    document.getElementById('pop-add-maquinas').style.display = 'none'
+  })
 
   let inputDate = document.getElementById("filtro_date");
   let today = new Date().toISOString().split("T")[0];

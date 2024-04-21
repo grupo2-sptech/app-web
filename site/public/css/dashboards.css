@@ -523,6 +523,8 @@ span {
   text-align: left;
 }
 
+
+
 .pop-maquina {
   height: 50%;
   width: 100%;
@@ -586,7 +588,7 @@ h1 {
   height: 100%;
   position: absolute;
   z-index: 999;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   flex-direction: column;
