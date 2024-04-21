@@ -20,6 +20,9 @@ router.get('/buscarPorData/:maquina_id/:data', function (req, res) {
 router.delete('/deletar_maquina/:maquina_id', function (req, res) {
   dashboardController.deletarMaquina(req, res)
 })
+router.get('/validarSenha/:id_usuario/:senha', function (req, res) {
+  dashboardController.validarSenha(req, res)
+})
 router.get('/listar_processos_bloqueados/:id_setor', function (req, res) {
   dashboardController.listar_processos_bloqueados(req, res)
 })

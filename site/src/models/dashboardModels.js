@@ -94,6 +94,13 @@ function deletarMaquina(id_maquina) {
   ])
 }
 
+
+function validarSenha(id_usuario, senha) {
+  let query = `SELECT * from funcionario WHERE funcionario_id = ${id_usuario} AND senha_acesso = ${senha};`
+
+  return database.executar(query)
+}
+
 function listar_processos_bloqueados(id_setor) {
   let query = ` select pb.id_processos, p.titulo_processo from processos_bloqueados_no_setor as pb
   join processos_janelas as p on p.processo_id = fk_processo where fk_setor = ${id_setor};`
@@ -164,6 +171,7 @@ module.exports = {
   atualizar_grafico_tempo_real_model,
   buscarPorData,
   deletarMaquina,
+  validarSenha,
   listar_processos_bloqueados,
   listar_processos
 }
