@@ -101,10 +101,12 @@ create table processos_janelas (
 
 -- Tabela: processos_bloqueados_no_setor
 create table processos_bloqueados_no_setor (
+    id_processos int auto_increment,
     fk_setor int,
     fk_processo int,
-    primary key(fk_processo, fk_setor)
-);
+    primary key(fk_processo, fk_setor),
+    unique(id_processos)
+) auto_increment = 1000;
 
 alter table processos_bloqueados_no_setor add constraint foreign key (fk_processo) references processos_janelas(processo_id);
 alter table processos_bloqueados_no_setor add constraint foreign key (fk_setor) references setor(setor_id);

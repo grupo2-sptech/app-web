@@ -4,57 +4,57 @@ const { query } = require('express')
 var database = require('../database/config')
 
 function listarMaquinas(fk_setor, acesso) {
-  /* var query = `SELECT 
-  m.maquina_id, 
-  m.modelo_maquina, 
-  m.memoria_total_disco, 
-  m.memoria_ocupada, 
-  f.nome_funcionario, 
-  f.cargo_funcionario, 
+  /* var query = `SELECT
+  m.maquina_id,
+  m.modelo_maquina,
+  m.memoria_total_disco,
+  m.memoria_ocupada,
+  f.nome_funcionario,
+  f.cargo_funcionario,
   h.cpu_ocupada,
   ROUND(h.ram_ocupada / (1024 * 1024 * 1024), 2) as ram_ocupada
-FROM 
-  maquina AS m 
-JOIN 
-  funcionario AS f ON f.funcionario_id = m.fk_Funcionario
-JOIN 
-  historico_hardware AS h ON m.maquina_id = h.fk_maquina 
+FROM
+  maquina AS m
 JOIN
-  (SELECT 
-      fk_maquina, 
+  funcionario AS f ON f.funcionario_id = m.fk_Funcionario
+JOIN
+  historico_hardware AS h ON m.maquina_id = h.fk_maquina
+JOIN
+  (SELECT
+      fk_maquina,
       MAX(cpu_ocupada) AS max_cpu_ocupada,
       MAX(ram_ocupada) AS max_ram_ocupada
-  FROM 
+  FROM
       historico_hardware
-  GROUP BY 
+  GROUP BY
       fk_maquina) AS max_values ON h.fk_maquina = max_values.fk_maquina
 JOIN
-  (SELECT 
-      fk_maquina, 
+  (SELECT
+      fk_maquina,
       MAX(data_hora) AS max_data_hora
-  FROM 
+  FROM
       historico_hardware
-  GROUP BY 
+  GROUP BY
       fk_maquina) AS max_datetime ON h.fk_maquina = max_datetime.fk_maquina
-WHERE 
+WHERE
   f.fk_setor = ${fk_setor} AND
   h.cpu_ocupada = max_values.max_cpu_ocupada AND
   h.ram_ocupada = max_values.max_ram_ocupada AND
   h.data_hora = max_datetime.max_data_hora
-ORDER BY 
+ORDER BY
   max_datetime.max_data_hora DESC;
 ` */
 
   let query = `SELECT m.*, h.data_hora
-  FROM maquina AS m join historico_hardware as h on m.maquina_id = h.fk_maquina 
+  FROM maquina AS m join historico_hardware as h on m.maquina_id = h.fk_maquina
   JOIN setor AS s ON s.setor_id = m.fk_setor
   WHERE m.fk_setor = ${fk_setor}
   ORDER BY h.data_hora DESC LIMIT 1;
-`;
+`
 
   if (acesso == 1) {
     query = `SELECT m.*, h.data_hora
-    FROM maquina AS m join historico_hardware as h on m.maquina_id = h.fk_maquina 
+    FROM maquina AS m join historico_hardware as h on m.maquina_id = h.fk_maquina
     JOIN setor AS s ON s.setor_id = m.fk_setor
     ORDER BY h.data_hora DESC LIMIT 1;
   `
@@ -81,21 +81,35 @@ function cap_dados(id_maquina) {
 }
 
 function deletarMaquina(id_maquina) {
-  let query_hardware = `DELETE FROM historico_hardware WHERE fk_maquina = ${id_maquina};`;
-  let query_componete = `DELETE FROM componente WHERE fk_maquina = ${id_maquina};`;
-  let query_maquina = `DELETE FROM maquina WHERE maquina_id = ${id_maquina};`;
+  let query_hardware = `DELETE FROM historico_hardware WHERE fk_maquina = ${id_maquina};`
+  let query_componete = `DELETE FROM componente WHERE fk_maquina = ${id_maquina};`
+  let query_maquina = `DELETE FROM maquina WHERE maquina_id = ${id_maquina};`
 
   return Promise.all([
     database.executar(query_hardware),
     database.executar(query_componete),
     database.executar(query_maquina).catch(error => {
-      console.error("Erro ao deletar máquina:", error);
+      console.error('Erro ao deletar máquina:', error)
     })
-  ]);
+  ])
 }
+
 
 function validarSenha(id_usuario, senha) {
   let query = `SELECT * from funcionario WHERE funcionario_id = ${id_usuario} AND senha_acesso = ${senha};`
+
+  return database.executar(query)
+}
+
+function listar_processos_bloqueados(id_setor) {
+  let query = ` select pb.id_processos, p.titulo_processo from processos_bloqueados_no_setor as pb
+  join processos_janelas as p on p.processo_id = fk_processo where fk_setor = ${id_setor};`
+
+  return database.executar(query)
+}
+
+function listar_processos() {
+  let query = `select p.processo_id, p.titulo_processo from processos_janelas as p;`
 
   return database.executar(query)
 }
@@ -157,5 +171,7 @@ module.exports = {
   atualizar_grafico_tempo_real_model,
   buscarPorData,
   deletarMaquina,
-  validarSenha
+  validarSenha,
+  listar_processos_bloqueados,
+  listar_processos
 }

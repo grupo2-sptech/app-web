@@ -240,6 +240,47 @@ function verificarSenha() {
     .catch(error => {
       console.error('Erro ao verificar senha:', error);
     });
+  }
+function listar_processos(id_setor) {
+  let id_div_processos = document.getElementById('lista_bloqueios')
+  id_div_processos.innerHTML = ``
+  fetch(`/dashboard/listar_processos_bloqueados/${id_setor}`, {
+    method: 'GET'
+  }).then(function name(resposta) {
+    resposta.json().then(lista => {
+      lista.forEach(itens => {
+        id_div_processos.innerHTML += `
+      <div class="processo">
+        <span>${itens.titulo_processo}</span>
+        <div  onclick="deletar_processo(${itens.id_processos})" class="icon-trash"></div>
+      </div>`
+      })
+    })
+  })
+}
+
+function abir_lista() {
+  let div_processos = document.getElementById('lista-processos')
+  div_processos.style.display = 'flex'
+  listar_processos(sessionStorage.SETOR)
+  listar_todos_processos()
+}
+
+function listar_todos_processos() {
+  let select = document.getElementById('selec-processo')
+  select.innerHTML = ''
+  fetch(`/dashboard/listar_processos`, {
+    method: 'GET'
+  }).then(function name(resposta) {
+    resposta.json().then(lista => {
+      lista.forEach(itens => {
+        let option = document.createElement('option')
+        option.value = itens.processo_id
+        option.text = itens.titulo_processo
+        select.appendChild(option)
+      })
+    })
+  })
 }
 
 function deletarMaquina(id_maquina) {
