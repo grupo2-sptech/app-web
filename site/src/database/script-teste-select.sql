@@ -107,4 +107,8 @@ select f.nome_funcionario,  h.data_hora,
   update maquina set total_ram = "8000000000" where maquina_id = 503;
   
   select * from maquina;
+  
+  
+  select p.titulo_processo, pb.id_processos from processos_bloqueados_no_setor as pb 
+  join processos_janelas on 
 

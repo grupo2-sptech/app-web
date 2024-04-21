@@ -37,11 +37,11 @@ insert into processos_janelas (titulo_processo) values
 
 
 insert into processos_bloqueados_no_setor values
-(203, 800),
-(203, 801),
-(203, 802),
-(203, 803),
-(203, 804);
+(null ,203, 800),
+(null ,203, 801),
+(null ,203, 802),
+(null ,203, 803),
+(null ,203, 804);
 
 insert into funcionario values
 (null, "Jonathan Carvalho", "jonathanaparecido80@gmail.com", "jonathan.carvalho", "123", "Gerente", 200,100, true, true),
