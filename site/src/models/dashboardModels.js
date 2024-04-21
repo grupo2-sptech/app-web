@@ -94,7 +94,11 @@ function deletarMaquina(id_maquina) {
   ]);
 }
 
+function validarSenha(id_usuario, senha) {
+  let query = `SELECT * from funcionario WHERE funcionario_id = ${id_usuario} AND senha_acesso = ${senha};`
 
+  return database.executar(query)
+}
 
 function atualizar_grafico_tempo_real_model(id_maquina) {
   let query = `SELECT f.nome_funcionario,
@@ -152,5 +156,6 @@ module.exports = {
   cap_dados,
   atualizar_grafico_tempo_real_model,
   buscarPorData,
-  deletarMaquina
+  deletarMaquina,
+  validarSenha
 }

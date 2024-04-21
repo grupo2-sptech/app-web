@@ -98,14 +98,14 @@ function atualizar_maquina_tempo_real(
           }
           if (
             (result_maquina.ram_ocupada_gb / result_maquina.ram_total_gb) *
-              100 >
+            100 >
             75
           ) {
             bolinha_ram.style.background = '#ff0000'
             bolinha_ram.style.animation = 'none'
           } else if (
             (result_maquina.ram_ocupada_gb / result_maquina.ram_total_gb) *
-              100 >
+            100 >
             50
           ) {
             bolinha_ram.style.background = '#ff9d00'
@@ -117,7 +117,7 @@ function atualizar_maquina_tempo_real(
           if (
             (result_maquina.memoria_disponivel_gb /
               result_maquina.disco_total_gb) *
-              100 >
+            100 >
             80
           ) {
             bolinha_disco.style.background = '#ff0000'
@@ -125,7 +125,7 @@ function atualizar_maquina_tempo_real(
           } else if (
             (result_maquina.memoria_disponivel_gb /
               result_maquina.disco_total_gb) *
-              100 >
+            100 >
             50
           ) {
             bolinha_disco.style.background = '#ff9d00'
@@ -169,8 +169,8 @@ function listarMaquinas(fksetor, acesso) {
             listaMaquinas.innerHTML += `<div onclick="atualizar_grafico_tempo_real(${maquinas.maquina_id}); atualizarDadosDaMaquina(${maquinas.maquina_id}); cardSelecionado(${maquinas.maquina_id})"  id = "${maquinas.maquina_id}" class="card-acao">
           <div class="icon-todos">
             <div class="lixeira-lapis">
-                <div class="icon-trash1" onclick="deletarMaquina(${maquinas.maquina_id}); event.stopPropagation(); event.preventDefault();"></div>
-                <div onclick="event.stopPropagation(); event.preventDefault(); abrirEditar(${maquinas.maquina_id});" class="icon-pencil"></div>
+                <div class="icon-trash1" onclick="abrirExcluir(${maquinas.maquina_id}, '${maquinas.nome_maquina}'); event.stopPropagation(); event.preventDefault();"></div>
+                <div onclick="event.stopPropagation(); event.preventDefault();" class="icon-pencil"></div>
             </div>
            <div id="maquina_${maquinas.maquina_id}" class="icon-laptop1"></div>
         </div>
@@ -214,12 +214,41 @@ function listarMaquinas(fksetor, acesso) {
     })
 }
 
+function abrirExcluir(maquina_id, nome_maquina) {
+  let nomeMaquina = document.getElementById('span_nomeMaquina');
+  let popupExcluir = document.getElementById('deletar_maquina');
+
+  popupExcluir.style.display = "flex";
+  nomeMaquina.innerHTML = nome_maquina
+
+  sessionStorage.IDMAQUINA = maquina_id
+}
+
+function verificarSenha() {
+  var senha = document.getElementById("senha").value;
+
+  fetch(`/dashboard/validarSenha/${sessionStorage.ID_USUARIO}/${senha}`, {
+    method: 'GET'
+  }).then(response => response.json())
+    .then(data => {
+      if (data.length > 0) {
+        deletarMaquina(sessionStorage.IDMAQUINA)
+      } else {
+        texto_erro.style.visibility = 'visible';
+      }
+    })
+    .catch(error => {
+      console.error('Erro ao verificar senha:', error);
+    });
+}
+
 function deletarMaquina(id_maquina) {
   fetch(`/dashboard/deletar_maquina/${id_maquina}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json'
     }
+
   })
     .then(function (resposta) {
       if (resposta.ok) {

@@ -84,7 +84,7 @@
         <button class="button-add-maquinas">Adicionar maquinas
           <div class="icon-plus"></div>
         </button>
-        
+
       </div>
       <div id="div_funcaoMaquina" class="lista-maquinas">
       </div>
@@ -163,32 +163,36 @@
         <div class="icon-plus"></div>
       </div>
       <div class="lista">
-
       </div>
     </div>
 
+    <div style="display: none;" id="deletar_maquina" class="tela-lista-processos">
+      <div class="barra-lista">
+        <samp style="color: white; margin-left: 10px;">Deletar máquina</samp>
+        <div class="icon-plus"></div>
+      </div>
+      <div class="lista2">
+        <p>Essa ação irá deletar permanentemente os dados dessa máquina.
+          Tem certeza que deseja excluir a <span id="span_nomeMaquina"></span>
+        </p> <br><br>
+        <span>Digite sua senha:</span>
+        <input type="password" id="senha">
+        <button onclick="verificarSenha()">oiiiiiiiiiiiii</button>
+        <span style="font-size: 12px; color: red; height: 2.5%; width: 100%; visibility: hidden;" id="texto_erro">
+          Senha incorreta.</span>
+      </div>
+    </div>
 
-    <div id="deletar_maquina" class="tela-lista-processos">
+    <!-- <div id="editar_maquina" class="tela-lista-processos">
       <div class="barra-lista">
         <samp style="color: white; margin-left: 10px;">Lista de Processos Bloqueados no setor</samp>
         <div class="icon-plus"></div>
       </div>
       <div class="lista">
-
       </div>
-    </div>
+    </div> -->
 
-    <div id="editar_maquina" class="tela-lista-processos">
-      <div class="barra-lista">
-        <samp style="color: white; margin-left: 10px;">Lista de Processos Bloqueados no setor</samp>
-        <div class="icon-plus"></div>
-      </div>
-      <div class="lista">
-      </div>
-    </div>
-
-
-    <div  id="pop-add-maquinas" class="tela-lista-processos">
+    <div style="display: none;" id="pop-add-maquinas" class="tela-lista-processos">
       <div class="barra-lista">
         <samp style="color: white; margin-left: 10px;">Cadastre sua máquina</samp>
         <div class="icon-plus"></div>
@@ -233,5 +237,7 @@
   const myChartCpu = new Chart(document.getElementById("myChartCpu"), config);
   const myChartRam = new Chart(document.getElementById("myChartRam"), config1);
   const myChartDisco = new Chart(document.getElementById("myChartDisco"), config2);
+
+  let idMaquina = sessionStorage.IDMAQUINA
 
 </script>
