@@ -80,6 +80,44 @@ insert into funcionario values
 (null, "Lucas Costa", "lucas.c@gmail.com", "lucas.costa", "123", "Desenvolvedor", 201, 100, false, false),
 (null, "Isabella Rodrigues", "isabella.r@gmail.com", "isabella.rodrigues", "123", "Analista", 200, 100, false, false);
 
+insert into maquina (modelo_maquina, nome_maquina) values 
+("Dell", "Maquina 01");
+
+insert into maquina () values 
+(null, "AAAAAAAA", "Dell", "Maquina 02", 'Windows', '64', 203, 100),
+(null, "BBBBBBBB", "Dell", "Maquina 03", 'Windows', '64', 203, 100),
+(null, "CCCCCCCC", "Dell", "Maquina 04", 'Windows', '64', 203, 100),
+(null, "DDDDDDDD", "Dell", "Maquina 05", 'Windows', '64', 203, 100),
+(null, "EEEEEEEE", "Dell", "Maquina 06", 'Windows', '64', 203, 100);
+
+INSERT INTO componente (modelo, tipo_componente, frequencia, fabricante, fk_maquina) VALUES
+('13th Gen Intel(R) Core(TM) i5-1335U', 'Processador', '2496000000', 'GenuineIntel', 701),
+('13th Gen Intel(R) Core(TM) i5-1335U', 'Processador', '2496000000', 'GenuineIntel', 702),
+('13th Gen Intel(R) Core(TM) i5-1335U', 'Processador', '2496000000', 'GenuineIntel', 703),
+('13th Gen Intel(R) Core(TM) i5-1335U', 'Processador', '2496000000', 'GenuineIntel', 704),
+('13th Gen Intel(R) Core(TM) i5-1335U', 'Processador', '2496000000', 'GenuineIntel', 705);
+
+INSERT INTO componente (tamanho_total_gb, tipo_componente, fk_maquina) values
+(7.7, 'Memória Ram', 701),
+(7.7, 'Memória Ram', 702),
+(7.7, 'Memória Ram', 703),
+(7.7, 'Memória Ram', 704),
+(7.7, 'Memória Ram', 705);
+
+INSERT INTO componente (tipo_componente, modelo, tamanho_total_gb, tamanho_disponivel_gb, fk_maquina) VALUES 
+("Disco", "NVMe PC SN740 NVMe WD 256GB (Unidades de disco padrão)", 235.64, 79.9, 701),
+("Disco", "NVMe PC SN740 NVMe WD 256GB (Unidades de disco padrão)", 235.64, 79.9, 702),
+("Disco", "NVMe PC SN740 NVMe WD 256GB (Unidades de disco padrão)", 235.64, 79.9, 703),
+("Disco", "NVMe PC SN740 NVMe WD 256GB (Unidades de disco padrão)", 235.64, 79.9, 704),
+("Disco", "NVMe PC SN740 NVMe WD 256GB (Unidades de disco padrão)", 235.64, 79.9, 705);
+
+insert into historico_hardware values 
+(null, 1.1, 9.2, 701, now()),
+(null, 1.1, 9.2, 702, now()),
+(null, 1.1, 9.2, 703, now()),
+(null, 1.1, 9.2, 704, now()),
+(null, 1.1, 9.2, 705, now());
+
 /*insert into processador (nome_processador, fabricante_processador, frequencia_processador, uso_processador) values
 ("Intel Core i7", "Intel", "3.6 GHz", 40.5),
 ("AMD Ryzen 9", "AMD", "3.8 GHz", 35.2),

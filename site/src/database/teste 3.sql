@@ -6,6 +6,10 @@ FROM maquina AS m join processador p on p.id_processador = m.fk_processador
 JOIN setor AS s ON s.setor_id = m.fk_setor
 WHERE m.fk_setor = 200;
 
+SELECT  pj.titulo_processo from processos_bloqueados_no_setor as pb join setor on pb.fk_setor = setor.setor_id
+                    JOIN processos_janelas as pj ON pj.processo_id = pb.fk_processo
+                    WHERE setor_id = 203;
+
 select mr.uso_ram_gb as ram_ocupada_gb,
  mr.total_ram_gb as ram_total_gb,
  p.uso_processador as cpu_ocupada,
@@ -70,7 +74,8 @@ funcionario
     WHERE email_funcionario  = 'teste.teste' AND senha_acesso = '123' OR
     login_acesso = 'teste.teste' AND senha_acesso = '123';
 
-truncate maquina;
+truncate historico_hardware;
+truncate componente;
 
 SELECT m.*, h.data_hora
   FROM maquina AS m join historico_hardware as h on m.maquina_id = h.fk_maquina 
@@ -123,12 +128,17 @@ from maquina m join setor s on m.fk_setor = s.setor_id where s.setor_id = 203;
 
 delete from historico_hardware where fk_maquina = 704;
 delete from componente where fk_maquina = 704;
-delete from maquina where maquina_id = 704;
+delete from maquina where maquina_id = 707;
 
 select * from historico_hardware;
 select * from componente;
+
+truncate table historico_hardware;
+
+SELECT maquina_id from
+maquina where processador_id = 'BFEBFBFF000B06A3';
   
-  select * from maquina;
+select * from maquina;
 
 use hardware_security;
 select * from funcionario;

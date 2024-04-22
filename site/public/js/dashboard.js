@@ -462,7 +462,7 @@ function atualizar_grafico_tempo_real(id_maquina) {
             if (validarHoraComTolerancia(informacoes[0].data_hora, 10)) {
               myChartCpu.data.labels = label
               myChartRam.data.labels = label
-              nome_usuario_maquina.innerHTML = `Monitoramento em tempo real da máquina de ${informacoes[0].nome_funcionario}`
+              nome_usuario_maquina.innerHTML = `Monitoramento em tempo real da máquina de ${informacoes[0].nome_maquina}`
               dadoGraficoRam.shift()
               dadoGraficoRam.push(informacoes[0].ram_ocupada_gb)
               myChartRam.options.scales.y.max = informacoes[0].ram_total_gb

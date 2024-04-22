@@ -109,6 +109,10 @@ select f.nome_funcionario,  h.data_hora,
   select * from maquina;
   
   
+  
   select p.titulo_processo, pb.id_processos from processos_bloqueados_no_setor as pb 
-  join processos_janelas on 
+  join processos_janelas on;
+  
+  insert into historico_hardware (cpu_ocupada, ram_ocupada, fk_maquina, data_hora)
+values(2.60, 6.51, 0, now());
 

@@ -153,8 +153,8 @@
               <thead>
                 <tr>
                   <th>Total de máquinas</th>
-                  <th>Maquinas monitoradas</th>
-                  <th>Maquinas não monitoradas</th>
+                  <th>Máquinas ligadas</th>
+                  <th>Máquinas desligadas</th>
                 </tr>
               </thead>
               <tbody>
@@ -170,27 +170,23 @@
             <h4>Informações da máquina</h4>
             <table>
               <tr>
-                <th>Dados diários</th>
                 <th>Informações</th>
+                <th>Total</th>
               </tr>
               <tr>
-                <td>Tempo de atividade da máquina no dia</td>
+                <td>Tempo de atividade da máquina</td>
                 <td>15h</td>
               </tr>
               <tr>
-                <td>Tempo de inatividade da máquina no dia</td>
-                <td>9h</td>
-              </tr>
-              <tr>
-                <td>Quantidade de vezes que a RAM ultrapassou o limite</td>
+                <td>Quantidade de vezes que a RAM ultrapassou o limite no dia</td>
                 <td>15</td>
               </tr>
               <tr>
-                <td>Quantidade de vezes que a CPU ultrapassou o limite</td>
+                <td>Quantidade de vezes que a CPU ultrapassou o limite no dia</td>
                 <td>10</td>
               </tr>
               <tr>
-                <td>Quando o disco pode ultrapassar sua capacidade total</td>
+                <td>Com base em seu uso, quando o espaço em disco pode exceder o total disponível</td>
                 <td>15 dias</td>
               </tr>
             </table>
@@ -209,7 +205,7 @@
         <div onclick="fechar_tela()" class="icon-plus xtela"></div>
       </div>
       <div class="lista">
-        <h4>Bloqueados ativos no setor</h4>
+        <h4>Bloqueios ativos no setor</h4>
         <div id="lista_bloqueios" class="lista_bloqueios">
 
         </div>
@@ -253,14 +249,14 @@
         <div class="form">
           <div class="form-element">
             <label for="nome">Nome da máquina</label>
-            <input type="text" id="nome" placeholder="Insira o nome da máquina...">
+            <input type="text" id="nome" placeholder="Insira o nome da máquina">
           </div>
           <div class="form-element">
             <label for="modelo">Modelo da máquina</label>
-            <input type="text" id="modelo" placeholder="Insira o modelo da máquina...">
+            <input type="text" id="modelo" placeholder="Insira o modelo da máquina">
           </div>
           <div class="form-element">
-            <button class="btm-confirmar">Confirmar</button>
+            <button class="btm-confirmar">Cadastrar</button>
           </div>
         </div>
       </div>
