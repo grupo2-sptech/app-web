@@ -71,7 +71,7 @@ function cap_dados(id_maquina) {
   h.cpu_ocupada as cpu_ocupada,
   d.tamanho_total_gb as disco_total_gb,
   d.tamanho_disponivel_gb as memoria_disponivel_gb, p.*,
-  h.data_hora as data_hora
+  h.data_hora - INTERVAL 3 HOUR AS data_hora
   from maquina as m join componente as r on r.fk_maquina = m.maquina_id and r.tipo_componente = "Memória Ram"
   join componente as d on d.fk_maquina = m.maquina_id and d.tipo_componente = "Disco"
   join componente as p on p.fk_maquina = m.maquina_id and p.tipo_componente = "Processador"
@@ -118,19 +118,19 @@ function listar_processos() {
 
 function atualizar_grafico_tempo_real_model(id_maquina) {
   let query = `SELECT f.nome_funcionario,
-  h.data_hora,
+  h.data_hora - INTERVAL 3 HOUR AS data_hora,
   h.cpu_ocupada,
   m.sistema_operacional,
   m.nome_maquina,
-  m.arquitetura as arquitetura_sistema_operacional,
-  h.ram_ocupada as ram_ocupada_gb,
+  m.arquitetura AS arquitetura_sistema_operacional,
+  h.ram_ocupada AS ram_ocupada_gb,
   c_disco.tamanho_disponivel_gb AS memoria_disponivel_gb,
   (c_disco.tamanho_total_gb - c_disco.tamanho_disponivel_gb) AS disco_ocupado_gb,
   c_ram.tamanho_total_gb AS ram_total_gb,
   c_cpu.modelo AS modelo_processador,
   c_cpu.fabricante AS fabricante_processador,
   c_disco.modelo AS modelo_disco,
-  c_disco.tamanho_total_gb as memoria_total_gb
+  c_disco.tamanho_total_gb AS memoria_total_gb
 FROM maquina AS m
 JOIN componente AS c_cpu ON m.maquina_id = c_cpu.fk_maquina AND c_cpu.tipo_componente = 'Processador'
 JOIN componente AS c_ram ON m.maquina_id = c_ram.fk_maquina AND c_ram.tipo_componente = 'Memória Ram'
@@ -142,7 +142,6 @@ WHERE m.maquina_id = ${id_maquina}
 ORDER BY h.data_hora DESC
 LIMIT 1;
 `
-
   return database.executar(query)
 }
 
