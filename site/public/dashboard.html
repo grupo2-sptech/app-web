@@ -99,7 +99,7 @@
             Pesquise o histórico de uso dessa maquina<br>
             Insira uma data
             <div style="display: flex; gap: 1rem; height: 100%; justify-content: center;">
-              <input style="height: 100%;" id="filtro_date" type="date" />
+              <input class="filtro_date" id="filtro_date" type="date" />
               <div onclick="buscarPorData()" class="icon-search"></div>
             </div>
           </div>
@@ -192,8 +192,68 @@
             </table>
           </div>
         </div>
+        <div id="uso-maquina" class="pesquisa-uso">
+          <div class="">
+            <div class="">
+              <h4>Histórico de Uso da Máquina</h4>
+              <strong style="justify-content: center; width: 100%; display: flex; font-size: 13px;">Pesquisar por
+                Intervalo de Tempo</strong>
+              <div class="pesquisa-inputs-uso">
+                <div>
+                  <strong style="font-size: 12px;">Data Final:</strong>
+                  <div><input id="date-final" style="width: 110px;" class="filtro_date" type="date"></div>
+                </div>
+                <div>
+                  <strong style="font-size: 12px;">Data Inicial:</strong>
+                  <div><input id="date-inicial" style="width: 110px;" class="filtro_date" type="date"></div>
+                </div>
+                <div class="icon-search"></div>
+              </div>
+              <br>
+            </div>
+            <div class="container-tabela">
+              <table class="tabela-uso">
+                <thead>
+                  <tr>
+                    <th>Nome do Usuário</th>
+                    <th>Horário de Entrada</th>
+                    <th>Horário de Saída</th>
+                    <th>Total de Bloqueios na Sessão</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>luis.silva</td>
+                    <td>25/04/24 08:00</td>
+                    <td>25/04/24 16:30</td>
+                    <td>12</td>
+                  </tr>
+                  <tr>
+                    <td>pedro.sousa</td>
+                    <td>25/04/24 17:00</td>
+                    <td>25/04/24 23:02</td>
+                    <td>8</td>
+                  </tr>
+                  <tr>
+                    <td>felipe.santos</td>
+                    <td>24/04/24 08:00</td>
+                    <td>24/04/24 16:47</td>
+                    <td>15</td>
+                  </tr>
+                  <tr>
+                    <td>diego.henrique</td>
+                    <td>24/04/24 17:00</td>
+                    <td>24/04/24 23:30</td>
+                    <td>9</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
         <div class="selecao">
           <div id="selecionarD" onclick="mudarDadosD()" class="selecionar selecionar_hover"></div>
+          <div id="selecionarM" onclick="mudarDadosM()" class="selecionar"></div>
           <div id="selecionarE" onclick="mudarDadosE()" class="selecionar"></div>
         </div>
       </div>
@@ -221,8 +281,6 @@
         </div>
       </div>
     </div>
-
-
     <div style="display: none;" id="deletar_maquina" class="tela-lista-processos">
       <div class="barra-lista">
         <samp style="color: white; margin-left: 10px;">Deletar máquina</samp>
@@ -269,28 +327,41 @@
 
 <script>
 
+  function mudarDados(targetId, displayValue) {
+    let selD = document.getElementById('selecionarD');
+    let selE = document.getElementById('selecionarE');
+    let selM = document.getElementById('selecionarM');
+
+    // Remover classe selecionada de todos os elementos
+    selD.classList.remove('selecionar_hover');
+    selE.classList.remove('selecionar_hover');
+    selM.classList.remove('selecionar_hover');
+
+    // Adicionar classe selecionada ao elemento alvo
+    document.getElementById(targetId).classList.add('selecionar_hover');
+
+    // Elementos das seções
+    let div_kpi = document.getElementById('kpi');
+    let div_detalhe = document.getElementById('detalhes_hardware');
+    let div_uso_maquina = document.getElementById('uso-maquina');
+
+    // Definir visibilidade das seções
+    div_kpi.style.display = displayValue === 'kpi' ? 'flex' : 'none';
+    div_detalhe.style.display = displayValue === 'detalhes_hardware' ? 'flex' : 'none';
+    div_uso_maquina.style.display = displayValue === 'uso-maquina' ? 'flex' : 'none';
+  }
   function mudarDadosD() {
-    let selD = document.getElementById('selecionarD')
-    let selE = document.getElementById('selecionarE')
-    let div_kpi = document.getElementById('kpi')
-    let div_detalhe = document.getElementById('detalhes_hardware')
-    selE.classList.remove('selecionar_hover')
-    selD.classList.add('selecionar_hover')
-    div_kpi.style.display = 'flex'
-    div_detalhe.style.display = 'none'
+    mudarDados('selecionarD', 'kpi');
   }
 
   function mudarDadosE() {
-    let selD = document.getElementById('selecionarD')
-    let selE = document.getElementById('selecionarE')
-
-    selE.classList.add('selecionar_hover')
-    selD.classList.remove('selecionar_hover')
-    let div_kpi = document.getElementById('kpi')
-    let div_detalhe = document.getElementById('detalhes_hardware')
-    div_kpi.style.display = 'none'
-    div_detalhe.style.display = 'flex'
+    mudarDados('selecionarE', 'detalhes_hardware');
   }
+
+  function mudarDadosM() {
+    mudarDados('selecionarM', 'uso-maquina');
+  }
+
 
   function adicionarmaquina() {
     document.getElementById('pop-add-maquinas').style.display = 'flex'
@@ -310,10 +381,29 @@
     deletar.style.display = 'none';
   }
 
-
   let inputDate = document.getElementById("filtro_date");
+  let inputDataInicio = document.getElementById("date-inicial");
+  let inputDataFinal = document.getElementById("date-final");
+
   let today = new Date().toISOString().split("T")[0];
   inputDate.value = today;
+
+  let dataInicio = new Date();
+  dataInicio.setDate(dataInicio.getDate() - 1);
+  let dataInicioISO = dataInicio.toISOString().split("T")[0];
+
+  let dataFinal = new Date();
+  dataFinal.setDate(dataFinal.getDate() - 2);
+  let dataFinalISO = dataFinal.toISOString().split("T")[0];
+
+  inputDataInicio.max = dataInicioISO;
+  inputDataFinal.max = dataInicioISO;
+  inputDataInicio.value = dataInicioISO;
+  inputDataFinal.value = dataFinalISO;
+
+
+
+
 
   let acesso_total = sessionStorage.ACESSO_TOTAL
   let nome = sessionStorage.NOME_USUARIO
