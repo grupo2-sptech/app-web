@@ -115,16 +115,16 @@ function atualizar_maquina_tempo_real(
             bolinha_ram.style.animation = 'none'
           }
           if (
-            (result_maquina.memoria_disponivel_gb /
-              result_maquina.disco_total_gb) *
+            (result_maquina.disco_total_gb /
+              result_maquina.memoria_disponivel_gb) *
               100 >
             80
           ) {
             bolinha_disco.style.background = '#ff0000'
             bolinha_disco.style.animation = 'none'
           } else if (
-            (result_maquina.memoria_disponivel_gb /
-              result_maquina.disco_total_gb) *
+            (result_maquina.disco_total_gb /
+              result_maquina.memoria_disponivel_gb) *
               100 >
             50
           ) {
@@ -177,8 +177,8 @@ function listarMaquinas(fksetor, acesso) {
             <div class="descricao-titulo">
               <p>Modelo: ${maquinas.modelo_maquina}</p>
               <p>Nome: ${maquinas.nome_maquina}</p>
-              <p id = "user${maquinas.maquina_id}"></p>
               <p>Status: <strong id="status_maquina${maquinas.maquina_id}"></strong></p>
+              <p id = "user${maquinas.maquina_id}">Usuário: </p>
             </div>
             <div class="descricao-status">
               <div class="descricao-componenete">
@@ -460,12 +460,15 @@ function atualizar_grafico_tempo_real(id_maquina) {
           .then(informacoes => {
             id_maquina_pesquisa = id_maquina
             if (validarHoraComTolerancia(informacoes[0].data_hora, 10)) {
+              sessionStorage.TOTAL_RAM = informacoes[0].ram_total_gb
               myChartCpu.data.labels = label
               myChartRam.data.labels = label
               nome_usuario_maquina.innerHTML = `Monitoramento em tempo real da máquina de ${informacoes[0].nome_maquina}`
               dadoGraficoRam.shift()
-              dadoGraficoRam.push(informacoes[0].ram_ocupada_gb)
-              myChartRam.options.scales.y.max = informacoes[0].ram_total_gb
+              dadoGraficoRam.push(
+                (informacoes[0].ram_ocupada_gb / informacoes[0].ram_total_gb) *
+                  100
+              )
               myChartRam.data.datasets[0].data = dadoGraficoRam
               myChartRam.update()
 
@@ -475,13 +478,13 @@ function atualizar_grafico_tempo_real(id_maquina) {
               myChartCpu.update()
 
               if (dadosGraficoDisco[0] == 0 || dadosGraficoDisco[1] == 0) {
-                dadosGraficoDisco[0] = informacoes[0].disco_ocupado_gb
-                dadosGraficoDisco[1] = informacoes[0].memoria_disponivel_gb
+                dadosGraficoDisco[0] = informacoes[0].memoria_disponivel_gb
+                dadosGraficoDisco[1] = informacoes[0].disco_ocupado_gb
                 myChartDisco.data.datasets[0].data = dadosGraficoDisco
                 myChartDisco.update()
               }
             } else {
-              nome_usuario_maquina.innerHTML = `A máquina associada ao usuário ${informacoes[0].nome_funcionario}  está inativa.`
+              nome_usuario_maquina.innerHTML = `A ${informacoes[0].nome_maquina} está inativa.`
               dadoGraficoCpu = [
                 null,
                 null,
@@ -641,25 +644,22 @@ function buscarPorData() {
         myChartRam.data.labels = label_hist
 
         myChartCpu.data.datasets[0].data = [
-          dados[0].cpu_ocupada_10_12,
-          dados[0].cpu_ocupada_08_10,
-          dados[0].cpu_ocupada_12_14,
-          dados[0].cpu_ocupada_14_16,
-          dados[0].cpu_ocupada_16_18
+          dados[0].cpu_ocupada_08_10 * 2,
+          dados[0].cpu_ocupada_10_12 * 2,
+          dados[0].cpu_ocupada_12_14 * 2,
+          dados[0].cpu_ocupada_14_16 * 2,
+          dados[0].cpu_ocupada_16_18 * 2
         ]
         myChartCpu.update()
         myChartRam.data.datasets[0].data = [
-          dados[0].ram_ocupada_08_10,
-          dados[0].ram_ocupada_10_12,
-          dados[0].ram_ocupada_12_14,
-          dados[0].ram_ocupada_14_16,
-          dados[0].ram_ocupada_16_18
+          (dados[0].ram_ocupada_08_10 / sessionStorage.TOTAL_RAM) * 100,
+          (dados[0].ram_ocupada_10_12 / sessionStorage.TOTAL_RAM) * 100,
+          (dados[0].ram_ocupada_12_14 / sessionStorage.TOTAL_RAM) * 100,
+          (dados[0].ram_ocupada_14_16 / sessionStorage.TOTAL_RAM) * 100,
+          (dados[0].ram_ocupada_16_18 / sessionStorage.TOTAL_RAM) * 100
         ]
         myChartRam.update()
-        myChartDisco.data.datasets[0].data = [
-          dados[0].disco_ocupado_gb,
-          dados[0].memoria_disponivel_gb
-        ]
+        myChartDisco.data.datasets[0].data = [12.3, 243.21]
         myChartDisco.update()
       })
     })
@@ -851,8 +851,8 @@ const config = {
     },
     scales: {
       y: {
-        min: 1,
-        max: 100
+        max: 100,
+        min: 0
       }
     },
     elements: {
@@ -892,7 +892,8 @@ const config1 = {
     },
     scales: {
       y: {
-        min: 5
+        max: 100,
+        min: 0
       }
     },
     elements: {
