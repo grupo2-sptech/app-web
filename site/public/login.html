@@ -23,7 +23,7 @@
           <input id="input_senha" type="password" placeholder="senha" />
         </div>
         <div class="div_button">
-          <button  style="background-color: forestgreen;" onclick="entrar()">Entrar</button>
+          <button style="background-color: forestgreen;" onclick="entrar()">Entrar</button>
           <button style="background-color: red;" onclick="voltar()">Voltar</button>
         </div>
         <a style="color: black; cursor: pointer; margin-top: 2rem;" onclick="openPop()">Esqueci a senha</a>
@@ -50,8 +50,8 @@
         <input type="text" id="userInput">
         <span style="font-size: 12px; color: red; height: 2.5%; width: 100%; visibility: hidden;" id="texto_erro">
           E-mail não encontrado.</span>
-          <span style="font-size: 12px; color: red; height: 3%; width: 100%; visibility: hidden;" id="texto_erro_2">
-            Insira um e-mail.</span>
+        <span style="font-size: 12px; color: red; height: 3%; width: 100%; visibility: hidden;" id="texto_erro_2">
+          Insira um e-mail.</span>
         <div class="div_button_popup">
           <button style="background-color: orange" onclick="forgotPassword()">Recuperar senha</button>
           <button style="background-color: red;" onclick="closePopUp()">Voltar</button>
@@ -85,7 +85,6 @@
         return resposta.json();
       })
         .then(function (data) {
-          console.log(data)
           if (data.affectedRows != 0) {
             alert()
             fetch("/usuarios/enviarEmail", {
@@ -109,7 +108,7 @@
           console.log(erro);
         })
       return false;
-    } else {   
+    } else {
       texto_erro_2.style.visibility = 'visible';
     }
   }

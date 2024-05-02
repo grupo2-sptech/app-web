@@ -29,5 +29,11 @@ router.get('/listar_processos_bloqueados/:id_setor', function (req, res) {
 router.get('/listar_processos', function (req, res) {
   dashboardController.listar_processos(req, res)
 })
+router.post(
+  '/cadastrar_maquina/:nome_maquina/:modelo_maquina',
+  function (req, res) {
+    dashboardController.cadastrar_maquina(req, res)
+  }
+)
 
 module.exports = router

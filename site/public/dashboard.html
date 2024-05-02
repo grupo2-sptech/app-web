@@ -33,14 +33,14 @@
           <div class="icon-stats-dots ico"></div>
           <span class="nome-acao">Dashboard</span>
         </a>
-        <!--  <a class="itensDaNav" href="./dashboard/gerenciarUsuarios.html">
+        <a class="itensDaNav" href="./dashboard/gerenciarUsuarios.html">
           <div class="icon-user ico"></div>
           <samp class="nome-acao">Perfil</samp>
         </a>
         <a class="itensDaNav" href="./dashboard/gerenciarUsuarios.html">
           <div class="icon-user-plus ico"></div>
           <samp style="text-align: center;" class="nome-acao">Adicionar<br>Usuário</samp>
-        </a> -->
+        </a>
         <a onclick="abir_lista()" class="itensDaNav">
           <div style="font-weight: bold;" class="icon-document-forbidden1 ico"></div>
           <samp style="text-align: center;" class="nome-acao">Lista de Bloqueios</samp>
@@ -81,7 +81,24 @@
     <div class="central-maquinas">
 
       <div class="titulo-maquinas">
-        <h1 id="titulo_setor">Máquinas do setor de </h1>
+        <div style="display: flex; width: 100%; gap: 2rem; align-items: center;">
+          <h1 id="titulo_setor">Máquinas do setor de </h1>
+          <div style="display: flex; gap: 3rem; margin-top: -0.5rem;">
+            <div style="display: flex; align-items: center; gap: 0.3rem">
+              <div style="background-color: red;" class="bolinha_legenda"></div>
+              <span> - Maior que 75%</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.3rem;">
+              <div style="background-color: orange;" class="bolinha_legenda"></div>
+              <span> - Maior que 50%</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.3rem">
+              <div style="background-color: green;" class="bolinha_legenda"></div>
+              <span> - Menor que 50%</span>
+            </div>
+          </div>
+        </div>
+
         <button id="adicionarmaquina" onclick="adicionarmaquina()" class="button-add-maquinas">Adicionar máquina
           <div class="icon-plus"></div>
         </button>
@@ -201,11 +218,11 @@
                 Intervalo de Tempo</strong>
               <div class="pesquisa-inputs-uso">
                 <div>
-                  <strong style="font-size: 12px;">Data Final:</strong>
+                  <strong style="font-size: 12px;">Data Inicial</strong>
                   <div><input id="date-final" style="width: 110px;" class="filtro_date" type="date"></div>
                 </div>
                 <div>
-                  <strong style="font-size: 12px;">Data Inicial:</strong>
+                  <strong style="font-size: 12px;">Data Final:</strong>
                   <div><input id="date-inicial" style="width: 110px;" class="filtro_date" type="date"></div>
                 </div>
                 <div class="icon-search"></div>
@@ -319,15 +336,18 @@
         <div class="form">
           <div class="form-element">
             <label for="nome">Nome da máquina</label>
-            <input type="text" id="nome" placeholder="Insira o nome da máquina">
+            <input type="text" id="nome_maquina" placeholder="Insira o nome da máquina">
           </div>
           <div class="form-element">
             <label for="modelo">Modelo da máquina</label>
-            <input type="text" id="modelo" placeholder="Insira o modelo da máquina">
+            <input type="text" id="modelo_maquina" placeholder="Insira o modelo da máquina">
           </div>
           <div class="form-element">
-            <button class="btm-confirmar">Cadastrar</button>
+            <button onclick="cadastrarMaquina()" class="btm-confirmar">Cadastrar</button>
           </div>
+          <span id="preecha_campos_maquina" style="color: red; display: none; text-align: center;">
+            Preecha todos os campos!
+          </span>
         </div>
       </div>
     </div>

@@ -13,7 +13,6 @@ function listar(id_setor, id_select, acesso_total) {
         resposta.json().then(tabelas => {
           titulo_setor.innerHTML += tabelas[0].nome_setor
           tabelas.forEach(tabela => {
-            console.log(tabela)
             const option = document.createElement('option') // Cria uma nova opção em cada iteração
             option.value = tabela.maquina_id
             option.text = tabela.nome_maquina
@@ -71,86 +70,74 @@ function atualizar_maquina_tempo_real(
   id_bolinha_ram,
   id_bolinha_disco
 ) {
+  // Requisição para obter dados da máquina pelo ID
   fetch(`/dashboard/cap_dados/${id_maquina}`, {
     method: 'GET',
     cache: 'no-store'
-  }).then(function (resposta) {
+  }).then(resposta => {
+    // Processa resposta em JSON
     resposta.json().then(result => {
+      // Processa cada resultado da máquina
       result.forEach(result_maquina => {
-        let bolinha_cpu = document.getElementById(`${id_bolinha_cpu}`)
-        let bolinha_ram = document.getElementById(`${id_bolinha_ram}`)
-        let bolinha_disco = document.getElementById(`${id_bolinha_disco}`)
+        // Elementos da interface de usuário
+        let bolinha_cpu = document.getElementById(id_bolinha_cpu)
+        let bolinha_ram = document.getElementById(id_bolinha_ram)
+        let bolinha_disco = document.getElementById(id_bolinha_disco)
         let status = document.getElementById(`status_maquina${id_maquina}`)
         let pc = document.getElementById(`maquina_${id_maquina}`)
+
+        // Verifica se a hora está dentro da tolerância
         if (validarHoraComTolerancia(result_maquina.data_hora, 10)) {
+          // Define o status como 'Ligado'
           status.innerHTML = 'Ligado'
           pc.style.color = '#144a00'
           pc.style.animation = 'none'
-          if (result_maquina.cpu_ocupada * 2 > 75) {
-            bolinha_cpu.style.background = '#ff0000'
-            bolinha_cpu.style.animation = 'none'
-          } else if (result_maquina.cpu_ocupada * 2 > 50) {
-            bolinha_cpu.style.background = '#ff9d00'
-            bolinha_cpu.style.animation = 'none'
-          } else {
-            bolinha_cpu.style.background = '#2bff00'
-            bolinha_cpu.style.animation = 'none'
-          }
-          if (
-            (result_maquina.ram_ocupada_gb / result_maquina.ram_total_gb) *
-              100 >
-            75
-          ) {
-            bolinha_ram.style.background = '#ff0000'
-            bolinha_ram.style.animation = 'none'
-          } else if (
-            (result_maquina.ram_ocupada_gb / result_maquina.ram_total_gb) *
-              100 >
-            50
-          ) {
-            bolinha_ram.style.background = '#ff9d00'
-            bolinha_ram.style.animation = 'none'
-          } else {
-            bolinha_ram.style.background = '#2bff00'
-            bolinha_ram.style.animation = 'none'
-          }
-          if (
+
+          // Atualiza cor e estilo do indicador de CPU
+          atualizarCorIndicador(
+            bolinha_cpu,
+            result_maquina.cpu_ocupada * 2,
+            [50, 75]
+          )
+          // Atualiza cor e estilo do indicador de RAM
+          atualizarCorIndicador(
+            bolinha_ram,
+            (result_maquina.ram_ocupada_gb / result_maquina.ram_total_gb) * 100,
+            [50, 75]
+          )
+          // Atualiza cor e estilo do indicador de Disco
+          atualizarCorIndicador(
+            bolinha_disco,
             (result_maquina.disco_total_gb /
               result_maquina.memoria_disponivel_gb) *
-              100 >
-            80
-          ) {
-            bolinha_disco.style.background = '#ff0000'
-            bolinha_disco.style.animation = 'none'
-          } else if (
-            (result_maquina.disco_total_gb /
-              result_maquina.memoria_disponivel_gb) *
-              100 >
-            50
-          ) {
-            bolinha_disco.style.background = '#ff9d00'
-            bolinha_disco.style.animation = 'none'
-          } else {
-            bolinha_disco.style.background = '#2bff00'
-            bolinha_disco.style.animation = 'none'
-          }
+              100,
+            [50, 80]
+          )
         } else {
-          bolinha_cpu.style.background = '##d2d2d2'
-          bolinha_ram.style.background = '##d2d2d2'
-          bolinha_disco.style.background = '##d2d2d2'
+          // Configurações quando a máquina está desligada
           status.innerHTML = 'Desligado'
           pc.style.color = 'black'
           pc.style.animation = 'none'
-          bolinha_disco.style.background = '#d2d2d2'
-          bolinha_disco.style.animation = 'none'
-          bolinha_ram.style.background = '#d2d2d2'
-          bolinha_ram.style.animation = 'none'
-          bolinha_cpu.style.background = '#d2d2d2'
-          bolinha_cpu.style.animation = 'none'
+          // Define todos os indicadores como inativos (cor cinza)
+          ;[bolinha_cpu, bolinha_ram, bolinha_disco].forEach(bolinha => {
+            bolinha.style.background = '#d2d2d2'
+            bolinha.style.animation = 'none'
+          })
         }
       })
     })
   })
+}
+
+function atualizarCorIndicador(element, percent, limits) {
+  if (percent > limits[1]) {
+    element.style.background = '#ff0000'
+  } else if (percent > limits[0]) {
+    element.style.background = '#ff9d00'
+  } else {
+    element.style.background = '#2bff00'
+  }
+  element.style.animation = 'none'
 }
 
 let id_maquinas = []
@@ -246,6 +233,40 @@ function verificarSenha() {
       console.error('Erro ao verificar senha:', error)
     })
 }
+
+function cadastrarMaquina() {
+  let nome_maquina = document.getElementById('nome_maquina').value
+  let modelo_maquina = document.getElementById('modelo_maquina').value
+  let campo = document.getElementById('preecha_campos_maquina')
+
+  if (!nome_maquina || !modelo_maquina) {
+    campo.style.display = 'block'
+    campo.innerHTML = 'Preencha todos os campos'
+    /*     console.log('Campos vazios:', { nome_maquina, modelo_maquina }) */
+  } else {
+    fetch(`/dashboard/cadastrar_maquina/${nome_maquina}/${modelo_maquina}`, {
+      method: 'POST'
+    })
+      .then(function (resposta) {
+        return resposta.json()
+      })
+      .then(function (dado) {
+        if (dado.id !== undefined) {
+          campo.innerHTML = `Cadastro realizado com sucesso!<br>Código de cadastro da máquina: <strong>${dado.id}</strong>`
+          campo.style.display = 'block'
+          campo.style.color = 'black'
+        } else {
+          campo.innerHTML = 'Erro ao obter o Código de cadastro.'
+          campo.style.display = 'block'
+        }
+      })
+      .catch(err => {
+        campo.innerHTML = `Erro: ${err.message}`
+        console.error('Erro ao cadastrar máquina:', err)
+      })
+  }
+}
+
 function listar_processos(id_setor) {
   let id_div_processos = document.getElementById('lista_bloqueios')
   id_div_processos.innerHTML = ``

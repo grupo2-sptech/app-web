@@ -122,6 +122,8 @@ select f.nome_funcionario,  h.data_hora,
   
   update maquina set total_ram = "8000000000" where maquina_id = 503;
   
+  insert into maquina (modelo_maquina, nome_maquina) values ("a", "a"); SELECT LAST_INSERT_ID() as id;
+  
   select * from maquina;
   
   
