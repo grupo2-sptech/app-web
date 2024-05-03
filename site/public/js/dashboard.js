@@ -71,7 +71,7 @@ function atualizar_maquina_tempo_real(
   id_bolinha_disco
 ) {
   // Requisição para obter dados da máquina pelo ID
-  fetch(`/dashboard/cap_dados/${id_maquina}`, {
+  fetch(`/dashboard/atualizar_grafico_tempo_real/${id_maquina}`, {
     method: 'GET',
     cache: 'no-store'
   }).then(resposta => {
@@ -105,14 +105,11 @@ function atualizar_maquina_tempo_real(
             (result_maquina.ram_ocupada_gb / result_maquina.ram_total_gb) * 100,
             [50, 75]
           )
-          // Atualiza cor e estilo do indicador de Disco
-          atualizarCorIndicador(
-            bolinha_disco,
-            (result_maquina.disco_total_gb /
-              result_maquina.memoria_disponivel_gb) *
-              100,
-            [50, 80]
-          )
+          let apoio =
+            (result_maquina.disco_ocupado_gb /
+              result_maquina.memoria_total_gb) *
+            100
+          atualizarCorIndicador(bolinha_disco, apoio, [50, 80])
         } else {
           // Configurações quando a máquina está desligada
           status.innerHTML = 'Desligado'
@@ -173,12 +170,12 @@ function listarMaquinas(fksetor, acesso) {
                 <p>CPU</p>
               </div>
               <div class="descricao-componenete">
-                <div class="bolinha" id="icone-disco${maquinas.maquina_id}"></div>
-                <p>Disco</p>
-              </div>
-              <div class="descricao-componenete">
                 <div class="bolinha" id="icone-ram${maquinas.maquina_id}"></div>
                 <p>Ram</p>
+              </div>
+              <div class="descricao-componenete">
+                <div class="bolinha" id="icone-disco${maquinas.maquina_id}"></div>
+                <p>Disco</p>
               </div>
             </div>
           </div>
@@ -915,6 +912,34 @@ const config1 = {
       y: {
         max: 100,
         min: 0
+      }
+    },
+    elements: {
+      line: {
+        tension: 0
+      }
+    }
+  }
+}
+const data3 = {
+  labels: ['CPU', 'Ram', 'Disco'],
+  datasets: [
+    {
+      label: 'Quantidade de ',
+      fill: true,
+      backgroundColor: 'rgba(000, 99, 132, 0.5)',
+      borderColor: 'rgba(000, 99, 132, 1)'
+    }
+  ]
+}
+
+const config3 = {
+  type: 'bar',
+  data: data3,
+  options: {
+    plugins: {
+      legend: {
+        display: false
       }
     },
     elements: {

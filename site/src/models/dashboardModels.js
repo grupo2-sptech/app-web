@@ -123,8 +123,8 @@ function listar_processos() {
 }
 
 function atualizar_grafico_tempo_real_model(id_maquina) {
-  let query = `SELECT f.nome_funcionario,
-  h.data_hora,
+  let query = ` SELECT f.nome_funcionario,
+  DATE_SUB(h.data_hora, INTERVAL 3 HOUR) AS data_hora,
   h.cpu_ocupada,
   m.sistema_operacional,
   m.nome_maquina,

@@ -44,6 +44,7 @@ insert into processos_bloqueados_no_setor values
 (null ,203, 804);
 
 insert into funcionario values
+
 (null, "Jonathan Carvalho", "jonathanaparecido80@gmail.com", "jonathan.carvalho", "123", "Gerente", 200,100, true, true),
 (null, "Julia Silva", "julia@gmail.com", "julia.silva", "123", "Gestor", 201,100, true, false),
 (null, "Andre Pereira", "andre@gmail.com", "andre.pereira", "123", "Gestor", 202, 100, true, false),
@@ -80,12 +81,12 @@ insert into funcionario values
 (null, "Lucas Costa", "lucas.c@gmail.com", "lucas.costa", "123", "Desenvolvedor", 201, 100, false, false),
 (null, "Isabella Rodrigues", "isabella.r@gmail.com", "isabella.rodrigues", "123", "Analista", 200, 100, false, false);
 
-insert into maquina (modelo_maquina, nome_maquina) values
+insert into maquina (modelo_maquina, nome_maquina) values 
 ("Dell", "Máquina 01"),
 ("Sansung", "Máquina 02"),
 ("Acer", "Máquina 03");
 
-insert into maquina () values
+insert into maquina () values 
 (null, "AAAAAAAA", "Dell", "Máquina 04", 'Windows', '64', 203, 100),
 (null, "BBBBBBBB", "Dell", "Máquina 05", 'Windows', '64', 203, 100),
 (null, "CCCCCCCC", "Dell", "Máquina 06", 'Windows', '64', 203, 100),
@@ -106,14 +107,14 @@ INSERT INTO componente (tamanho_total_gb, tipo_componente, fk_maquina) values
 (7.7, 'Memória Ram', 704),
 (7.7, 'Memória Ram', 705);
 
-INSERT INTO componente (tipo_componente, modelo, tamanho_total_gb, tamanho_disponivel_gb, fk_maquina) VALUES
+INSERT INTO componente (tipo_componente, modelo, tamanho_total_gb, tamanho_disponivel_gb, fk_maquina) VALUES 
 ("Disco", "NVMe PC SN740 NVMe WD 256GB (Unidades de disco padrão)", 235.64, 79.9, 701),
 ("Disco", "NVMe PC SN740 NVMe WD 256GB (Unidades de disco padrão)", 235.64, 79.9, 702),
 ("Disco", "NVMe PC SN740 NVMe WD 256GB (Unidades de disco padrão)", 235.64, 79.9, 703),
 ("Disco", "NVMe PC SN740 NVMe WD 256GB (Unidades de disco padrão)", 235.64, 79.9, 704),
 ("Disco", "NVMe PC SN740 NVMe WD 256GB (Unidades de disco padrão)", 235.64, 79.9, 705);
 
-insert into historico_hardware values
+insert into historico_hardware values 
 (null, 1.1, 9.2, 701, now()),
 (null, 1.1, 9.2, 702, now()),
 (null, 1.1, 9.2, 703, now()),
@@ -367,6 +368,7 @@ VALUES
     (36.2, 7043128953, 700, '2024-04-07 17:30:00'),
     (30.8, 5412374902, 700, '2024-04-07 17:45:00'),
     (37.3, 8124930685, 700, '2024-04-07 18:00:00');
-
+    
 select * from maquina;
 select * from historico_hardware;
+
