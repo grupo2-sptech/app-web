@@ -14,9 +14,9 @@
 
 <body>
   <div id="menu" class="menuLateral">
-    <a style="color: white; cursor: pointer">
-      <div onclick="sumirMenu()" class="logo">
-        <img id="logotipo" src="../assets/icon/Logo.png" alt="" />
+    <a>
+      <div class="logo">
+        <img id="logotipo" src="assets/icon/seguranca.png" alt="" />
       </div>
     </a>
     <div id="itens_menu" class="itens_menu">
@@ -25,19 +25,23 @@
         <span id="nome_usuario"></span>
       </div>
       <div style="height: 60%; justify-content: space-around; display: flex; flex-direction: column;">
-        <a class="itensDaNav" href="../dashboard.html">
+        <a class="itensDaNav" href="#">
           <div class="icon-stats-dots ico"></div>
           <span class="nome-acao">Dashboard</span>
         </a>
-        <a class="itensDaNav" href="">
-          <div class="icon-user ico"></div>
-          <samp class="nome-acao">Perfil</samp>
-        </a>
-        <a class="itensDaNav" href="../dashboard/gerenciarUsuarios.html">
-          <div class="icon-user-plus ico"></div>
+        <a class="itensDaNav" href="./dashboard/gerenciarUsuarios.html">
+          <div class="ico">
+            <img src="./assets/imgs/gerenciar_user.svg" alt="">
+          </div>
           <samp style="text-align: center;" class="nome-acao">Adicionar<br>Usuário</samp>
         </a>
-        <a class="itensDaNav" href="">
+        <a id="gerenciamento_user" class="itensDaNav" href="#">
+          <div>
+            <img src="./assets/imgs/gerenciar_setor.png" alt="">
+          </div>
+          <samp style="text-align: center;" class="nome-acao">Adicionar<br>Usuário</samp>
+        </a>
+        <a onclick="abir_lista()" class="itensDaNav">
           <div style="font-weight: bold;" class="icon-document-forbidden1 ico"></div>
           <samp style="text-align: center;" class="nome-acao">Lista de Bloqueios</samp>
         </a>
