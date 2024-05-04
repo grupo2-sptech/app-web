@@ -101,6 +101,7 @@ tr {
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
+    display: none;
 }
 
 .rotulosUsuario{
@@ -121,9 +122,9 @@ tr {
 }
 
 .rotulos label {
-    flex-basis: 30%; /* Define uma largura fixa para os labels */
-    text-align: right; /* Alinha o texto dos labels à direita */
-    margin-right: 10px; /* Adiciona espaço à direita do label para a input */
+    flex-basis: 30%; 
+    text-align: right; 
+    margin-right: 10px; 
     font-size: 20px;
 }
 
@@ -173,7 +174,7 @@ tr {
     background-color: #A0A0A0; 
 }
 
-.botaoAdicionar {
+.botaoConfirmar {
     background-color: #4CAF50; 
     color: #fff; 
     border: none; 
@@ -185,6 +186,8 @@ tr {
     transition: background-color 0.3s ease; 
 }
 
-.botaoAdicionar:hover {
+.botaoConfirmar:hover {
     background-color: #45A049; 
 }
+
+

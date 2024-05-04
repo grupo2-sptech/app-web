@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="../assets/icons/style.css" />
   <script src="../js/dashboard.js"></script>
   <script src="../js/sessao.js"></script>
+  <script src="../js/gerenciarUsuario.js"></script>
 </head>
 
 <body onload="validarSessao()">
@@ -55,12 +56,12 @@
   </div>
 
   <main class="mainGerenciarUsuario">
-    <div style="display: none;" class="tituloGerenciar">
+    <div  class="tituloGerenciar" id="tituloGerenciar">
       <h1 class="titulo">Gerenciar Usuários</h1>
       <div class="icon-user-plus" id="botaoAdicionar"></div>
     </div>
 
-    <div style="display: none;" class="menuGerenciar">
+    <div  class="menuGerenciar" id="menuGerenciar">
 
       <table>
         <thead>
@@ -104,7 +105,7 @@
 
     </div>
 
-    <div class="adicionarUsuario">
+    <div  class="adicionarUsuario" id="adicionarUsuario">
       <h1>Adicionar Usuário</h1>
 
       <div class="rotulosUsuario">
@@ -143,11 +144,13 @@
       </div>
 
       <div>
-        <button class="botaoCancelar">Cancelar</button>
-        <button class="botaoAdicionar">Confirmar</button>
+        <button class="botaoCancelar" id="botaoCancelar">Cancelar</button>
+        <button class="botaoConfirmar">Confirmar</button>
       </div>
 
     </div>
+
+    
 
   </main>
 
