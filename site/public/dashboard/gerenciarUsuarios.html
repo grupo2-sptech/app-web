@@ -55,12 +55,12 @@
   </div>
 
   <main class="mainGerenciarUsuario">
-    <div class="tituloGerenciar">
+    <div style="display: none;" class="tituloGerenciar">
       <h1 class="titulo">Gerenciar Usuários</h1>
       <div class="icon-user-plus" id="botaoAdicionar"></div>
     </div>
 
-    <div class="menuGerenciar">
+    <div style="display: none;" class="menuGerenciar">
 
       <table>
         <thead>
@@ -104,6 +104,50 @@
 
     </div>
 
+    <div class="adicionarUsuario">
+      <h1>Adicionar Usuário</h1>
+
+      <div class="rotulosUsuario">
+
+        <div class="rotulos">
+          <label for="nome">Nome:</label>
+          <input class="inputRotulos" type="text" placeholder="Digite o nome" required>
+        </div>
+
+        <div class="rotulos">
+          <label for="nome">Sobrenome:</label>
+          <input class="inputRotulos" type="text" placeholder="Digite o nome" required>
+        </div>
+          
+        <div class="rotulos">
+          <label for="email">E-mail</label>
+          <input class="inputRotulos" type="text" placeholder="Digite o E-mail">
+        </div>
+
+        <div class="rotulos">
+          <label for="setor">Setor</label>
+          <select class="selectRotulos" name="" id="">
+            <option class="" value="" disabled selected>Selecione o Setor</option>
+          </select>
+        </div>
+
+        <div class="rotulos">
+          <label for="Cargo">Cargo</label>
+          <input class="inputRotulos" type="text" placeholder="Informe o Cargo">
+        </div>
+
+
+          
+
+
+      </div>
+
+      <div>
+        <button class="botaoCancelar">Cancelar</button>
+        <button class="botaoAdicionar">Confirmar</button>
+      </div>
+
+    </div>
 
   </main>
 
