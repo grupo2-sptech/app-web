@@ -1,20 +1,87 @@
+
+
 .mainGerenciarUsuario {
     height: 100%;
-    width: 100%;
+    width: 95%;
     display: flex;
     flex-direction: column;
+    margin-left: 5%;
 }
 
 .tituloGerenciar {
     width: 100%;
-    height: 10%;
+    height: 100px;
     display: flex;
-   
+    justify-content: space-between;
+    align-items: center; 
+}
+
+.titulo{
+    margin-left: 5%;
+}
+
+.tituloGerenciar .icon-user-plus {
+    font-size: 50px;
+    margin-right: 5%;
 }
 
 .menuGerenciar {
     width: 100%;
-    height: 90%;
+    height: 80%;
     display: flex;
+    flex-direction: column;
+}
+
+.rotulosGerenciar{
+    width: 100%;
+    height: 15%;
+    display: flex;
+    justify-content: space-around;
+    background-color: white;
+}
+
+.rotulosGerenciar span{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.cardUsuarioMenu{
+    width: 100%;
+    height: 65%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     
+}
+
+table {
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: none;
+}
+
+
+th {
+    background-color: white;
+    color: black;
+}
+
+th span{
+    font-size: 20px;
+}
+
+td {
+    background-color: white;
+    font-size: 16px;
+}
+
+.icon-user{
+    font-size: 20px;
+}
+
+tr {
+    height: 75px;
+    border: 1px solid black;
 }
