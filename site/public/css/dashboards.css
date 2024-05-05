@@ -349,6 +349,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+  text-align: center;
   width: 50%;
 }
 
@@ -356,6 +358,22 @@ body {
   display: flex;
   align-items: center;
   gap: 1rem;
+}
+
+.grafico_geral{
+  background-color: white;
+  position: fixed;
+  z-index: 999;
+  height: 61vh;
+  width: 65%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+}
+.grafico_geral .grafico{
+  width: 70%;
 }
 
 .icon-search {
@@ -555,6 +573,7 @@ th {
 }
 
 .pesquisa-uso {
+  border: solid black 1px;
   height: 100%;
   width: 100%;
   display: none;
@@ -582,6 +601,7 @@ th {
   width: 6px;
   height: 6px;
 }
+
 
 .pesquisa-inputs-uso {
   display: flex;

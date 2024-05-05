@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hardware Security - Gerenciar Usuários</title>
+  <title>Hardware Security</title>
   <link rel="stylesheet" href="../css/dashboards.css" />
   <link rel="stylesheet" href="../css/gerenciarUsuario.css">
   <link rel="stylesheet" href="../assets/icons/style.css" />
@@ -22,9 +22,9 @@
       </div>
     </a>
     <div id="itens_menu" class="itens_menu">
-      <div style="color: white; font-size: 12px; margin-top: -10%; text-align: center;" class="nome-acao">Bem Vindo!
-        <br>
-        <span id="nome_usuario"></span>
+      <div style="color: white; font-size: 11px; margin-top: -130%; text-align: center;">
+        <strong style="font-size: 12px;">Olá</strong><br>
+        <strong style="font-size: 12px;" id="nome_usuario"></strong>
       </div>
       <div style="height: 60%; justify-content: space-around; display: flex; flex-direction: column;">
         <a class="itensDaNav" href="dashboard.html">
@@ -43,7 +43,7 @@
           </div>
           <samp style="text-align: center;" class="nome-acao">Adicionar<br>Usuário</samp>
         </a>
-        <a onclick="abir_lista()" class="itensDaNav">
+        <a class="itensDaNav" href="./gerenciarProcessos.html">
           <div style="font-weight: bold;" class="icon-document-forbidden1 ico"></div>
           <samp style="text-align: center;" class="nome-acao">Lista de Bloqueios</samp>
         </a>
@@ -60,56 +60,68 @@
   </div>
 
   <main class="mainGerenciarUsuario">
-    <div  class="tituloGerenciar" id="tituloGerenciar">
+    <div class="tituloGerenciar" id="tituloGerenciar">
       <h1 class="titulo">Gerenciar Usuários</h1>
       <div class="icon-user-plus" id="botaoAdicionar"></div>
     </div>
 
-    <div  class="menuGerenciar" id="menuGerenciar">
+    <div class="menuGerenciar" id="menuGerenciar">
 
       <table>
         <thead>
-            <tr>
-              <th></th>
-                <th><span>Nome</span></th>
-                <th><span>E-mail</span></th>
-                <th><span>Setor</span></th>
-                <th><span>Cargo</span></th>
-                <th><span>Acesso</span></th>
-                <th></th>
-                <th></th>
-            </tr>
+          <tr>
+            <th></th>
+            <th><span>Nome</span></th>
+            <th><span>E-mail</span></th>
+            <th><span>Setor</span></th>
+            <th><span>Cargo</span></th>
+            <th><span>Acesso</span></th>
+            <th></th>
+            <th></th>
+          </tr>
         </thead>
         <tbody>
-            <tr>
-                <td><div class="icon-user"></div></td>
-                <td>João Silva</td>
-                <td>joao.silva@example.com</td>
-                <td>Financeiro</td>
-                <td>Analista</td>
-                <td>Admin</td>
-                <td><div class="icon-pencil"></div></td>
-                <td ><div class="icon-trash"></div></td>
-            </tr>
-            <tr>
-              <td><div class="icon-user"></div></td>
-              <td>João Silva</td>
-              <td>joao.silva@example.com</td>
-              <td>Financeiro</td>
-              <td>Analista</td>
-              <td>Admin</td>
-              <td><div class="icon-pencil"></div></td>
-              <td ><div class="icon-trash"></div></td>
+          <tr>
+            <td>
+              <div class="icon-user"></div>
+            </td>
+            <td>João Silva</td>
+            <td>joao.silva@example.com</td>
+            <td>Financeiro</td>
+            <td>Analista</td>
+            <td>Admin</td>
+            <td>
+              <div class="icon-pencil"></div>
+            </td>
+            <td>
+              <div class="icon-trash"></div>
+            </td>
           </tr>
-            
+          <tr>
+            <td>
+              <div class="icon-user"></div>
+            </td>
+            <td>João Silva</td>
+            <td>joao.silva@example.com</td>
+            <td>Financeiro</td>
+            <td>Analista</td>
+            <td>Admin</td>
+            <td>
+              <div class="icon-pencil"></div>
+            </td>
+            <td>
+              <div class="icon-trash"></div>
+            </td>
+          </tr>
+
         </tbody>
-    </table>
+      </table>
 
 
 
     </div>
 
-    <div  class="adicionarUsuario" id="adicionarUsuario">
+    <div class="adicionarUsuario" id="adicionarUsuario">
       <h1>Adicionar Usuário</h1>
 
       <div class="rotulosUsuario">
@@ -123,7 +135,7 @@
           <label for="nome">Sobrenome:</label>
           <input class="inputRotulos" type="text" placeholder="Digite o nome" required>
         </div>
-          
+
         <div class="rotulos">
           <label for="email">E-mail</label>
           <input class="inputRotulos" type="text" placeholder="Digite o E-mail">
@@ -142,7 +154,7 @@
         </div>
 
 
-          
+
 
 
       </div>
@@ -154,10 +166,15 @@
 
     </div>
 
-    
+
 
   </main>
 
 </body>
 
 </html>
+
+<script>
+  let nome = sessionStorage.NOME_USUARIO
+  nome_usuario.innerHTML = nome;
+</script>

@@ -20,11 +20,10 @@
             </div>
         </a>
         <div id="itens_menu" class="itens_menu">
-            <div style="color: white; font-size: 12px; margin-top: -10%; text-align: center;" class="nome-acao">Bem
-                Vindo!
-                <br>
-                <span id="nome_usuario"></span>
-            </div>
+            <div style="color: white; font-size: 11px; margin-top: -130%; text-align: center;">
+                <strong style="font-size: 12px;">Olá</strong><br>
+                <strong style="font-size: 12px;" id="nome_usuario"></strong>
+              </div>
             <div style="height: 60%; justify-content: space-around; display: flex; flex-direction: column;">
                 <a class="itensDaNav" href="dashboard.html">
                     <div class="icon-stats-dots ico"></div>
@@ -42,7 +41,7 @@
                     </div>
                     <samp style="text-align: center;" class="nome-acao">Adicionar<br>Usuário</samp>
                 </a>
-                <a onclick="abir_lista()" class="itensDaNav">
+                <a class="itensDaNav" href="./gerenciarProcessos.html">
                     <div style="font-weight: bold;" class="icon-document-forbidden1 ico"></div>
                     <samp style="text-align: center;" class="nome-acao">Lista de Bloqueios</samp>
                 </a>
@@ -51,7 +50,6 @@
                     <samp class="nome-acao">Suporte</samp>
                 </a>
             </div>
-
             <a onclick="limparSessao()" class="itensDaNav">
                 <div class="icon-log-in ico"></div>
                 <samp class="nome-acao">Sair</samp>
@@ -61,3 +59,47 @@
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    let nome = sessionStorage.NOME_USUARIO
+    nome_usuario.innerHTML = nome;
+</script>
