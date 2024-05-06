@@ -25,7 +25,7 @@
     </a>
     <div id="itens_menu" class="itens_menu">
       <div style="color: white; font-size: 11px; margin-top: -130%; text-align: center;">
-        <strong style="font-size: 12px;">Olá</strong><br>
+        <strong style="font-size: 12px;">Olá,</strong><br>
         <strong style="font-size: 12px;" id="nome_usuario"></strong>
       </div>
       <div style="height: 60%; justify-content: space-around; display: flex; flex-direction: column;">
@@ -33,22 +33,22 @@
           <div class="icon-stats-dots ico"></div>
           <span class="nome-acao">Dashboard</span>
         </a>
+        <a onclick="abir_lista()" class="itensDaNav" href="#">
+          <div style="font-weight: bold;" class="icon-document-forbidden1 ico"></div>
+          <samp style="text-align: center;" class="nome-acao">Lista de Bloqueios</samp>
+        </a>
         <a class="itensDaNav" href="gerenciarUsuarios.html">
           <div class="ico">
             <img src="../assets/imgs/gerenciar_user.svg" alt="">
           </div>
           <samp style="text-align: center;" class="nome-acao">Adicionar<br>Usuário</samp>
         </a>
-        <a id="gerenciamento_user" class="itensDaNav" href="#">
+        <!-- <a id="gerenciamento_user" class="itensDaNav" href="#">
           <div>
             <img src="../assets/imgs/gerenciar_setor.png" alt="">
           </div>
           <samp style="text-align: center;" class="nome-acao">Adicionar<br>Usuário</samp>
-        </a>
-        <a class="itensDaNav" href="./gerenciarProcessos.html">
-          <div style="font-weight: bold;" class="icon-document-forbidden1 ico"></div>
-          <samp style="text-align: center;" class="nome-acao">Lista de Bloqueios</samp>
-        </a>
+        </a> -->
         <a class="itensDaNav" href="suporte.html">
           <div class="icon-support_agent ico"></div>
           <samp class="nome-acao">Suporte</samp>
@@ -125,7 +125,6 @@
               <div onclick="buscarPorData()" class="icon-search"></div>
             </div>
           </div>
-
         </div>
         <div id="grafico_tempo_real" style="display: flex">
           <div class="graficos_esquerda">
@@ -144,11 +143,11 @@
               <canvas id="myChartDisco"></canvas>
             </div>
             <div style="display: flex; flex-direction: column; align-items: center; z-index: 1000; margin-left: 70%;">
-              <div style="margin-left: 48px;" class="switch__container">
+              <div style="margin-left: 25px;" class="switch__container">
                 <input id="switch-flat1" class="switch switch--flat" type="checkbox">
                 <label for="switch-flat1"></label>
               </div>
-              <span style="text-align: center; margin-top: -30px;">Vizualização em tempo<br> real</span>
+              <span style="text-align: center; margin-top: -30px; font-weight: bold;">Vizualização <br>Geral</span>
             </div>
 
           </div>
@@ -156,7 +155,7 @@
         </div>
 
         <div id="grafico_geral" class="grafico_geral">
-          <h3>Volume de Processos Encerrados por Motivo de Segurança</h3>
+          <h3>Quantidade de Processos Encerrados por Categoria no dia</h3>
           <div class="grafico">
             <canvas id="myChartGeral"></canvas>
           </div>
@@ -201,9 +200,9 @@
               </thead>
               <tbody>
                 <tr>
-                  <td>50</td>
-                  <td>30</td>
-                  <td>20</td>
+                  <td>6</td>
+                  <td>5</td>
+                  <td>1</td>
                 </tr>
               </tbody>
             </table>

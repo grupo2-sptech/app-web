@@ -22,7 +22,7 @@
         </a>
         <div id="itens_menu" class="itens_menu">
             <div style="color: white; font-size: 11px; margin-top: -130%; text-align: center;">
-                <strong style="font-size: 12px;">Olá</strong><br>
+                <strong style="font-size: 12px;">Olá,</strong><br>
                 <strong style="font-size: 12px;" id="nome_usuario"></strong>
               </div>
             <div style="height: 60%; justify-content: space-around; display: flex; flex-direction: column;">
@@ -30,22 +30,23 @@
                     <div class="icon-stats-dots ico"></div>
                     <span class="nome-acao">Dashboard</span>
                 </a>
+                <a class="itensDaNav" href="#">
+                    <div style="font-weight: bold;" class="icon-document-forbidden1 ico"></div>
+                    <samp style="text-align: center;" class="nome-acao">Lista de Bloqueios</samp>
+                </a>
                 <a class="itensDaNav" href="gerenciarUsuarios.html">
                     <div class="ico">
                         <img src="../assets/imgs/gerenciar_user.svg" alt="">
                     </div>
                     <samp style="text-align: center;" class="nome-acao">Adicionar<br>Usuário</samp>
                 </a>
-                <a id="gerenciamento_user" class="itensDaNav" href="#">
+                <!-- <a id="gerenciamento_user" class="itensDaNav" href="#">
                     <div>
                         <img src="../assets/imgs/gerenciar_setor.png" alt="">
                     </div>
                     <samp style="text-align: center;" class="nome-acao">Adicionar<br>Usuário</samp>
-                </a>
-                <a class="itensDaNav" href="./gerenciarProcessos.html">
-                    <div style="font-weight: bold;" class="icon-document-forbidden1 ico"></div>
-                    <samp style="text-align: center;" class="nome-acao">Lista de Bloqueios</samp>
-                </a>
+                </a> -->
+                
                 <a class="itensDaNav" href="#">
                     <div class="icon-support_agent ico"></div>
                     <samp class="nome-acao">Suporte</samp>
@@ -73,45 +74,6 @@
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <script>
     let nome = sessionStorage.NOME_USUARIO

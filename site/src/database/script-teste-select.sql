@@ -19,8 +19,8 @@ SELECT m.maquina_id, m.modelo_maquina, m.memoria_total_disco, m.memoria_ocupada,
 SELECT m.modelo_maquina, m.total_ram, m.memoria_total_disco, f.*
       FROM maquina AS m
       JOIN funcionario AS f ON f.funcionario_id = m.fk_Funcionario;
-      
-
+	use hardware_securiry;
+select * from setor;
       
 select * from historico_todos_registros_hardware where date(data_hora) = '2024-04-06' and fk_maquina = 501;
       
@@ -127,6 +127,12 @@ select f.nome_funcionario,  h.data_hora,
   
   select * from maquina;
   
+  select * from historico_hardware;
+  
+  select * from componente;
+  
+delete from maquina where maquina_id in (701, 702, 703, 704, 705, 706);
+
   
   select pb.id_processos, p.titulo_processo from processos_bloqueados_no_setor as pb 
   join processos_janelas as p on p.processo_id = fk_processo where fk_setor = ${};

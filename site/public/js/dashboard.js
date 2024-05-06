@@ -342,26 +342,25 @@ let id_maquina_pesquisa
 document.addEventListener('DOMContentLoaded', function () {
   let switchFlat1 = document.getElementById('switch-flat1');
 
+  switchFlat1.checked = true
+
   if (switchFlat1) {
     switchFlat1.addEventListener('change', function (event) {
       let grafico_geral = document.getElementById('grafico_geral');
       if (!event.target.checked) {
         if (grafico_geral) {
           setTimeout(function () {
-            grafico_geral.style.display = 'flex';
+            grafico_geral.style.display = 'none';
           }, 500);
         }
       }else{
         setTimeout(function () {
-          grafico_geral.style.display = 'none';
+          grafico_geral.style.display = 'flex';
         }, 500);
       }
     });
   }
 });
-
-
-
 
 function atualizar_grafico_tempo_real(id_maquina) {
 
@@ -370,7 +369,7 @@ function atualizar_grafico_tempo_real(id_maquina) {
   // Primeiro, selecione o elemento do botão usando seu ID
   let switchFlat1 = document.getElementById('switch-flat1');
 
-  switchFlat1.checked = true
+  switchFlat1.checked = false
 
   let grafico_geral = document.getElementById('grafico_geral')
   grafico_geral.style.display = 'none'

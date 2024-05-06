@@ -1,5 +1,3 @@
-
-
 .mainGerenciarUsuario {
     height: 100%;
     width: 95%;
@@ -13,26 +11,34 @@
     height: 100px;
     display: flex;
     justify-content: space-between;
-    align-items: center; 
+    align-items: center;
 }
 
-.titulo{
+.titulo {
     margin-left: 5%;
 }
 
 .tituloGerenciar .icon-user-plus {
     font-size: 50px;
     margin-right: 5%;
+    cursor: pointer;
+    transition: 300ms;
+    color: #2e4959;
+}
+
+.tituloGerenciar .icon-user-plus:hover {
+    color: #0a151f;
 }
 
 .menuGerenciar {
-    width: 100%;
+    margin-left: 1%;
+    width: 98%;
     height: 80%;
     display: flex;
     flex-direction: column;
 }
 
-.rotulosGerenciar{
+.rotulosGerenciar {
     width: 100%;
     height: 15%;
     display: flex;
@@ -40,25 +46,27 @@
     background-color: white;
 }
 
-.rotulosGerenciar span{
+.rotulosGerenciar span {
     font-size: 20px;
     font-weight: bold;
 }
 
-.cardUsuarioMenu{
+.cardUsuarioMenu {
     width: 100%;
     height: 65%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    
+
 }
 
 table {
     border-collapse: collapse;
 }
 
-table, th, td {
+table,
+th,
+td {
     border: none;
 }
 
@@ -68,7 +76,7 @@ th {
     color: black;
 }
 
-th span{
+th span {
     font-size: 20px;
 }
 
@@ -77,26 +85,27 @@ td {
     font-size: 16px;
 }
 
-.icon-user{
+.icon-user {
     font-size: 20px;
 }
 
 tr {
     height: 75px;
     border: 1px solid black;
+    box-shadow: -10px 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .adicionarUsuario {
-    position: fixed; 
-    right: 0; 
-    top: 0; 
-    width: 30%;   
-    height: 96vh; 
-    background-color: white; 
-    padding: 20px; 
-    border-radius: 50px 0px 0px 50px; 
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 30%;
+    height: 96vh;
+    background-color: white;
+    padding: 20px;
+    border-radius: 50px 0px 0px 50px;
     box-shadow: -10px 5px 15px rgba(0, 0, 0, 0.2);
-    z-index: 1; 
+    z-index: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -104,7 +113,7 @@ tr {
     display: none;
 }
 
-.rotulosUsuario{
+.rotulosUsuario {
     width: 100%;
     height: 40%;
     align-items: center;
@@ -118,76 +127,75 @@ tr {
     width: 100%;
     justify-content: center;
     align-items: center;
-    gap: 5%;
+    gap: 2%;
 }
 
 .rotulos label {
-    flex-basis: 30%; 
-    text-align: right; 
-    margin-right: 10px; 
+    flex-basis: 30%;
+    text-align: right;
+    margin-right: 10px;
     font-size: 20px;
 }
 
 .inputRotulos {
-    border: none; 
-    border-bottom: 2px solid #ccc; 
-    padding: 5px; 
-    font-size: 14px; 
-    width: 100%; 
-    outline: none; 
-    transition: border-color 0.3s ease; 
+    border: none;
+    border-bottom: 2px solid #ccc;
+    padding: 5px;
+    font-size: 14px;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.3s ease;
 }
 
 .inputRotulos:focus {
-    border-bottom-color: #007BFF; 
+    border-bottom-color: #007BFF;
 }
 
 .selectRotulos {
-    border: none; 
-    border-bottom: 2px solid #ccc; 
-    padding: 5px; 
-    font-size: 14px; 
-    width: 100%; 
-    outline: none; 
-    transition: border-color 0.3s ease; 
-    background-color: transparent; 
-    appearance: none; 
+    border: none;
+    border-bottom: 2px solid #ccc;
+    padding: 5px;
+    font-size: 14px;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.3s ease;
+    background-color: transparent;
+    appearance: none;
+
 }
 
 .selectRotulos:focus {
-    border-bottom-color: #007BFF; 
+    border-bottom-color: #007BFF;
 }
 
 .botaoCancelar {
-    background-color: #B0B0B0; 
-    color: #fff; 
-    border: none; 
-    border-radius: 50px; 
-    padding: 10px 20px; 
-    cursor: pointer; 
-    font-size: 14px; 
-    display: inline-block; 
-    transition: background-color 0.3s ease; 
+    background-color: #B0B0B0;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 14px;
+    display: inline-block;
+    transition: background-color 0.3s ease;
 }
 
 .botaoCancelar:hover {
-    background-color: #A0A0A0; 
+    background-color: #A0A0A0;
 }
 
 .botaoConfirmar {
-    background-color: #4CAF50; 
-    color: #fff; 
-    border: none; 
-    border-radius: 50px; 
-    padding: 10px 20px; 
-    cursor: pointer; 
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 20px;
+    cursor: pointer;
     font-size: 14px;
-    display: inline-block; 
-    transition: background-color 0.3s ease; 
+    display: inline-block;
+    transition: background-color 0.3s ease;
 }
 
 .botaoConfirmar:hover {
-    background-color: #45A049; 
+    background-color: #45A049;
 }
-
-

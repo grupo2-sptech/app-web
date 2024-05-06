@@ -170,8 +170,8 @@ const config3 = {
     scales: {
       y: {
         title: {
-          display: true,
-          text: 'Volume de encerrado no dia',
+          display: false,
+          text: 'Quantidade de encerramentos no dia',
           font: {
             size: 13
           }
