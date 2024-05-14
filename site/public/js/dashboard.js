@@ -13,7 +13,6 @@ function listar(id_setor, id_select, acesso_total) {
         resposta.json().then(tabelas => {
           titulo_setor.innerHTML += tabelas[0].nome_setor
           tabelas.forEach(tabela => {
-            console.log(tabela)
             const option = document.createElement('option') // Cria uma nova opção em cada iteração
             option.value = tabela.maquina_id
             option.text = tabela.nome_maquina
@@ -71,86 +70,71 @@ function atualizar_maquina_tempo_real(
   id_bolinha_ram,
   id_bolinha_disco
 ) {
-  fetch(`/dashboard/cap_dados/${id_maquina}`, {
+  // Requisição para obter dados da máquina pelo ID
+  fetch(`/dashboard/atualizar_grafico_tempo_real/${id_maquina}`, {
     method: 'GET',
     cache: 'no-store'
-  }).then(function (resposta) {
+  }).then(resposta => {
+    // Processa resposta em JSON
     resposta.json().then(result => {
+      // Processa cada resultado da máquina
       result.forEach(result_maquina => {
-        let bolinha_cpu = document.getElementById(`${id_bolinha_cpu}`)
-        let bolinha_ram = document.getElementById(`${id_bolinha_ram}`)
-        let bolinha_disco = document.getElementById(`${id_bolinha_disco}`)
+        // Elementos da interface de usuário
+        let bolinha_cpu = document.getElementById(id_bolinha_cpu)
+        let bolinha_ram = document.getElementById(id_bolinha_ram)
+        let bolinha_disco = document.getElementById(id_bolinha_disco)
         let status = document.getElementById(`status_maquina${id_maquina}`)
         let pc = document.getElementById(`maquina_${id_maquina}`)
+
+        // Verifica se a hora está dentro da tolerância
         if (validarHoraComTolerancia(result_maquina.data_hora, 10)) {
+          // Define o status como 'Ligado'
           status.innerHTML = 'Ligado'
           pc.style.color = '#144a00'
           pc.style.animation = 'none'
-          if (result_maquina.cpu_ocupada * 2 > 75) {
-            bolinha_cpu.style.background = '#ff0000'
-            bolinha_cpu.style.animation = 'none'
-          } else if (result_maquina.cpu_ocupada * 2 > 50) {
-            bolinha_cpu.style.background = '#ff9d00'
-            bolinha_cpu.style.animation = 'none'
-          } else {
-            bolinha_cpu.style.background = '#2bff00'
-            bolinha_cpu.style.animation = 'none'
-          }
-          if (
-            (result_maquina.ram_ocupada_gb / result_maquina.ram_total_gb) *
-              100 >
-            75
-          ) {
-            bolinha_ram.style.background = '#ff0000'
-            bolinha_ram.style.animation = 'none'
-          } else if (
-            (result_maquina.ram_ocupada_gb / result_maquina.ram_total_gb) *
-              100 >
-            50
-          ) {
-            bolinha_ram.style.background = '#ff9d00'
-            bolinha_ram.style.animation = 'none'
-          } else {
-            bolinha_ram.style.background = '#2bff00'
-            bolinha_ram.style.animation = 'none'
-          }
-          if (
-            (result_maquina.memoria_disponivel_gb /
-              result_maquina.disco_total_gb) *
-              100 >
-            80
-          ) {
-            bolinha_disco.style.background = '#ff0000'
-            bolinha_disco.style.animation = 'none'
-          } else if (
-            (result_maquina.memoria_disponivel_gb /
-              result_maquina.disco_total_gb) *
-              100 >
-            50
-          ) {
-            bolinha_disco.style.background = '#ff9d00'
-            bolinha_disco.style.animation = 'none'
-          } else {
-            bolinha_disco.style.background = '#2bff00'
-            bolinha_disco.style.animation = 'none'
-          }
+
+          // Atualiza cor e estilo do indicador de CPU
+          atualizarCorIndicador(
+            bolinha_cpu,
+            result_maquina.cpu_ocupada * 2,
+            [50, 75]
+          )
+          // Atualiza cor e estilo do indicador de RAM
+          atualizarCorIndicador(
+            bolinha_ram,
+            (result_maquina.ram_ocupada_gb / result_maquina.ram_total_gb) * 100,
+            [50, 75]
+          )
+          let apoio =
+            (result_maquina.disco_ocupado_gb /
+              result_maquina.memoria_total_gb) *
+            100
+          atualizarCorIndicador(bolinha_disco, apoio, [50, 80])
         } else {
-          bolinha_cpu.style.background = '##d2d2d2'
-          bolinha_ram.style.background = '##d2d2d2'
-          bolinha_disco.style.background = '##d2d2d2'
+          // Configurações quando a máquina está desligada
           status.innerHTML = 'Desligado'
           pc.style.color = 'black'
           pc.style.animation = 'none'
-          bolinha_disco.style.background = '#d2d2d2'
-          bolinha_disco.style.animation = 'none'
-          bolinha_ram.style.background = '#d2d2d2'
-          bolinha_ram.style.animation = 'none'
-          bolinha_cpu.style.background = '#d2d2d2'
-          bolinha_cpu.style.animation = 'none'
+            // Define todos os indicadores como inativos (cor cinza)
+            ;[bolinha_cpu, bolinha_ram, bolinha_disco].forEach(bolinha => {
+              bolinha.style.background = '#d2d2d2'
+              bolinha.style.animation = 'none'
+            })
         }
       })
     })
   })
+}
+
+function atualizarCorIndicador(element, percent, limits) {
+  if (percent > limits[1]) {
+    element.style.background = '#ff0000'
+  } else if (percent > limits[0]) {
+    element.style.background = '#ff9d00'
+  } else {
+    element.style.background = '#2bff00'
+  }
+  element.style.animation = 'none'
 }
 
 let id_maquinas = []
@@ -177,8 +161,8 @@ function listarMaquinas(fksetor, acesso) {
             <div class="descricao-titulo">
               <p>Modelo: ${maquinas.modelo_maquina}</p>
               <p>Nome: ${maquinas.nome_maquina}</p>
-              <p id = "user${maquinas.maquina_id}"></p>
               <p>Status: <strong id="status_maquina${maquinas.maquina_id}"></strong></p>
+              <p id = "user${maquinas.maquina_id}">Usuário: </p>
             </div>
             <div class="descricao-status">
               <div class="descricao-componenete">
@@ -186,12 +170,12 @@ function listarMaquinas(fksetor, acesso) {
                 <p>CPU</p>
               </div>
               <div class="descricao-componenete">
-                <div class="bolinha" id="icone-disco${maquinas.maquina_id}"></div>
-                <p>Disco</p>
-              </div>
-              <div class="descricao-componenete">
                 <div class="bolinha" id="icone-ram${maquinas.maquina_id}"></div>
                 <p>Ram</p>
+              </div>
+              <div class="descricao-componenete">
+                <div class="bolinha" id="icone-disco${maquinas.maquina_id}"></div>
+                <p>Disco</p>
               </div>
             </div>
           </div>
@@ -246,6 +230,40 @@ function verificarSenha() {
       console.error('Erro ao verificar senha:', error)
     })
 }
+
+function cadastrarMaquina() {
+  let nome_maquina = document.getElementById('nome_maquina').value
+  let modelo_maquina = document.getElementById('modelo_maquina').value
+  let campo = document.getElementById('preecha_campos_maquina')
+
+  if (!nome_maquina || !modelo_maquina) {
+    campo.style.display = 'block'
+    campo.innerHTML = 'Preencha todos os campos'
+    /*     console.log('Campos vazios:', { nome_maquina, modelo_maquina }) */
+  } else {
+    fetch(`/dashboard/cadastrar_maquina/${nome_maquina}/${modelo_maquina}`, {
+      method: 'POST'
+    })
+      .then(function (resposta) {
+        return resposta.json()
+      })
+      .then(function (dado) {
+        if (dado.id !== undefined) {
+          campo.innerHTML = `Cadastro realizado com sucesso!<br>Código de cadastro da máquina: <strong>${dado.id}</strong>`
+          campo.style.display = 'block'
+          campo.style.color = 'black'
+        } else {
+          campo.innerHTML = 'Erro ao obter o Código de cadastro.'
+          campo.style.display = 'block'
+        }
+      })
+      .catch(err => {
+        campo.innerHTML = `Erro: ${err.message}`
+        console.error('Erro ao cadastrar máquina:', err)
+      })
+  }
+}
+
 function listar_processos(id_setor) {
   let id_div_processos = document.getElementById('lista_bloqueios')
   id_div_processos.innerHTML = ``
@@ -320,7 +338,43 @@ function deletarMaquina(id_maquina) {
 let intervalo
 let id_maquina_pesquisa
 
+
+document.addEventListener('DOMContentLoaded', function () {
+  let switchFlat1 = document.getElementById('switch-flat1');
+
+  switchFlat1.checked = true
+
+  if (switchFlat1) {
+    switchFlat1.addEventListener('change', function (event) {
+      let grafico_geral = document.getElementById('grafico_geral');
+      if (!event.target.checked) {
+        if (grafico_geral) {
+          setTimeout(function () {
+            grafico_geral.style.display = 'none';
+          }, 500);
+        }
+      }else{
+        setTimeout(function () {
+          grafico_geral.style.display = 'flex';
+        }, 500);
+      }
+    });
+  }
+});
+
 function atualizar_grafico_tempo_real(id_maquina) {
+
+
+
+  // Primeiro, selecione o elemento do botão usando seu ID
+  let switchFlat1 = document.getElementById('switch-flat1');
+
+  switchFlat1.checked = false
+
+  let grafico_geral = document.getElementById('grafico_geral')
+  grafico_geral.style.display = 'none'
+
+
   let dadoGraficoCpu = [
     null,
     null,
@@ -445,8 +499,7 @@ function atualizar_grafico_tempo_real(id_maquina) {
     null,
     null
   ]
-  let dadosGraficoDisco = [0, 0]
-
+  let dadosGraficoDisco = [0, 0];
   clearInterval(intervalo)
 
   intervalo = setInterval(() => {
@@ -460,12 +513,15 @@ function atualizar_grafico_tempo_real(id_maquina) {
           .then(informacoes => {
             id_maquina_pesquisa = id_maquina
             if (validarHoraComTolerancia(informacoes[0].data_hora, 10)) {
+              sessionStorage.TOTAL_RAM = informacoes[0].ram_total_gb
               myChartCpu.data.labels = label
               myChartRam.data.labels = label
               nome_usuario_maquina.innerHTML = `Monitoramento em tempo real da máquina de ${informacoes[0].nome_maquina}`
               dadoGraficoRam.shift()
-              dadoGraficoRam.push(informacoes[0].ram_ocupada_gb)
-              myChartRam.options.scales.y.max = informacoes[0].ram_total_gb
+              dadoGraficoRam.push(
+                (informacoes[0].ram_ocupada_gb / informacoes[0].ram_total_gb) *
+                100
+              )
               myChartRam.data.datasets[0].data = dadoGraficoRam
               myChartRam.update()
 
@@ -475,13 +531,13 @@ function atualizar_grafico_tempo_real(id_maquina) {
               myChartCpu.update()
 
               if (dadosGraficoDisco[0] == 0 || dadosGraficoDisco[1] == 0) {
-                dadosGraficoDisco[0] = informacoes[0].disco_ocupado_gb
-                dadosGraficoDisco[1] = informacoes[0].memoria_disponivel_gb
+                dadosGraficoDisco[0] = informacoes[0].memoria_disponivel_gb
+                dadosGraficoDisco[1] = informacoes[0].disco_ocupado_gb
                 myChartDisco.data.datasets[0].data = dadosGraficoDisco
                 myChartDisco.update()
               }
             } else {
-              nome_usuario_maquina.innerHTML = `A máquina associada ao usuário ${informacoes[0].nome_funcionario}  está inativa.`
+              nome_usuario_maquina.innerHTML = `A ${informacoes[0].nome_maquina} está inativa.`
               dadoGraficoCpu = [
                 null,
                 null,
@@ -641,25 +697,22 @@ function buscarPorData() {
         myChartRam.data.labels = label_hist
 
         myChartCpu.data.datasets[0].data = [
-          dados[0].cpu_ocupada_10_12,
-          dados[0].cpu_ocupada_08_10,
-          dados[0].cpu_ocupada_12_14,
-          dados[0].cpu_ocupada_14_16,
-          dados[0].cpu_ocupada_16_18
+          dados[0].cpu_ocupada_08_10 * 2,
+          dados[0].cpu_ocupada_10_12 * 2,
+          dados[0].cpu_ocupada_12_14 * 2,
+          dados[0].cpu_ocupada_14_16 * 2,
+          dados[0].cpu_ocupada_16_18 * 2
         ]
         myChartCpu.update()
         myChartRam.data.datasets[0].data = [
-          dados[0].ram_ocupada_08_10,
-          dados[0].ram_ocupada_10_12,
-          dados[0].ram_ocupada_12_14,
-          dados[0].ram_ocupada_14_16,
-          dados[0].ram_ocupada_16_18
+          (dados[0].ram_ocupada_08_10 / sessionStorage.TOTAL_RAM) * 100,
+          (dados[0].ram_ocupada_10_12 / sessionStorage.TOTAL_RAM) * 100,
+          (dados[0].ram_ocupada_12_14 / sessionStorage.TOTAL_RAM) * 100,
+          (dados[0].ram_ocupada_14_16 / sessionStorage.TOTAL_RAM) * 100,
+          (dados[0].ram_ocupada_16_18 / sessionStorage.TOTAL_RAM) * 100
         ]
         myChartRam.update()
-        myChartDisco.data.datasets[0].data = [
-          dados[0].disco_ocupado_gb,
-          dados[0].memoria_disponivel_gb
-        ]
+        myChartDisco.data.datasets[0].data = [12.3, 243.21]
         myChartDisco.update()
       })
     })
@@ -757,163 +810,3 @@ function ocultarAcao(id) {
   }
 }
 
-const label = [
-  '0s',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  ' ',
-  '60s'
-]
-
-const label_hist = ['08 ás 10', '10 ás 12', '12 ás 14', '14 ás 16', '16 ás 18']
-
-const data = {
-  labels: label,
-  datasets: [
-    {
-      label: 'My First Dataset',
-      fill: true,
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
-      borderColor: 'rgba(255, 99, 132, 1)',
-      borderWidth: 1,
-      hoverOffset: 4,
-      pointRadius: 0,
-      backgroundColorColor: 'black',
-      borderWidth: 1.5
-    }
-  ]
-}
-
-const config = {
-  type: 'line',
-  data: data,
-  options: {
-    plugins: {
-      legend: {
-        display: false
-      }
-    },
-    scales: {
-      y: {
-        min: 1,
-        max: 100
-      }
-    },
-    elements: {
-      line: {
-        tension: 0
-      }
-    },
-    // Definindo a cor de fundo do gráfico
-    backgroundColor: 'rgba(0, 0, 0, 0.1)' // Ajuste o último valor para mudar a transparência (0 é completamente transparente, 1 é completamente opaco)
-  }
-}
-
-const data1 = {
-  labels: label,
-  datasets: [
-    {
-      label: 'Uso de Memória RAM',
-      fill: true,
-      backgroundColor: 'rgba(000, 99, 132, 0.5)',
-      borderColor: 'rgba(000, 99, 132, 1)',
-      borderWidth: 1,
-      pointRadius: 0, // Definindo o tamanho do ponto como zero
-      hoverOffset: 4,
-      borderWidth: 1.5
-    }
-  ]
-}
-
-const config1 = {
-  type: 'line',
-  data: data1,
-  options: {
-    plugins: {
-      legend: {
-        display: false
-      }
-    },
-    scales: {
-      y: {
-        min: 5
-      }
-    },
-    elements: {
-      line: {
-        tension: 0
-      }
-    }
-  }
-}
-const data2 = {
-  labels: ['Livre', 'Ocupado'],
-  datasets: [
-    {
-      label: 'My First Dataset',
-      data: [],
-      backgroundColor: ['green', 'red'],
-      hoverOffset: 4
-    }
-  ]
-}
-const config2 = {
-  type: 'pie',
-  data: data2
-}

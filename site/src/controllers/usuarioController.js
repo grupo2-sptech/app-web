@@ -18,12 +18,15 @@ function enviarEmail(req, res) {
     }
   })
   debugger
-  transport.sendMail({
-    from: "Hardware Security <hardware.recuperasenha@gmail.com>",
-    to: email,
-    subject: 'Recuperação de senha',
-    text: `Senha provisoria de acesso ${senha}`
-  }).then((response) => console.log(response)).catch((err) => res.status(403))
+  transport
+    .sendMail({
+      from: 'Hardware Security <hardware.recuperasenha@gmail.com>',
+      to: email,
+      subject: 'Recuperação de senha',
+      text: `Senha provisoria de acesso ${senha}`
+    })
+    .then(response => console.log(response))
+    .catch(err => res.status(403))
 }
 
 async function autenticar(req, res) {
@@ -38,9 +41,6 @@ async function autenticar(req, res) {
     }
 
     const resultadoAutenticar = await usuarioModel.autenticar(email, senha)
-    debugger
-    console.log(resultadoAutenticar ? resultadoAutenticar.length : 0)
-    console.log(JSON.stringify(resultadoAutenticar))
 
     if (resultadoAutenticar && resultadoAutenticar.length == 1) {
       const usuario_id = resultadoAutenticar[0].funcionario_id
@@ -48,7 +48,7 @@ async function autenticar(req, res) {
       const [resultHardware] = await Promise.all([
         medidaModel.buscarMedidasEmTempoReal(usuario_id)
       ])
-      debugger
+
       if (resultadoAutenticar.length >= 0) {
         res.json({
           id: usuario_id,
@@ -114,20 +114,12 @@ function updatePassword(req, res) {
 
   if (email == undefined) {
     res.status(400).send('Seu email está undefined!')
-  }
-  else {
-    usuarioModel
-      .updatePassword(email, senha)
-      .then(function (resultado) {
-        res.json(resultado)
-      })
+  } else {
+    usuarioModel.updatePassword(email, senha).then(function (resultado) {
+      res.json(resultado)
+    })
   }
 }
-
-// function listar(req, res) {
-
-
-// }
 
 module.exports = {
   autenticar,

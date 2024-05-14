@@ -3,6 +3,13 @@
 const { query } = require('express')
 var database = require('../database/config')
 
+function cadastrar_maquina(nome, modelo) {
+  let query = `INSERT INTO maquina (modelo_maquina, nome_maquina) VALUES ("${modelo}", "${nome}")`
+
+  return database.executar(query).then(result => {
+    return { id: result.insertId }
+  })
+}
 function listarMaquinas(fk_setor, acesso) {
   /* var query = `SELECT
   m.maquina_id,
@@ -96,7 +103,6 @@ function deletarMaquina(id_maquina) {
   ])
 }
 
-
 function validarSenha(id_usuario, senha) {
   let query = `SELECT * from funcionario WHERE funcionario_id = ${id_usuario} AND senha_acesso = ${senha};`
 
@@ -117,7 +123,8 @@ function listar_processos() {
 }
 
 function atualizar_grafico_tempo_real_model(id_maquina) {
-  let query = `SELECT f.nome_funcionario,
+  let query = ` SELECT f.nome_funcionario,
+  -- DATE_SUB(h.data_hora, INTERVAL 3 HOUR) AS data_hora,
   h.data_hora,
   h.cpu_ocupada,
   m.sistema_operacional,
@@ -174,5 +181,6 @@ module.exports = {
   deletarMaquina,
   validarSenha,
   listar_processos_bloqueados,
-  listar_processos
+  listar_processos,
+  cadastrar_maquina
 }

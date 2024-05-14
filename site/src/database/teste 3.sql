@@ -53,6 +53,65 @@ select * from funcionario;
 select * from maquina;
 select * from setor;
 
+
+SELECT m.*, MAX(h.data_hora) AS data_hora
+FROM maquina AS m
+JOIN historico_hardware AS h ON m.maquina_id = h.fk_maquina
+JOIN setor AS s ON s.setor_id = m.fk_setor
+WHERE m.fk_setor = 203
+GROUP BY m.maquina_id, m.nome_maquina, m.fk_setor
+ORDER BY data_hora DESC;
+
+SELECT m.*, h.data_hora
+  FROM maquina AS m join historico_hardware as h on m.maquina_id = h.fk_maquina
+  JOIN setor AS s ON s.setor_id = m.fk_setor
+  WHERE m.fk_setor = 203
+  ORDER BY h.data_hora DESC;
+  
+  SELECT f.nome_funcionario,
+  h.data_hora,
+  h.cpu_ocupada,
+  m.sistema_operacional,
+  m.nome_maquina,
+  m.arquitetura as arquitetura_sistema_operacional,
+  h.ram_ocupada as ram_ocupada_gb,
+  c_disco.tamanho_disponivel_gb AS memoria_disponivel_gb,
+  (c_disco.tamanho_total_gb - c_disco.tamanho_disponivel_gb) AS disco_ocupado_gb,
+  c_ram.tamanho_total_gb AS ram_total_gb,
+  c_cpu.modelo AS modelo_processador,
+  c_cpu.fabricante AS fabricante_processador,
+  c_disco.modelo AS modelo_disco,
+  c_disco.tamanho_total_gb as memoria_total_gb
+FROM maquina AS m
+JOIN componente AS c_cpu ON m.maquina_id = c_cpu.fk_maquina AND c_cpu.tipo_componente = 'Processador'
+JOIN componente AS c_ram ON m.maquina_id = c_ram.fk_maquina AND c_ram.tipo_componente = 'Memória Ram'
+JOIN componente AS c_disco ON m.maquina_id = c_disco.fk_maquina AND c_disco.tipo_componente = 'Disco'
+JOIN historico_hardware AS h ON h.fk_maquina = m.maquina_id
+JOIN setor AS s ON s.setor_id = m.fk_setor
+JOIN funcionario AS f ON f.fk_setor = s.setor_id
+WHERE m.maquina_id = 700
+ORDER BY h.data_hora DESC
+LIMIT 1;
+
+SELECT
+  AVG(CASE WHEN TIME(h.data_hora) >= '08:00:00' AND TIME(h.data_hora) < '10:00:00' THEN h.ram_ocupada  ELSE 0 END) AS ram_ocupada_08_10,
+  AVG(CASE WHEN TIME(h.data_hora) >= '10:00:00' AND TIME(h.data_hora) < '12:00:00' THEN h.ram_ocupada  ELSE 0 END) AS ram_ocupada_10_12,
+  AVG(CASE WHEN TIME(h.data_hora) >= '12:00:00' AND TIME(h.data_hora) < '14:00:00' THEN h.ram_ocupada  ELSE 0 END) AS ram_ocupada_12_14,
+  AVG(CASE WHEN TIME(h.data_hora) >= '14:00:00' AND TIME(h.data_hora) < '16:00:00' THEN h.ram_ocupada  ELSE 0 END) AS ram_ocupada_14_16,
+  AVG(CASE WHEN TIME(h.data_hora) >= '16:00:00' AND TIME(h.data_hora) < '18:00:00' THEN h.ram_ocupada  ELSE 0 END) AS ram_ocupada_16_18,
+  AVG(CASE WHEN TIME(h.data_hora) >= '08:00:00' AND TIME(h.data_hora) < '10:00:00' THEN h.cpu_ocupada  ELSE 0 END) AS cpu_ocupada_08_10,
+  AVG(CASE WHEN TIME(h.data_hora) >= '10:00:00' AND TIME(h.data_hora) < '12:00:00' THEN h.cpu_ocupada  ELSE 0 END) AS cpu_ocupada_10_12,
+  AVG(CASE WHEN TIME(h.data_hora) >= '12:00:00' AND TIME(h.data_hora) < '14:00:00' THEN h.cpu_ocupada  ELSE 0 END) AS cpu_ocupada_12_14,
+  AVG(CASE WHEN TIME(h.data_hora) >= '14:00:00' AND TIME(h.data_hora) < '16:00:00' THEN h.cpu_ocupada  ELSE 0 END) AS cpu_ocupada_14_16,
+  AVG(CASE WHEN TIME(h.data_hora) >= '16:00:00' AND TIME(h.data_hora) < '18:00:00' THEN h.cpu_ocupada  ELSE 0 END) AS cpu_ocupada_16_18
+FROM
+  historico_hardware h join maquina as m on fk_maquina = maquina_id
+WHERE
+  DATE(h.data_hora) = '2024-04-21' and fk_maquina = 706;
+  
+select * from historico_hardware;
+
+
 SELECT funcionario_id, nome_funcionario, setor.setor_id, pj.titulo_processo from
 funcionario
 JOIN setor ON setor.setor_id = funcionario.fk_setor

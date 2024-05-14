@@ -19,8 +19,8 @@ SELECT m.maquina_id, m.modelo_maquina, m.memoria_total_disco, m.memoria_ocupada,
 SELECT m.modelo_maquina, m.total_ram, m.memoria_total_disco, f.*
       FROM maquina AS m
       JOIN funcionario AS f ON f.funcionario_id = m.fk_Funcionario;
-      
-
+	use hardware_securiry;
+select * from setor;
       
 select * from historico_todos_registros_hardware where date(data_hora) = '2024-04-06' and fk_maquina = 501;
       
@@ -84,13 +84,29 @@ SELECT
     ROUND(SUM(CASE WHEN TIME(h.data_hora) >= '10:00:00' AND TIME(h.data_hora) < '12:00:00' THEN h.cpu_ocupada_tempo_real  ELSE 0 END) / 6 , 2) AS cpu_ocupada_10_12,
     ROUND(SUM(CASE WHEN TIME(h.data_hora) >= '12:00:00' AND TIME(h.data_hora) < '14:00:00' THEN h.cpu_ocupada_tempo_real  ELSE 0 END) / 6 , 2) AS cpu_ocupada_12_14,
     ROUND(SUM(CASE WHEN TIME(h.data_hora) >= '14:00:00' AND TIME(h.data_hora) < '16:00:00' THEN h.cpu_ocupada_tempo_real  ELSE 0 END) / 6 , 2) AS cpu_ocupada_14_16,
-    ROUND(SUM(CASE WHEN TIME(h.data_hora) >= '16:00:00' AND TIME(h.data_hora) < '18:00:00' THEN h.cpu_ocupada_tempo_real  ELSE 0 END) / 6 , 2) AS cpu_ocupada_16_18,
-	ROUND(m.memoria_ocupada / (1024 * 1024 * 1024), 2) AS disco_ocupado_gb,
-    ROUND(m.memoria_total_disco / (1024 * 1024 * 1024), 2) AS disco_total_gb
+    ROUND(SUM(CASE WHEN TIME(h.data_hora) >= '16:00:00' AND TIME(h.data_hora) < '18:00:00' THEN h.cpu_ocupada_tempo_real  ELSE 0 END) / 6 , 2) AS cpu_ocupada_16_18
 FROM
     todos_registros_hardware h join maquina as m on fk_maquina = maquina_id
 WHERE
     DATE(h.data_hora) = '2024-04-07' and fk_maquina = 503;
+    
+    
+SELECT
+  AVG(CASE WHEN TIME(h.data_hora) >= '08:00:00' AND TIME(h.data_hora) < '10:00:00' THEN h.ram_ocupada  ELSE 0 END) AS ram_ocupada_08_10,
+  AVG(CASE WHEN TIME(h.data_hora) >= '10:00:00' AND TIME(h.data_hora) < '12:00:00' THEN h.ram_ocupada  ELSE 0 END) AS ram_ocupada_10_12,
+  AVG(CASE WHEN TIME(h.data_hora) >= '12:00:00' AND TIME(h.data_hora) < '14:00:00' THEN h.ram_ocupada  ELSE 0 END) AS ram_ocupada_12_14,
+  AVG(CASE WHEN TIME(h.data_hora) >= '14:00:00' AND TIME(h.data_hora) < '16:00:00' THEN h.ram_ocupada  ELSE 0 END) AS ram_ocupada_14_16,
+  AVG(CASE WHEN TIME(h.data_hora) >= '16:00:00' AND TIME(h.data_hora) < '18:00:00' THEN h.ram_ocupada  ELSE 0 END) AS ram_ocupada_16_18,
+  AVG(CASE WHEN TIME(h.data_hora) >= '08:00:00' AND TIME(h.data_hora) < '10:0s0:00' THEN h.cpu_ocupada  ELSE 0 END) AS cpu_ocupada_08_10,
+  AVG(CASE WHEN TIME(h.data_hora) >= '10:00:00' AND TIME(h.data_hora) < '12:00:00' THEN h.cpu_ocupada  ELSE 0 END) AS cpu_ocupada_10_12,
+  AVG(CASE WHEN TIME(h.data_hora) >= '12:00:00' AND TIME(h.data_hora) < '14:00:00' THEN h.cpu_ocupada  ELSE 0 END) AS cpu_ocupada_12_14,
+  AVG(CASE WHEN TIME(h.data_hora) >= '14:00:00' AND TIME(h.data_hora) < '16:00:00' THEN h.cpu_ocupada  ELSE 0 END) AS cpu_ocupada_14_16,
+  AVG(CASE WHEN TIME(h.data_hora) >= '16:00:00' AND TIME(h.data_hora) < '18:00:00' THEN h.cpu_ocupada  ELSE 0 END) AS cpu_ocupada_16_18
+FROM
+  historico_hardware h join maquina as m on fk_maquina = maquina_id
+WHERE
+  DATE(h.data_hora) = '2024-04-26' and fk_maquina = 700;
+  
 
 
 select f.nome_funcionario,  h.data_hora,
@@ -106,13 +122,22 @@ select f.nome_funcionario,  h.data_hora,
   
   update maquina set total_ram = "8000000000" where maquina_id = 503;
   
+  insert into maquina (modelo_maquina, nome_maquina) values ("a", "a");
+  SELECT LAST_INSERT_ID() as id;
+  
   select * from maquina;
   
+  select * from historico_hardware;
   
+  select * from componente;
   
-  select p.titulo_processo, pb.id_processos from processos_bloqueados_no_setor as pb 
-  join processos_janelas on;
-  
-  insert into historico_hardware (cpu_ocupada, ram_ocupada, fk_maquina, data_hora)
-values(2.60, 6.51, 0, now());
+delete from maquina where maquina_id in (701, 702, 703, 704, 705, 706);
 
+  
+  select pb.id_processos, p.titulo_processo from processos_bloqueados_no_setor as pb 
+  join processos_janelas as p on p.processo_id = fk_processo where fk_setor = ${};
+  
+  select p.processo_id, p.titulo_processo from processos_janelas as p;
+
+
+select * from  historico_hardware;

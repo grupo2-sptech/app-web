@@ -5,46 +5,51 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hardware Security</title>
-  <link rel="stylesheet" href="./css/dashboards.css" />
-  <link rel="stylesheet" href="./assets/icons/style.css" />
-  <script src="./js/dashboard.js"></script>
+  <link rel="stylesheet" href="../css/dashboards.css" />
+  <link rel="stylesheet" href="../assets/icons/style.css" />
+  <link rel="stylesheet" href="../css/gerenciarProcessos.css">
+  <script src="../js/dashboard.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="./js/sessao.js"></script>
+  <script src="../js/graficosDashboard.js"></script>
+  <script src="../js/sessao.js"></script>
 </head>
 
 <body
   onload="validarSessao(), listar(sessionStorage.SETOR, 'inp_maquina', sessionStorage.ACESSO_TOTAL),listarMaquinas(sessionStorage.SETOR, sessionStorage.ACESSO_TOTAL)">
   <!-- menu lateral -->
   <div id="menu" class="menuLateral">
-    <a style="color: white; cursor: pointer">
-      <div onclick="sumirMenu()" class="logo">
-        <img id="logotipo" src="assets/icon/seguranca.png" alt="" />
+    <a>
+      <div class="logo">
+        <img id="logotipo" src="../assets/icon/seguranca.png" alt="" />
       </div>
     </a>
     <div id="itens_menu" class="itens_menu">
-
-      <div style="color: white; font-size: 12px; margin-top: -10%; text-align: center;" class="nome-acao">Bem Vindo!
-        <br>
-        <span id="nome_usuario"></span>
+      <div style="color: white; font-size: 11px; margin-top: -130%; text-align: center;">
+        <strong style="font-size: 12px;">Olá,</strong><br>
+        <strong style="font-size: 12px;" id="nome_usuario"></strong>
       </div>
       <div style="height: 60%; justify-content: space-around; display: flex; flex-direction: column;">
         <a class="itensDaNav" href="#">
           <div class="icon-stats-dots ico"></div>
           <span class="nome-acao">Dashboard</span>
         </a>
-        <a class="itensDaNav" href="./dashboard/gerenciarUsuarios.html">
-          <div class="icon-user ico"></div>
-          <samp class="nome-acao">Perfil</samp>
-        </a>
-        <a class="itensDaNav" href="./dashboard/gerenciarUsuarios.html">
-          <div class="icon-user-plus ico"></div>
-          <samp style="text-align: center;" class="nome-acao">Adicionar<br>Usuário</samp>
-        </a>
-        <a onclick="abir_lista()" class="itensDaNav">
+        <a onclick="abir_lista()" class="itensDaNav" href="#">
           <div style="font-weight: bold;" class="icon-document-forbidden1 ico"></div>
           <samp style="text-align: center;" class="nome-acao">Lista de Bloqueios</samp>
         </a>
-        <a class="itensDaNav">
+        <a class="itensDaNav" href="gerenciarUsuarios.html">
+          <div class="ico">
+            <img src="../assets/imgs/gerenciar_user.svg" alt="">
+          </div>
+          <samp style="text-align: center;" class="nome-acao">Adicionar<br>Usuário</samp>
+        </a>
+        <!-- <a id="gerenciamento_user" class="itensDaNav" href="#">
+          <div>
+            <img src="../assets/imgs/gerenciar_setor.png" alt="">
+          </div>
+          <samp style="text-align: center;" class="nome-acao">Adicionar<br>Usuário</samp>
+        </a> -->
+        <a class="itensDaNav" href="suporte.html">
           <div class="icon-support_agent ico"></div>
           <samp class="nome-acao">Suporte</samp>
         </a>
@@ -80,7 +85,24 @@
     <div class="central-maquinas">
 
       <div class="titulo-maquinas">
-        <h1 id="titulo_setor">Máquinas do setor de </h1>
+        <div style="display: flex; width: 100%; gap: 2rem; align-items: center;">
+          <h1 id="titulo_setor">Máquinas do setor de </h1>
+          <div style="display: flex; gap: 3rem; margin-top: -0.5rem;">
+            <div style="display: flex; align-items: center; gap: 0.3rem">
+              <div style="background-color: red;" class="bolinha_legenda"></div>
+              <span> - Maior que 75%</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.3rem;">
+              <div style="background-color: orange;" class="bolinha_legenda"></div>
+              <span> - Maior que 50%</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.3rem">
+              <div style="background-color: green;" class="bolinha_legenda"></div>
+              <span> - Menor que 50%</span>
+            </div>
+          </div>
+        </div>
+
         <button id="adicionarmaquina" onclick="adicionarmaquina()" class="button-add-maquinas">Adicionar máquina
           <div class="icon-plus"></div>
         </button>
@@ -104,13 +126,13 @@
             </div>
           </div>
         </div>
-        <div style="display: flex;">
+        <div id="grafico_tempo_real" style="display: flex">
           <div class="graficos_esquerda">
-            <h3 id="uso_cpu">Uso de CPU</h3>
+            <h3 id="uso_cpu"> Percentual de uso de CPU</h3>
             <div class="grafico">
               <canvas id="myChartCpu"></canvas>
             </div>
-            <h3 id="uso_ram">Uso de Memória Ram</h3>
+            <h3 style="white-space: nowrap;" id="uso_ram">Percentual de uso de Memória Ram</h3>
             <div class="grafico">
               <canvas id="myChartRam"></canvas>
             </div>
@@ -120,7 +142,26 @@
               <h3>Volume do disco</h3>
               <canvas id="myChartDisco"></canvas>
             </div>
+            <div style="display: flex; flex-direction: column; align-items: center; z-index: 1000; margin-left: 70%;">
+              <div style="margin-left: 25px;" class="switch__container">
+                <input id="switch-flat1" class="switch switch--flat" type="checkbox">
+                <label for="switch-flat1"></label>
+              </div>
+              <span style="text-align: center; margin-top: -30px; font-weight: bold;">Vizualização <br>Geral</span>
+            </div>
+
           </div>
+
+        </div>
+
+        <div id="grafico_geral" class="grafico_geral">
+          <h3>Quantidade de Processos Encerrados por Categoria no dia</h3>
+          <div class="grafico">
+            <canvas id="myChartGeral"></canvas>
+          </div>
+        </div>
+        <div>
+
         </div>
       </div>
       <div id="detathes" class="detalhes_maquinas">
@@ -159,9 +200,9 @@
               </thead>
               <tbody>
                 <tr>
-                  <td>50</td>
-                  <td>30</td>
-                  <td>20</td>
+                  <td>6</td>
+                  <td>5</td>
+                  <td>1</td>
                 </tr>
               </tbody>
             </table>
@@ -200,11 +241,11 @@
                 Intervalo de Tempo</strong>
               <div class="pesquisa-inputs-uso">
                 <div>
-                  <strong style="font-size: 12px;">Data Final:</strong>
+                  <strong style="font-size: 12px;">Data Inicial</strong>
                   <div><input id="date-final" style="width: 110px;" class="filtro_date" type="date"></div>
                 </div>
                 <div>
-                  <strong style="font-size: 12px;">Data Inicial:</strong>
+                  <strong style="font-size: 12px;">Data Final:</strong>
                   <div><input id="date-inicial" style="width: 110px;" class="filtro_date" type="date"></div>
                 </div>
                 <div class="icon-search"></div>
@@ -287,12 +328,23 @@
         <div onclick="fechar_tela()" class="icon-plus xtela"></div>
       </div>
       <div class="lista2">
-        <p>Essa ação irá deletar permanentemente os dados dessa máquina.
-          Tem certeza que deseja excluir a <span id="span_nomeMaquina"></span>
-        </p> <br><br>
-        <span>Digite sua senha:</span>
-        <input type="password" id="senha">
-        <button onclick="verificarSenha()">oiiiiiiiiiiiii</button>
+        <p style="padding: 10px; text-align: justify;">Tem certeza de que deseja excluir a <strong
+            id="span_nomeMaquina"></strong>?<br><br> Esta é
+          uma operação irreversível, e todos
+          os registros históricos de hardware, incluindo configurações, logs, e outras informações associadas, serão
+          perdidos.
+        </p>
+        <div style="display: flex; width: 100%; flex-direction: column; align-items: center;">
+          <div>
+            <span>Digite sua senha:</span>
+            <div>
+              <input type="password" id="senha">
+            </div>
+          </div>
+        </div>
+        <div>
+          <button class="btm-confirmar" onclick="verificarSenha()">Deletar</button>
+        </div>
         <span style="font-size: 12px; color: red; height: 2.5%; width: 100%; visibility: hidden;" id="texto_erro">
           Senha incorreta.</span>
       </div>
@@ -307,15 +359,26 @@
         <div class="form">
           <div class="form-element">
             <label for="nome">Nome da máquina</label>
-            <input type="text" id="nome" placeholder="Insira o nome da máquina">
+            <input type="text" id="nome_maquina" placeholder="Insira o nome da máquina">
           </div>
           <div class="form-element">
             <label for="modelo">Modelo da máquina</label>
-            <input type="text" id="modelo" placeholder="Insira o modelo da máquina">
+            <input type="text" id="modelo_maquina" placeholder="Insira o modelo da máquina">
           </div>
           <div class="form-element">
-            <button class="btm-confirmar">Cadastrar</button>
+            <button onclick="cadastrarMaquina()" class="btm-confirmar">Cadastrar</button>
           </div>
+          <span id="preecha_campos_maquina" style="color: red; display: none; text-align: center;">
+            Preecha todos os campos!
+          </span>
+        </div>
+      </div>
+    </div>
+    <div style="display: none;" id="containerAtendimento" class="containerAtendimento">
+      <div id="suportCompleto" class="pop-up-completo">
+        <div id="fecharAbaAtendimento" class="fecharAbaAtendimento" onclick="fecharAtendimento()">X</div>
+        <div id="Atendimento">
+          <iframe width='500' height='580' frameborder='0'></iframe>
         </div>
       </div>
     </div>
@@ -401,13 +464,8 @@
   inputDataInicio.value = dataInicioISO;
   inputDataFinal.value = dataFinalISO;
 
-
-
-
-
   let acesso_total = sessionStorage.ACESSO_TOTAL
   let nome = sessionStorage.NOME_USUARIO
-
   nome_usuario.innerHTML = nome;
   let campo_setor = document.getElementById('campo_setor')
   if (acesso_total == 1) {
@@ -417,6 +475,7 @@
   const myChartCpu = new Chart(document.getElementById("myChartCpu"), config);
   const myChartRam = new Chart(document.getElementById("myChartRam"), config1);
   const myChartDisco = new Chart(document.getElementById("myChartDisco"), config2);
+  const myCharGeral = new Chart(document.getElementById("myChartGeral"), config3);
 
   let idMaquina = sessionStorage.IDMAQUINA
 

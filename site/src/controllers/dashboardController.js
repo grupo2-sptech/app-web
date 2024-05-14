@@ -151,6 +151,22 @@ function deletarMaquina(req, res) {
   }
 }
 
+function cadastrar_maquina(req, res) {
+  let nome_maquina = req.params.nome_maquina
+  let modelo_maquina = req.params.modelo_maquina
+
+  if (nome_maquina != undefined && modelo_maquina != undefined) {
+    dashboardModel
+      .cadastrar_maquina(nome_maquina, modelo_maquina)
+      .then(resp => {
+        res.json({ id: resp.id })
+      })
+      .catch(erro => {
+        console.log(erro.sqlMessage)
+      })
+  }
+}
+
 module.exports = {
   listarMaquinas,
   cap_dados,
@@ -159,5 +175,6 @@ module.exports = {
   deletarMaquina,
   validarSenha,
   listar_processos_bloqueados,
-  listar_processos
+  listar_processos,
+  cadastrar_maquina
 }

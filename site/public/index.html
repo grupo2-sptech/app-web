@@ -63,14 +63,20 @@
 
       <div class="box-about2">
         <h1>Conheça um pouco mais sobre nossos produtos!</h1>
-        <p class="text-nossos-produtos">Nós, da Hardware Security, nos dedicamos à otimização do desempenho da sua equipe através da eliminação de processos desnecessários. 
-          Com esse propósito, disponibilizamos um sistema personalizável para que você possa editar conforme suas necessidades específicas. 
+        <p class="text-nossos-produtos">Nós, da Hardware Security, nos dedicamos à otimização do desempenho da sua
+          equipe através da eliminação de processos desnecessários.
+          Com esse propósito, disponibilizamos um sistema personalizável para que você possa editar conforme suas
+          necessidades específicas.
           Estamos focados em fornecer soluções profissionais e eficazes para atender às demandas do seu negócio.
-        <br><br>Ao adotar nossa abordagem focada na eficiência, você não apenas economiza tempo e recursos preciosos, mas também libera o potencial máximo de sua equipe, 
-        permitindo que se concentrem em tarefas estratégicas e de alto valor agregado.
-        <br><br>Além disso, oferecemos serviços de monitoramento de hardware para garantir ainda mais eficiência e segurança no ambiente de trabalho. 
-        Nosso monitoramento permite uma supervisão de todo o seu dispositivo, 
-        identificando rapidamente qualquer irregularidade ou problema potencial antes que possa impactar suas operações</p>
+          <br><br>Ao adotar nossa abordagem focada na eficiência, você não apenas economiza tempo e recursos preciosos,
+          mas também libera o potencial máximo de sua equipe,
+          permitindo que se concentrem em tarefas estratégicas e de alto valor agregado.
+          <br><br>Além disso, oferecemos serviços de monitoramento de hardware para garantir ainda mais eficiência e
+          segurança no ambiente de trabalho.
+          Nosso monitoramento permite uma supervisão de todo o seu dispositivo,
+          identificando rapidamente qualquer irregularidade ou problema potencial antes que possa impactar suas
+          operações
+        </p>
       </div>
     </div>
   </section>
@@ -165,37 +171,3 @@
 </body>
 
 </html>
-
-<script>
-
-
-  function abrirAtendimento() {
-
-    containerAtendimento.style.display = `flex`;
-
-    Atendimento.innerHTML = `
-<iframe width='500' height='620'
-src='https://app.pipefy.com/public/form/fQkn3YmF?embedded=true'
-  frameborder='0'
-></iframe>`
-
-    fecharAbaAtendimento.classList.add('fecharAbaAtendimento');
-    header.classList.add('blur');
-    home.classList.add('blur');
-    nossosprodutos.classList.add('blur');
-    sobrenos.classList.add('blur');
-    footer.classList.add('blur');
-
-  }
-
-  function fecharAtendimento() {
-    containerAtendimento.style.display = `none`;
-
-    fecharAbaAtendimento.classList.add('fecharAbaAtendimento');
-    header.classList.remove('blur');
-    home.classList.remove('blur');
-    nossosprodutos.classList.remove('blur');
-    sobrenos.classList.remove('blur');
-    footer.classList.remove('blur');
-  }
-</script>
