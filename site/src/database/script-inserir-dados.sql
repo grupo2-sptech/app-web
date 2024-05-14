@@ -97,6 +97,10 @@ INSERT INTO componente (modelo, tipo_componente, frequencia, fabricante, fk_maqu
 ('13th Gen Intel(R) Core(TM) i5-1335U', 'Processador', '2496000000', 'GenuineIntel', 704),
 ('13th Gen Intel(R) Core(TM) i5-1335U', 'Processador', '2496000000', 'GenuineIntel', 705);
 
+insert into historico_hardware (ram_ocupada, fk_maquina) values 
+(81,700);
+
+
 INSERT INTO componente (tamanho_total_gb, tipo_componente, fk_maquina) values
 (7.7, 'Memória Ram', 701),
 (7.7, 'Memória Ram', 702),
