@@ -2,6 +2,12 @@ select * from maquina;
 select * from funcionario;
 select * from setor;
 select * from empresa;
+select * from componente;
+select * from historico_hardware;
+
+SELECT * FROM funcionario WHERE email_funcionario = 'teste' AND senha_acesso = '123' OR login_acesso = 'teste.teste' AND senha_acesso = '123';
+
+
 
 use hardware_security;
 

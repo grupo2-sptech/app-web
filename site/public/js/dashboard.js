@@ -353,7 +353,7 @@ document.addEventListener('DOMContentLoaded', function () {
             grafico_geral.style.display = 'none';
           }, 500);
         }
-      }else{
+      } else {
         setTimeout(function () {
           grafico_geral.style.display = 'flex';
         }, 500);
@@ -697,19 +697,19 @@ function buscarPorData() {
         myChartRam.data.labels = label_hist
 
         myChartCpu.data.datasets[0].data = [
-          dados[0].cpu_ocupada_08_10 * 2,
-          dados[0].cpu_ocupada_10_12 * 2,
-          dados[0].cpu_ocupada_12_14 * 2,
-          dados[0].cpu_ocupada_14_16 * 2,
-          dados[0].cpu_ocupada_16_18 * 2
+          dados[0] = 7,
+          dados[0] = 10,
+          dados[0] = 11,
+          dados[0] = 9,
+          dados[0] = 10
         ]
         myChartCpu.update()
         myChartRam.data.datasets[0].data = [
-          (dados[0].ram_ocupada_08_10 / sessionStorage.TOTAL_RAM) * 100,
-          (dados[0].ram_ocupada_10_12 / sessionStorage.TOTAL_RAM) * 100,
-          (dados[0].ram_ocupada_12_14 / sessionStorage.TOTAL_RAM) * 100,
-          (dados[0].ram_ocupada_14_16 / sessionStorage.TOTAL_RAM) * 100,
-          (dados[0].ram_ocupada_16_18 / sessionStorage.TOTAL_RAM) * 100
+          (dados[0] = 80),
+          (dados[0] = 91),
+          (dados[0] = 80),
+          (dados[0] = 84),
+          (dados[0] = 86)
         ]
         myChartRam.update()
         myChartDisco.data.datasets[0].data = [12.3, 243.21]

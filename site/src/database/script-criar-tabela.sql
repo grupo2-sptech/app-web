@@ -59,8 +59,9 @@ create table maquina (
     processador_id varchar(20),
     modelo_maquina varchar(100),
     nome_maquina varchar(100),
+    memoria_total_maquina long,
     sistema_operacional varchar(100),
-    arquitetura varchar (10),
+    arquitetura int,
     fk_setor int,
     fk_empresa int
 ) auto_increment = 700;

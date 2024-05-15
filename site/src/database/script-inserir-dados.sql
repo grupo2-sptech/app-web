@@ -34,6 +34,8 @@ insert into processos_janelas (titulo_processo) values
     ("Tinder"),
     ("Badoo"),
     ("Discord");
+    
+    select * from processos_janelas;
 
 
 insert into processos_bloqueados_no_setor values
@@ -41,7 +43,12 @@ insert into processos_bloqueados_no_setor values
 (null ,203, 801),
 (null ,203, 802),
 (null ,203, 803),
-(null ,203, 804);
+(null ,203, 804),
+(null ,203, 819);
+
+
+insert into funcionario values
+(null, "Fernanda", "fernanda@gmail.com", "fernanda.caramico", "123", "Gestor", 203,100, true, false);
 
 insert into funcionario values
 
@@ -87,11 +94,11 @@ insert into maquina (modelo_maquina, nome_maquina) values
 ("Acer", "Máquina 03");
 
 insert into maquina () values 
-(null, "AAAAAAAA", "Dell", "Máquina 04", 'Windows', '64', 203, 100),
-(null, "BBBBBBBB", "Dell", "Máquina 05", 'Windows', '64', 203, 100),
-(null, "CCCCCCCC", "Dell", "Máquina 06", 'Windows', '64', 203, 100),
-(null, "DDDDDDDD", "Dell", "Máquina 07", 'Windows', '64', 203, 100),
-(null, "EEEEEEEE", "Dell", "Máquina 08", 'Windows', '64', 203, 100);
+(null, "AAAAAAAA", "Dell", "Máquina 04", 256.00, 'Windows', '64', 203, 100),
+(null, "BBBBBBBB", "Dell", "Máquina 05", 256.00, 'Windows', '64', 203, 100),
+(null, "CCCCCCCC", "Dell", "Máquina 06", 256.00, 'Windows', '64', 203, 100),
+(null, "DDDDDDDD", "Dell", "Máquina 07", 256.00, 'Windows', '64', 203, 100),
+(null, "EEEEEEEE", "Dell", "Máquina 08", 256.00, 'Windows', '64', 203, 100);
 
 INSERT INTO componente (modelo, tipo_componente, frequencia, fabricante, fk_maquina) VALUES
 ('13th Gen Intel(R) Core(TM) i5-1335U', 'Processador', '2496000000', 'GenuineIntel', 701),
