@@ -4,7 +4,7 @@ var mysql = require('mysql2')
 var sql = require('mssql')
 
 // CONEXÃO DO SQL SERVER - AZURE (NUVEM)
-/*var sqlServerConfig = {
+var sqlServerConfig = {
   server: 'SEU_SERVIDOR',
   database: 'SEU_BANCO_DE_DADOS',
   user: 'SEU_USUARIO',
@@ -17,15 +17,22 @@ var sql = require('mssql')
   options: {
     encrypt: true // for azure
   }
-}*/
+}
 
 // CONEXÃO DO MYSQL WORKBENCH
 var mySqlConfig = {
   host: 'localhost',
   database: 'hardware_security',
-  user: 'root',
-  password: '04240223mike'
+  user: 'aluno1',
+  password: '123'
 }
+
+//var mySqlConfig = {
+// host: 'hardware.cevi7rtakcex.us-east-1.rds.amazonaws.com',
+// database: 'hardware_security',
+// user: 'hardwareSecurity',
+// password: 'Urubu100'
+//}
 
 function executar(instrucao) {
   // VERIFICA A VARIÁVEL DE AMBIENTE SETADA EM app.js
@@ -57,7 +64,7 @@ function executar(instrucao) {
         if (erro) {
           reject(erro)
         }
-        console.log(resultados)
+       /*  console.log(resultados) */
         resolve(resultados)
       })
       conexao.on('error', function (erro) {
