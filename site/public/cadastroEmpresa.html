@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/dashboards.css">
+    <link rel="stylesheet" href="assets/icons/style.css">
+    <link rel="stylesheet" href="css/cadastroEmpresa.css">
+    <script src="js/cadastroEmp.js"></script>
+</head>
+
+<body onload="validarSessao()">
+    <!-- menuLateral -->
+    <div id="menu" class="menuLateral">
+        <a>
+            <div class="logo">
+                <img id="logotipo" src="../assets/icon/seguranca.png" alt="" />
+            </div>
+        </a>
+        <div id="itens_menu" class="itens_menu">
+            <div style="color: white; font-size: 11px; margin-top: -130%; text-align: center;">
+                <strong style="font-size: 12px;">Olá,</strong><br>
+                <strong style="font-size: 12px;" id="nome_usuario"></strong>
+            </div>
+            <div style="height: 60%; justify-content: space-around; display: flex; flex-direction: column;">
+                <a class="itensDaNav" href="dashboard.html">
+                    <div class="icon-stats-dots ico"></div>
+                    <span class="nome-acao">Dashboard</span>
+                </a>
+                <a class="itensDaNav" href="#">
+                    <div style="font-weight: bold;" class="icon-document-forbidden1 ico"></div>
+                    <samp style="text-align: center;" class="nome-acao">Lista de Bloqueios</samp>
+                </a>
+                <a class="itensDaNav" href="#">
+                    <div class="ico">
+                        <img src="../assets/imgs/gerenciar_user.svg" alt="">
+                    </div>
+                    <samp style="text-align: center;" class="nome-acao">Adicionar<br>Usuário</samp>
+                </a>
+                <!-- <a id="gerenciamento_user" class="itensDaNav" href="#">
+                <div>
+                  <img src="../assets/imgs/gerenciar_setor.png" alt="">
+                </div>
+                <samp style="text-align: center;" class="nome-acao">Adicionar<br>Usuário</samp>
+              </a> -->
+                <a class="itensDaNav" href="suporte.html">
+                    <div class="icon-support_agent ico"></div>
+                    <samp class="nome-acao">Suporte</samp>
+                </a>
+            </div>
+            <a onclick="limparSessao()" class="itensDaNav">
+                <div class="icon-log-in ico"></div>
+                <samp class="nome-acao">Sair</samp>
+            </a>
+        </div>
+    </div>
+
+    <main class="mainGerenciarUsuario">
+        <div class="tituloGerenciar" id="tituloGerenciar">
+            <h1 class="titulo">Cadastro de Empresa</h1>
+            <div class="icon-user-plus" id="botaoAdicionar"></div>
+        </div>
+
+        <div class="menuGerenciar" id="menuGerenciar">
+
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th><span>Nome</span></th>
+                        <th><span>E-mail</span></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>Hardware Security</td>
+                        <td>hardware.example@gmail.com</td>
+                        <td>
+                            <div class="icon-pencil"></div>
+                        </td>
+                        <td>
+                            <div class="icon-trash"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>Hardware Security</td>
+                        <td>hardware.example@gmail.com</td>
+                        <td>
+                            <div class="icon-pencil"></div>
+                        </td>
+                        <td>
+                            <div class="icon-trash"></div>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+
+
+        </div>
+
+
+        <div id="adicionarUsuario" class="adicionarUsuario">
+            <h1>Dados da Empresa</h1>
+
+            <div id="userDetails" style="display: block;" class="user-details sections">
+                <h4>Dados da Empresa</h4>
+                <div class="rotulosUsuario">
+                    <div class="rotulos">
+                        <label for="nome">Nome da Empresa:</label>
+                        <input id="nomeEmp" class="inputRotulos" type="text" placeholder="Digite o nome da empresa" required>
+                    </div>
+                    <div class="rotulos">
+                        <label for="email">CNPJ:</label>
+                        <input id="cnpj" class="inputRotulos" type="text" placeholder="Digite o CNPJ da empresa">
+                    </div>
+                    <div class="rotulos">
+                        <label for="setor">E-mail:</label>
+                        <input id="emailEmp" class="inputRotulos" type="text" placeholder="Digite o Telefone da empresa">
+                    </div>
+                    <div class="rotulos">
+                        <label for="Cargo">Unidade Federativa:</label>
+                        <input id="ufEmp" class="inputRotulos" type="text" placeholder="Digite a Unidade Federativa">
+                    </div>
+                    <div class="rotulos">
+                        <label for="Cargo">Sigla UF:</label>
+                        <input id="ufSiglaEmp" class="inputRotulos" type="text" placeholder="Digite a Sigla UF">
+                    </div>
+                </div>
+            </div>
+
+            <div id="userSettings" style="display: none;" class="user-settings sections">
+                <h4>Dados da Empresa</h4>
+                <div class="rotulosUsuario">
+                    <div class="rotulos">
+                        <label for="config1">Cidade:</label>
+                        <input id="cidadeEmp" class="inputRotulos" type="text" placeholder="Digite a Cidade">
+                    </div>
+                    <div class="rotulos">
+                        <label for="config1">Município:</label>
+                        <input id="municipioEmp" class="inputRotulos" type="text" placeholder="Digite o Município">
+                    </div>
+                    <div class="rotulos">
+                        <label for="config1">CEP:</label>
+                        <input id="cepEmp" class="inputRotulos" type="text" placeholder="Digite o CEP">
+                    </div>
+                    <div class="rotulos">
+                        <label for="config1">Bairro:</label>
+                        <input id="bairroEmp" class="inputRotulos" type="text" placeholder="Digite o Bairro">
+                    </div>
+                    <div class="rotulos">
+                        <label for="config2">Logradouro:</label>
+                        <input id="ruaEmp" class="inputRotulos" type="text" placeholder="Digite o Logradouro">
+                    </div>
+                </div>
+            </div>
+
+            <div id="userPermissions" style="display: none;" class="user-permissions sections">
+                <h4>Dados da Empresa</h4>
+                <div class="rotulosUsuario">
+                    <div class="rotulos">
+                        <label for="permissao1">Número:</label>
+                        <input id="numEmp" class="inputRotulos" type="text" placeholder="Digite o Número">
+                    </div>
+                    <div class="rotulos">
+                        <label for="permissao2">Complemento:</label>
+                        <input id="complementoEmp" class="inputRotulos" type="text" placeholder="Digite o Complemento">
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="tab-selection">
+                <div id="selectDetails" onclick="showDetails()" class="selecionar selecionar_hover"></div>
+                <div id="selectSettings" onclick="showSettings()" class="selecionar"></div>
+                <div id="selectPermissions" onclick="showPermissions()" class="selecionar"></div>
+            </div>
+
+
+            <div style="display: flex; gap: 2rem; margin-top: 20px;">
+                <button class="botaoCancelar" id="botaoCancelar">Cancelar</button>
+                <button onclick="cadastrar()" class="botaoConfirmar">Confirmar</button>
+            </div>
+        </div>
+
+
+
+    </main>
+
+</body>
+
+</html>
+
+<script>
+
+    function showDetails() {
+        document.getElementById('userDetails').style.display = 'block';
+        document.getElementById('userSettings').style.display = 'none';
+        document.getElementById('userPermissions').style.display = 'none';
+        document.getElementById('selectDetails').classList.add('selecionar_hover');
+        document.getElementById('selectSettings').classList.remove('selecionar_hover');
+        document.getElementById('selectPermissions').classList.remove('selecionar_hover');
+    }
+
+    function showSettings() {
+        document.getElementById('userDetails').style.display = 'none';
+        document.getElementById('userSettings').style.display = 'block';
+        document.getElementById('userPermissions').style.display = 'none';
+        document.getElementById('selectDetails').classList.remove('selecionar_hover');
+        document.getElementById('selectSettings').classList.add('selecionar_hover');
+        document.getElementById('selectPermissions').classList.remove('selecionar_hover');
+    }
+
+    function showPermissions() {
+        document.getElementById('userDetails').style.display = 'none';
+        document.getElementById('userSettings').style.display = 'none';
+        document.getElementById('userPermissions').style.display = 'block';
+        document.getElementById('selectDetails').classList.remove('selecionar_hover');
+        document.getElementById('selectSettings').classList.remove('selecionar_hover');
+        document.getElementById('selectPermissions').classList.add('selecionar_hover');
+    }
+
+    // Exibe a primeira aba por padrão
+    document.addEventListener('DOMContentLoaded', function () {
+        showDetails();
+    });
+
+</script>

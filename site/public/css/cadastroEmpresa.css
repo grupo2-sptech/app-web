@@ -99,11 +99,11 @@ tr {
     position: fixed;
     right: 0;
     top: 0;
-    width: 30%;
+    width: 40%;
     height: 96vh;
     background-color: white;
     padding: 20px;
-    border-radius: 50px 0px 0px 50px;
+    border-radius: 45px 0px 0px 45px;
     box-shadow: -10px 5px 15px rgba(0, 0, 0, 0.2);
     z-index: 1;
     display: flex;
@@ -114,8 +114,10 @@ tr {
 }
 
 .rotulosUsuario {
+    gap: 10px;
     width: 100%;
     height: 40%;
+    padding: 0 1rem;
     align-items: center;
     display: flex;
     flex-direction: column;
@@ -124,17 +126,21 @@ tr {
 
 .rotulos {
     display: flex;
-    width: 110%;
+    white-space: nowrap;
+    width: 100%;
     justify-content: center;
     align-items: center;
-    gap: 2%;
+    flex-grow: 1;
+    gap: 6%;
+    margin-bottom: 1rem;
+    flex-shrink: 0;
 }
 
 .rotulos label {
     flex-basis: 30%;
-    text-align: right;
     margin-right: 10px;
     font-size: 20px;
+    text-align: center;
 }
 
 .inputRotulos {
@@ -142,14 +148,48 @@ tr {
     border-bottom: 2px solid #ccc;
     padding: 5px;
     font-size: 14px;
-    width: 100%;
+    align-items: center;
+    width: 100;
+    margin-top: 0.5 rem;
     outline: none;
+    flex-grow: 1;
     transition: border-color 0.3s ease;
 }
 
 .inputRotulos:focus {
     border-bottom-color: #007BFF;
 }
+
+.sections {
+    display: none;
+}
+
+.tab-selection {
+    display: flex;
+    justify-content: center;
+    gap: 38%;
+    margin-top: 1rem;
+}
+
+.tab {
+    padding: 10px;
+    border: 1px solid #2e4959;
+    border-radius: 5px;
+    background-color: #2e4959;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+.tab:hover {
+    background-color: #1b313f;
+}
+
+.select-tab-hover {
+    background-color: #1b313f;
+    transform: scale(1.1);
+}
+
 
 .selectRotulos {
     border: none;
@@ -161,7 +201,7 @@ tr {
     transition: border-color 0.3s ease;
     background-color: transparent;
     appearance: none;
-
+    flex-shrink: 0;
 }
 
 .selectRotulos:focus {
@@ -169,7 +209,8 @@ tr {
 }
 
 .botaoCancelar {
-    background-color: #B0B0B0;
+    cursor: pointer;
+    background-color: #9e9d9d;
     color: #fff;
     border: none;
     border-radius: 50px;
@@ -181,11 +222,11 @@ tr {
 }
 
 .botaoCancelar:hover {
-    background-color: #A0A0A0;
+    background-color: #757575;
 }
 
 .botaoConfirmar {
-    background-color: #4CAF50;
+    background-color: #6cca6f;
     color: #fff;
     border: none;
     border-radius: 50px;
@@ -197,5 +238,19 @@ tr {
 }
 
 .botaoConfirmar:hover {
-    background-color: #45A049;
+    background-color: #338d38;
+}
+
+.selecionar {
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    background-color: #2e4959;
+    cursor: pointer;
+    transition: transform 0.5s; /* Usando transform em vez de scale */
+    flex-shrink: 0; /* Previne que os elementos encolham */
+}
+
+.selecionar_hover {
+    transform: scale(1.3);
 }
