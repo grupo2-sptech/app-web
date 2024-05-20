@@ -1,6 +1,6 @@
 /** @format */
 
-process.env.AMBIENTE_PROCESSO = 'producao'
+process.env.AMBIENTE_PROCESSO = 'desenvolvimento'
 // process.env.AMBIENTE_PROCESSO = "producao";
 
 var express = require('express')
@@ -16,7 +16,7 @@ var avisosRouter = require('./src/routes/avisos')
 var medidasRouter = require('./src/routes/medidas')
 var empresasRouter = require('./src/routes/empresas') 
 var dashboardRouter = require('./src/routes/dashboard')
-var cadastroEmpresaRouter = require('./src/routes/cadastroEmpRouter')
+var cadastroEmpresaRouter = require('./src/routes/cadastroEmpresa')
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
