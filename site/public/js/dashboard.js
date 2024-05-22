@@ -1,5 +1,5 @@
 /** @format */
-let setor_id = sessionStorage.SETOR
+let id_setor = sessionStorage.SETOR
 
 function listar(id_setor, id_select, acesso_total) {
   let select = document.getElementById(id_select)
@@ -39,7 +39,7 @@ function listar(id_setor, id_select, acesso_total) {
 
         setores.forEach(setor => {
           const option = document.createElement('option')
-          option.value = setor.setor_id
+          option.value = setor.id_setor
           option.text = setor.nome_setor
           select_setor.appendChild(option)
         })

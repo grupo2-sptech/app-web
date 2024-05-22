@@ -9,9 +9,11 @@
     <link rel="stylesheet" href="assets/icons/style.css">
     <link rel="stylesheet" href="css/cadastroEmpresa.css">
     <script src="js/cadastroEmp.js"></script>
+    <script src="js/sessao.js"></script>
+    <script src="js/gerenciarUsuario.js"></script>
 </head>
 
-<body onload="validarSessao()">
+<body onload="validarSessao(), listarEmpresa()">
     <!-- menuLateral -->
     <div id="menu" class="menuLateral">
         <a>
@@ -76,30 +78,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>
-                        </td>
-                        <td>Hardware Security</td>
-                        <td>hardware.example@gmail.com</td>
-                        <td>
-                            <div class="icon-pencil"></div>
-                        </td>
-                        <td>
-                            <div class="icon-trash"></div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                        </td>
-                        <td>Hardware Security</td>
-                        <td>hardware.example@gmail.com</td>
-                        <td>
-                            <div class="icon-pencil"></div>
-                        </td>
-                        <td>
-                            <div class="icon-trash"></div>
-                        </td>
-                    </tr>
+                    
 
                 </tbody>
             </table>
@@ -107,6 +86,52 @@
 
 
         </div>
+
+        <div style="display: none; left: 38%;" id="pop-add-maquinas" class="tela-lista-processos">
+            <div class="barra-lista">
+              <samp style="color: white; margin-left: 10px;">Edite informações da empresa</samp>
+              <div onclick="fechar_tela()" class="icon-plus xtela"></div>
+            </div>
+            <div class="pop-maquina">
+              <div class="form">
+                <div class="form-element">
+                  <label for="nome">Nome da empresa</label>
+                  <input type="text" id="nome_maquina" placeholder="Insira o novo ome da empresa">
+                </div>
+                <div class="form-element">
+                  <label for="modelo">E-mail da empresa</label>
+                  <input type="text" id="modelo_maquina" placeholder="Insira o novo e-mail da empresa">
+                </div>
+                <div class="form-element">
+                  <button onclick="editarEmpresa()" class="btm-confirmar">Cadastrar</button>
+                </div>
+                <span id="preecha_campos_maquina" style="color: red; display: none; text-align: center;">
+                  Preecha todos os campos!
+                </span>
+              </div>
+            </div>
+          </div>
+
+
+          <div style="display: none; left: 38%;" id="pop-add-delete" class="tela-lista-processos">
+            <div class="barra-lista">
+              <samp style="color: white; margin-left: 10px;">Deletar empresa</samp>
+              <div onclick="fechar_tela()" class="icon-plus xtela"></div>
+            </div>
+            <div class="pop-maquina">
+              <div class="form">
+                <div class="form-element">
+                  <label for="modelo">Deseja excluir a empresa ?</label>
+                </div>
+                <div class="form-element">
+                  <button onclick="deletarEmpresa(this)" class="btm-confirmar">Confirmar</button>
+                </div>
+                <span id="preecha_campos_maquina" style="color: red; display: none; text-align: center;">
+                  Preecha todos os campos!
+                </span>
+              </div>
+            </div>
+          </div>
 
 
         <div id="adicionarUsuario" class="adicionarUsuario">

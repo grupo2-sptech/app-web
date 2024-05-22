@@ -55,7 +55,7 @@ ORDER BY
   let query = `SELECT m.*, MAX(h.data_hora) AS data_hora
   FROM maquina AS m
   JOIN historico_hardware AS h ON m.maquina_id = h.fk_maquina
-  JOIN setor AS s ON s.setor_id = m.fk_setor
+  JOIN setor AS s ON s.id_setor = m.fk_setor
   WHERE m.fk_setor = ${fk_setor}
   GROUP BY m.maquina_id, m.nome_maquina, m.fk_setor
   ORDER BY data_hora DESC;
@@ -64,7 +64,7 @@ ORDER BY
   if (acesso == 1) {
     query = `SELECT m.*, h.data_hora
     FROM maquina AS m join historico_hardware as h on m.maquina_id = h.fk_maquina
-    JOIN setor AS s ON s.setor_id = m.fk_setor
+    JOIN setor AS s ON s.id_setor = m.fk_setor
     ORDER BY h.data_hora DESC LIMIT 1;
   `
   }
@@ -104,7 +104,7 @@ function deletarMaquina(id_maquina) {
 }
 
 function validarSenha(id_usuario, senha) {
-  let query = `SELECT * from funcionario WHERE funcionario_id = ${id_usuario} AND senha_acesso = ${senha};`
+  let query = `SELECT * from funcionario WHERE id_funcionario = ${id_usuario} AND senha_acesso = ${senha};`
 
   return database.executar(query)
 }
@@ -143,8 +143,8 @@ JOIN componente AS c_cpu ON m.maquina_id = c_cpu.fk_maquina AND c_cpu.tipo_compo
 JOIN componente AS c_ram ON m.maquina_id = c_ram.fk_maquina AND c_ram.tipo_componente = 'Memória Ram'
 JOIN componente AS c_disco ON m.maquina_id = c_disco.fk_maquina AND c_disco.tipo_componente = 'Disco'
 JOIN historico_hardware AS h ON h.fk_maquina = m.maquina_id
-JOIN setor AS s ON s.setor_id = m.fk_setor
-JOIN funcionario AS f ON f.fk_setor = s.setor_id
+JOIN setor AS s ON s.id_setor = m.fk_setor
+JOIN funcionario AS f ON f.fk_setor = s.id_setor
 WHERE m.maquina_id = ${id_maquina}
 ORDER BY h.data_hora DESC
 LIMIT 1;

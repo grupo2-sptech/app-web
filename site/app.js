@@ -31,8 +31,12 @@ app.use('/avisos', avisosRouter)
 app.use('/medidas', medidasRouter)
 app.use('/empresas', empresasRouter) 
 app.use('/dashboard', dashboardRouter)
+<<<<<<< Updated upstream
 app.use('/empresas', cadastroEmpresaRouter)
 app.use('/gerenciarUsuario', gerenciarUsuario)
+=======
+app.use('/cadastroEmpresa', cadastroEmpresaRouter)
+>>>>>>> Stashed changes
 
 app.listen(PORTA, function () {
   console.log(`Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar: http://localhost:${PORTA} \n
