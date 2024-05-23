@@ -31,3 +31,4 @@ package-lock.json
 # config.js
 
 .github
+site/src/database/config.js

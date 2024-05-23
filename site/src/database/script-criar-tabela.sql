@@ -15,54 +15,6 @@ create table endereco (
     cep char(8)
 );
 
-select * from historico_hardware;
-
-create table historico_reinicializacao (
-    idhistorico_reinicializacao int unique auto_increment,
-    fk_historico int,
-    fk_componente int,
-    data datetime default current_timestamp,
-    primary key (idhistorico_reinicializacao, fk_historico, fk_componente)
-) auto_increment = 10;
-
-
-DELIMITER //
-
-CREATE TRIGGER trigger_reinicializacao_ram
-AFTER INSERT ON historico_hardware
-FOR EACH ROW
-BEGIN
-    DECLARE ram_total DECIMAL(10, 2);
-    DECLARE ram_porcentagem DECIMAL(10, 2);
-
-    -- Inicialize as variáveis
-    SET ram_total = 0;
-    SET ram_porcentagem = 0;
-
-    -- Obtenha o tamanho total de RAM para a máquina associada à nova entrada em historico_hardware
-    SELECT tamanho_total_gb
-    INTO ram_total
-    FROM componente
-    WHERE fk_maquina = NEW.fk_maquina
-      AND tipo_componente = 'Memória Ram';
-
-    -- Verifique se ram_total é válido (não nulo ou zero)
-    IF ram_total IS NOT NULL AND ram_total > 0 THEN
-        -- Calcule a porcentagem atual de RAM ocupada
-        SET ram_porcentagem = (NEW.ram_ocupada / ram_total) * 100;
-
-        -- Verifique se a porcentagem de RAM ocupada ultrapassa 80%
-        IF ram_porcentagem > 80 THEN
-            -- Insira um novo registro na tabela historico_reinicializacao
-            INSERT INTO historico_reinicializacao (data, fk_historico, fk_componente)
-            VALUES (NEW.data_hora, NEW.hardware_historico_id, NEW.fk_maquina);
-        END IF;
-    END IF;
-END //
-
-DELIMITER ;
-
-
 -- Tabela: empresa
 create table empresa (
     empresa_id int primary key auto_increment,
@@ -130,17 +82,6 @@ fk_maquina int
 
 alter table componente add constraint foreign key (fk_maquina) references maquina(maquina_id);
 
-create table historico_reinicialização (
-    idhistorico_reinicialização int unique auto_increment,
-    fk_historico int,
-    fk_componente int,
-    data datetime default current_timestamp,
-    primary key (idhistorico_reinicialização, fk_historico, fk_componente)
-) auto_increment = 10;
-
-alter table historico_reinicialização add constraint foreign key (fk_historico) references historico_hardware(hardware_historico_id);
-alter table historico_reinicialização add constraint foreign key (fk_componente) references componente(id_componente);
-
 -- Tabela: uso_maquina
 create table uso_maquina (
     fk_funcionario int,
@@ -176,9 +117,10 @@ create table historico_hardware (
     hardware_historico_id int auto_increment,
     cpu_ocupada double,
     ram_ocupada double,
-    fk_maquina int,
+    uso_disco long,
+    fk_componente int,
     data_hora datetime default current_timestamp,
-    primary key(hardware_historico_id, fk_maquina)
+    primary key(hardware_historico_id, fk_componente)
 ) auto_increment = 900;
 
-alter table historico_hardware add constraint fk_maquina foreign key (fk_maquina) references maquina(maquina_id);
+alter table historico_hardware add constraint fk_componente foreign key (fk_componente) references componente(id_componente);

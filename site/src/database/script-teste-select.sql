@@ -4,12 +4,18 @@ select * from setor;
 select * from empresa;
 select * from componente;
 select * from historico_hardware;
+select * from processos_janelas;
+
+SELECT titulo_processo FROM processos_janelas  where fk_setor = 203;
+
 
 SELECT * FROM funcionario WHERE email_funcionario = 'teste' AND senha_acesso = '123' OR login_acesso = 'teste.teste' AND senha_acesso = '123';
 
-
+SELECT * FROM componente join maquina on maquina_id = fk_maquina WHERE processador_id = 'BFEBFBFF000B06A3';
 
 use hardware_security;
+
+INSERT INTO historico_hardware (ram_ocupada, data_hora, fk_componente) VALUES (1,now(),400);
 
 select h.hardware_historico_id, h.cpu_ocupada from historico_hardware as h where hardware_historico_id = 802; 
 
@@ -67,7 +73,7 @@ update historico_hardware set ram_ocupada = 7224143872, cpu_ocupada = 2.91 where
 
 update historico_hardware set ram_ocupada = 7533887488, cpu_ocupada = 3.74 where fk_maquina = 530;
 
-select * from historico_reinicializacao;
+
 
 SELECT m.maquina_id, MINUTE(h.data_hora) as minuto_uso, sec_to_time(h.data_hora), m.modelo_maquina,
   ROUND(m.memoria_ocupada / (1024 * 1024 * 1024), 2) AS disco_ocupado_gb,

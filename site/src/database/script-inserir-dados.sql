@@ -1,99 +1,102 @@
 -- Inserções para fk_maquina de 500 até 531
-INSERT INTO endereco (estado, cidade, municipio, bairro, logradouro, numero, cep)
-VALUES ('SP', 'São Paulo', 'São Paulo', 'Centro', 'Rua Teste', '123', '01234567');
+	INSERT INTO endereco (estado, cidade, municipio, bairro, logradouro, numero, cep)
+	VALUES ('SP', 'São Paulo', 'São Paulo', 'Centro', 'Rua Teste', '123', '01234567');
 
-insert into empresa values
-(null, "Flesh", "62173620009306", "11999999999", 1);
+	insert into empresa values
+	(null, "Flesh", "62173620009306", "11999999999", 1);
 
-insert into setor values
-(null, "TI", 100),
-(null, "Adimistração", 100),
-(null, "Logistica", 100),
-(null, "RH", 100),
-(null, "Finanças", 100);
-
--- Inserindo mais dados na tabela processos_janelas
-insert into processos_janelas (titulo_processo) values
-    ("Facebook"),
-    ("Instagram"),
-    ("Twitter"),
-    ("TikTok"),
-    ("WhatsApp"),
-    ("Snapchat"),
-    ("Pinterest"),
-    ("LinkedIn"),
-    ("Twitch"),
-    ("Spotify"),
-    ("Apple Music"),
-    ("Google Play Music"),
-    ("Amazon Music"),
-    ("SoundCloud"),
-    ("Hulu"),
-    ("Amazon Prime Video"),
-    ("Disney+"),
-    ("Tinder"),
-    ("Badoo"),
-    ("Discord");
-    
-    select * from processos_janelas;
+	insert into setor values
+	(null, "TI", 100),
+	(null, "Adimistração", 100),
+	(null, "Logistica", 100),
+	(null, "RH", 100),
+	(null, "Finanças", 100);
 
 
-insert into processos_bloqueados_no_setor values
-(null ,203, 800),
-(null ,203, 801),
-(null ,203, 802),
-(null ,203, 803),
-(null ,203, 804),
-(null ,203, 819);
+	-- Inserindo mais dados na tabela processos_janelas
+	insert into processos_janelas (titulo_processo) values
+		("Facebook"),
+		("Instagram"),
+		("Twitter"),
+		("TikTok"),
+		("WhatsApp"),
+		("Snapchat"),
+		("Pinterest"),
+		("LinkedIn"),
+		("Twitch"),
+		("Spotify"),
+		("Apple Music"),
+		("Google Play Music"),
+		("Amazon Music"),
+		("SoundCloud"),
+		("Hulu"),
+		("Amazon Prime Video"),
+		("Disney+"),
+		("Tinder"),
+		("Badoo"),
+		("Discord");
+		
+		select * from processos_janelas;
 
 
-insert into funcionario values
-(null, "Fernanda", "fernanda@gmail.com", "fernanda.caramico", "123", "Gestor", 203,100, true, false);
-
-insert into funcionario values
-
-(null, "Jonathan Carvalho", "jonathanaparecido80@gmail.com", "jonathan.carvalho", "123", "Gerente", 200,100, true, true),
-(null, "Julia Silva", "julia@gmail.com", "julia.silva", "123", "Gestor", 201,100, true, false),
-(null, "Andre Pereira", "andre@gmail.com", "andre.pereira", "123", "Gestor", 202, 100, true, false),
-(null, "teste", "teste@gmail.com", "teste.teste", "123", "Gestor", 203, 100, true, false),
-(null, "João Santos", "joao.santos@gmail.com", "joao.santos", "123", "Gestor", 204, 100, true, false);
+	insert into processos_bloqueados_no_setor values
+	 (null ,203, 800),
+	(null ,203, 801),
+	(null ,203, 802),
+	(null ,203, 803),
+	(null ,203, 804);
 
 
-insert into funcionario values
-(null, "Maria Oliveira", "maria.o@gmail.com", "maria.oliveira", "123", "Analista", 203, 100, false, false),
-(null, "Pedro Souza", "pedro.souza@gmail.com", "pedro.souza", "123", "Analista", 200, 100, false, false),
-(null, "Ana Costa", "ana.costa@gmail.com", "ana.costa", "123", "Desenvolvedor", 204, 100, false, false),
-(null, "Carlos Santos", "carlos.santos@gmail.com", "carlos.santos", "123", "Analista", 201, 100, false, false),
-(null, "Fernanda Lima", "fernanda.lima@gmail.com", "fernanda.lima", "123", "Desenvolvedor", 202, 100, false, false),
-(null, "Rafaela Oliveira", "rafaela.o@gmail.com", "rafaela.oliveira", "123", "Analista", 203, 100, false, false),
-(null, "Gabriel Almeida", "gabriel.almeida@gmail.com", "gabriel.almeida", "123", "Analista", 204, 100, false, false),
-(null, "Laura Martins", "laura.martins@gmail.com", "laura.martins", "123", "Desenvolvedor", 202, 100, false, false),
-(null, "Mariana Costa", "mariana.c@gmail.com", "mariana.costa", "123", "Analista", 201, 100, false, false),
-(null, "Rodrigo Pereira", "rodrigo.pereira@gmail.com", "rodrigo.pereira", "123", "Desenvolvedor", 200, 100, false, false),
-(null, "Camila Ferreira", "camila.f@gmail.com", "camila.ferreira", "123", "Desenvolvedor", 202, 100, false, false),
-(null, "Renato Oliveira", "renato.o@gmail.com", "renato.oliveira", "123", "Analista", 203, 100, false, false),
-(null, "Amanda Rodrigues", "amanda.r@gmail.com", "amanda.rodrigues", "123", "Desenvolvedor", 204, 100, false, false),
-(null, "Lucas Silva", "lucas.silva@gmail.com", "lucas.silva", "123", "Desenvolvedor", 200, 100, false, false),
-(null, "Isabela Souza", "isabela.souza@gmail.com", "isabela.souza", "123", "Analista", 201, 100, false, false),
-(null, "Felipe Santos", "felipe.santos@gmail.com", "felipe.santos", "123", "Desenvolvedor", 202, 100, false, false),
-(null, "Carolina Lima", "carolina.lima@gmail.com", "carolina.lima", "123", "Analista", 203, 100, false, false),
-(null, "Ricardo Pereira", "ricardo.pereira@gmail.com", "ricardo.pereira", "123", "Analista", 204, 100, false, false),
-(null, "Mariana Ferreira", "mariana.f@gmail.com", "mariana.ferreira", "123", "Desenvolvedor", 202, 100, false, false),
-(null, "Tiago Alves", "tiago.alves@gmail.com", "tiago.alves", "123", "Analista", 202, 100, false, false),
-(null, "Beatriz Lima", "beatriz.lima@gmail.com", "beatriz.lima", "123", "Desenvolvedor", 203, 100, false, false),
-(null, "Marcelo Silva", "marcelo.silva@gmail.com", "marcelo.silva", "123", "Analista", 204, 100, false, false),
-(null, "Luana Oliveira", "luana.o@gmail.com", "luana.oliveira", "123", "Analista", 200, 100, false, false),
-(null, "Daniel Pereira", "daniel.pereira@gmail.com", "daniel.pereira", "123", "Desenvolvedor", 202, 100, false, false),
-(null, "Gabriela Santos", "gabriela.santos@gmail.com", "gabriela.santos", "123", "Analista", 203, 100, false, false),
-(null, "Lucas Costa", "lucas.c@gmail.com", "lucas.costa", "123", "Desenvolvedor", 201, 100, false, false),
-(null, "Isabella Rodrigues", "isabella.r@gmail.com", "isabella.rodrigues", "123", "Analista", 200, 100, false, false);
+	delete from processos_bloqueados_no_setor where fk_processo = 804;
 
-insert into maquina (modelo_maquina, nome_maquina) values 
-("Dell", "Máquina 01"),
-("Sansung", "Máquina 02"),
-("Acer", "Máquina 03");
 
-insert into maquina () values 
+	insert into funcionario values
+	(null, "Fernanda", "fernanda@gmail.com", "fernanda.caramico", "123", "Gestor", 203,100, true, false);
+
+	insert into funcionario values
+
+	(null, "Jonathan Carvalho", "jonathanaparecido80@gmail.com", "jonathan.carvalho", "123", "Gerente", 200,100, true, true),
+	(null, "Julia Silva", "julia@gmail.com", "julia.silva", "123", "Gestor", 201,100, true, false),
+	(null, "Andre Pereira", "andre@gmail.com", "andre.pereira", "123", "Gestor", 202, 100, true, false),
+	(null, "teste", "teste@gmail.com", "teste.teste", "123", "Gestor", 203, 100, true, false),
+	(null, "João Santos", "joao.santos@gmail.com", "joao.santos", "123", "Gestor", 204, 100, true, false);
+
+
+	insert into funcionario values
+	(null, "Maria Oliveira", "maria.o@gmail.com", "maria.oliveira", "123", "Analista", 203, 100, false, false),
+	(null, "Pedro Souza", "pedro.souza@gmail.com", "pedro.souza", "123", "Analista", 200, 100, false, false),
+	(null, "Ana Costa", "ana.costa@gmail.com", "ana.costa", "123", "Desenvolvedor", 204, 100, false, false),
+	(null, "Carlos Santos", "carlos.santos@gmail.com", "carlos.santos", "123", "Analista", 201, 100, false, false),
+	(null, "Fernanda Lima", "fernanda.lima@gmail.com", "fernanda.lima", "123", "Desenvolvedor", 202, 100, false, false),
+	(null, "Rafaela Oliveira", "rafaela.o@gmail.com", "rafaela.oliveira", "123", "Analista", 203, 100, false, false),
+	(null, "Gabriel Almeida", "gabriel.almeida@gmail.com", "gabriel.almeida", "123", "Analista", 204, 100, false, false),
+	(null, "Laura Martins", "laura.martins@gmail.com", "laura.martins", "123", "Desenvolvedor", 202, 100, false, false),
+	(null, "Mariana Costa", "mariana.c@gmail.com", "mariana.costa", "123", "Analista", 201, 100, false, false),
+	(null, "Rodrigo Pereira", "rodrigo.pereira@gmail.com", "rodrigo.pereira", "123", "Desenvolvedor", 200, 100, false, false),
+	(null, "Camila Ferreira", "camila.f@gmail.com", "camila.ferreira", "123", "Desenvolvedor", 202, 100, false, false),
+	(null, "Renato Oliveira", "renato.o@gmail.com", "renato.oliveira", "123", "Analista", 203, 100, false, false),
+	(null, "Amanda Rodrigues", "amanda.r@gmail.com", "amanda.rodrigues", "123", "Desenvolvedor", 204, 100, false, false),
+	(null, "Lucas Silva", "lucas.silva@gmail.com", "lucas.silva", "123", "Desenvolvedor", 200, 100, false, false),
+	(null, "Isabela Souza", "isabela.souza@gmail.com", "isabela.souza", "123", "Analista", 201, 100, false, false),
+	(null, "Felipe Santos", "felipe.santos@gmail.com", "felipe.santos", "123", "Desenvolvedor", 202, 100, false, false),
+	(null, "Carolina Lima", "carolina.lima@gmail.com", "carolina.lima", "123", "Analista", 203, 100, false, false),
+	(null, "Ricardo Pereira", "ricardo.pereira@gmail.com", "ricardo.pereira", "123", "Analista", 204, 100, false, false),
+	(null, "Mariana Ferreira", "mariana.f@gmail.com", "mariana.ferreira", "123", "Desenvolvedor", 202, 100, false, false),
+	(null, "Tiago Alves", "tiago.alves@gmail.com", "tiago.alves", "123", "Analista", 202, 100, false, false),
+	(null, "Beatriz Lima", "beatriz.lima@gmail.com", "beatriz.lima", "123", "Desenvolvedor", 203, 100, false, false),
+	(null, "Marcelo Silva", "marcelo.silva@gmail.com", "marcelo.silva", "123", "Analista", 204, 100, false, false),
+	(null, "Luana Oliveira", "luana.o@gmail.com", "luana.oliveira", "123", "Analista", 200, 100, false, false),
+	(null, "Daniel Pereira", "daniel.pereira@gmail.com", "daniel.pereira", "123", "Desenvolvedor", 202, 100, false, false),
+	(null, "Gabriela Santos", "gabriela.santos@gmail.com", "gabriela.santos", "123", "Analista", 203, 100, false, false),
+	(null, "Lucas Costa", "lucas.c@gmail.com", "lucas.costa", "123", "Desenvolvedor", 201, 100, false, false),
+	(null, "Isabella Rodrigues", "isabella.r@gmail.com", "isabella.rodrigues", "123", "Analista", 200, 100, false, false);
+
+	insert into maquina (modelo_maquina, nome_maquina, fk_setor) values 
+	("Dell", "Máquina 01", 203),
+	("Sansung", "Máquina 02", 203),
+	("Acer", "Máquina 03", 203);
+
+/*insert into maquina () values 
 (null, "AAAAAAAA", "Dell", "Máquina 04", 256.00, 'Windows', '64', 203, 100),
 (null, "BBBBBBBB", "Dell", "Máquina 05", 256.00, 'Windows', '64', 203, 100),
 (null, "CCCCCCCC", "Dell", "Máquina 06", 256.00, 'Windows', '64', 203, 100),
@@ -174,7 +177,7 @@ INSERT INTO historico_hardware (cpu_ocupada, ram_ocupada, fk_maquina, data_hora)
 (22.66, 8.41, 700, '2024-04-26 13:15:00'),
 (20.95, 7.92, 700, '2024-04-26 13:30:00'),
 (17.84, 7.63, 700, '2024-04-26 13:45:00'),
-(25.34, 9.04, 700, '2024-04-26 14:00:00');
+(25.34, 9.04, 700, '2024-04-26 14:00:00');*/
 
 /*insert into processador (nome_processador, fabricante_processador, frequencia_processador, uso_processador) values
 ("Intel Core i7", "Intel", "3.6 GHz", 40.5),

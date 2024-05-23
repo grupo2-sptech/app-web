@@ -56,12 +56,12 @@ function listar_processos(req, res) {
 }
 
 function cap_dados(req, res) {
-  let maquina_id = req.params.maquina_id
-  if (maquina_id == undefined) {
+  let id_maquina = req.params.id_maquina
+  if (id_maquina == undefined) {
     console.log('Variavel Undefined')
   } else {
     dashboardModel
-      .cap_dados(maquina_id)
+      .cap_dados(id_maquina)
       .then(function (resultado) {
         if (resultado.length > 0) {
           res.status(200).json(resultado)
@@ -78,9 +78,9 @@ function cap_dados(req, res) {
 }
 
 function atualizar_grafico_tempo_real(req, res) {
-  let maquina_id = req.params.maquina_id
+  let id_maquina = req.params.id_maquina
   dashboardModel
-    .atualizar_grafico_tempo_real_model(maquina_id)
+    .atualizar_grafico_tempo_real_model(id_maquina)
     .then(function (resultado) {
       if (resultado.length > 0) {
         res.status(200).json(resultado)
@@ -95,10 +95,10 @@ function atualizar_grafico_tempo_real(req, res) {
     })
 }
 function buscarPorData(req, res) {
-  let maquina_id = req.params.maquina_id
+  let id_maquina = req.params.id_maquina
   let data = req.params.data
   dashboardModel
-    .buscarPorData(maquina_id, data)
+    .buscarPorData(id_maquina, data)
     .then(function (resultado) {
       if (resultado.length > 0) {
         res.status(200).json(resultado)
@@ -133,7 +133,7 @@ function validarSenha(req, res) {
 }
 
 function deletarMaquina(req, res) {
-  let id_maquina = req.params.maquina_id
+  let id_maquina = req.params.id_maquina
 
   if (id_maquina != undefined) {
     dashboardModel
@@ -152,20 +152,24 @@ function deletarMaquina(req, res) {
 }
 
 function cadastrar_maquina(req, res) {
-  let nome_maquina = req.params.nome_maquina
-  let modelo_maquina = req.params.modelo_maquina
+  let nome_maquina = req.params.nome_maquina;
+  let modelo_maquina = req.params.modelo_maquina;
 
   if (nome_maquina != undefined && modelo_maquina != undefined) {
     dashboardModel
       .cadastrar_maquina(nome_maquina, modelo_maquina)
       .then(resp => {
-        res.json({ id: resp.id })
+        res.json({ id: resp.id });
       })
       .catch(erro => {
-        console.log(erro.sqlMessage)
-      })
+        console.log(erro.sqlMessage);
+        res.status(500).json({ error: erro.sqlMessage });
+      });
+  } else {
+    res.status(400).json({ error: 'Parâmetros inválidos' });
   }
 }
+
 
 module.exports = {
   listarMaquinas,

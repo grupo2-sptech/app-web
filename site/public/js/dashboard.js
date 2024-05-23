@@ -1,5 +1,5 @@
 /** @format */
-let setor_id = sessionStorage.SETOR
+let id_setor = sessionStorage.SETOR
 
 function listar(id_setor, id_select, acesso_total) {
   let select = document.getElementById(id_select)
@@ -14,7 +14,7 @@ function listar(id_setor, id_select, acesso_total) {
           titulo_setor.innerHTML += tabelas[0].nome_setor
           tabelas.forEach(tabela => {
             const option = document.createElement('option') // Cria uma nova opção em cada iteração
-            option.value = tabela.maquina_id
+            option.value = tabela.id_maquina
             option.text = tabela.nome_maquina
             select.appendChild(option)
           })
@@ -39,14 +39,14 @@ function listar(id_setor, id_select, acesso_total) {
 
         setores.forEach(setor => {
           const option = document.createElement('option')
-          option.value = setor.setor_id
+          option.value = setor.id_setor
           option.text = setor.nome_setor
           select_setor.appendChild(option)
         })
 
         funcionarios.forEach(funcionario => {
           const option = document.createElement('option')
-          option.value = funcionario.funcionario_id
+          option.value = funcionario.id_funcionario
           option.text = funcionario.nome_funcionario
           select_funcionario.appendChild(option)
         })
@@ -61,7 +61,9 @@ function validarHoraComTolerancia(horaDB, toleranciaSegundos) {
   let horaBancoDados = new Date(horaDB)
   let diffMilissegundos = Math.abs(agora - horaBancoDados)
   let toleranciaMilissegundos = toleranciaSegundos * 1000
-  return diffMilissegundos <= toleranciaMilissegundos
+  valida = diffMilissegundos <= toleranciaMilissegundos
+
+  return valida
 }
 
 function atualizar_maquina_tempo_real(
@@ -102,7 +104,7 @@ function atualizar_maquina_tempo_real(
           // Atualiza cor e estilo do indicador de RAM
           atualizarCorIndicador(
             bolinha_ram,
-            (result_maquina.ram_ocupada_gb / result_maquina.ram_total_gb) * 100,
+            (result_maquina.ram_ocupada / result_maquina.ram_total_gb) * 100,
             [50, 75]
           )
           let apoio =
@@ -150,31 +152,31 @@ function listarMaquinas(fksetor, acesso) {
         resposta.json().then(maquinas => {
           listaMaquinas.innerHTML = ''
           maquinas.forEach(maquinas => {
-            listaMaquinas.innerHTML += `<div onclick="atualizar_grafico_tempo_real(${maquinas.maquina_id}); atualizarDadosDaMaquina(${maquinas.maquina_id}); cardSelecionado(${maquinas.maquina_id})"  id = "${maquinas.maquina_id}" class="card-acao">
+            listaMaquinas.innerHTML += `<div onclick="atualizar_grafico_tempo_real(${maquinas.id_maquina}); atualizarDadosDaMaquina(${maquinas.id_maquina}); cardSelecionado(${maquinas.id_maquina})"  id = "${maquinas.id_maquina}" class="card-acao">
           <div class="icon-todos">
             <div class="lixeira-lapis">
-                <div class="icon-trash1" onclick="abrirExcluir(${maquinas.maquina_id}, '${maquinas.nome_maquina}'); event.stopPropagation(); event.preventDefault();"></div>
+                <div class="icon-trash1" onclick="abrirExcluir(${maquinas.id_maquina}, '${maquinas.nome_maquina}'); event.stopPropagation(); event.preventDefault();"></div>
             </div>
-           <div id="maquina_${maquinas.maquina_id}" class="icon-laptop1"></div>
+           <div id="maquina_${maquinas.id_maquina}" class="icon-laptop1"></div>
         </div>
           <div class="descricao-laptop">
             <div class="descricao-titulo">
               <p>Modelo: ${maquinas.modelo_maquina}</p>
               <p>Nome: ${maquinas.nome_maquina}</p>
-              <p>Status: <strong id="status_maquina${maquinas.maquina_id}"></strong></p>
-              <p id = "user${maquinas.maquina_id}">Usuário: </p>
+              <p>Status: <strong id="status_maquina${maquinas.id_maquina}"></strong></p>
+              <p id = "user${maquinas.id_maquina}">Usuário: </p>
             </div>
             <div class="descricao-status">
               <div class="descricao-componenete">
-                <div class="bolinha" id="icone-cpu${maquinas.maquina_id}"></div>
+                <div class="bolinha" id="icone-cpu${maquinas.id_maquina}"></div>
                 <p>CPU</p>
               </div>
               <div class="descricao-componenete">
-                <div class="bolinha" id="icone-ram${maquinas.maquina_id}"></div>
+                <div class="bolinha" id="icone-ram${maquinas.id_maquina}"></div>
                 <p>Ram</p>
               </div>
               <div class="descricao-componenete">
-                <div class="bolinha" id="icone-disco${maquinas.maquina_id}"></div>
+                <div class="bolinha" id="icone-disco${maquinas.id_maquina}"></div>
                 <p>Disco</p>
               </div>
             </div>
@@ -182,10 +184,10 @@ function listarMaquinas(fksetor, acesso) {
         </div>`
             setInterval(() => {
               atualizar_maquina_tempo_real(
-                maquinas.maquina_id,
-                `icone-cpu${maquinas.maquina_id}`,
-                `icone-ram${maquinas.maquina_id}`,
-                `icone-disco${maquinas.maquina_id}`
+                maquinas.id_maquina,
+                `icone-cpu${maquinas.id_maquina}`,
+                `icone-ram${maquinas.id_maquina}`,
+                `icone-disco${maquinas.id_maquina}`
               )
             }, 2000)
           })
@@ -197,7 +199,7 @@ function listarMaquinas(fksetor, acesso) {
     })
 }
 
-function abrirExcluir(maquina_id, nome_maquina) {
+function abrirExcluir(id_maquina, nome_maquina) {
   let nomeMaquina = document.getElementById('span_nomeMaquina')
   let popupExcluir = document.getElementById('deletar_maquina')
   let add_maquina = document.getElementById('pop-add-maquinas')
@@ -209,7 +211,7 @@ function abrirExcluir(maquina_id, nome_maquina) {
   popupExcluir.style.display = 'flex'
   nomeMaquina.innerHTML = nome_maquina
 
-  sessionStorage.IDMAQUINA = maquina_id
+  sessionStorage.IDMAQUINA = id_maquina
 }
 
 function verificarSenha() {
@@ -232,37 +234,35 @@ function verificarSenha() {
 }
 
 function cadastrarMaquina() {
-  let nome_maquina = document.getElementById('nome_maquina').value
-  let modelo_maquina = document.getElementById('modelo_maquina').value
-  let campo = document.getElementById('preecha_campos_maquina')
+  let nome_maquina = document.getElementById('nome_maquina').value;
+  let modelo_maquina = document.getElementById('modelo_maquina').value;
+  let campo = document.getElementById('preecha_campos_maquina');
 
   if (!nome_maquina || !modelo_maquina) {
-    campo.style.display = 'block'
-    campo.innerHTML = 'Preencha todos os campos'
-    /*     console.log('Campos vazios:', { nome_maquina, modelo_maquina }) */
+    campo.style.display = 'block';
+    campo.innerHTML = 'Preencha todos os campos';
   } else {
     fetch(`/dashboard/cadastrar_maquina/${nome_maquina}/${modelo_maquina}`, {
       method: 'POST'
     })
-      .then(function (resposta) {
-        return resposta.json()
-      })
-      .then(function (dado) {
+      .then(resposta => resposta.json())
+      .then(dado => {
         if (dado.id !== undefined) {
-          campo.innerHTML = `Cadastro realizado com sucesso!<br>Código de cadastro da máquina: <strong>${dado.id}</strong>`
-          campo.style.display = 'block'
-          campo.style.color = 'black'
+          campo.innerHTML = `Cadastro realizado com sucesso!<br>Código de cadastro da máquina: <strong>${dado.id}</strong>`;
+          campo.style.display = 'block';
+          campo.style.color = 'black';
         } else {
-          campo.innerHTML = 'Erro ao obter o Código de cadastro.'
-          campo.style.display = 'block'
+          campo.innerHTML = 'Erro ao obter o Código de cadastro.';
+          campo.style.display = 'block';
         }
       })
       .catch(err => {
-        campo.innerHTML = `Erro: ${err.message}`
-        console.error('Erro ao cadastrar máquina:', err)
-      })
+        campo.innerHTML = `Erro: ${err.message}`;
+        console.error('Erro ao cadastrar máquina:', err);
+      });
   }
 }
+
 
 function listar_processos(id_setor) {
   let id_div_processos = document.getElementById('lista_bloqueios')
@@ -513,13 +513,13 @@ function atualizar_grafico_tempo_real(id_maquina) {
           .then(informacoes => {
             id_maquina_pesquisa = id_maquina
             if (validarHoraComTolerancia(informacoes[0].data_hora, 10)) {
-              sessionStorage.TOTAL_RAM = informacoes[0].ram_total_gb
+              sessionStorage.TOTAL_RAM = informacoes[0].ram_ocupada
               myChartCpu.data.labels = label
               myChartRam.data.labels = label
               nome_usuario_maquina.innerHTML = `Monitoramento em tempo real da máquina de ${informacoes[0].nome_maquina}`
               dadoGraficoRam.shift()
               dadoGraficoRam.push(
-                (informacoes[0].ram_ocupada_gb / informacoes[0].ram_total_gb) *
+                (informacoes[0].ram_ocupada / informacoes[0].ram_total_gb) *
                 100
               )
               myChartRam.data.datasets[0].data = dadoGraficoRam
@@ -776,23 +776,23 @@ function atualizarDadosDaMaquina(id_maquina) {
     })
   })
 }
-let elementoSelecionado = null
+let elementoSelecionado = null;
 
 function cardSelecionado(id_maquina) {
-  const id = document.getElementById(`${id_maquina}`)
+  const id = document.getElementById(id_maquina);
 
   if (elementoSelecionado !== null) {
-    elementoSelecionado.style.background = ''
+    elementoSelecionado.style.border = '';
   }
 
-  if (id.style.background === '') {
-    id.style.background = 'rgb(223, 227, 230)'
-    elementoSelecionado = id
+  if (elementoSelecionado === id) {
+    elementoSelecionado = null;
   } else {
-    id.style.background = ''
-    elementoSelecionado = null
+    id.style.border = '3px solid #a6c620';
+    elementoSelecionado = id;
   }
 }
+
 function mostrarAcao(id) {
   if (interuptor == 1) {
     var nome_acao = document.getElementById(id)

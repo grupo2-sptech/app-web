@@ -8,16 +8,16 @@ var dashboardController = require(`../controllers/dashboardController`)
 router.get('/listar/:idUsuario/:acesso', function (req, res) {
   dashboardController.listarMaquinas(req, res)
 })
-router.get('/cap_dados/:maquina_id', function (req, res) {
+router.get('/cap_dados/:id_maquina', function (req, res) {
   dashboardController.cap_dados(req, res)
 })
-router.get('/atualizar_grafico_tempo_real/:maquina_id', function (req, res) {
+router.get('/atualizar_grafico_tempo_real/:id_maquina', function (req, res) {
   dashboardController.atualizar_grafico_tempo_real(req, res)
 })
-router.get('/buscarPorData/:maquina_id/:data', function (req, res) {
+router.get('/buscarPorData/:id_maquina/:data', function (req, res) {
   dashboardController.buscarPorData(req, res)
 })
-router.delete('/deletar_maquina/:maquina_id', function (req, res) {
+router.delete('/deletar_maquina/:id_maquina', function (req, res) {
   dashboardController.deletarMaquina(req, res)
 })
 router.get('/validarSenha/:id_usuario/:senha', function (req, res) {

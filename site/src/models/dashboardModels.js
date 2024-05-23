@@ -4,15 +4,18 @@ const { query } = require('express')
 var database = require('../database/config')
 
 function cadastrar_maquina(nome, modelo) {
-  let query = `INSERT INTO maquina (modelo_maquina, nome_maquina) VALUES ("${modelo}", "${nome}")`
-
+  const query = `
+    INSERT INTO maquina (modelo_maquina, nome_maquina) 
+    OUTPUT INSERTED.id_maquina
+    VALUES ('${modelo}', '${nome}');
+  `;
   return database.executar(query).then(result => {
     return { id: result.insertId }
   })
 }
 function listarMaquinas(fk_setor, acesso) {
   /* var query = `SELECT
-  m.maquina_id,
+  m.id_maquina,
   m.modelo_maquina,
   m.memoria_total_disco,
   m.memoria_ocupada,
@@ -25,7 +28,7 @@ FROM
 JOIN
   funcionario AS f ON f.funcionario_id = m.fk_Funcionario
 JOIN
-  historico_hardware AS h ON m.maquina_id = h.fk_maquina
+  historico_hardware AS h ON m.id_maquina = h.fk_maquina
 JOIN
   (SELECT
       fk_maquina,
@@ -52,19 +55,46 @@ ORDER BY
   max_datetime.max_data_hora DESC;
 ` */
 
-  let query = `SELECT m.*, MAX(h.data_hora) AS data_hora
-  FROM maquina AS m
-  JOIN historico_hardware AS h ON m.maquina_id = h.fk_maquina
-  JOIN setor AS s ON s.setor_id = m.fk_setor
-  WHERE m.fk_setor = ${fk_setor}
-  GROUP BY m.maquina_id, m.nome_maquina, m.fk_setor
-  ORDER BY data_hora DESC;
+  let query = `SELECT
+  m.id_maquina,
+  m.nome_maquina,
+  m.modelo_maquina,
+  m.sistema_operacional,
+  m.arquitetura,
+  m.fk_setor,
+  m.fk_empresa,
+  m.processador_id,
+  m.memoria_total_maquina,
+  MAX(h.data_hora) AS data_hora
+FROM
+  historico_hardware AS h
+JOIN
+  maquina AS m ON m.id_maquina = h.fk_maquina
+JOIN
+  setor AS s ON s.id_setor = m.fk_setor
+WHERE
+  m.fk_setor = ${fk_setor}
+GROUP BY
+  m.id_maquina,
+  m.nome_maquina,
+  m.modelo_maquina,
+  m.sistema_operacional,
+  m.arquitetura,
+  m.fk_setor,
+  m.fk_empresa,
+  m.processador_id,
+  m.memoria_total_maquina
+ORDER BY
+  data_hora DESC;
+
 `
+
+console.log(query);
 
   if (acesso == 1) {
     query = `SELECT m.*, h.data_hora
-    FROM maquina AS m join historico_hardware as h on m.maquina_id = h.fk_maquina
-    JOIN setor AS s ON s.setor_id = m.fk_setor
+    FROM maquina AS m join historico_hardware as h on m.id_maquina = h.fk_maquina
+    JOIN setor AS s ON s.id_setor = m.fk_setor
     ORDER BY h.data_hora DESC LIMIT 1;
   `
   }
@@ -79,11 +109,11 @@ function cap_dados(id_maquina) {
   d.tamanho_total_gb as disco_total_gb,
   d.tamanho_disponivel_gb as memoria_disponivel_gb, p.*,
   h.data_hora as data_hora
-  from maquina as m join componente as r on r.fk_maquina = m.maquina_id and r.tipo_componente = "Memória Ram"
-  join componente as d on d.fk_maquina = m.maquina_id and d.tipo_componente = "Disco"
-  join componente as p on p.fk_maquina = m.maquina_id and p.tipo_componente = "Processador"
-  join historico_hardware as h on h.fk_maquina = m.maquina_id
-  where maquina_id = '${id_maquina}'
+  from maquina as m join componente as r on r.fk_maquina = m.id_maquina and r.tipo_componente = "Memória Ram"
+  join componente as d on d.fk_maquina = m.id_maquina and d.tipo_componente = "Disco"
+  join componente as p on p.fk_maquina = m.id_maquina and p.tipo_componente = "Processador"
+  join historico_hardware as h on h.fk_maquina = m.id_maquina
+  where id_maquina = '${id_maquina}'
   ORDER BY h.data_hora DESC
   LIMIT 1;`
   return database.executar(query)
@@ -92,7 +122,7 @@ function cap_dados(id_maquina) {
 function deletarMaquina(id_maquina) {
   let query_hardware = `DELETE FROM historico_hardware WHERE fk_maquina = ${id_maquina};`
   let query_componete = `DELETE FROM componente WHERE fk_maquina = ${id_maquina};`
-  let query_maquina = `DELETE FROM maquina WHERE maquina_id = ${id_maquina};`
+  let query_maquina = `DELETE FROM maquina WHERE id_maquina = ${id_maquina};`
 
   return Promise.all([
     database.executar(query_hardware),
@@ -104,7 +134,7 @@ function deletarMaquina(id_maquina) {
 }
 
 function validarSenha(id_usuario, senha) {
-  let query = `SELECT * from funcionario WHERE funcionario_id = ${id_usuario} AND senha_acesso = ${senha};`
+  let query = `SELECT * from funcionario WHERE id_funcionario = ${id_usuario} AND senha_acesso = ${senha};`
 
   return database.executar(query)
 }
@@ -123,33 +153,42 @@ function listar_processos() {
 }
 
 function atualizar_grafico_tempo_real_model(id_maquina) {
-  let query = ` SELECT f.nome_funcionario,
-  -- DATE_SUB(h.data_hora, INTERVAL 3 HOUR) AS data_hora,
-  h.data_hora,
-  h.cpu_ocupada,
-  m.sistema_operacional,
-  m.nome_maquina,
-  m.arquitetura as arquitetura_sistema_operacional,
-  h.ram_ocupada as ram_ocupada_gb,
-  c_disco.tamanho_disponivel_gb AS memoria_disponivel_gb,
-  (c_disco.tamanho_total_gb - c_disco.tamanho_disponivel_gb) AS disco_ocupado_gb,
-  c_ram.tamanho_total_gb AS ram_total_gb,
-  c_cpu.modelo AS modelo_processador,
-  c_cpu.fabricante AS fabricante_processador,
-  c_disco.modelo AS modelo_disco,
-  c_disco.tamanho_total_gb as memoria_total_gb
-FROM maquina AS m
-JOIN componente AS c_cpu ON m.maquina_id = c_cpu.fk_maquina AND c_cpu.tipo_componente = 'Processador'
-JOIN componente AS c_ram ON m.maquina_id = c_ram.fk_maquina AND c_ram.tipo_componente = 'Memória Ram'
-JOIN componente AS c_disco ON m.maquina_id = c_disco.fk_maquina AND c_disco.tipo_componente = 'Disco'
-JOIN historico_hardware AS h ON h.fk_maquina = m.maquina_id
-JOIN setor AS s ON s.setor_id = m.fk_setor
-JOIN funcionario AS f ON f.fk_setor = s.setor_id
-WHERE m.maquina_id = ${id_maquina}
-ORDER BY h.data_hora DESC
-LIMIT 1;
+  let query = `WITH LastCPUHistory AS (
+    SELECT TOP 1 *
+    FROM historico_hardware
+    WHERE fk_maquina = ${id_maquina} AND cpu_ocupada IS NOT NULL
+    ORDER BY data_hora DESC
+),
+LastRAMHistory AS (
+    SELECT TOP 1 *
+    FROM historico_hardware
+    WHERE fk_maquina = ${id_maquina} AND ram_ocupada IS NOT NULL
+    ORDER BY data_hora DESC
+)
+SELECT
+    TOP 1
+    lch.data_hora,
+    lch.cpu_ocupada,
+    lrh.ram_ocupada,
+    m.sistema_operacional,
+    m.nome_maquina,
+    m.arquitetura,
+    c_disco.tamanho_disponivel_gb AS memoria_disponivel_gb,
+    (c_disco.tamanho_total_gb - c_disco.tamanho_disponivel_gb) AS disco_ocupado_gb,
+    c_ram.tamanho_total_gb AS ram_total_gb,
+    c_cpu.fabricante,
+    c_disco.modelo AS modelo_disco,
+    m.memoria_total_maquina AS memoria_total_gb
+FROM setor AS s
+JOIN funcionario AS f ON s.id_setor = f.fk_setor
+JOIN maquina AS m ON s.id_setor = m.fk_setor
+JOIN componente AS c_cpu ON m.id_maquina = c_cpu.fk_maquina AND c_cpu.tipo_componente = 'Processador'
+JOIN componente AS c_ram ON m.id_maquina = c_ram.fk_maquina AND c_ram.tipo_componente = 'Memória Ram'
+JOIN componente AS c_disco ON m.id_maquina = c_disco.fk_maquina AND c_disco.tipo_componente LIKE 'Disco%'
+LEFT JOIN LastCPUHistory AS lch ON m.id_maquina = lch.fk_maquina
+LEFT JOIN LastRAMHistory AS lrh ON m.id_maquina = lrh.fk_maquina
+WHERE m.id_maquina = ${id_maquina};
 `
-
   return database.executar(query)
 }
 
@@ -166,7 +205,7 @@ function buscarPorData(id_maquina, data) {
   AVG(CASE WHEN TIME(h.data_hora) >= '14:00:00' AND TIME(h.data_hora) < '16:00:00' THEN h.cpu_ocupada  ELSE 0 END) AS cpu_ocupada_14_16,
   AVG(CASE WHEN TIME(h.data_hora) >= '16:00:00' AND TIME(h.data_hora) < '18:00:00' THEN h.cpu_ocupada  ELSE 0 END) AS cpu_ocupada_16_18
 FROM
-  historico_hardware h join maquina as m on fk_maquina = maquina_id
+  historico_hardware h join maquina as m on fk_maquina = id_maquina
 WHERE
   DATE(h.data_hora) = '${data}' and fk_maquina = ${id_maquina};
   `

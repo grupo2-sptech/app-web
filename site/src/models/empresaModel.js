@@ -11,23 +11,23 @@ function buscarPorId(id) {
 function listar(id_setor, permissao) {
   let query1
   var query = `
-  select m.nome_maquina, m.modelo_maquina, m.maquina_id, s.nome_setor
-  from maquina m join setor s on m.fk_setor = s.setor_id where s.setor_id = ${id_setor};`
+  select m.nome_maquina, m.modelo_maquina, m.id_maquina, s.nome_setor
+  from maquina m join setor s on m.fk_setor = s.id_setor where s.id_setor = ${id_setor};`
 
   if (permissao == 1) {
-    query1 = `select s.nome_setor, s.setor_id from setor s;`
+    query1 = `select s.nome_setor, s.id_setor from setor s;`
   }
   return database.executar(query, query1)
 }
 
 function listar_setores() {
   var query = `
-  select s.nome_setor, s.setor_id from setor s;`
+  select s.nome_setor, s.id_setor from setor s;`
   return database.executar(query)
 }
 function listar_funcionario() {
   var query = `
-  select m.nome_maquina, m.maquina_id from maquina m;`
+  select m.nome_maquina, m.id_maquina from maquina m;`
   return database.executar(query)
 }
 
