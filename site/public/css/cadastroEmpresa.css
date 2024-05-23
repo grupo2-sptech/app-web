@@ -18,7 +18,7 @@
     margin-left: 5%;
 }
 
-.tituloGerenciar .icon-user-plus {
+.tituloGerenciar .icon-add_business {
     font-size: 50px;
     margin-right: 5%;
     cursor: pointer;
@@ -26,17 +26,27 @@
     color: #2e4959;
 }
 
-.tituloGerenciar .icon-user-plus:hover {
+.tituloGerenciar .icon-add_business:hover {
     color: #0a151f;
 }
 
+.icon-office{
+    font-size: 20px; 
+}
+
 .menuGerenciar {
+    overflow-y: auto;
+    /* Permite rolagem vertical quando necessário */
+    overflow-x: hidden;
+    /* Oculta a rolagem horizontal */
     margin-left: 1%;
     width: 98%;
-    height: 80%;
+    height: 85vh;
+    /* Define a altura como 80% da altura da viewport */
     display: flex;
     flex-direction: column;
 }
+
 
 .rotulosGerenciar {
     width: 100%;
@@ -60,20 +70,10 @@
 
 }
 
-table {
-    border-collapse: collapse;
-}
-
 table,
 th,
 td {
     border: none;
-}
-
-
-th {
-    background-color: white;
-    color: black;
 }
 
 th span {
@@ -85,14 +85,45 @@ td {
     font-size: 16px;
 }
 
+thead {
+    position: sticky;
+    top: 0;
+    background: #f1f1f1;
+    /* Cor de fundo do cabeçalho */
+    z-index: 1;
+    /* Garante que o cabeçalho fique acima do corpo */
+}
+
 .icon-user {
     font-size: 20px;
 }
 
 tr {
     height: 75px;
-    border: 1px solid black;
+    border: 1.5px solid black;
     box-shadow: -10px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.menuGerenciar::-webkit-scrollbar {
+    width: 10px;
+    /* largura da barra de rolagem */
+}
+
+.menuGerenciar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    /* cor de fundo da pista */
+}
+
+.menuGerenciar::-webkit-scrollbar-thumb {
+    background: #888;
+    /* cor do polegar */
+    border-radius: 5px;
+    /* borda arredondada para o polegar */
+}
+
+.menuGerenciar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+    /* cor do polegar ao passar o mouse */
 }
 
 .adicionarUsuario {
@@ -123,6 +154,20 @@ tr {
     flex-direction: column;
     justify-content: space-between;
 }
+
+.icon-trash,
+.icon-pencil {
+    cursor: pointer;
+    transition: 300ms;
+}
+
+.icon-trash:hover,
+.icon-pencil:hover {
+    color: #dd5c00;
+
+}
+
+
 
 .rotulos {
     display: flex;
@@ -247,8 +292,10 @@ tr {
     border-radius: 50%;
     background-color: #2e4959;
     cursor: pointer;
-    transition: transform 0.5s; /* Usando transform em vez de scale */
-    flex-shrink: 0; /* Previne que os elementos encolham */
+    transition: transform 0.5s;
+    /* Usando transform em vez de scale */
+    flex-shrink: 0;
+    /* Previne que os elementos encolham */
 }
 
 .selecionar_hover {

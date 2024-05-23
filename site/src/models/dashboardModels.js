@@ -54,7 +54,6 @@ WHERE
 ORDER BY
   max_datetime.max_data_hora DESC;
 ` */
-
   let query = `SELECT
   m.id_maquina,
   m.nome_maquina,
@@ -86,7 +85,6 @@ GROUP BY
   m.memoria_total_maquina
 ORDER BY
   data_hora DESC;
-
 `
 
 console.log(query);
@@ -187,8 +185,7 @@ JOIN componente AS c_ram ON m.id_maquina = c_ram.fk_maquina AND c_ram.tipo_compo
 JOIN componente AS c_disco ON m.id_maquina = c_disco.fk_maquina AND c_disco.tipo_componente LIKE 'Disco%'
 LEFT JOIN LastCPUHistory AS lch ON m.id_maquina = lch.fk_maquina
 LEFT JOIN LastRAMHistory AS lrh ON m.id_maquina = lrh.fk_maquina
-WHERE m.id_maquina = ${id_maquina};
-`
+WHERE m.id_maquina = ${id_maquina};`
   return database.executar(query)
 }
 

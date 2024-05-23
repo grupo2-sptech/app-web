@@ -54,7 +54,7 @@ function entrar() {
             sessionStorage.ID_EMPRESA = json.fk_empresa
             if (json.permissao == 1) {
               setTimeout(() => {
-                if (json.permissao_total = 1) {
+                if (json.permissao_total == 1) {
                   window.location.href = './cadastroEmpresa.html'
                 } else {
                   window.location.href = './dashboard/dashboard.html'

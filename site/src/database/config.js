@@ -4,27 +4,29 @@ var mysql = require('mysql2')
 var sql = require('mssql')
 
 // CONEXÃO DO SQL SERVER - AZURE (NUVEM)
+
 var sqlServerConfig = {
-  server: 'SEU_SERVIDOR',
-  database: 'SEU_BANCO_DE_DADOS',
-  user: 'SEU_USUARIO',
-  password: 'SUA_SENHA',
+  server: '52.86.93.117',
+  database: 'hardware_security2',
+  user: 'sa',
+  password: 'urubu100',
   pool: {
     max: 10,
     min: 0,
     idleTimeoutMillis: 30000
   },
   options: {
-    encrypt: true // for azure
+    encrypt: true, // for azure
+    trustServerCertificate: true // Ignora erros de certificado autoassinado
   }
-}
+};
 
 // CONEXÃO DO MYSQL WORKBENCH
 var mySqlConfig = {
-  host: 'localhost',
-  database: 'hardware_security',
-  user: 'aluno1',
-  password: '123'
+  host: '54.160.87.222',
+  database: 'hardware_security2',
+  user: 'sa',
+  password: 'urubu100'
 }
 
 //var mySqlConfig = {
@@ -64,7 +66,7 @@ function executar(instrucao) {
         if (erro) {
           reject(erro)
         }
-       /*  console.log(resultados) */
+         console.log(resultados) 
         resolve(resultados)
       })
       conexao.on('error', function (erro) {

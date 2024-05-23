@@ -27,6 +27,7 @@ function autenticar(email, senha) {
     OR 
     (login_acesso = '${email}' AND senha_acesso = '${senha}');
    `
+
   console.log('Executando a instrução SQL: \n' + instrucao)
   return database.executar(instrucao)
 }

@@ -16,8 +16,8 @@ body {
   background-color: #e1e1e1;
   width: 100%;
   height: 100%;
-  overflow-x: hidden;
-  overflow-y: hidden;
+   overflow-x: hidden; 
+   overflow-y: hidden; 
   display: flex;
 }
 
@@ -251,7 +251,7 @@ body {
   gap: 2%;
   margin-left: 6%;
   flex-wrap: nowrap;
-  overflow: hidden;
+  /* overflow: hidden; */
   overflow-x: auto;
   padding-right: 5%;
 }
@@ -270,7 +270,7 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   transition: background-color 0.9s ease;
-  background-color: #2e4959;
+  background-color: var(--color03);
 }
 
 ::-webkit-scrollbar-track {

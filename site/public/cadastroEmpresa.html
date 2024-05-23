@@ -9,9 +9,11 @@
     <link rel="stylesheet" href="assets/icons/style.css">
     <link rel="stylesheet" href="css/cadastroEmpresa.css">
     <script src="js/cadastroEmp.js"></script>
+    <script src="js/sessao.js"></script>
+    <script src="js/gerenciarUsuario.js"></script>
 </head>
 
-<body onload="validarSessao()">
+<body onload="validarSessao(), listarEmpresa()">
     <!-- menuLateral -->
     <div id="menu" class="menuLateral">
         <a>
@@ -25,30 +27,30 @@
                 <strong style="font-size: 12px;" id="nome_usuario"></strong>
             </div>
             <div style="height: 60%; justify-content: space-around; display: flex; flex-direction: column;">
-                <a class="itensDaNav" href="dashboard.html">
+                <a class="itensDaNav" href="#">
                     <div class="icon-stats-dots ico"></div>
                     <span class="nome-acao">Dashboard</span>
                 </a>
                 <a class="itensDaNav" href="#">
-                    <div style="font-weight: bold;" class="icon-document-forbidden1 ico"></div>
+                    <div style="font-weight: bold;" class="icon-office ico"></div>
                     <samp style="text-align: center;" class="nome-acao">Lista de Bloqueios</samp>
                 </a>
-                <a class="itensDaNav" href="#">
+                <!--   <a class="itensDaNav" href="#">
                     <div class="ico">
                         <img src="../assets/imgs/gerenciar_user.svg" alt="">
                     </div>
                     <samp style="text-align: center;" class="nome-acao">Adicionar<br>Usuário</samp>
-                </a>
+                </a> -->
                 <!-- <a id="gerenciamento_user" class="itensDaNav" href="#">
                 <div>
                   <img src="../assets/imgs/gerenciar_setor.png" alt="">
                 </div>
                 <samp style="text-align: center;" class="nome-acao">Adicionar<br>Usuário</samp>
               </a> -->
-                <a class="itensDaNav" href="suporte.html">
+                <!--      <a class="itensDaNav" href="suporte.html">
                     <div class="icon-support_agent ico"></div>
                     <samp class="nome-acao">Suporte</samp>
-                </a>
+                </a> -->
             </div>
             <a onclick="limparSessao()" class="itensDaNav">
                 <div class="icon-log-in ico"></div>
@@ -60,7 +62,7 @@
     <main class="mainGerenciarUsuario">
         <div class="tituloGerenciar" id="tituloGerenciar">
             <h1 class="titulo">Cadastro de Empresa</h1>
-            <div class="icon-user-plus" id="botaoAdicionar"></div>
+            <div class="icon-add_business" id="botaoAdicionar"></div>
         </div>
 
         <div class="menuGerenciar" id="menuGerenciar">
@@ -76,36 +78,59 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>
-                        </td>
-                        <td>Hardware Security</td>
-                        <td>hardware.example@gmail.com</td>
-                        <td>
-                            <div class="icon-pencil"></div>
-                        </td>
-                        <td>
-                            <div class="icon-trash"></div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                        </td>
-                        <td>Hardware Security</td>
-                        <td>hardware.example@gmail.com</td>
-                        <td>
-                            <div class="icon-pencil"></div>
-                        </td>
-                        <td>
-                            <div class="icon-trash"></div>
-                        </td>
-                    </tr>
+
 
                 </tbody>
             </table>
 
 
 
+        </div>
+
+        <div style="display: none; left: 38%;" id="pop-add-maquinas" class="tela-lista-processos">
+            <div class="barra-lista">
+                <samp style="color: white; margin-left: 10px;">Edite informações da empresa</samp>
+                <div onclick="fechar_tela()" class="icon-plus xtela"></div>
+            </div>
+            <div class="pop-maquina">
+                <div class="form">
+                    <div class="form-element">
+                        <label for="nome">Nome da empresa</label>
+                        <input type="text" id="nome_maquina" placeholder="Insira o novo ome da empresa">
+                    </div>
+                    <div class="form-element">
+                        <label for="modelo">E-mail da empresa</label>
+                        <input type="text" id="modelo_maquina" placeholder="Insira o novo e-mail da empresa">
+                    </div>
+                    <div class="form-element">
+                        <button onclick="editarEmpresa()" class="btm-confirmar">Cadastrar</button>
+                    </div>
+                    <span id="preecha_campos_maquina" style="color: red; display: none; text-align: center;">
+                        Preecha todos os campos!
+                    </span>
+                </div>
+            </div>
+        </div>
+
+
+        <div style="display: none; left: 38%;" id="pop-add-delete" class="tela-lista-processos">
+            <div class="barra-lista">
+                <samp style="color: white; margin-left: 10px;">Deletar empresa</samp>
+                <div onclick="fechar_tela()" class="icon-plus xtela"></div>
+            </div>
+            <div class="pop-maquina">
+                <div class="form">
+                    <div class="form-element">
+                        <label for="modelo">Deseja excluir a empresa ?</label>
+                    </div>
+                    <div class="form-element">
+                        <button onclick="deletarEmpresa(this)" class="btm-confirmar">Confirmar</button>
+                    </div>
+                    <span id="preecha_campos_maquina" style="color: red; display: none; text-align: center;">
+                        Preecha todos os campos!
+                    </span>
+                </div>
+            </div>
         </div>
 
 
@@ -117,7 +142,8 @@
                 <div class="rotulosUsuario">
                     <div class="rotulos">
                         <label for="nome">Nome da Empresa:</label>
-                        <input id="nomeEmp" class="inputRotulos" type="text" placeholder="Digite o nome da empresa" required>
+                        <input id="nomeEmp" class="inputRotulos" type="text" placeholder="Digite o nome da empresa"
+                            required>
                     </div>
                     <div class="rotulos">
                         <label for="email">CNPJ:</label>
@@ -125,7 +151,8 @@
                     </div>
                     <div class="rotulos">
                         <label for="setor">E-mail:</label>
-                        <input id="emailEmp" class="inputRotulos" type="text" placeholder="Digite o Telefone da empresa">
+                        <input id="emailEmp" class="inputRotulos" type="text"
+                            placeholder="Digite o Telefone da empresa">
                     </div>
                     <div class="rotulos">
                         <label for="Cargo">Unidade Federativa:</label>
@@ -196,6 +223,17 @@
 
 <script>
 
+    function fechar_tela() {
+        let add_maquina = document.getElementById('pop-add-maquinas')
+        let deletar = document.getElementById('pop-add-delete')
+
+        add_maquina.style.display = 'none';
+        deletar.style.display = 'none';
+    }
+
+
+    let nome = sessionStorage.NOME_USUARIO
+    nome_usuario.innerHTML = nome;
     function showDetails() {
         document.getElementById('userDetails').style.display = 'block';
         document.getElementById('userSettings').style.display = 'none';

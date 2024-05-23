@@ -128,7 +128,7 @@
 
         <div class="rotulos">
           <label for="nome">Nome:</label>
-          <input class="inputRotulos" type="text" placeholder="Digite o nome" required>
+          <input class="inputRotulos" id="input_rotuloNome" type="text" placeholder="Digite o nome" required>
         </div>
 
         <!--    <div class="rotulos">
@@ -138,30 +138,40 @@
 
         <div class="rotulos">
           <label for="email">E-mail:</label>
-          <input class="inputRotulos" type="text" placeholder="Digite o E-mail">
+          <input class="inputRotulos" id="input_rotuloEmail" type="text" placeholder="Digite o E-mail">
         </div>
 
         <div class="rotulos">
           <label for="setor">Setor:</label>
-          <select class="selectRotulos" name="" id="">
+          <select class="selectRotulos" name="" id="selectSector">
             <option class="" value="" disabled selected>Selecione o Setor</option>
+            <option value="1">Financeiro</option>
           </select>
         </div>
 
         <div class="rotulos">
           <label for="Cargo">Cargo:</label>
-          <input class="inputRotulos" type="text" placeholder="Informe o Cargo">
+          <input class="inputRotulos" id="input_rotuloCargo" type="text" placeholder="Informe o Cargo">
         </div>
 
         <div class="rotulos">
           <label for="Cargo">Senha:</label>
-          <input class="inputRotulos" type="text" placeholder="Defina a senha de acesso">
+          <input class="inputRotulos" id="input_rotuloSenha" type="text" placeholder="Defina a senha de acesso">
         </div>
+      </div>
+
+      <div class="rotulos">
+        <label for="setor">Permissão:</label>
+        <select class="selectRotulos" name="" id="selectPermission">
+          <option class="" value="" disabled selected>Selecione</option>
+          <option value="false">Usuário</option>
+          <option value="true">Administrador</option>
+        </select>
       </div>
 
       <div style="display: flex; gap: 2rem;">
         <button class="botaoCancelar" id="botaoCancelar">Cancelar</button>
-        <button class="botaoConfirmar">Confirmar</button>
+        <button class="botaoConfirmar" onclick="criarUsuario()">Confirmar</button>
       </div>
 
     </div>
@@ -171,10 +181,43 @@
   </main>
 
 </body>
-
 </html>
 
 <script>
+
+
   let nome = sessionStorage.NOME_USUARIO
+
+  function criarUsuario() {
+      var novoNome = input_rotuloNome.value;
+      var novoEmail = input_rotuloEmail.value;
+      var novoCargo = input_rotuloCargo.value;
+      var novaSenha = input_rotuloSenha.value;
+      var permissão = selectPermission.value;
+      var setor = 200;
+      var empresa = 100;
+      var permissaoTotal = true;
+
+      fetch("/gerenciarUsuario/cadastrarUsuario", {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          nome: novoNome,
+          email: novoEmail,
+          cargo: novoCargo,
+          senha: novaSenha,
+          permissao: permissão,
+          setor: setor,
+          empresa: empresa,
+          permissaoTotal: permissaoTotal,
+        }),
+      })
+      .then(response => response.json())
+      .catch(error => console.error('Error:', error));
+
+  }
   nome_usuario.innerHTML = nome;
+
 </script>
