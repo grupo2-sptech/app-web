@@ -6,7 +6,7 @@ var sql = require('mssql')
 // CONEXÃO DO SQL SERVER - AZURE (NUVEM)
 
 var sqlServerConfig = {
-  server: '52.86.93.117',
+  server: 'localhost',
   database: 'hardware_security2',
   user: 'sa',
   password: 'urubu100',
@@ -23,10 +23,10 @@ var sqlServerConfig = {
 
 // CONEXÃO DO MYSQL WORKBENCH
 var mySqlConfig = {
-  host: '54.160.87.222',
-  database: 'hardware_security2',
-  user: 'sa',
-  password: 'urubu100'
+  host: 'localhost',
+  database: 'hardware_security',
+  user: 'aluno1',
+  password: '123'
 }
 
 //var mySqlConfig = {
