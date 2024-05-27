@@ -199,6 +199,62 @@ function listarMaquinas(fksetor, acesso) {
     })
 }
 
+document.addEventListener("DOMContentLoaded", function() {
+  const inpMaquina = document.getElementById("inp_maquina");
+  const inpSetor = document.getElementById("inp_setor");
+
+  function preencherSelects(maquinas) {
+    const setores = new Set();
+
+    maquinas.forEach(maquina => {
+      const optionMaquina = document.createElement("option");
+      optionMaquina.value = maquina.id;
+      optionMaquina.textContent = maquina.nome;
+      inpMaquina.appendChild(optionMaquina);
+      
+      setores.add(maquina.setor);
+    });
+
+    setores.forEach(setor => {
+      const optionSetor = document.createElement("option");
+      optionSetor.value = setor;
+      optionSetor.textContent = setor;
+      inpSetor.appendChild(optionSetor);
+    });
+  }
+
+  function filtrarDados(maquinas) {
+    const maquinaSelecionada = inpMaquina.value;
+    const setorSelecionado = inpSetor.value;
+
+    const resultado = maquinas.filter(maquina => {
+      return (
+        (maquinaSelecionada === "" || maquina.id == maquinaSelecionada) &&
+        (setorSelecionado === "" || maquina.setor === setorSelecionado)
+      );
+    });
+
+    console.log("Resultado do filtro:", resultado);
+    // Aqui você pode atualizar a UI com os resultados filtrados
+  }
+
+  inpMaquina.addEventListener("change", () => filtrarDados(maquinas));
+  inpSetor.addEventListener("change", () => filtrarDados(maquinas));
+
+  fetch('/dashboard/filtrar_maquinas/${maquinas}',) 
+  method: 'GET'
+    .then(response => response.json())
+    .then(maquinas => {
+      preencherSelects(maquinas);
+      inpMaquina.addEventListener("change", () => filtrarDados(maquinas));
+      inpSetor.addEventListener("change", () => filtrarDados(maquinas));
+    })
+    .catch(error => console.error('Erro ao buscar dados:', error));
+});
+
+
+
+
 function abrirExcluir(id_maquina, nome_maquina) {
   let nomeMaquina = document.getElementById('span_nomeMaquina')
   let popupExcluir = document.getElementById('deletar_maquina')
