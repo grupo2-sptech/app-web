@@ -75,7 +75,7 @@ function deletarEmpresa(cnpj) {
 }
 
 
-function editarEmpresa(cnpj ,nome, email) {
+function editarEmpresa(cnpj, nome, email) {
     let query_editar = `UPDATE empresa SET nome_empresa = '${nome}', email = '${email}' WHERE cnpj = '${cnpj}';`
 
     console.log(query_editar)
