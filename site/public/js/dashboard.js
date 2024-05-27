@@ -390,6 +390,12 @@ function atualizarGraficoGeral(id_setor) {
   })
 }
 
+let ultimaNotificacaoId = null; // Variável para armazenar o ID da última notificação recebida
+let notificacoesAntigas = [];
+
+let temnoficica = true;
+let interrope = true// Variável para armazenar notificações antigas
+
 function contadorNotifica(quantidade_notifica) {
   let div_contador = document.getElementById('contaNotifica');
   div_contador.textContent = quantidade_notifica; // Atualiza o contador
@@ -404,7 +410,7 @@ function abrirNotifica() {
   } else {
     div_notifica.style.display = 'flex';
     contadorNotifica(0); // Zerar o contador
-    atualizarAlertas(sessionStorage.SETOR, false); // Atualizar as notificações e passar flag para não atualizar o contador
+    exibirNotificacoes(); // Exibir notificações quando a div é aberta
   }
 }
 
@@ -422,51 +428,78 @@ function atualizarAlertas(id_setor, isOpened = false) {
   }).then(function (res) {
     if (res.ok) {
       res.json().then(dados => {
-        // Limpar as notificações existentes
-        let notifica = document.getElementById('notificacao');
-        notifica.innerHTML = '';
+        // Variáveis para armazenar notificações novas e antigas
+        let notificacoesNovas = [];
 
         // Mapear as novas notificações do banco de dados
         let novasNotificacoes = dados.map(dado => ({
+          id: dado.id_alerta, // Supondo que cada notificação tem um ID único
           nome_maquina: dado.nome_maquina,
           descricao_alerta: dado.descricao_alerta,
           data_hora: dado.data_hora
         }));
 
-        // Contador de novas notificações
-        let novasNotificacoesContador = 0;
-
-        // Adicionar novas notificações na interface
-        novasNotificacoes.forEach(novaNotificacao => {
-          novasNotificacoesContador++; // Incrementa o contador de novas notificações
-          let dataHora = new Date(novaNotificacao.data_hora);
-          let dia = String(dataHora.getDate()).padStart(2, '0');
-          let mes = String(dataHora.getMonth() + 1).padStart(2, '0'); // Meses começam do 0
-          let ano = dataHora.getFullYear();
-          let horas = String(dataHora.getHours()).padStart(2, '0');
-          let minutos = String(dataHora.getMinutes()).padStart(2, '0');
-          let segundos = String(dataHora.getSeconds()).padStart(2, '0');
-
-          let dataHoraFormatada = `${dia}/${mes}/${ano} às ${horas}:${minutos}:${segundos}`;
-          notifica.innerHTML += `<div class="alertas">
-            <div class="mensagem_alerta">
-              <div class="icon-warning"></div>
-              <div>
-                <p class="nome_maquina">${novaNotificacao.nome_maquina}</p>
-                <p class="descricao_alerta">${novaNotificacao.descricao_alerta}</p>
-                <i class="data_hora">${dataHoraFormatada}</i>
-              </div>
-            </div>
-          </div>`;
+        novasNotificacoes.forEach(nova => {
+          notificacoesNovas.push(nova)
         });
 
-        // Atualizar o contador de notificações apenas se a div de notificações não estiver sendo aberta
-        if (!isOpened) {
-          contadorNotifica(novasNotificacoesContador);
+        if (temnoficica) {
+          notificacoesAntigas = novasNotificacoes;
+          temnoficica = false
         }
+
+        if (interrope) {
+          notificacoesNovas.forEach(exibir => {
+            adicionarNotificacaoNaInterface(exibir)
+          });
+          contadorNotifica(notificacoesNovas.length)
+          interrope = false
+        }
+
+        if (notificacoesAntigas.length != notificacoesNovas.length) {
+          let qtnnotifica = notificacoesNovas.length - notificacoesAntigas.length;
+          contadorNotifica(qtnnotifica);
+          temnoficica = true;
+
+          // Atualizar as notificações antigas
+          notificacoesAntigas = [...notificacoesNovas];
+
+          // Pegar os últimos qtnnotifica itens de notificacoesNovas
+          let novasNotificacoes = notificacoesNovas.slice(-qtnnotifica);
+
+          // Adicionar apenas as novas notificações na interface
+          novasNotificacoes.forEach(exibir => {
+            adicionarNotificacaoNaInterface(exibir);
+          });
+        }
+
       });
     }
   });
+}
+
+// Função para adicionar uma notificação na interface
+function adicionarNotificacaoNaInterface(novaNotificacao) {
+  let dataHora = new Date(novaNotificacao.data_hora);
+  let dia = String(dataHora.getDate()).padStart(2, '0');
+  let mes = String(dataHora.getMonth() + 1).padStart(2, '0'); // Meses começam do 0
+  let ano = dataHora.getFullYear();
+  let horas = String(dataHora.getHours()).padStart(2, '0');
+  let minutos = String(dataHora.getMinutes()).padStart(2, '0');
+  let segundos = String(dataHora.getSeconds()).padStart(2, '0');
+
+  let dataHoraFormatada = `${dia}/${mes}/${ano} às ${horas}:${minutos}:${segundos}`;
+  let notifica = document.getElementById('notificacao');
+  notifica.innerHTML += `<div class="alertas">
+    <div class="mensagem_alerta">
+      <div class="icon-warning"></div>
+      <div>
+        <p class="nome_maquina">${novaNotificacao.nome_maquina}</p>
+        <p class="descricao_alerta">${novaNotificacao.descricao_alerta}</p>
+        <i class="data_hora">${dataHoraFormatada}</i>
+      </div>
+    </div>
+  </div>`;
 }
 
 // Verificação contínua a cada segundo para atualizações de alertas
@@ -474,8 +507,10 @@ setInterval(() => {
   atualizarAlertas(sessionStorage.SETOR);
 }, 1000);
 
-
-
+function limparNotificacao() {
+  let notifica = document.getElementById('notificacao');
+  notifica.innerHTML = '';
+}
 
 
 function atualizar_grafico_tempo_real(id_maquina) {

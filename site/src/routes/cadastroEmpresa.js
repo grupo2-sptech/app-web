@@ -26,9 +26,9 @@ router.post("/cadastrarEndereco", function (req, res){
 //     cadastroEmpController.autenticarEmpresa(req, res);
 // });
 
-router.post("/cadastrarUF", function (req, res){
+/* router.post("/cadastrarUF", function (req, res){
     cadastroEmpController.cadastrarUF(req, res);
-});
+}); */
 
 router.post("/deletarEmpresa", function (req, res){
     cadastroEmpController.deletarEmpresa(req, res);

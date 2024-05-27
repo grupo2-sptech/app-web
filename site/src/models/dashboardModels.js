@@ -242,7 +242,7 @@ function alerta(id_setor) {
   let query;
 
   query = `
-  select m.nome_maquina, a.descricao_alerta, a.data_hora from alerta as a
+  select m.nome_maquina,a.id_alerta, a.descricao_alerta, a.data_hora from alerta as a
   join maquina as m on id_maquina = fk_maquina where fk_setor = ${id_setor}`;
 
   return database.executar(query)
