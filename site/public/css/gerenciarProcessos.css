@@ -69,17 +69,28 @@ section {
     border-radius: 20px;
     height: 16rem;
     width: 28%;
-    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 2px 2px 2px 2px rgba(0.4, 0.4, 0.4, 0.6);
     background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: auto;
 }
 
 .cardPolitica h4 {
     margin: 10px 0;
 }
 
-.cardPolitica p {
-    height: 60%;
+.processo {
+    width: 80%;
+    height: 7.5%;
+    display: flex;
+    justify-content: space-around;
+    border-radius: 20px;
+    box-shadow: 2px 2px 2px 2px rgba(0.4, 0.4, 0.4, 0.2);
+    background-color: #f0f0f0c4;
 }
+
 
 .politicas_definidas {
     height: 80vh;
