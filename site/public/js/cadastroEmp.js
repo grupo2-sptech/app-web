@@ -40,6 +40,7 @@ function cadastrar() {
     })
         .then(function (resposta) {
             console.log("resposta: ", resposta);
+            window.location.href = "";
 
             if (resposta.ok) {
                 window.location.href = "";
@@ -55,6 +56,10 @@ function cadastrar() {
 }
 
 function editarEmpresa(cnpjVar) {
+    if(nome_empresa.value == "" || email_empresa.value == "") {
+        alert("Preencha todos os campos!");
+        return;
+    }
     fetch("/cadastroEmpresa/editarEmpresa", {
         method: "PUT",
         headers: {
@@ -62,15 +67,16 @@ function editarEmpresa(cnpjVar) {
         },
 
         body: JSON.stringify({
-            nomeServer: nomeEmpVar,
-            emailEmpServer: emailEmpVar,
-            cnpjServer: cnpjVar,
+            nomeServer: nome_empresa.value,
+            emailEmpServer: email_empresa.value,
+            cnpj: cnpjVar,
         }),
     })
         .then(response => response.json())
         .then(data => {
             console.log("Nome da empresa: ", data.nomeServer);
             console.log("Email da empresa: ", data.emailEmpServer);
+            window.location.href = "";
         })
         .catch((error) => {
             console.error('Error:', error);
@@ -159,7 +165,7 @@ function deletarEmpresa(cnpjVar) {
 
 function adicionarmaquina(cnpj) {
     document.getElementById('pop-add-maquinas').style.display = 'flex'
-    document.querySelector('#pop-add-delete button').setAttribute('onclick', `deletarEmpresa('${cnpj}')`)
+    document.querySelector('#pop-add-maquinas button').setAttribute('onclick', `editarEmpresa('${cnpj}')`)
     let lista = document.getElementById('deletar_maquina')
     let deletar = document.getElementById('lista-processos')
     // lista.style.display = 'none';
