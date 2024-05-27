@@ -171,6 +171,53 @@ function cadastrar_maquina(req, res) {
 }
 
 
+function atualizar_geral(req, res) {
+  let id_setor = req.params.id_setor;
+
+  if (id_setor != undefined) {
+    dashboardModel
+      .atualizar_geral(id_setor)
+      .then(function (resultado) {
+        if (resultado.length > 0) {
+          res.status(200).json(resultado);
+        } else {
+          res.status(204).send('Nenhum resultado encontrado!');
+        }
+      })
+      .catch(erro => {
+        console.log(erro.sqlMessage);
+        res.status(500).json({ error: erro.sqlMessage });
+      });
+  } else {
+    res.status(400).json({ error: 'Parâmetros inválidos' });
+  }
+}
+
+function alerta(req, res) {
+  let id_setor = req.params.id_setor;
+
+  if (id_setor != undefined) {
+    dashboardModel
+      .alerta(id_setor)
+      .then(function (resultado) {
+        if (resultado.length > 0) {
+          res.status(200).json(resultado);
+        } else {
+          res.status(204).send('Nenhum resultado encontrado!');
+        }
+      })
+      .catch(erro => {
+        console.log(erro.sqlMessage);
+        res.status(500).json({ error: erro.sqlMessage });
+      });
+  } else {
+    res.status(400).json({ error: 'Parâmetros inválidos' });
+  }
+}
+
+
+
+
 module.exports = {
   listarMaquinas,
   cap_dados,
@@ -180,5 +227,7 @@ module.exports = {
   validarSenha,
   listar_processos_bloqueados,
   listar_processos,
-  cadastrar_maquina
+  cadastrar_maquina,
+  atualizar_geral,
+  alerta
 }

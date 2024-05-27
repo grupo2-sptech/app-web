@@ -87,7 +87,7 @@ ORDER BY
   data_hora DESC;
 `
 
-console.log(query);
+  console.log(query);
 
   if (acesso == 1) {
     query = `SELECT m.*, h.data_hora
@@ -209,6 +209,46 @@ WHERE
   return database.executar(query)
 }
 
+
+function atualizar_geral(id_setor) {
+  let query;
+
+  query = `
+  SELECT
+  c.id_categoria,
+  c.nome, -- Supondo que a tabela de categorias tenha um campo nome_categoria
+  COUNT(h.fk_categoria_historico) AS quantidade_bloqueios
+FROM
+  categoria c
+LEFT JOIN
+  historico_bloqueios h
+ON
+  c.id_categoria = h.fk_categoria_historico
+AND
+  CAST(h.data_hora AS DATE) >= CAST(GETDATE() - 7 AS DATE)
+AND
+  CAST(h.data_hora AS DATE) < CAST(GETDATE() + 1 AS DATE)
+AND
+  h.fk_setor_hardware = ${id_setor}
+GROUP BY
+  c.id_categoria,
+  c.nome;
+`;
+
+  return database.executar(query)
+}
+
+function alerta(id_setor) {
+  let query;
+
+  query = `
+  select m.nome_maquina,a.id_alerta, a.descricao_alerta, a.data_hora from alerta as a
+  join maquina as m on id_maquina = fk_maquina where fk_setor = ${id_setor}`;
+
+  return database.executar(query)
+}
+
+
 module.exports = {
   listarMaquinas,
   cap_dados,
@@ -218,5 +258,7 @@ module.exports = {
   validarSenha,
   listar_processos_bloqueados,
   listar_processos,
-  cadastrar_maquina
+  cadastrar_maquina,
+  atualizar_geral,
+  alerta
 }

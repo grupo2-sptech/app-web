@@ -31,48 +31,35 @@ function enviarEmail(req, res) {
 
 async function autenticar(req, res) {
   try {
-    var email = req.body.emailServer
-    var senha = req.body.senhaServer
-    debugger
-    if (email == undefined) {
-      res.status(400).send('Seu email está undefined!')
-    } else if (senha == undefined) {
-      res.status(400).send('Sua senha está indefinida!')
+    var email = req.body.emailServer;
+    var senha = req.body.senhaServer;
+
+    if (email === undefined || senha === undefined) {
+      return res.status(400).send('O email ou a senha estão undefined!');
     }
 
-    const resultadoAutenticar = await usuarioModel.autenticar(email, senha)
+    const resultadoAutenticar = await usuarioModel.autenticar(email, senha);
 
-    if (resultadoAutenticar && resultadoAutenticar.length == 1) {
-      const usuario_id = resultadoAutenticar[0].id_funcionario
-
-      const [resultHardware] = await Promise.all([
-        medidaModel.buscarMedidasEmTempoReal(usuario_id)
-      ])
-
-      if (resultadoAutenticar.length >= 0) {
-        res.json({
-          id: usuario_id,
-          email: resultadoAutenticar[0].email,
-          nome: resultadoAutenticar[0].nome_funcionario,
-          permissao: resultadoAutenticar[0].acesso_plataforma,
-          permissao_total: resultadoAutenticar[0].permissao_total,
-          setor: resultadoAutenticar[0].id_setor,
-          hardware: resultHardware,
-          empresa: resultadoAutenticar[0].fk_empresa_func
-        })
-      } else {
-        res.status(200)
-      }
-    } else if (!resultadoAutenticar || resultadoAutenticar.length == 0) {
-      res.status(403).send('Email e/ou senha inválido(s)')
+    if (resultadoAutenticar.length === 1) {
+      return res.json({
+        id: resultadoAutenticar[0].id_funcionario,
+        email: resultadoAutenticar[0].email_funcionario,
+        nome: resultadoAutenticar[0].nome_funcionario,
+        permissao: resultadoAutenticar[0].acesso_plataforma,
+        permissao_total: resultadoAutenticar[0].permissao_total,
+        setor: resultadoAutenticar[0].fk_setor,
+        fk_empresa: resultadoAutenticar[0].fk_empresa
+      });
     } else {
-      res.status(403).send('Mais de um usuário com o mesmo login e senha!')
+      return res.status(403).send('Email e/ou senha inválidos');
     }
-  } catch (erro) {
-    console.log(erro)
-    res.status(500).json(erro.sqlMessage)
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send('Ocorreu um erro durante a autenticação');
   }
 }
+
+
 
 function cadastrar(req, res) {
   // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
