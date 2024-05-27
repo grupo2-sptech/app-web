@@ -356,15 +356,129 @@ document.addEventListener('DOMContentLoaded', function () {
       } else {
         setTimeout(function () {
           grafico_geral.style.display = 'flex';
+          atualizarGraficoGeral(sessionStorage.SETOR);
         }, 500);
       }
     });
   }
 });
 
+function atualizarGraficoGeral(id_setor) {
+  fetch(`/dashboard/grafico_geral/${id_setor}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }).then(function (res) {
+    if (res.ok) {
+      res.json().then(dados => {
+        let labels = dados.map(dado => dado.nome);
+        let data = dados.map(dado => dado.quantidade_bloqueios);
+
+        console.log(labels);  // Log para verificar os labels extraídos
+        console.log(data);
+
+        myChartGeral.data.labels = labels;
+        myChartGeral.data.datasets[0].data = data;
+
+        // Atualiza o gráfico
+        myChartGeral.update();
+      })
+    } else {
+      console.log("Erro no fecth");
+    }
+  })
+}
+
+function contadorNotifica(quantidade_notifica) {
+  let div_contador = document.getElementById('contaNotifica');
+  div_contador.textContent = quantidade_notifica; // Atualiza o contador
+}
+
+function abrirNotifica() {
+  let div_notifica = document.getElementById('div_notifica');
+
+  // Alternar a visibilidade da div de notificações
+  if (div_notifica.style.display === 'flex') {
+    div_notifica.style.display = 'none';
+  } else {
+    div_notifica.style.display = 'flex';
+    contadorNotifica(0); // Zerar o contador
+    atualizarAlertas(sessionStorage.SETOR, false); // Atualizar as notificações e passar flag para não atualizar o contador
+  }
+}
+
+/**
+ * Atualiza alertas e o contador de novas notificações.
+ * @param {number} id_setor - O ID do setor para obter alertas.
+ * @param {boolean} isOpened - Flag para indicar se a div de notificações está sendo aberta.
+ */
+function atualizarAlertas(id_setor, isOpened = false) {
+  fetch(`/dashboard/alerta/${id_setor}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }).then(function (res) {
+    if (res.ok) {
+      res.json().then(dados => {
+        // Limpar as notificações existentes
+        let notifica = document.getElementById('notificacao');
+        notifica.innerHTML = '';
+
+        // Mapear as novas notificações do banco de dados
+        let novasNotificacoes = dados.map(dado => ({
+          nome_maquina: dado.nome_maquina,
+          descricao_alerta: dado.descricao_alerta,
+          data_hora: dado.data_hora
+        }));
+
+        // Contador de novas notificações
+        let novasNotificacoesContador = 0;
+
+        // Adicionar novas notificações na interface
+        novasNotificacoes.forEach(novaNotificacao => {
+          novasNotificacoesContador++; // Incrementa o contador de novas notificações
+          let dataHora = new Date(novaNotificacao.data_hora);
+          let dia = String(dataHora.getDate()).padStart(2, '0');
+          let mes = String(dataHora.getMonth() + 1).padStart(2, '0'); // Meses começam do 0
+          let ano = dataHora.getFullYear();
+          let horas = String(dataHora.getHours()).padStart(2, '0');
+          let minutos = String(dataHora.getMinutes()).padStart(2, '0');
+          let segundos = String(dataHora.getSeconds()).padStart(2, '0');
+
+          let dataHoraFormatada = `${dia}/${mes}/${ano} às ${horas}:${minutos}:${segundos}`;
+          notifica.innerHTML += `<div class="alertas">
+            <div class="mensagem_alerta">
+              <div class="icon-warning"></div>
+              <div>
+                <p class="nome_maquina">${novaNotificacao.nome_maquina}</p>
+                <p class="descricao_alerta">${novaNotificacao.descricao_alerta}</p>
+                <i class="data_hora">${dataHoraFormatada}</i>
+              </div>
+            </div>
+          </div>`;
+        });
+
+        // Atualizar o contador de notificações apenas se a div de notificações não estiver sendo aberta
+        if (!isOpened) {
+          contadorNotifica(novasNotificacoesContador);
+        }
+      });
+    }
+  });
+}
+
+// Verificação contínua a cada segundo para atualizações de alertas
+setInterval(() => {
+  atualizarAlertas(sessionStorage.SETOR);
+}, 1000);
+
+
+
+
+
 function atualizar_grafico_tempo_real(id_maquina) {
-
-
 
   // Primeiro, selecione o elemento do botão usando seu ID
   let switchFlat1 = document.getElementById('switch-flat1');
@@ -788,7 +902,7 @@ function cardSelecionado(id_maquina) {
   if (elementoSelecionado === id) {
     elementoSelecionado = null;
   } else {
-    id.style.border = '3px solid #a6c620';
+    id.style.border = '3px solid #2e4959';
     elementoSelecionado = id;
   }
 }

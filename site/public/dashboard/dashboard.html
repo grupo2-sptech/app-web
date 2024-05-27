@@ -15,7 +15,7 @@
 </head>
 
 <body
-  onload="validarSessao(), listar(sessionStorage.SETOR, 'inp_maquina', sessionStorage.ACESSO_TOTAL),listarMaquinas(sessionStorage.SETOR, sessionStorage.ACESSO_TOTAL)">
+  onload="validarSessao(), atualizarGraficoGeral(sessionStorage.SETOR), listar(sessionStorage.SETOR, 'inp_maquina', sessionStorage.ACESSO_TOTAL),listarMaquinas(sessionStorage.SETOR, sessionStorage.ACESSO_TOTAL)">
   <!-- menu lateral -->
   <div id="menu" class="menuLateral">
     <a>
@@ -33,7 +33,7 @@
           <div class="icon-stats-dots ico"></div>
           <span class="nome-acao">Dashboard</span>
         </a>
-        <a  class="itensDaNav" href="gerenciarProcessos.html">
+        <a class="itensDaNav" href="gerenciarProcessos.html">
           <div style="font-weight: bold;" class="icon-document-forbidden1 ico"></div>
           <samp style="text-align: center;" class="nome-acao">Lista de Bloqueios</samp>
         </a>
@@ -76,10 +76,23 @@
         <select class="input_filtro" id="inp_setor">
           <option value="" disabled selected hidden>Setor</option>
         </select>
-      </div>
 
+
+      </div>
       <div class="icon-search"></div>
+      <img onclick="abrirNotifica()" src="../assets/imgs/notificacao.png" alt="">
+      <div class="conta_notifica" id="contaNotifica">0</div>
     </div>
+    <div class="notifica" id="div_notifica">
+      <div class="cabecalio">
+        <h4>Notificações</h4><i>Limpar</i>
+      </div>
+      
+      <div  id="notificacao">
+        <h4>Notificações</h4>
+      </div>
+    </div>
+
 
     <!-- Lista Maquinas -->
     <div class="central-maquinas">
@@ -155,7 +168,7 @@
         </div>
 
         <div id="grafico_geral" class="grafico_geral">
-          <h3>Quantidade de Processos Encerrados por Categoria no dia</h3>
+          <h3>Quantidade de Processos Encerrados por Categoria na semana</h3>
           <div class="grafico">
             <canvas id="myChartGeral"></canvas>
           </div>
@@ -475,7 +488,7 @@
   const myChartCpu = new Chart(document.getElementById("myChartCpu"), config);
   const myChartRam = new Chart(document.getElementById("myChartRam"), config1);
   const myChartDisco = new Chart(document.getElementById("myChartDisco"), config2);
-  const myCharGeral = new Chart(document.getElementById("myChartGeral"), config3);
+  const myChartGeral = new Chart(document.getElementById("myChartGeral"), config3);
 
   let idMaquina = sessionStorage.IDMAQUINA
 
