@@ -13,7 +13,7 @@
   <script src="../js/gerenciarUsuario.js"></script>
 </head>
 
-<body onload="validarSessao()">
+<body onload="validarSessao(), listarUsuarios(sessionStorage.SETOR, sessionStorage.ID_EMPRESA)">
   <!-- menuLateral -->
   <div id="menu" class="menuLateral">
     <a>
@@ -81,38 +81,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>
-              <div class="icon-user"></div>
-            </td>
-            <td>João Silva</td>
-            <td>joao.silva@example.com</td>
-            <td>Financeiro</td>
-            <td>Analista</td>
-            <td>Admin</td>
-            <td>
-              <div class="icon-pencil"></div>
-            </td>
-            <td>
-              <div class="icon-trash"></div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div class="icon-user"></div>
-            </td>
-            <td>João Silva</td>
-            <td>joao.silva@example.com</td>
-            <td>Financeiro</td>
-            <td>Analista</td>
-            <td>Admin</td>
-            <td>
-              <div class="icon-pencil"></div>
-            </td>
-            <td>
-              <div class="icon-trash"></div>
-            </td>
-          </tr>
+
 
         </tbody>
       </table>
@@ -185,8 +154,9 @@
 
 <script>
 
-
   let nome = sessionStorage.NOME_USUARIO
+  let setor = sessionStorage.SETOR
+  let empresa = sessionStorage.ID_EMPRESA
 
   function criarUsuario() {
       var novoNome = input_rotuloNome.value;
@@ -218,6 +188,45 @@
       .catch(error => console.error('Error:', error));
 
   }
+
+  function listarUsuarios(setor, empresa) {
+    fetch(`/gerenciarUsuario/listarUsuarios/${setor}/${empresa}`, {
+      method: 'GET',
+      headers: {
+        "Content-Type": "application/json"
+      },
+    })
+    .then(response => response.json())
+    .then(data => {
+
+      const tbody = document.querySelector("tbody");
+
+            tbody.innerHTML = '';
+      
+      data.forEach(usuario => {
+        
+        const tr = document.createElement("tr");
+
+        tr.innerHTML = `
+            <td><div class="icon-user"></div></td>
+            <td>${usuario.nome_funcionario}</td>
+            <td>${usuario.email_funcionario}</td>
+            <td>${setor}</td>
+            <td>${usuario.cargo_funcionario}</td>
+            <td>${usuario.acesso_plataforma}</td>
+            <td><div class="icon-pencil"></div></td>
+            <td><div class="icon-trash"></div></td>
+            `;
+
+// Adiciona a linha criada ao tbody
+    tbody.appendChild(tr);
+
+        
+      });
+    })
+    .catch(error => console.error('Error:', error));
+  }
+
   nome_usuario.innerHTML = nome;
 
 </script>
