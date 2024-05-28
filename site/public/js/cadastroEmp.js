@@ -217,7 +217,7 @@ function adicionarmaquina(cnpj, nome, email, canal, token) {
     token_empresa.value = token;
     
     document.getElementById('pop-add-maquinas').style.display = 'flex'
-    document.querySelector('#pop-add-maquinas button').setAttribute('onclick', `editarEmpresa('${cnpj}', '${nome}', '${email}', '${canal}', ${token})`)
+    document.querySelector('#pop-add-maquinas button').setAttribute('onclick', `editarEmpresa('${cnpj}', '${nome}', '${email}', '${canal}', '${token}')`)
     let lista = document.getElementById('deletar_maquina')
     let deletar = document.getElementById('lista-processos')
     
