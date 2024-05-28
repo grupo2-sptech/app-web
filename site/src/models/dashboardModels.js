@@ -217,19 +217,19 @@ function atualizar_geral(id_setor) {
   SELECT
   c.id_categoria,
   c.nome, -- Supondo que a tabela de categorias tenha um campo nome_categoria
-  COUNT(h.fk_categoria_historico) AS quantidade_bloqueios
+  COUNT(h.fk_categoria) AS quantidade_bloqueios
 FROM
   categoria c
 LEFT JOIN
   historico_bloqueios h
 ON
-  c.id_categoria = h.fk_categoria_historico
+  c.id_categoria = h.fk_categoria
 AND
   CAST(h.data_hora AS DATE) >= CAST(GETDATE() - 7 AS DATE)
 AND
   CAST(h.data_hora AS DATE) < CAST(GETDATE() + 1 AS DATE)
 AND
-  h.fk_setor_hardware = ${id_setor}
+  h.fk_setor = ${id_setor}
 GROUP BY
   c.id_categoria,
   c.nome;

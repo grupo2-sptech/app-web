@@ -1,9 +1,9 @@
 let gerenciarModel = require('../models/gerenciarModel');
 
 function listarUsuarios(req, res) {
-  var idUsuario = req.params.idUsuario;
-  var acesso = req.params.acesso;
-  gerenciarModel.listarUsuarios(idUsuario, acesso)
+  var setor = req.params.setor;
+  var empresa = req.params.empresa;
+  gerenciarModel.listarUsuarios(setor, empresa)
     .then(function (resultado) {
       if (resultado.length > 0) {
         res.status(200).json(resultado);
@@ -18,7 +18,26 @@ function listarUsuarios(req, res) {
     });
 }
 
- function cadastrarUsuario(req, res) {
+  function listarUsuarios(req, res) {
+  var setor = req.params.setor;
+  var empresa = req.params.empresa;
+  gerenciarModel.listarUsuarios(setor, empresa)
+    .then(function (resultado) {
+      if (resultado.length > 0) {
+        res.status(200).json(resultado);
+      } else {
+        res.status(204).send('Nenhum resultado encontrado!');
+      }
+    }
+    )
+    .catch(function (erro) {
+      console.log(erro);
+      console.log('Houve um erro ao buscar os usuários: ', erro.sqlMessage);
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+
+  function cadastrarUsuario(req, res) {
   var nome = req.body.nome;
   var email = req.body.email;
   var senha = req.body.senha;

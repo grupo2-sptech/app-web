@@ -74,6 +74,7 @@ function editarEmpresa(cnpjVar, nome, email, canal, token) {
     let canal_input = canal_empresa.value;
     let token_input = token_empresa.value;
 
+
     if (nome_empresa.value == "" & email_empresa.value == "") {
         alert("Preencha todos os campos!");
         return;
@@ -205,10 +206,21 @@ function deletarEmpresa(cnpjVar) {
 }
 
 function adicionarmaquina(cnpj, nome, email, canal, token) {
+    let nome_empresa = document.getElementById('nome_empresa')
+    let email_empresa = document.getElementById('email_empresa')
+    let canal_empresa = document.getElementById('canal_empresa')
+    let token_empresa = document.getElementById('token_empresa')
+
+    nome_empresa.value = nome;
+    email_empresa.value = email;
+    canal_empresa.value = canal;
+    token_empresa.value = token;
+    
     document.getElementById('pop-add-maquinas').style.display = 'flex'
-    document.querySelector('#pop-add-maquinas button').setAttribute('onclick', `editarEmpresa('${cnpj}', '${nome}', '${email}', '${canal}', ${token})`)
+    document.querySelector('#pop-add-maquinas button').setAttribute('onclick', `editarEmpresa('${cnpj}', '${nome}', '${email}', '${canal}', '${token}')`)
     let lista = document.getElementById('deletar_maquina')
     let deletar = document.getElementById('lista-processos')
+    
     // lista.style.display = 'none';
     // deletar.style.display = 'none';
 }

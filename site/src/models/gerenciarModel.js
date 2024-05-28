@@ -1,21 +1,16 @@
 const { query } = require('express')
 var database = require('../database/config')
 
-function listarUsuarios(idUsuario, acesso) {
+function listarUsuarios(setor, empresa) {
   instrucaoSql = ''
   instrucaoSql = `SELECT 
-  s.*, 
-  f.email_funcionario AS email, 
-  f.nome_funcionario AS nome, 
-  f.id_funcionario AS id, 
-  f.acesso_plataforma AS permissao, 
-  f.permissao_total AS permissao_total
-FROM 
-  setor AS s 
-JOIN 
-  funcionario AS f ON s.id_setor = f.fk_setor 
-WHERE 
-  f.id_funcionario = ${idUsuario};
+  id_funcionario,
+  nome_funcionario,
+  email_funcionario,
+  cargo_funcionario,
+  acesso_plataforma
+  FROM funcionario
+  WHERE fk_setor = ${setor} AND fk_empresa = ${empresa};
   `
   console.log('Executando a instrução SQL: \n' + instrucaoSql)
   return database.executar(instrucaoSql)
