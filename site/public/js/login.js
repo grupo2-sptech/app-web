@@ -51,7 +51,7 @@ function entrar() {
             sessionStorage.ACESSO = json.permissao
             sessionStorage.ACESSO_TOTAL = json.permissao_total
             sessionStorage.SETOR = json.setor
-            sessionStorage.ID_EMPRESA = json.hardware[0].fk_empresa
+            sessionStorage.ID_EMPRESA = json.fk_empresa
             if (json.permissao == 1) {
               setTimeout(() => {
                 if (json.permissao_total == 1) {

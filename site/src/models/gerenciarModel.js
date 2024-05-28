@@ -4,7 +4,7 @@ var database = require('../database/config')
 function listarUsuarios(setor, empresa) {
   instrucaoSql = ''
   instrucaoSql = `SELECT 
-  funcionario_id, 
+  id_funcionario,
   nome_funcionario,
   email_funcionario,
   cargo_funcionario,

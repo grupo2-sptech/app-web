@@ -4,7 +4,7 @@ var router = express.Router();
 
 var gerenciarController = require("../controllers/gerenciarController");
 
-router.get('/listarUsuarios', function (req, res) {
+router.get('/listarUsuarios/:setor/:empresa', function (req, res) {
   gerenciarController.listarUsuarios(req, res)
 })
 

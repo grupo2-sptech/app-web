@@ -80,6 +80,10 @@
             <th></th>
           </tr>
         </thead>
+        <tbody>
+
+
+        </tbody>
       </table>
 
 
@@ -186,7 +190,7 @@
   }
 
   function listarUsuarios(setor, empresa) {
-    fetch("/gerenciarUsuario/listarUsuarios", {
+    fetch(`/gerenciarUsuario/listarUsuarios/${setor}/${empresa}`, {
       method: 'GET',
       headers: {
         "Content-Type": "application/json"
@@ -194,24 +198,28 @@
     })
     .then(response => response.json())
     .then(data => {
+
+      const tbody = document.querySelector("tbody");
+
+            tbody.innerHTML = '';
       
       data.forEach(usuario => {
         
         const tr = document.createElement("tr");
 
-tr.innerHTML = `
-    <td><div class="icon-user"></div></td>
-    <td>${usuario.nome}</td>
-    <td>${usuario.email}</td>
-    <td>${usuario.setor}</td>
-    <td>${usuario.cargo}</td>
-    <td>${usuario.permissao}</td>
-    <td><div class="icon-pencil"></div></td>
-    <td><div class="icon-trash"></div></td>
-    `;
+        tr.innerHTML = `
+            <td><div class="icon-user"></div></td>
+            <td>${usuario.nome_funcionario}</td>
+            <td>${usuario.email_funcionario}</td>
+            <td>${setor}</td>
+            <td>${usuario.cargo_funcionario}</td>
+            <td>${usuario.acesso_plataforma}</td>
+            <td><div class="icon-pencil"></div></td>
+            <td><div class="icon-trash"></div></td>
+            `;
 
 // Adiciona a linha criada ao tbody
-tbody.appendChild(tr);
+    tbody.appendChild(tr);
 
         
       });
