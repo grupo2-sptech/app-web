@@ -10,22 +10,16 @@ function autenticar(email, senha) {
   )
 
   var instrucao = `
-  SELECT 
-    id_funcionario, 
-    nome_funcionario, 
-    email_funcionario, 
-    acesso_plataforma, 
-    permissao_total, 
-    setor.id_setor, 
-    funcionario.fk_empresa 
-  FROM 
-    funcionario 
-  JOIN 
-    setor ON funcionario.fk_setor = setor.id_setor 
-  WHERE 
-    (email_funcionario = '${email}' AND senha_acesso = '${senha}') 
-    OR 
-    (login_acesso = '${email}' AND senha_acesso = '${senha}');
+  SELECT id_funcionario,
+       nome_funcionario,
+       fk_empresa,
+       fk_setor,
+       email_funcionario,
+       acesso_plataforma,
+       permissao_total
+FROM funcionario
+WHERE (email_funcionario = '${email}' AND senha_acesso = '${senha}')
+   OR (login_acesso = '${email}' AND senha_acesso = '${senha}');
    `
 
   console.log('Executando a instrução SQL: \n' + instrucao)

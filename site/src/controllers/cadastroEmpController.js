@@ -1,9 +1,9 @@
 var empresaModel = require('../models/cadastroEmpresaModel');
 
 function listarEmpresa(req, res) {
-    empresaModel.listarEmpresa().then(function(resultado) {
+    empresaModel.listarEmpresa().then(function (resultado) {
         res.json(resultado);
-    }).catch(function(erro) {
+    }).catch(function (erro) {
         console.log(erro);
         res.status(500).send("Erro ao buscar dados da empresa.");
     });
@@ -12,58 +12,55 @@ function listarEmpresa(req, res) {
 function autenticarEmpresa(req, res) {
     var cnpj = req.body.cnpj;
     empresaModel.autenticarEmpresa(cnpj)
-        .then(function(resultado) {
+        .then(function (resultado) {
             if (resultado.length > 0) {
                 res.json(resultado[0]);
             } else {
                 res.status(404).send("Empresa não encontrada.");
             }
         })
-        .catch(function(erro) {
+        .catch(function (erro) {
             console.log(erro);
             res.status(500).send("Erro ao autenticar empresa.");
         });
 }
 
-function cadastrarEmpresa(req, res) {
-    var nome = req.body.nomeServer;
-    var cnpj = req.body.cnpjServer;
-    var email = req.body.emailEmpServer;
-    var cidade = req.body.cidadeServer;
-    var municipio = req.body.municipioServer;
-    var cep = req.body.cepServer;
-    var bairro = req.body.bairroServer;
-    var logradouro = req.body.ruaServer;
-    var numero = req.body.numeroServer;
-    var complemento = req.body.complementoServer;
-    var ufEmp = req.body.ufEmpServer;
-    var ufSigla = req.body.ufSiglaServer;
+async function cadastrarEmpresa(req, res) {
+    try {
+        // Extrair os dados do corpo da requisição
+        const { nomeServer: nome,
+            cnpjServer: cnpj,
+            emailEmpServer: email,
+            municipioServer: municipio,
+            cepServer: cep,
+            bairroServer: bairro,
+            ruaServer: logradouro,
+            numeroServer: numero,
+            complementoServer: complemento,
+            ufEmpServer: ufEmp
+        } = req.body;
 
-    console.log(email)
-    console.log(cnpj)
+        // Cadastro do endereço
+        const enderecoId = await empresaModel.cadastrarEndereco(
+            municipio,
+            bairro,
+            logradouro,
+            numero,
+            complemento,
+            cep,
+            ufEmp
+        );
 
-    empresaModel.cadastrarEmpresa(nome, cnpj, email)
-        .then(function(resultado) {
-            empresaModel.cadastrarUF(ufEmp, ufSigla)
-            .then(function(resultado){
-                console.log(resultado)
-                empresaModel.cadastrarEndereco(municipio, bairro, logradouro, numero, complemento, cep, resultado.insertId)
-                .then(function(resultado){
-                    res.status(201).send("Empresa cadastrada com sucesso.");
-                }).catch(function(erro){
-                    console.log(erro)
-                    console.log("Erro ao cadastrar endereço")
-                })
-            }).catch(function(erro){
-                console.log(erro)
-                console.log("Erro ao cadastrar UF")
-            })
-        })
-        .catch(function(erro) {
-            console.log(erro);
-            res.status(500).send("Erro ao cadastrar empresa.");
-        });
+        // Cadastro da empresa com o ID do endereço
+        await empresaModel.cadastrarEmpresa(nome, cnpj, email, enderecoId);
+
+        res.status(201).send("Empresa cadastrada com sucesso.");
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Erro ao cadastrar empresa.");
+    }
 }
+
 
 // function autenticarEndereco(req, res) {
 //     var cep = req.body.cep;
@@ -84,10 +81,10 @@ function cadastrarEmpresa(req, res) {
 function cadastrarEndereco(req, res) {
     var { municipio, bairro, logradouro, numero, complemento, cep, fk_uf } = req.body;
     empresaModel.cadastrarEndereco(municipio, bairro, logradouro, numero, complemento, cep, fk_uf)
-        .then(function(resultado) {
+        .then(function (resultado) {
             res.status(201).send("Endereço cadastrado com sucesso.");
         })
-        .catch(function(erro) {
+        .catch(function (erro) {
             console.log(erro);
             res.status(500).send("Erro ao cadastrar endereço.");
         });
@@ -112,10 +109,10 @@ function cadastrarEndereco(req, res) {
 function cadastrarUF(req, res) {
     var { nome, sigla } = req.body;
     empresaModel.cadastrarUF(nome, sigla)
-        .then(function(resultado) {
+        .then(function (resultado) {
             res.status(201).send("UF cadastrada com sucesso.");
         })
-        .catch(function(erro) {
+        .catch(function (erro) {
             console.log(erro);
             res.status(500).send("Erro ao cadastrar UF.");
         });
@@ -124,10 +121,10 @@ function cadastrarUF(req, res) {
 function deletarEmpresa(req, res) {
     var cnpj = req.body.cnpj;
     empresaModel.deletarEmpresa(cnpj)
-        .then(function() {
+        .then(function () {
             res.status(200).send("Empresa e endereço associado deletados com sucesso.");
         })
-        .catch(function(erro) {
+        .catch(function (erro) {
             console.log(erro);
             res.status(500).send("Erro ao deletar empresa.");
         });
@@ -139,10 +136,10 @@ function editarEmpresa(req, res) {
     var nome = req.body.nomeServer;
     var email = req.body.emailEmpServer;
     empresaModel.editarEmpresa(cnpj, nome, email)
-        .then(function() {
+        .then(function () {
             res.status(200).send("Empresa e endereço associado deletados com sucesso.");
         })
-        .catch(function(erro) {
+        .catch(function (erro) {
             console.log(erro);
             res.status(500).send("Erro ao deletar empresa.");
         });

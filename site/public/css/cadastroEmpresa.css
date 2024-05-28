@@ -167,35 +167,36 @@ tr {
 
 }
 
-
-
 .rotulos {
     display: flex;
     white-space: nowrap;
     width: 100%;
-    justify-content: center;
-    align-items: center;
+    align-items: start;
     flex-grow: 1;
-    gap: 6%;
+    gap: 20%;
+    text-align: center;
     margin-bottom: 1rem;
     flex-shrink: 0;
 }
 
 .rotulos label {
+    margin-top: 7px;
     flex-basis: 30%;
-    margin-right: 10px;
-    font-size: 20px;
-    text-align: center;
+    font-size: 15px;
+    text-align: start;
+    width: 30%;
+    display: flex;
 }
 
-.inputRotulos {
+.rotulos input {
     border: none;
+    display: flex;
+    justify-content: end;
     border-bottom: 2px solid #ccc;
     padding: 5px;
     font-size: 14px;
-    align-items: center;
-    width: 100;
-    margin-top: 0.5 rem;
+    align-items: end;
+    width:49%;
     outline: none;
     flex-grow: 1;
     transition: border-color 0.3s ease;

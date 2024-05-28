@@ -149,7 +149,6 @@ const data3 = {
   labels: ['Redes Sociais', 'Streaming', 'Notícia', 'Jogos', 'Comunicação'],
   datasets: [
     {
-      data: [48, 12, 20, 16, 24],
       label: 'Quantidade de ',
       fill: true,
       backgroundColor: '#2e4959',

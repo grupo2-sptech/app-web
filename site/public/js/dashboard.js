@@ -199,6 +199,62 @@ function listarMaquinas(fksetor, acesso) {
     })
 }
 
+document.addEventListener("DOMContentLoaded", function() {
+  const inpMaquina = document.getElementById("inp_maquina");
+  const inpSetor = document.getElementById("inp_setor");
+
+  function preencherSelects(maquinas) {
+    const setores = new Set();
+
+    maquinas.forEach(maquina => {
+      const optionMaquina = document.createElement("option");
+      optionMaquina.value = maquina.id;
+      optionMaquina.textContent = maquina.nome;
+      inpMaquina.appendChild(optionMaquina);
+      
+      setores.add(maquina.setor);
+    });
+
+    setores.forEach(setor => {
+      const optionSetor = document.createElement("option");
+      optionSetor.value = setor;
+      optionSetor.textContent = setor;
+      inpSetor.appendChild(optionSetor);
+    });
+  }
+
+  function filtrarDados(maquinas) {
+    const maquinaSelecionada = inpMaquina.value;
+    const setorSelecionado = inpSetor.value;
+
+    const resultado = maquinas.filter(maquina => {
+      return (
+        (maquinaSelecionada === "" || maquina.id == maquinaSelecionada) &&
+        (setorSelecionado === "" || maquina.setor === setorSelecionado)
+      );
+    });
+
+    console.log("Resultado do filtro:", resultado);
+    // Aqui você pode atualizar a UI com os resultados filtrados
+  }
+
+  inpMaquina.addEventListener("change", () => filtrarDados(maquinas));
+  inpSetor.addEventListener("change", () => filtrarDados(maquinas));
+
+  fetch('/dashboard/filtrar_maquinas/${maquinas}',) 
+  method: 'GET'
+    .then(response => response.json())
+    .then(maquinas => {
+      preencherSelects(maquinas);
+      inpMaquina.addEventListener("change", () => filtrarDados(maquinas));
+      inpSetor.addEventListener("change", () => filtrarDados(maquinas));
+    })
+    .catch(error => console.error('Erro ao buscar dados:', error));
+});
+
+
+
+
 function abrirExcluir(id_maquina, nome_maquina) {
   let nomeMaquina = document.getElementById('span_nomeMaquina')
   let popupExcluir = document.getElementById('deletar_maquina')
@@ -356,15 +412,164 @@ document.addEventListener('DOMContentLoaded', function () {
       } else {
         setTimeout(function () {
           grafico_geral.style.display = 'flex';
+          atualizarGraficoGeral(sessionStorage.SETOR);
         }, 500);
       }
     });
   }
 });
 
+function atualizarGraficoGeral(id_setor) {
+  fetch(`/dashboard/grafico_geral/${id_setor}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }).then(function (res) {
+    if (res.ok) {
+      res.json().then(dados => {
+        let labels = dados.map(dado => dado.nome);
+        let data = dados.map(dado => dado.quantidade_bloqueios);
+
+        console.log(labels);  // Log para verificar os labels extraídos
+        console.log(data);
+
+        myChartGeral.data.labels = labels;
+        myChartGeral.data.datasets[0].data = data;
+
+        // Atualiza o gráfico
+        myChartGeral.update();
+      })
+    } else {
+      console.log("Erro no fecth");
+    }
+  })
+}
+
+let ultimaNotificacaoId = null; // Variável para armazenar o ID da última notificação recebida
+let notificacoesAntigas = [];
+
+let temnoficica = true;
+let interrope = true// Variável para armazenar notificações antigas
+
+function contadorNotifica(quantidade_notifica) {
+  let div_contador = document.getElementById('contaNotifica');
+  div_contador.textContent = quantidade_notifica; // Atualiza o contador
+}
+
+function abrirNotifica() {
+  let div_notifica = document.getElementById('div_notifica');
+
+  // Alternar a visibilidade da div de notificações
+  if (div_notifica.style.display === 'flex') {
+    div_notifica.style.display = 'none';
+  } else {
+    div_notifica.style.display = 'flex';
+    contadorNotifica(0); // Zerar o contador
+    exibirNotificacoes(); // Exibir notificações quando a div é aberta
+  }
+}
+
+/**
+ * Atualiza alertas e o contador de novas notificações.
+ * @param {number} id_setor - O ID do setor para obter alertas.
+ * @param {boolean} isOpened - Flag para indicar se a div de notificações está sendo aberta.
+ */
+function atualizarAlertas(id_setor, isOpened = false) {
+  fetch(`/dashboard/alerta/${id_setor}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }).then(function (res) {
+    if (res.ok) {
+      res.json().then(dados => {
+        // Variáveis para armazenar notificações novas e antigas
+        let notificacoesNovas = [];
+
+        // Mapear as novas notificações do banco de dados
+        let novasNotificacoes = dados.map(dado => ({
+          id: dado.id_alerta, // Supondo que cada notificação tem um ID único
+          nome_maquina: dado.nome_maquina,
+          descricao_alerta: dado.descricao_alerta,
+          data_hora: dado.data_hora
+        }));
+
+        novasNotificacoes.forEach(nova => {
+          notificacoesNovas.push(nova)
+        });
+
+        if (temnoficica) {
+          notificacoesAntigas = novasNotificacoes;
+          temnoficica = false
+        }
+
+        if (interrope) {
+          notificacoesNovas.forEach(exibir => {
+            adicionarNotificacaoNaInterface(exibir)
+          });
+          contadorNotifica(notificacoesNovas.length)
+          interrope = false
+        }
+
+        if (notificacoesAntigas.length != notificacoesNovas.length) {
+          let qtnnotifica = notificacoesNovas.length - notificacoesAntigas.length;
+          contadorNotifica(qtnnotifica);
+          temnoficica = true;
+
+          // Atualizar as notificações antigas
+          notificacoesAntigas = [...notificacoesNovas];
+
+          // Pegar os últimos qtnnotifica itens de notificacoesNovas
+          let novasNotificacoes = notificacoesNovas.slice(-qtnnotifica);
+
+          // Adicionar apenas as novas notificações na interface
+          novasNotificacoes.forEach(exibir => {
+            adicionarNotificacaoNaInterface(exibir);
+          });
+        }
+
+      });
+    }
+  });
+}
+
+// Função para adicionar uma notificação na interface
+function adicionarNotificacaoNaInterface(novaNotificacao) {
+  let dataHora = new Date(novaNotificacao.data_hora);
+  let dia = String(dataHora.getDate()).padStart(2, '0');
+  let mes = String(dataHora.getMonth() + 1).padStart(2, '0'); // Meses começam do 0
+  let ano = dataHora.getFullYear();
+  let horas = String(dataHora.getHours()).padStart(2, '0');
+  let minutos = String(dataHora.getMinutes()).padStart(2, '0');
+  let segundos = String(dataHora.getSeconds()).padStart(2, '0');
+
+  let dataHoraFormatada = `${dia}/${mes}/${ano} às ${horas}:${minutos}:${segundos}`;
+  let notifica = document.getElementById('notificacao');
+  notifica.innerHTML += `<div class="alertas">
+    <div class="mensagem_alerta">
+      <div class="icon-warning"></div>
+      <div>
+        <p class="nome_maquina">${novaNotificacao.nome_maquina}</p>
+        <p class="descricao_alerta">${novaNotificacao.descricao_alerta}</p>
+        <i class="data_hora">${dataHoraFormatada}</i>
+      </div>
+    </div>
+  </div>`;
+}
+
+// Verificação contínua a cada segundo para atualizações de alertas
+setInterval(() => {
+  atualizarAlertas(sessionStorage.SETOR);
+}, 1000);
+
+function limparNotificacao() {
+  let notifica = document.getElementById('notificacao');
+  notifica.innerHTML = '';
+}
+
+
 function atualizar_grafico_tempo_real(id_maquina) {
-
-
 
   // Primeiro, selecione o elemento do botão usando seu ID
   let switchFlat1 = document.getElementById('switch-flat1');
@@ -788,7 +993,7 @@ function cardSelecionado(id_maquina) {
   if (elementoSelecionado === id) {
     elementoSelecionado = null;
   } else {
-    id.style.border = '3px solid #a6c620';
+    id.style.border = '3px solid #2e4959';
     elementoSelecionado = id;
   }
 }
