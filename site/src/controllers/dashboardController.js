@@ -154,12 +154,14 @@ function deletarMaquina(req, res) {
 function cadastrar_maquina(req, res) {
   let nome_maquina = req.params.nome_maquina;
   let modelo_maquina = req.params.modelo_maquina;
+  let id_setor = req.params.id_setor;
+  let id_empresa = req.params.id_empresa
 
-  if (nome_maquina != undefined && modelo_maquina != undefined) {
+  if (nome_maquina != undefined && modelo_maquina != undefined && id_setor != undefined && id_empresa != undefined) {
     dashboardModel
-      .cadastrar_maquina(nome_maquina, modelo_maquina)
+      .cadastrar_maquina(nome_maquina, modelo_maquina, id_setor, id_empresa)
       .then(resp => {
-        res.json({ id: resp.id });
+        res.json({ id: resp.enderecoId });
       })
       .catch(erro => {
         console.log(erro.sqlMessage);

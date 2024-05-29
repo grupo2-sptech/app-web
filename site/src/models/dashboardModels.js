@@ -3,16 +3,25 @@
 const { query } = require('express')
 var database = require('../database/config')
 
-function cadastrar_maquina(nome, modelo) {
-  const query = `
-    INSERT INTO maquina (modelo_maquina, nome_maquina) 
-    OUTPUT INSERTED.id_maquina
-    VALUES ('${modelo}', '${nome}');
-  `;
-  return database.executar(query).then(result => {
-    return { id: result.insertId }
-  })
+async function cadastrar_maquina(nome, modelo, id_setor, id_empresa) {
+  try {
+    const query = `
+      INSERT INTO maquina (modelo_maquina, nome_maquina, fk_setor, fk_empresa)
+      VALUES (@param1, @param2, @param3, @param4);
+      SELECT SCOPE_IDENTITY() AS enderecoId;
+    `;
+    const result = await database.executar(query, [
+      nome,
+      modelo,
+      id_setor,
+      id_empresa,
+    ]);
+    return result[0].enderecoId;
+  } catch (error) {
+    throw error;
+  }
 }
+
 function listarMaquinas(fk_setor, acesso) {
   /* var query = `SELECT
   m.id_maquina,

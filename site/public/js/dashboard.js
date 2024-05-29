@@ -298,7 +298,7 @@ function cadastrarMaquina() {
     campo.style.display = 'block';
     campo.innerHTML = 'Preencha todos os campos';
   } else {
-    fetch(`/dashboard/cadastrar_maquina/${nome_maquina}/${modelo_maquina}`, {
+    fetch(`/dashboard/cadastrar_maquina/${nome_maquina}/${modelo_maquina}/${sessionStorage.SETOR}/${sessionStorage.ID_EMPRESA}`, {
       method: 'POST'
     })
       .then(resposta => resposta.json())
