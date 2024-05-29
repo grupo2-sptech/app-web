@@ -161,8 +161,8 @@ function listarMaquinas(fksetor, acesso) {
         </div>
           <div class="descricao-laptop">
             <div class="descricao-titulo">
-              <p>Modelo: ${maquinas.modelo_maquina}</p>
               <p>Nome: ${maquinas.nome_maquina}</p>
+              <p>Modelo: ${maquinas.modelo_maquina}</p>
               <p>Status: <strong id="status_maquina${maquinas.id_maquina}"></strong></p>
               <p id = "user${maquinas.id_maquina}">Usuário: </p>
             </div>
