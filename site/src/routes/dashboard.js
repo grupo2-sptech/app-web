@@ -36,10 +36,11 @@ router.get('/alerta/:id_setor', function (req, res) {
   dashboardController.alerta(req, res)
 })
 router.post(
-  '/cadastrar_maquina/:nome_maquina/:modelo_maquina',
+  '/cadastrar_maquina/:nome_maquina/:modelo_maquina/:id_setor/:id_empresa',
   function (req, res) {
-    dashboardController.cadastrar_maquina(req, res)
+    dashboardController.cadastrar_maquina(req, res);
   }
-)
+);
+
 
 module.exports = router

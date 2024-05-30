@@ -133,33 +133,35 @@ function validarSenha(req, res) {
 }
 
 function deletarMaquina(req, res) {
-  let id_maquina = req.params.id_maquina
+  let id_maquina = req.params.id_maquina;
 
   if (id_maquina != undefined) {
     dashboardModel
       .deletarMaquina(id_maquina)
       .then(function (resultado) {
-        res.json(resultado)
+        res.json(resultado);
       })
       .catch(function (erro) {
-        console.log(erro)
-        console.log('Houve um erro ao deletar o post: ', erro.sqlMessage)
-        res.status(500).json(erro.sqlMessage)
-      })
+        console.log('Houve um erro ao deletar a máquina: ', erro);
+        res.status(500).json({ error: erro.message });
+      });
   } else {
-    console.log('Requisição undefined')
+    res.status(400).json({ error: 'ID da máquina não fornecido' });
   }
 }
+
 
 function cadastrar_maquina(req, res) {
   let nome_maquina = req.params.nome_maquina;
   let modelo_maquina = req.params.modelo_maquina;
+  let id_setor = req.params.id_setor;
+  let id_empresa = req.params.id_empresa;
 
-  if (nome_maquina != undefined && modelo_maquina != undefined) {
+  if (nome_maquina != undefined && modelo_maquina != undefined && id_setor != undefined && id_empresa != undefined) {
     dashboardModel
-      .cadastrar_maquina(nome_maquina, modelo_maquina)
+      .cadastrar_maquina(nome_maquina, modelo_maquina, id_setor, id_empresa)
       .then(resp => {
-        res.json({ id: resp.id });
+        res.json({ id: resp });
       })
       .catch(erro => {
         console.log(erro.sqlMessage);
@@ -169,6 +171,7 @@ function cadastrar_maquina(req, res) {
     res.status(400).json({ error: 'Parâmetros inválidos' });
   }
 }
+
 
 
 function atualizar_geral(req, res) {

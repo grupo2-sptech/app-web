@@ -161,8 +161,8 @@ function listarMaquinas(fksetor, acesso) {
         </div>
           <div class="descricao-laptop">
             <div class="descricao-titulo">
-              <p>Modelo: ${maquinas.modelo_maquina}</p>
               <p>Nome: ${maquinas.nome_maquina}</p>
+              <p>Modelo: ${maquinas.modelo_maquina}</p>
               <p>Status: <strong id="status_maquina${maquinas.id_maquina}"></strong></p>
               <p id = "user${maquinas.id_maquina}">Usuário: </p>
             </div>
@@ -199,7 +199,7 @@ function listarMaquinas(fksetor, acesso) {
     })
 }
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
   const inpMaquina = document.getElementById("inp_maquina");
   const inpSetor = document.getElementById("inp_setor");
 
@@ -211,7 +211,7 @@ document.addEventListener("DOMContentLoaded", function() {
       optionMaquina.value = maquina.id;
       optionMaquina.textContent = maquina.nome;
       inpMaquina.appendChild(optionMaquina);
-      
+
       setores.add(maquina.setor);
     });
 
@@ -241,7 +241,7 @@ document.addEventListener("DOMContentLoaded", function() {
   inpMaquina.addEventListener("change", () => filtrarDados(maquinas));
   inpSetor.addEventListener("change", () => filtrarDados(maquinas));
 
-  fetch('/dashboard/filtrar_maquinas/${maquinas}',) 
+  fetch('/dashboard/filtrar_maquinas/${maquinas}',)
   method: 'GET'
     .then(response => response.json())
     .then(maquinas => {
@@ -298,7 +298,7 @@ function cadastrarMaquina() {
     campo.style.display = 'block';
     campo.innerHTML = 'Preencha todos os campos';
   } else {
-    fetch(`/dashboard/cadastrar_maquina/${nome_maquina}/${modelo_maquina}`, {
+    fetch(`/dashboard/cadastrar_maquina/${nome_maquina}/${modelo_maquina}/${sessionStorage.SETOR}/${sessionStorage.ID_EMPRESA}`, {
       method: 'POST'
     })
       .then(resposta => resposta.json())
@@ -318,6 +318,7 @@ function cadastrarMaquina() {
       });
   }
 }
+
 
 
 function listar_processos(id_setor) {
@@ -376,20 +377,21 @@ function deletarMaquina(id_maquina) {
   })
     .then(function (resposta) {
       if (resposta.ok) {
-        location.reload()
+        location.reload();
       } else if (resposta.status == 404) {
-        window.alert('Deu 404!')
+        window.alert('Máquina não encontrada (404).');
       } else {
-        throw (
-          'Houve um erro ao tentar realizar a postagem! Código da resposta: ' +
-          resposta.status
-        )
+        resposta.json().then(erro => {
+          throw new Error('Houve um erro ao tentar deletar a máquina: ' + erro.error);
+        });
       }
     })
-    .catch(function (resposta) {
-      console.log(`#ERRO: ${resposta}`)
-    })
+    .catch(function (erro) {
+      console.error('#ERRO: ', erro);
+      window.alert('Erro ao deletar máquina: ' + erro.message);
+    });
 }
+
 
 let intervalo
 let id_maquina_pesquisa
