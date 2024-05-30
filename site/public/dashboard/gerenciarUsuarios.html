@@ -85,9 +85,37 @@
 
         </tbody>
       </table>
+    </div>
 
-
-
+      <div class="pop-edit">
+        <div class="form">
+            <div class="form-element">
+                <label for="nome">Nome do usuário</label>
+                <input type="text" id="nome_usuario" placeholder="Insira o nome do usuário">
+            </div>
+            <div class="form-element">
+                <label for="modelo">E-mail do usuário</label>
+                <input type="text" id="email_usuario" placeholder="Insira o e-mail do usuário">
+            </div>
+            <div class="form-element">
+                <label for="modelo">Setor</label>
+                <input type="text" id="setor_usuario" placeholder="Insira setor do usuário">
+            </div>
+            <div class="form-element">
+                <label for="modelo">Cargo</label>
+                <input type="text" id="cargo_usuario" placeholder="Insira o cargo do usuário">
+            </div>
+            <div class="form-element">
+              <label for="modelo">Acesso</label>
+              <input type="text" id="acesso_usuario">
+          </div>
+            <div class="form-element">
+                <button onclick="editarUsuario()" class="btm-confirmar">Atualizar</button> 
+            </div>
+            <span id="preecha_campos_maquina" style="color: red; display: none; text-align: center;">
+                Preecha todos os campos!
+            </span>
+        </div>
     </div>
 
     <div class="adicionarUsuario" id="adicionarUsuario">
@@ -221,11 +249,36 @@
 // Adiciona a linha criada ao tbody
     tbody.appendChild(tr);
 
-        
       });
     })
     .catch(error => console.error('Error:', error));
   }
+
+
+  function editarUsuario(nome, email, setor, cargo, acesso) {
+    nome_usuario.value = nome;
+    email_usuario.value = email;
+    setor_usuario.value = setor;
+    cargo_usuario.value = cargo;
+    acesso_usuario.value = acesso;
+    
+    document.getElementById('pop-add-users').style.display = 'flex'
+    document.querySelector('#pop-add-users button').setAttribute('onclick', `editarUsuario('${nome}', '${email}', '${setor}', '${cargo}', '${acesso}')`)
+    let lista = document.getElementById('deletar_maquina')
+    let deletar = document.getElementById('lista-processos')
+    
+}
+
+function deletarUsuario(id_funcionario) {
+    document.getElementById('pop-add-delete').style.display = 'flex'
+    document.querySelector('#pop-add-delete button').setAttribute('onclick', `deletarEmpresa('${id_funcionario}')`)
+    let lista = document.getElementById('deletar_maquina')
+    let deletar = document.getElementById('lista-processos')
+
+
+    // lista.style.display = 'none';
+    // deletar.style.display = 'none';
+}
 
   nome_usuario.innerHTML = nome;
 
