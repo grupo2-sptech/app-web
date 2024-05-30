@@ -6,21 +6,17 @@ var database = require('../database/config')
 async function cadastrar_maquina(nome, modelo, id_setor, id_empresa) {
   try {
     const query = `
-      INSERT INTO maquina (modelo_maquina, nome_maquina, fk_setor, fk_empresa)
+      INSERT INTO maquina (nome_maquina, modelo_maquina, fk_setor, fk_empresa)
+      OUTPUT INSERTED.id_maquina
       VALUES (@param1, @param2, @param3, @param4);
-      SELECT SCOPE_IDENTITY() AS enderecoId;
     `;
-    const result = await database.executar(query, [
-      nome,
-      modelo,
-      id_setor,
-      id_empresa,
-    ]);
-    return result[0].enderecoId;
+    const result = await database.executar(query, [nome, modelo, id_setor, id_empresa]);
+    return result[0].id_maquina;
   } catch (error) {
     throw error;
   }
 }
+
 
 function listarMaquinas(fk_setor, acesso) {
   /* var query = `SELECT
@@ -126,19 +122,31 @@ function cap_dados(id_maquina) {
   return database.executar(query)
 }
 
-function deletarMaquina(id_maquina) {
-  let query_hardware = `DELETE FROM historico_hardware WHERE fk_maquina = ${id_maquina};`
-  let query_componete = `DELETE FROM componente WHERE fk_maquina = ${id_maquina};`
-  let query_maquina = `DELETE FROM maquina WHERE id_maquina = ${id_maquina};`
+async function deletarMaquina(id_maquina) {
+  try {
 
-  return Promise.all([
-    database.executar(query_hardware),
-    database.executar(query_componete),
-    database.executar(query_maquina).catch(error => {
-      console.error('Erro ao deletar máquina:', error)
-    })
-  ])
+    const query_hardware = `DELETE FROM historico_hardware WHERE fk_maquina = @param1;`;
+    const query_rede = `DELETE FROM rede WHERE fk_maquina = @param1;`;
+    const query_componente = `DELETE FROM componente WHERE fk_maquina = @param1;`;
+    const query_alerta = `DELETE FROM alerta WHERE fk_maquina = @param1;`;
+    const query_uso_maquina = `DELETE FROM uso_maquina WHERE fk_maquina = @param1;`;
+    const query_maquina = `DELETE FROM maquina WHERE id_maquina = @param1;`;
+
+    await database.executar(query_hardware, [id_maquina]);
+    await database.executar(query_rede, [id_maquina]);
+    await database.executar(query_componente, [id_maquina]);
+    await database.executar(query_alerta, [id_maquina]);
+    await database.executar(query_uso_maquina, [id_maquina]);
+    await database.executar(query_maquina, [id_maquina]);
+    return { message: 'Máquina e dependências deletadas com sucesso' };
+  } catch (error) {
+    console.error('Erro ao deletar máquina:', error);
+    throw error;
+  }
 }
+
+
+
 
 function validarSenha(id_usuario, senha) {
   let query = `SELECT * from funcionario WHERE id_funcionario = ${id_usuario} AND senha_acesso = ${senha};`

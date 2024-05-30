@@ -233,6 +233,12 @@ body {
 
 .notifica .cabecalio i {
   font-size: 10px;
+  cursor: pointer;
+  transition: 300ms;
+}
+
+.notifica .cabecalio i:hover {
+  font-weight: bold;
 }
 
 .conta_notifica {

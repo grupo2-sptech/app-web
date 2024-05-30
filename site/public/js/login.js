@@ -21,10 +21,11 @@ function voltar() {
 
 function entrar() {
   event.preventDefault()
+  let div_carregar = document.getElementById('carregar')
+  div_carregar.style.display = 'block'
   mensagem_senha_incorreta.innerHTML = ''
   var senha = input_senha.value
   var email = input_email.value
-  var div_carregar = document.getElementById('carregar')
 
   if (senha == '' || email == '') {
     mensagem_senha_incorreta.innerHTML = `Preencha todos os campos!`
@@ -42,7 +43,6 @@ function entrar() {
     })
       .then(function (resposta) {
         if (resposta.ok) {
-          div_carregar.style.display = 'block'
 
           resposta.json().then(json => {
             sessionStorage.EMAIL_USUARIO = json.email

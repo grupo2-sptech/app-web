@@ -199,7 +199,7 @@ function listarMaquinas(fksetor, acesso) {
     })
 }
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
   const inpMaquina = document.getElementById("inp_maquina");
   const inpSetor = document.getElementById("inp_setor");
 
@@ -211,7 +211,7 @@ document.addEventListener("DOMContentLoaded", function() {
       optionMaquina.value = maquina.id;
       optionMaquina.textContent = maquina.nome;
       inpMaquina.appendChild(optionMaquina);
-      
+
       setores.add(maquina.setor);
     });
 
@@ -241,7 +241,7 @@ document.addEventListener("DOMContentLoaded", function() {
   inpMaquina.addEventListener("change", () => filtrarDados(maquinas));
   inpSetor.addEventListener("change", () => filtrarDados(maquinas));
 
-  fetch('/dashboard/filtrar_maquinas/${maquinas}',) 
+  fetch('/dashboard/filtrar_maquinas/${maquinas}',)
   method: 'GET'
     .then(response => response.json())
     .then(maquinas => {
@@ -320,6 +320,7 @@ function cadastrarMaquina() {
 }
 
 
+
 function listar_processos(id_setor) {
   let id_div_processos = document.getElementById('lista_bloqueios')
   id_div_processos.innerHTML = ``
@@ -376,20 +377,21 @@ function deletarMaquina(id_maquina) {
   })
     .then(function (resposta) {
       if (resposta.ok) {
-        location.reload()
+        location.reload();
       } else if (resposta.status == 404) {
-        window.alert('Deu 404!')
+        window.alert('Máquina não encontrada (404).');
       } else {
-        throw (
-          'Houve um erro ao tentar realizar a postagem! Código da resposta: ' +
-          resposta.status
-        )
+        resposta.json().then(erro => {
+          throw new Error('Houve um erro ao tentar deletar a máquina: ' + erro.error);
+        });
       }
     })
-    .catch(function (resposta) {
-      console.log(`#ERRO: ${resposta}`)
-    })
+    .catch(function (erro) {
+      console.error('#ERRO: ', erro);
+      window.alert('Erro ao deletar máquina: ' + erro.message);
+    });
 }
+
 
 let intervalo
 let id_maquina_pesquisa
