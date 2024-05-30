@@ -156,6 +156,7 @@ function listarMaquinas(fksetor, acesso) {
           <div class="icon-todos">
             <div class="lixeira-lapis">
                 <div class="icon-trash1" onclick="abrirExcluir(${maquinas.id_maquina}, '${maquinas.nome_maquina}'); event.stopPropagation(); event.preventDefault();"></div>
+                <div class="icon-pencil" onclick="abrirEditar(${maquinas.id_maquina}, '${maquinas.nome_maquina}', '${maquinas.modelo_maquina}'); event.stopPropagation(); event.preventDefault();"></div>
             </div>
            <div id="maquina_${maquinas.id_maquina}" class="icon-laptop1"></div>
         </div>
@@ -258,13 +259,37 @@ document.addEventListener("DOMContentLoaded", function () {
 function abrirExcluir(id_maquina, nome_maquina) {
   let nomeMaquina = document.getElementById('span_nomeMaquina')
   let popupExcluir = document.getElementById('deletar_maquina')
+  let popuoEditar = document.getElementById('editar_maquina')
   let add_maquina = document.getElementById('pop-add-maquinas')
   let lista = document.getElementById('lista-processos')
 
   add_maquina.style.display = 'none'
   lista.style.display = 'none'
+  popuoEditar.style.display = 'none'
 
   popupExcluir.style.display = 'flex'
+  nomeMaquina.innerHTML = nome_maquina
+
+  sessionStorage.IDMAQUINA = id_maquina
+}
+
+
+function abrirEditar(id_maquina, nome_maquina, modelo_maquina) {
+  let nomeMaquina = document.getElementById('span_nomeMaquina')
+  let popupExcluir = document.getElementById('deletar_maquina')
+  let popuoEditar = document.getElementById('editar_maquina')
+  let add_maquina = document.getElementById('pop-add-maquinas')
+  let lista = document.getElementById('lista-processos')
+
+
+  editar_modelo_maquina.value = nome_maquina
+  editar_nome_maquina.value = modelo_maquina
+
+  add_maquina.style.display = 'none'
+  lista.style.display = 'none'
+  popupExcluir.style.display = 'none'
+
+  popuoEditar.style.display = 'flex'
   nomeMaquina.innerHTML = nome_maquina
 
   sessionStorage.IDMAQUINA = id_maquina

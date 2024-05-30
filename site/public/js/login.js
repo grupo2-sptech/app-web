@@ -53,13 +53,11 @@ function entrar() {
             sessionStorage.SETOR = json.setor
             sessionStorage.ID_EMPRESA = json.fk_empresa
             if (json.permissao == 1) {
-              setTimeout(() => {
-                if (json.permissao_total == 1) {
-                  window.location.href = './cadastroEmpresa.html'
-                } else {
-                  window.location.href = './dashboard/dashboard.html'
-                }
-              }, 2000)
+              if (json.permissao_total == 1) {
+                window.location.href = './cadastroEmpresa.html'
+              } else {
+                window.location.href = './dashboard/dashboard.html'
+              }
             } else {
               setTimeout(() => {
                 div_carregar.style.display = 'none'

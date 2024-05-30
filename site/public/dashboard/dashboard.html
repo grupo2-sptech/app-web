@@ -87,8 +87,8 @@
       <div class="cabecalio">
         <h4>Notificações</h4><i onclick="limparNotificacao()">Limpar</i>
       </div>
-      
-      <div  id="notificacao">
+
+      <div id="notificacao">
       </div>
     </div>
 
@@ -337,12 +337,11 @@
         <samp style="color: white; margin-left: 10px;">Deletar máquina</samp>
         <div onclick="fechar_tela()" class="icon-plus xtela"></div>
       </div>
+
       <div class="lista2">
         <p style="padding: 10px; text-align: justify;">Tem certeza de que deseja excluir a <strong
-            id="span_nomeMaquina"></strong>?<br><br> Esta é
-          uma operação irreversível, e todos
-          os registros históricos de hardware, incluindo configurações, logs, e outras informações associadas, serão
-          perdidos.
+            id="span_nomeMaquina"></strong>?<br><br> Esta é uma operação irreversível, e todos os registros históricos
+          de hardware, incluindo configurações, logs e outras informações associadas, serão perdidos.
         </p>
         <div style="display: flex; width: 100%; flex-direction: column; align-items: center;">
           <div>
@@ -379,6 +378,30 @@
             <button onclick="cadastrarMaquina()" class="btm-confirmar">Cadastrar</button>
           </div>
           <span id="preecha_campos_maquina" style="color: red; display: none; text-align: center;">
+            Preecha todos os campos!
+          </span>
+        </div>
+      </div>
+    </div>
+    <div style="display: none;" id="editar_maquina" class="tela-lista-processos">
+      <div class="barra-lista">
+        <samp style="color: white; margin-left: 10px;">Editar Informações da máquina</samp>
+        <div onclick="fechar_tela()" class="icon-plus xtela"></div>
+      </div>
+      <div class="pop-maquina">
+        <div class="form">
+          <div class="form-element">
+            <label for="nome">Nome da máquina</label>
+            <input type="text" id="editar_nome_maquina">
+          </div>
+          <div class="form-element">
+            <label for="modelo">Modelo da máquina</label>
+            <input type="text" id="editar_modelo_maquina">
+          </div>
+          <div class="form-element">
+            <button onclick="atualizarMaquina()" class="btm-confirmar">Confirmar</button>
+          </div>
+          <span id="preecha_campos_editar" style="color: red; display: none; text-align: center;">
             Preecha todos os campos!
           </span>
         </div>
@@ -439,8 +462,10 @@
   function adicionarmaquina() {
     document.getElementById('pop-add-maquinas').style.display = 'flex'
     let lista = document.getElementById('deletar_maquina')
+    let editar = document.getElementById('editar_maquina')
     let deletar = document.getElementById('lista-processos')
     lista.style.display = 'none';
+    editar.style.display = 'none';
     deletar.style.display = 'none';
   }
 
@@ -448,8 +473,10 @@
     let add_maquina = document.getElementById('pop-add-maquinas')
     let lista = document.getElementById('deletar_maquina')
     let deletar = document.getElementById('lista-processos')
+    let editar = document.getElementById('editar_maquina')
 
     add_maquina.style.display = 'none';
+    editar.style.display = 'none';
     lista.style.display = 'none';
     deletar.style.display = 'none';
   }

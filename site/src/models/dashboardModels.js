@@ -259,8 +259,13 @@ function alerta(id_setor) {
   let query;
 
   query = `
-  select m.nome_maquina,a.id_alerta, a.descricao_alerta, a.data_hora from alerta as a
-  join maquina as m on id_maquina = fk_maquina where fk_setor = ${id_setor}`;
+  SELECT m.nome_maquina, a.id_alerta, a.descricao_alerta, a.data_hora 
+FROM alerta AS a
+JOIN maquina AS m ON m.id_maquina = a.fk_maquina 
+WHERE m.fk_setor = ${id_setor}
+  AND a.data_hora >= DATEADD(hour, -1, GETDATE())
+ORDER BY a.data_hora DESC;
+;`
 
   return database.executar(query)
 }
