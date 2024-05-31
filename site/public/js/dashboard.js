@@ -94,6 +94,7 @@ function atualizar_maquina_tempo_real(
           status.innerHTML = 'Ligado'
           pc.style.color = '#144a00'
           pc.style.animation = 'none'
+          verificaAtividadeMaquinas()
 
           // Atualiza cor e estilo do indicador de CPU
           atualizarCorIndicador(
@@ -117,11 +118,12 @@ function atualizar_maquina_tempo_real(
           status.innerHTML = 'Desligado'
           pc.style.color = 'black'
           pc.style.animation = 'none'
-            // Define todos os indicadores como inativos (cor cinza)
-            ;[bolinha_cpu, bolinha_ram, bolinha_disco].forEach(bolinha => {
-              bolinha.style.background = '#d2d2d2'
-              bolinha.style.animation = 'none'
-            })
+          verificaAtividadeMaquinas()
+          // Define todos os indicadores como inativos (cor cinza)
+          ;[bolinha_cpu, bolinha_ram, bolinha_disco].forEach(bolinha => {
+            bolinha.style.background = '#d2d2d2'
+            bolinha.style.animation = 'none'
+          })
         }
       })
     })
@@ -156,7 +158,7 @@ function listarMaquinas(fksetor, acesso) {
           <div class="icon-todos">
             <div class="lixeira-lapis">
                 <div class="icon-trash1" onclick="abrirExcluir(${maquinas.id_maquina}, '${maquinas.nome_maquina}'); event.stopPropagation(); event.preventDefault();"></div>
-                <div class="icon-pencil" onclick="abrirEditar(${maquinas.id_maquina}, '${maquinas.nome_maquina}', '${maquinas.modelo_maquina}'); event.stopPropagation(); event.preventDefault();"></div>
+                <div class="icon-pencil" onclick="abrirEditar(${maquinas.id_maquina}, '${maquinas.modelo_maquina}', '${maquinas.nome_maquina}'); event.stopPropagation(); event.preventDefault();"></div>
             </div>
            <div id="maquina_${maquinas.id_maquina}" class="icon-laptop1"></div>
         </div>
@@ -165,7 +167,6 @@ function listarMaquinas(fksetor, acesso) {
               <p>Nome: ${maquinas.nome_maquina}</p>
               <p>Modelo: ${maquinas.modelo_maquina}</p>
               <p>Status: <strong id="status_maquina${maquinas.id_maquina}"></strong></p>
-              <p id = "user${maquinas.id_maquina}">Usuário: </p>
             </div>
             <div class="descricao-status">
               <div class="descricao-componenete">
@@ -200,61 +201,90 @@ function listarMaquinas(fksetor, acesso) {
     })
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-  const inpMaquina = document.getElementById("inp_maquina");
-  const inpSetor = document.getElementById("inp_setor");
+/* setTimeout(() => {
+  verificaAtividadeMaquinas()
+}, 3500) */
+
+function verificaAtividadeMaquinas() {
+  let totalMaquinas = document.getElementById('total_maquinas')
+  let maquinasLigadas = document.getElementById('maquinas_ligadas')
+  let maquinasDesligadas = document.getElementById('maquinas_desligadas')
+
+  const cards = document.querySelectorAll('#div_funcaoMaquina .card-acao')
+  let cardsAtivos = []
+  let quantidadeTotalCards = cards.length
+
+  cards.forEach(card => {
+    const statusElement = card.querySelector(
+      '.descricao-titulo strong[id^="status_maquina"]'
+    )
+    if (
+      statusElement &&
+      statusElement.textContent.trim().toLowerCase() === 'ligado'
+    ) {
+      cardsAtivos.push(card)
+    }
+  })
+
+  totalMaquinas.innerHTML = quantidadeTotalCards
+  maquinasLigadas.innerHTML = cardsAtivos.length
+  maquinasDesligadas.innerHTML = quantidadeTotalCards - cardsAtivos.length
+}
+
+// Exibe a quantidade de cards ativos e a quantidade total de cards
+
+/* document.addEventListener('DOMContentLoaded', function () {
+  const inpMaquina = document.getElementById('inp_maquina')
+  const inpSetor = document.getElementById('inp_setor')
 
   function preencherSelects(maquinas) {
-    const setores = new Set();
+    const setores = new Set()
 
     maquinas.forEach(maquina => {
-      const optionMaquina = document.createElement("option");
-      optionMaquina.value = maquina.id;
-      optionMaquina.textContent = maquina.nome;
-      inpMaquina.appendChild(optionMaquina);
+      const optionMaquina = document.createElement('option')
+      optionMaquina.value = maquina.id
+      optionMaquina.textContent = maquina.nome
+      inpMaquina.appendChild(optionMaquina)
 
-      setores.add(maquina.setor);
-    });
+      setores.add(maquina.setor)
+    })
 
     setores.forEach(setor => {
-      const optionSetor = document.createElement("option");
-      optionSetor.value = setor;
-      optionSetor.textContent = setor;
-      inpSetor.appendChild(optionSetor);
-    });
+      const optionSetor = document.createElement('option')
+      optionSetor.value = setor
+      optionSetor.textContent = setor
+      inpSetor.appendChild(optionSetor)
+    })
   }
 
   function filtrarDados(maquinas) {
-    const maquinaSelecionada = inpMaquina.value;
-    const setorSelecionado = inpSetor.value;
+    const maquinaSelecionada = inpMaquina.value
+    const setorSelecionado = inpSetor.value
 
     const resultado = maquinas.filter(maquina => {
       return (
-        (maquinaSelecionada === "" || maquina.id == maquinaSelecionada) &&
-        (setorSelecionado === "" || maquina.setor === setorSelecionado)
-      );
-    });
+        (maquinaSelecionada === '' || maquina.id == maquinaSelecionada) &&
+        (setorSelecionado === '' || maquina.setor === setorSelecionado)
+      )
+    })
 
-    console.log("Resultado do filtro:", resultado);
+    console.log('Resultado do filtro:', resultado)
     // Aqui você pode atualizar a UI com os resultados filtrados
   }
 
-  inpMaquina.addEventListener("change", () => filtrarDados(maquinas));
-  inpSetor.addEventListener("change", () => filtrarDados(maquinas));
+  inpMaquina.addEventListener('change', () => filtrarDados(maquinas))
+  inpSetor.addEventListener('change', () => filtrarDados(maquinas))
 
-  fetch('/dashboard/filtrar_maquinas/${maquinas}',)
+  fetch('/dashboard/filtrar_maquinas/${maquinas}')
   method: 'GET'
     .then(response => response.json())
     .then(maquinas => {
-      preencherSelects(maquinas);
-      inpMaquina.addEventListener("change", () => filtrarDados(maquinas));
-      inpSetor.addEventListener("change", () => filtrarDados(maquinas));
+      preencherSelects(maquinas)
+      inpMaquina.addEventListener('change', () => filtrarDados(maquinas))
+      inpSetor.addEventListener('change', () => filtrarDados(maquinas))
     })
-    .catch(error => console.error('Erro ao buscar dados:', error));
-});
-
-
-
+    .catch(error => console.error('Erro ao buscar dados:', error))
+}) */
 
 function abrirExcluir(id_maquina, nome_maquina) {
   let nomeMaquina = document.getElementById('span_nomeMaquina')
@@ -273,14 +303,12 @@ function abrirExcluir(id_maquina, nome_maquina) {
   sessionStorage.IDMAQUINA = id_maquina
 }
 
-
 function abrirEditar(id_maquina, nome_maquina, modelo_maquina) {
   let nomeMaquina = document.getElementById('span_nomeMaquina')
   let popupExcluir = document.getElementById('deletar_maquina')
   let popuoEditar = document.getElementById('editar_maquina')
   let add_maquina = document.getElementById('pop-add-maquinas')
   let lista = document.getElementById('lista-processos')
-
 
   editar_modelo_maquina.value = nome_maquina
   editar_nome_maquina.value = modelo_maquina
@@ -315,36 +343,37 @@ function verificarSenha() {
 }
 
 function cadastrarMaquina() {
-  let nome_maquina = document.getElementById('nome_maquina').value;
-  let modelo_maquina = document.getElementById('modelo_maquina').value;
-  let campo = document.getElementById('preecha_campos_maquina');
+  let nome_maquina = document.getElementById('nome_maquina').value
+  let modelo_maquina = document.getElementById('modelo_maquina').value
+  let campo = document.getElementById('preecha_campos_maquina')
 
   if (!nome_maquina || !modelo_maquina) {
-    campo.style.display = 'block';
-    campo.innerHTML = 'Preencha todos os campos';
+    campo.style.display = 'block'
+    campo.innerHTML = 'Preencha todos os campos'
   } else {
-    fetch(`/dashboard/cadastrar_maquina/${nome_maquina}/${modelo_maquina}/${sessionStorage.SETOR}/${sessionStorage.ID_EMPRESA}`, {
-      method: 'POST'
-    })
+    fetch(
+      `/dashboard/cadastrar_maquina/${nome_maquina}/${modelo_maquina}/${sessionStorage.SETOR}/${sessionStorage.ID_EMPRESA}`,
+      {
+        method: 'POST'
+      }
+    )
       .then(resposta => resposta.json())
       .then(dado => {
         if (dado.id !== undefined) {
-          campo.innerHTML = `Cadastro realizado com sucesso!<br>Código de cadastro da máquina: <strong>${dado.id}</strong>`;
-          campo.style.display = 'block';
-          campo.style.color = 'black';
+          campo.innerHTML = `Cadastro realizado com sucesso!<br>Código de cadastro da máquina: <strong>${dado.id}</strong>`
+          campo.style.display = 'block'
+          campo.style.color = 'black'
         } else {
-          campo.innerHTML = 'Erro ao obter o Código de cadastro.';
-          campo.style.display = 'block';
+          campo.innerHTML = 'Erro ao obter o Código de cadastro.'
+          campo.style.display = 'block'
         }
       })
       .catch(err => {
-        campo.innerHTML = `Erro: ${err.message}`;
-        console.error('Erro ao cadastrar máquina:', err);
-      });
+        campo.innerHTML = `Erro: ${err.message}`
+        console.error('Erro ao cadastrar máquina:', err)
+      })
   }
 }
-
-
 
 function listar_processos(id_setor) {
   let id_div_processos = document.getElementById('lista_bloqueios')
@@ -402,49 +431,49 @@ function deletarMaquina(id_maquina) {
   })
     .then(function (resposta) {
       if (resposta.ok) {
-        location.reload();
+        location.reload()
       } else if (resposta.status == 404) {
-        window.alert('Máquina não encontrada (404).');
+        window.alert('Máquina não encontrada (404).')
       } else {
         resposta.json().then(erro => {
-          throw new Error('Houve um erro ao tentar deletar a máquina: ' + erro.error);
-        });
+          throw new Error(
+            'Houve um erro ao tentar deletar a máquina: ' + erro.error
+          )
+        })
       }
     })
     .catch(function (erro) {
-      console.error('#ERRO: ', erro);
-      window.alert('Erro ao deletar máquina: ' + erro.message);
-    });
+      console.error('#ERRO: ', erro)
+      window.alert('Erro ao deletar máquina: ' + erro.message)
+    })
 }
-
 
 let intervalo
 let id_maquina_pesquisa
 
-
 document.addEventListener('DOMContentLoaded', function () {
-  let switchFlat1 = document.getElementById('switch-flat1');
+  let switchFlat1 = document.getElementById('switch-flat1')
 
   switchFlat1.checked = true
 
   if (switchFlat1) {
     switchFlat1.addEventListener('change', function (event) {
-      let grafico_geral = document.getElementById('grafico_geral');
+      let grafico_geral = document.getElementById('grafico_geral')
       if (!event.target.checked) {
         if (grafico_geral) {
           setTimeout(function () {
-            grafico_geral.style.display = 'none';
-          }, 500);
+            grafico_geral.style.display = 'none'
+          }, 500)
         }
       } else {
         setTimeout(function () {
-          grafico_geral.style.display = 'flex';
-          atualizarGraficoGeral(sessionStorage.SETOR);
-        }, 500);
+          grafico_geral.style.display = 'flex'
+          atualizarGraficoGeral(sessionStorage.SETOR)
+        }, 500)
       }
-    });
+    })
   }
-});
+})
 
 function atualizarGraficoGeral(id_setor) {
   fetch(`/dashboard/grafico_geral/${id_setor}`, {
@@ -455,45 +484,45 @@ function atualizarGraficoGeral(id_setor) {
   }).then(function (res) {
     if (res.ok) {
       res.json().then(dados => {
-        let labels = dados.map(dado => dado.nome);
-        let data = dados.map(dado => dado.quantidade_bloqueios);
+        let labels = dados.map(dado => dado.nome)
+        let data = dados.map(dado => dado.quantidade_bloqueios)
 
-        console.log(labels);  // Log para verificar os labels extraídos
-        console.log(data);
+        console.log(labels) // Log para verificar os labels extraídos
+        console.log(data)
 
-        myChartGeral.data.labels = labels;
-        myChartGeral.data.datasets[0].data = data;
+        myChartGeral.data.labels = labels
+        myChartGeral.data.datasets[0].data = data
 
         // Atualiza o gráfico
-        myChartGeral.update();
+        myChartGeral.update()
       })
     } else {
-      console.log("Erro no fecth");
+      console.log('Erro no fecth')
     }
   })
 }
 
-let ultimaNotificacaoId = null; // Variável para armazenar o ID da última notificação recebida
-let notificacoesAntigas = [];
+let ultimaNotificacaoId = null // Variável para armazenar o ID da última notificação recebida
+let notificacoesAntigas = []
 
-let temnoficica = true;
-let interrope = true// Variável para armazenar notificações antigas
+let temnoficica = true
+let interrope = true // Variável para armazenar notificações antigas
 
 function contadorNotifica(quantidade_notifica) {
-  let div_contador = document.getElementById('contaNotifica');
-  div_contador.textContent = quantidade_notifica; // Atualiza o contador
+  let div_contador = document.getElementById('contaNotifica')
+  div_contador.textContent = quantidade_notifica // Atualiza o contador
 }
 
 function abrirNotifica() {
-  let div_notifica = document.getElementById('div_notifica');
+  let div_notifica = document.getElementById('div_notifica')
 
   // Alternar a visibilidade da div de notificações
   if (div_notifica.style.display === 'flex') {
-    div_notifica.style.display = 'none';
+    div_notifica.style.display = 'none'
   } else {
-    div_notifica.style.display = 'flex';
-    contadorNotifica(0); // Zerar o contador
-    exibirNotificacoes(); // Exibir notificações quando a div é aberta
+    div_notifica.style.display = 'flex'
+    contadorNotifica(0) // Zerar o contador
+    exibirNotificacoes() // Exibir notificações quando a div é aberta
   }
 }
 
@@ -512,7 +541,7 @@ function atualizarAlertas(id_setor, isOpened = false) {
     if (res.ok) {
       res.json().then(dados => {
         // Variáveis para armazenar notificações novas e antigas
-        let notificacoesNovas = [];
+        let notificacoesNovas = []
 
         // Mapear as novas notificações do banco de dados
         let novasNotificacoes = dados.map(dado => ({
@@ -520,59 +549,57 @@ function atualizarAlertas(id_setor, isOpened = false) {
           nome_maquina: dado.nome_maquina,
           descricao_alerta: dado.descricao_alerta,
           data_hora: dado.data_hora
-        }));
+        }))
 
         novasNotificacoes.forEach(nova => {
           notificacoesNovas.push(nova)
-        });
+        })
 
         if (temnoficica) {
-          notificacoesAntigas = novasNotificacoes;
+          notificacoesAntigas = novasNotificacoes
           temnoficica = false
         }
 
         if (interrope) {
           notificacoesNovas.forEach(exibir => {
             adicionarNotificacaoNaInterface(exibir)
-          });
+          })
           contadorNotifica(notificacoesNovas.length)
           interrope = false
         }
 
         if (notificacoesAntigas.length != notificacoesNovas.length) {
-          let qtnnotifica = notificacoesNovas.length - notificacoesAntigas.length;
-          contadorNotifica(qtnnotifica);
-          temnoficica = true;
+          let qtnnotifica =
+            notificacoesNovas.length - notificacoesAntigas.length
+          contadorNotifica(qtnnotifica)
+          temnoficica = true
 
           // Atualizar as notificações antigas
-          notificacoesAntigas = [...notificacoesNovas];
+          notificacoesAntigas = [...notificacoesNovas]
 
           // Pegar os últimos qtnnotifica itens de notificacoesNovas
-          let novasNotificacoes = notificacoesNovas.slice(-qtnnotifica);
-
-          // Adicionar apenas as novas notificações na interface
-          novasNotificacoes.forEach(exibir => {
-            adicionarNotificacaoNaInterface(exibir);
-          });
+          let novasNotificacoes = notificacoesNovas.slice(-qtnnotifica)
+          novasNotificacoes.reverse().forEach(exibir => {
+            adicionarNotificacaoNaInterface(exibir)
+          })
         }
-
-      });
+      })
     }
-  });
+  })
 }
 
 // Função para adicionar uma notificação na interface
 function adicionarNotificacaoNaInterface(novaNotificacao) {
-  let dataHora = new Date(novaNotificacao.data_hora);
-  let dia = String(dataHora.getDate()).padStart(2, '0');
-  let mes = String(dataHora.getMonth() + 1).padStart(2, '0'); // Meses começam do 0
-  let ano = dataHora.getFullYear();
-  let horas = String(dataHora.getHours()).padStart(2, '0');
-  let minutos = String(dataHora.getMinutes()).padStart(2, '0');
-  let segundos = String(dataHora.getSeconds()).padStart(2, '0');
+  let dataHora = new Date(novaNotificacao.data_hora)
+  let dia = String(dataHora.getDate()).padStart(2, '0')
+  let mes = String(dataHora.getMonth() + 1).padStart(2, '0') // Meses começam do 0
+  let ano = dataHora.getFullYear()
+  let horas = String(dataHora.getHours()).padStart(2, '0')
+  let minutos = String(dataHora.getMinutes()).padStart(2, '0')
+  let segundos = String(dataHora.getSeconds()).padStart(2, '0')
 
-  let dataHoraFormatada = `${dia}/${mes}/${ano} às ${horas}:${minutos}:${segundos}`;
-  let notifica = document.getElementById('notificacao');
+  let dataHoraFormatada = `${dia}/${mes}/${ano} às ${horas}:${minutos}:${segundos}`
+  let notifica = document.getElementById('notificacao')
   notifica.innerHTML += `<div class="alertas">
     <div class="mensagem_alerta">
       <div class="icon-warning"></div>
@@ -582,30 +609,27 @@ function adicionarNotificacaoNaInterface(novaNotificacao) {
         <i class="data_hora">${dataHoraFormatada}</i>
       </div>
     </div>
-  </div>`;
+  </div>`
 }
 
 // Verificação contínua a cada segundo para atualizações de alertas
 setInterval(() => {
-  atualizarAlertas(sessionStorage.SETOR);
-}, 1000);
+  atualizarAlertas(sessionStorage.SETOR)
+}, 1000)
 
 function limparNotificacao() {
-  let notifica = document.getElementById('notificacao');
-  notifica.innerHTML = '';
+  let notifica = document.getElementById('notificacao')
+  notifica.innerHTML = ''
 }
 
-
 function atualizar_grafico_tempo_real(id_maquina) {
-
   // Primeiro, selecione o elemento do botão usando seu ID
-  let switchFlat1 = document.getElementById('switch-flat1');
+  let switchFlat1 = document.getElementById('switch-flat1')
 
   switchFlat1.checked = false
 
   let grafico_geral = document.getElementById('grafico_geral')
   grafico_geral.style.display = 'none'
-
 
   let dadoGraficoCpu = [
     null,
@@ -731,7 +755,7 @@ function atualizar_grafico_tempo_real(id_maquina) {
     null,
     null
   ]
-  let dadosGraficoDisco = [0, 0];
+  let dadosGraficoDisco = [0, 0]
   clearInterval(intervalo)
 
   intervalo = setInterval(() => {
@@ -751,8 +775,7 @@ function atualizar_grafico_tempo_real(id_maquina) {
               nome_usuario_maquina.innerHTML = `Monitoramento em tempo real da máquina de ${informacoes[0].nome_maquina}`
               dadoGraficoRam.shift()
               dadoGraficoRam.push(
-                (informacoes[0].ram_ocupada / informacoes[0].ram_total_gb) *
-                100
+                (informacoes[0].ram_ocupada / informacoes[0].ram_total_gb) * 100
               )
               myChartRam.data.datasets[0].data = dadoGraficoRam
               myChartRam.update()
@@ -929,11 +952,11 @@ function buscarPorData() {
         myChartRam.data.labels = label_hist
 
         myChartCpu.data.datasets[0].data = [
-          dados[0] = 7,
-          dados[0] = 10,
-          dados[0] = 11,
-          dados[0] = 9,
-          dados[0] = 10
+          (dados[0] = 7),
+          (dados[0] = 10),
+          (dados[0] = 11),
+          (dados[0] = 9),
+          (dados[0] = 10)
         ]
         myChartCpu.update()
         myChartRam.data.datasets[0].data = [
@@ -998,30 +1021,34 @@ function atualizarDadosDaMaquina(id_maquina) {
     cache: 'no-store'
   }).then(function (resposta) {
     resposta.json().then(informacoes => {
-      modelo.innerHTML = `Modelo do processador: ${informacoes[0].modelo_processador}`
-      fabricante.innerHTML = `Fabricante: ${informacoes[0].fabricante_processador}`
-      ram.innerHTML = `Volume total de Ram: ${informacoes[0].ram_total_gb}`
-      disco.innerHTML = `Modelo: ${informacoes[0].modelo_disco}`
-      volume.innerHTML = `Volume total: ${informacoes[0].memoria_total_gb}`
-      sistema.innerHTML = `Sistema operacional: ${informacoes[0].sistema_operacional}`
-      arquitetura.innerHTML = `Arquitetura: ${informacoes[0].arquitetura_sistema_operacional}`
+      modelo.innerHTML = `  ${
+        informacoes[0].modelo_processador == ''
+          ? 'Indefinido'
+          : informacoes[0].modelo_processador
+      }`
+      fabricante.innerHTML = `  ${informacoes[0].fabricante_processador}`
+      ram.innerHTML = ` ${informacoes[0].ram_total_gb}`
+      disco.innerHTML = ` ${informacoes[0].modelo_disco}`
+      volume.innerHTML = ` ${informacoes[0].memoria_total_gb}`
+      sistema.innerHTML = `  ${informacoes[0].sistema_operacional}`
+      arquitetura.innerHTML = `  ${informacoes[0].arquitetura}`
     })
   })
 }
-let elementoSelecionado = null;
+let elementoSelecionado = null
 
 function cardSelecionado(id_maquina) {
-  const id = document.getElementById(id_maquina);
+  const id = document.getElementById(id_maquina)
 
   if (elementoSelecionado !== null) {
-    elementoSelecionado.style.border = '';
+    elementoSelecionado.style.border = ''
   }
 
   if (elementoSelecionado === id) {
-    elementoSelecionado = null;
+    elementoSelecionado = null
   } else {
-    id.style.border = '3px solid #2e4959';
-    elementoSelecionado = id;
+    id.style.border = '3px solid #2e4959'
+    elementoSelecionado = id
   }
 }
 
@@ -1075,4 +1102,5 @@ function listaProcessos(id_setor) {
     console.error('Houve um problema com a solicitação fetch: ', error);
   });
 };
+
 
