@@ -1042,3 +1042,21 @@ function ocultarAcao(id) {
   }
 }
 
+function listaProcessos (id_setor) {
+  var cardRedeSocial = document.getElementById('cardRedeSocial')
+  var cardPlataforma = document.getElementById('cardPlataforma')
+  var cardStreaming = document.getElementById('cardStreaming')
+  var cardNoticias = document.getElementById('cardNoticias')
+  var cardJogos = document.getElementById('cardJogos')
+
+  fetch(`listaProcesos/${id_setor}`, {
+    method: 'GET'
+  }).then(function (resposta){
+    if(pj.fk_categoria == 1){
+      resposta.json().then(processos_janela => {
+        
+      })
+    }
+  })
+};
+

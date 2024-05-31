@@ -40,7 +40,10 @@ router.post(
   function (req, res) {
     dashboardController.cadastrar_maquina(req, res);
   }
-);
+)
+router.get('/listaProcessos/:id_setor', function (req,res) {
+  dashboardController.listar_processos(req, res)
+})
 
 
 module.exports = router
