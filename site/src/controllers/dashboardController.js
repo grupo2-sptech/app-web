@@ -218,6 +218,22 @@ function alerta(req, res) {
   }
 }
 
+function listaProcessos(req, res) {
+  dashboardModel
+    .listaProcessos()
+    .then(function (resultado) {
+      if (resultado.length > 0) {
+        res.status(200).json(resultado);
+      } else {
+        res.status(204).send('Nenhum resultado encontrado!');
+      }
+    })
+    .catch(erro => {
+      console.log(erro.sqlMessage);
+      res.status(500).json({ error: erro.sqlMessage });
+    });
+}
+
 
 
 

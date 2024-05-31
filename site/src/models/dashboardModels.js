@@ -270,6 +270,18 @@ function alerta(id_setor) {
   return database.executar(query)
 }
 
+function listaProcessos(id_setor) {
+  let query
+
+  query = `select pj.titulo_processo, pj.fk_categoria, ctp.ativo
+  from card_tem_processo as ctp
+  join processos_janelas as pj
+  on ctp.fk_processo_card = pj.id_processo
+  where ctp.fk_setor_card = ${id_setor};`
+
+  return database.executar(query)
+}
+
 module.exports = {
   listarMaquinas,
   cap_dados,
@@ -281,5 +293,6 @@ module.exports = {
   listar_processos,
   cadastrar_maquina,
   atualizar_geral,
-  alerta
+  alerta,
+  listaProcessos
 }
