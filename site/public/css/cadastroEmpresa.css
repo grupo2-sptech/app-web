@@ -1,304 +1,309 @@
+/** @format */
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
 .mainGerenciarUsuario {
-    height: 100%;
-    width: 95%;
-    display: flex;
-    flex-direction: column;
-    margin-left: 5%;
+  height: 100%;
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  margin-left: 5%;
 }
 
 .tituloGerenciar {
-    width: 100%;
-    height: 100px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .titulo {
-    margin-left: 5%;
+  margin-left: 5%;
 }
 
 .tituloGerenciar .icon-add_business {
-    font-size: 50px;
-    margin-right: 5%;
-    cursor: pointer;
-    transition: 300ms;
-    color: #2e4959;
+  font-size: 50px;
+  margin-right: 5%;
+  cursor: pointer;
+  transition: 300ms;
+  color: #2e4959;
 }
 
 .tituloGerenciar .icon-add_business:hover {
-    color: #0a151f;
+  color: #0a151f;
 }
 
-.icon-office{
-    font-size: 20px; 
+.icon-office {
+  font-size: 20px;
 }
 
 .menuGerenciar {
-    overflow-y: auto;
-    /* Permite rolagem vertical quando necessário */
-    overflow-x: hidden;
-    /* Oculta a rolagem horizontal */
-    margin-left: 1%;
-    width: 98%;
-    height: 85vh;
-    /* Define a altura como 80% da altura da viewport */
-    display: flex;
-    flex-direction: column;
+  overflow-y: auto;
+  /* Permite rolagem vertical quando necessário */
+  overflow-x: hidden;
+  /* Oculta a rolagem horizontal */
+  margin-left: 1%;
+  width: 98%;
+  height: 85vh;
+  /* Define a altura como 80% da altura da viewport */
+  display: flex;
+  flex-direction: column;
 }
 
-
 .rotulosGerenciar {
-    width: 100%;
-    height: 15%;
-    display: flex;
-    justify-content: space-around;
-    background-color: white;
+  width: 100%;
+  height: 15%;
+  display: flex;
+  justify-content: space-around;
+  background-color: white;
 }
 
 .rotulosGerenciar span {
-    font-size: 20px;
-    font-weight: bold;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .cardUsuarioMenu {
-    width: 100%;
-    height: 65%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
+  width: 100%;
+  height: 65%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 table,
 th,
 td {
-    border: none;
+  border: none;
 }
 
 th span {
-    font-size: 20px;
+  font-size: 20px;
 }
 
 td {
-    background-color: white;
-    font-size: 16px;
+  background-color: white;
+  font-size: 16px;
 }
 
 thead {
-    position: sticky;
-    top: 0;
-    background: #f1f1f1;
-    /* Cor de fundo do cabeçalho */
-    z-index: 1;
-    /* Garante que o cabeçalho fique acima do corpo */
+  position: sticky;
+  top: 0;
+  background: #f1f1f1;
+  /* Cor de fundo do cabeçalho */
+  z-index: 1;
+  /* Garante que o cabeçalho fique acima do corpo */
 }
 
 .icon-user {
-    font-size: 20px;
+  font-size: 20px;
 }
 
 tr {
-    height: 75px;
-    border: 1.5px solid black;
-    box-shadow: -10px 5px 15px rgba(0, 0, 0, 0.2);
+  height: 75px;
+  border: 1.5px solid black;
+  box-shadow: -10px 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .menuGerenciar::-webkit-scrollbar {
-    width: 10px;
-    /* largura da barra de rolagem */
+  width: 10px;
+  /* largura da barra de rolagem */
 }
 
 .menuGerenciar::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    /* cor de fundo da pista */
+  background: #f1f1f1;
+  /* cor de fundo da pista */
 }
 
 .menuGerenciar::-webkit-scrollbar-thumb {
-    background: #888;
-    /* cor do polegar */
-    border-radius: 5px;
-    /* borda arredondada para o polegar */
+  background: #888;
+  /* cor do polegar */
+  border-radius: 5px;
+  /* borda arredondada para o polegar */
 }
 
 .menuGerenciar::-webkit-scrollbar-thumb:hover {
-    background: #555;
-    /* cor do polegar ao passar o mouse */
+  background: #555;
+  /* cor do polegar ao passar o mouse */
 }
 
 .adicionarUsuario {
-    position: fixed;
-    right: 0;
-    top: 0;
-    width: 40%;
-    height: 96vh;
-    background-color: white;
-    padding: 20px;
-    border-radius: 45px 0px 0px 45px;
-    box-shadow: -10px 5px 15px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    display: none;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 40%;
+  height: 96vh;
+  background-color: white;
+  padding: 20px;
+  border-radius: 45px 0px 0px 45px;
+  box-shadow: -10px 5px 15px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  display: none;
 }
 
 .rotulosUsuario {
-    gap: 10px;
-    width: 100%;
-    height: 40%;
-    padding: 0 1rem;
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  height: 40%;
+  padding: 0 1rem;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .icon-trash,
 .icon-pencil {
-    cursor: pointer;
-    transition: 300ms;
+  cursor: pointer;
+  transition: 300ms;
 }
 
 .icon-trash:hover,
 .icon-pencil:hover {
-    color: #dd5c00;
-
+  color: #dd5c00;
 }
 
 .rotulos {
-    display: flex;
-    white-space: nowrap;
-    width: 100%;
-    align-items: start;
-    flex-grow: 1;
-    gap: 20%;
-    text-align: center;
-    margin-bottom: 1rem;
-    flex-shrink: 0;
+  display: flex;
+  white-space: nowrap;
+  width: 100%;
+  align-items: start;
+  flex-grow: 1;
+  gap: 20%;
+  text-align: center;
+  margin-bottom: 1rem;
+  flex-shrink: 0;
 }
 
 .rotulos label {
-    margin-top: 7px;
-    flex-basis: 30%;
-    font-size: 15px;
-    text-align: start;
-    width: 30%;
-    display: flex;
+  margin-top: 7px;
+  flex-basis: 30%;
+  font-size: 15px;
+  text-align: start;
+  width: 30%;
+  display: flex;
 }
 
 .rotulos input {
-    border: none;
-    display: flex;
-    justify-content: end;
-    border-bottom: 2px solid #ccc;
-    padding: 5px;
-    font-size: 14px;
-    align-items: end;
-    width:49%;
-    outline: none;
-    flex-grow: 1;
-    transition: border-color 0.3s ease;
+  border: none;
+  display: flex;
+  justify-content: end;
+  border-bottom: 2px solid #ccc;
+  padding: 5px;
+  font-size: 14px;
+  align-items: end;
+  width: 49%;
+  outline: none;
+  flex-grow: 1;
+  transition: border-color 0.3s ease;
 }
 
 .inputRotulos:focus {
-    border-bottom-color: #007BFF;
+  border-bottom-color: #007bff;
 }
 
 .sections {
-    display: none;
+  display: none;
 }
 
 .tab-selection {
-    display: flex;
-    justify-content: center;
-    gap: 38%;
-    margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 38%;
+  margin-top: 1rem;
 }
 
 .tab {
-    padding: 10px;
-    border: 1px solid #2e4959;
-    border-radius: 5px;
-    background-color: #2e4959;
-    color: white;
-    cursor: pointer;
-    transition: transform 0.3s, background-color 0.3s;
+  padding: 10px;
+  border: 1px solid #2e4959;
+  border-radius: 5px;
+  background-color: #2e4959;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.3s, background-color 0.3s;
 }
 
 .tab:hover {
-    background-color: #1b313f;
+  background-color: #1b313f;
 }
 
 .select-tab-hover {
-    background-color: #1b313f;
-    transform: scale(1.1);
+  background-color: #1b313f;
+  transform: scale(1.1);
 }
 
-
 .selectRotulos {
-    border: none;
-    border-bottom: 2px solid #ccc;
-    padding: 5px;
-    font-size: 14px;
-    width: 100%;
-    outline: none;
-    transition: border-color 0.3s ease;
-    background-color: transparent;
-    appearance: none;
-    flex-shrink: 0;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  padding: 5px;
+  font-size: 14px;
+  width: 100%;
+  outline: none;
+  transition: border-color 0.3s ease;
+  background-color: transparent;
+  appearance: none;
+  flex-shrink: 0;
 }
 
 .selectRotulos:focus {
-    border-bottom-color: #007BFF;
+  border-bottom-color: #007bff;
 }
 
 .botaoCancelar {
-    cursor: pointer;
-    background-color: #9e9d9d;
-    color: #fff;
-    border: none;
-    border-radius: 50px;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 14px;
-    display: inline-block;
-    transition: background-color 0.3s ease;
+  cursor: pointer;
+  background-color: #9e9d9d;
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 14px;
+  display: inline-block;
+  transition: background-color 0.3s ease;
 }
 
 .botaoCancelar:hover {
-    background-color: #757575;
+  background-color: #757575;
 }
 
 .botaoConfirmar {
-    background-color: #6cca6f;
-    color: #fff;
-    border: none;
-    border-radius: 50px;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 14px;
-    display: inline-block;
-    transition: background-color 0.3s ease;
+  background-color: #6cca6f;
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 14px;
+  display: inline-block;
+  transition: background-color 0.3s ease;
 }
 
 .botaoConfirmar:hover {
-    background-color: #338d38;
+  background-color: #338d38;
 }
 
 .selecionar {
-    height: 15px;
-    width: 15px;
-    border-radius: 50%;
-    background-color: #2e4959;
-    cursor: pointer;
-    transition: transform 0.5s;
-    /* Usando transform em vez de scale */
-    flex-shrink: 0;
-    /* Previne que os elementos encolham */
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  background-color: #2e4959;
+  cursor: pointer;
+  transition: transform 0.5s;
+  /* Usando transform em vez de scale */
+  flex-shrink: 0;
+  /* Previne que os elementos encolham */
 }
 
 .selecionar_hover {
-    transform: scale(1.3);
+  transform: scale(1.3);
 }
