@@ -1,8 +1,4 @@
-/**
- * const { dadosEmpresa } = require('../controllers/cadastroEmpController');
- *
- * @format
- */
+/** @format */
 
 var database = require('../database/config')
 

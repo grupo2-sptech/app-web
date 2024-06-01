@@ -145,7 +145,10 @@ let id_maquinas = []
 function listarMaquinas(fksetor, acesso) {
   var listaMaquinas = document.getElementById('div_funcaoMaquina')
   fetch(`/dashboard/listar/${fksetor}/${acesso}`, {
-    method: 'GET'
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
   })
     .then(function (resposta) {
       if (resposta.status == 204) {
