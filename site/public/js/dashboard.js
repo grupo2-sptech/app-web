@@ -145,7 +145,10 @@ let id_maquinas = []
 function listarMaquinas(fksetor, acesso) {
   var listaMaquinas = document.getElementById('div_funcaoMaquina')
   fetch(`/dashboard/listar/${fksetor}/${acesso}`, {
-    method: 'GET'
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
   })
     .then(function (resposta) {
       if (resposta.status == 204) {
@@ -1069,38 +1072,6 @@ function ocultarAcao(id) {
   }
 }
 
-function listaProcessos(id_setor) {
-  var cardRedeSocial = document.getElementById('cardRedeSocial');
-  var cardPlataforma = document.getElementById('cardPlataforma');
-  var cardStreaming = document.getElementById('cardStreaming');
-  var cardNoticias = document.getElementById('cardNoticias');
-  var cardJogos = document.getElementById('cardJogos');
 
-  fetch(`listaProcesos/${id_setor}`, {
-    method: 'GET'
-  })
-  .then(function(resposta) {
-    if (!resposta.ok) {
-      throw new Error('Network response was not ok');
-    }
-    return resposta.json();
-  })
-  .then(function(data) {
-    data.forEach(function(pj) {
-      if (pj.fk_categoria == 1) {
-        cardRedeSocial.innerHTML += `<div class="processo">
-          <p style="margin-left: 5%;">${pj.nome}</p>
-          <div class="switch__container" style="margin-right: 0;">
-            <input id="switch-flat${pj.nome}" class="switch switch--flat" type="checkbox">
-            <label for="switch-flat${pj.nome}"></label>
-          </div>
-        </div>`;
-      }
-    });
-  })
-  .catch(function(error) {
-    console.error('Houve um problema com a solicitação fetch: ', error);
-  });
-};
 
 

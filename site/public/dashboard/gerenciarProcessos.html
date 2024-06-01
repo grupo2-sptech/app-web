@@ -12,9 +12,10 @@
   <link rel="stylesheet" href="../css/gerenciarProcess.css">
   <script src="../js/dashboard.js"></script>
   <script src="../js/sessao.js"></script>
+  <script src="../js/gerenciarProcessos.js"></script>
 </head>
 
-<body onload="listaProcesso()">
+<body onload="listaProcessos(sessionStorage.SETOR)">
   <div id="menu" class="menuLateral">
     <a>
       <div class="logo">
@@ -77,17 +78,11 @@
             <h4>Redes Sociais Ativas</h4>
             <div class="listaProcessos" id="cardRedeSocial">
             
-              <div class="processo">
-                <p style="margin-left: 5%;">Facebook</p>
-                <div class="switch__container" style="margin-right: 0;">
-                  <input id="switch-flat" class="switch switch--flat" type="checkbox">
-                  <label for="switch-flat"></label>
-                </div>
-              </div>            
+        
 
             </div>
            
-            <div class="switch__container" style="height: 5% ;">
+            <div class="switch__container">
               <input id="switch-flat-redes" class="switch switch--flat" type="checkbox">
               <label for="switch-flat-redes"></label>
             </div>

@@ -42,7 +42,7 @@ function executar(instrucao, parametros = []) {
           return request.query(instrucao)
         })
         .then(function (resultados) {
-          console.log(resultados)
+          // console.log(resultados)
           resolve(resultados.recordset)
         })
         .catch(function (erro) {
@@ -62,7 +62,7 @@ function executar(instrucao, parametros = []) {
         if (erro) {
           reject(erro)
         }
-        console.log(resultados)
+        // console.log(resultados)
         resolve(resultados)
       })
       conexao.on('error', function (erro) {
