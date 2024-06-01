@@ -1,4 +1,4 @@
-const { dadosEmpresa } = require('../controllers/cadastroEmpController');
+// const { dadosEmpresa } = require('../controllers/cadastroEmpController');
 var database = require('../database/config');
 
 function listarEmpresa() {

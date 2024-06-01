@@ -6,7 +6,7 @@ function listaProcessos(id_setor) {
 
     console.log("PASSEI AQUI, ID_SETOR: ", id_setor);
 
-    query = `SELECT pj.titulo_processo, pj.fk_categoria, ctp.ativo
+    query = `SELECT pj.titulo_processo, pj.fk_categoria, ctp.ativo, ctp.fk_processo_card
              FROM card_tem_processo AS ctp
              JOIN processos_janelas AS pj
              ON ctp.fk_processo_card = pj.id_processo
@@ -24,5 +24,6 @@ function atualizaProcesso(ativo, id_setor,id_categoria) {
 }
 
 module.exports = {
-    listaProcessos
+    listaProcessos,
+    atualizaProcesso
 };
