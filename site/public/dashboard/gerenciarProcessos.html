@@ -28,9 +28,13 @@
         <strong style="font-size: 12px;" id="nome_usuario"></strong>
       </div>
       <div style="height: 60%; justify-content: space-around; display: flex; flex-direction: column;">
-        <a class="itensDaNav" href="dashboard.html">
+        <a class="itensDaNav" href="#">
           <div class="icon-stats-dots ico"></div>
           <span class="nome-acao">Dashboard</span>
+        </a>
+        <a class="itensDaNav" href="gerenciarProcessos.html">
+          <div style="font-weight: bold;" class="icon-document-forbidden1 ico"></div>
+          <samp style="text-align: center;" class="nome-acao">Lista de Bloqueios</samp>
         </a>
         <a class="itensDaNav" href="gerenciarUsuarios.html">
           <div class="ico">
@@ -38,21 +42,18 @@
           </div>
           <samp style="text-align: center;" class="nome-acao">Adicionar<br>Usuário</samp>
         </a>
-        <!--  <a id="gerenciamento_user" class="itensDaNav" href="#">
+        <!-- <a id="gerenciamento_user" class="itensDaNav" href="#">
           <div>
             <img src="../assets/imgs/gerenciar_setor.png" alt="">
           </div>
           <samp style="text-align: center;" class="nome-acao">Adicionar<br>Usuário</samp>
         </a> -->
-        <a class="itensDaNav" href="gerenciarProcessos.html">
-          <div style="font-weight: bold;" class="icon-document-forbidden1 ico"></div>
-          <samp style="text-align: center;" class="nome-acao">Lista de Bloqueios</samp>
-        </a>
         <a class="itensDaNav" href="suporte.html">
           <div class="icon-support_agent ico"></div>
           <samp class="nome-acao">Suporte</samp>
         </a>
       </div>
+
       <a onclick="limparSessao()" class="itensDaNav">
         <div class="icon-log-in ico"></div>
         <samp class="nome-acao">Sair</samp>
