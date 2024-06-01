@@ -94,7 +94,7 @@ function atualizar_maquina_tempo_real(
           status.innerHTML = 'Ligado'
           pc.style.color = '#144a00'
           pc.style.animation = 'none'
-
+          verificaAtividadeMaquinas()
           // Atualiza cor e estilo do indicador de CPU
           atualizarCorIndicador(
             bolinha_cpu,
@@ -117,7 +117,7 @@ function atualizar_maquina_tempo_real(
           status.innerHTML = 'Desligado'
           pc.style.color = 'black'
           pc.style.animation = 'none'
-
+          verificaAtividadeMaquinas()
           // Define todos os indicadores como inativos (cor cinza)
           ;[bolinha_cpu, bolinha_ram, bolinha_disco].forEach(bolinha => {
             bolinha.style.background = '#d2d2d2'
@@ -163,6 +163,7 @@ function listarMaquinas(fksetor, acesso) {
               <div class="icon-todos">
                 <div class="lixeira-lapis">
                     <div class="icon-trash1" onclick="abrirExcluir(${maquinas.id_maquina}, '${maquinas.nome_maquina}'); event.stopPropagation(); event.preventDefault();"></div>
+                    <div class="icon-pencil" onclick="abrirEditar(${maquinas.id_maquina}, '${maquinas.modelo_maquina}', '${maquinas.nome_maquina}'); event.stopPropagation(); event.preventDefault();"></div>
                 </div>
                <div id="maquina_${maquinas.id_maquina}" class="icon-laptop1"></div>
             </div>
@@ -171,7 +172,6 @@ function listarMaquinas(fksetor, acesso) {
                   <p>Nome: ${maquinas.nome_maquina}</p>
                   <p>Modelo: ${maquinas.modelo_maquina}</p>
                   <p>Status: <strong id="status_maquina${maquinas.id_maquina}"></strong></p>
-                  <p id = "user${maquinas.id_maquina}">Usuário: </p>
                 </div>
                 <div class="descricao-status">
                   <div class="descricao-componenete">
@@ -514,10 +514,8 @@ function abrirNotifica() {
 
 /**
  * Atualiza alertas e o contador de novas notificações.
- * @param {number} id_setor - O ID do setor para obter alertas.
- * @param {boolean} isOpened - Flag para indicar se a div de notificações está sendo aberta.
- */
-function atualizarAlertas(id_setor, isOpened = false) {
+ * @param {number} id_setor - O ID do setor para obter alertas. */
+function atualizarAlertas(id_setor) {
   fetch(`/dashboard/alerta/${id_setor}`, {
     method: 'GET',
     headers: {
@@ -534,7 +532,8 @@ function atualizarAlertas(id_setor, isOpened = false) {
           id: dado.id_alerta, // Supondo que cada notificação tem um ID único
           nome_maquina: dado.nome_maquina,
           descricao_alerta: dado.descricao_alerta,
-          data_hora: dado.data_hora
+          data_hora: dado.data_hora,
+          titulo: dado.titulo
         }))
 
         novasNotificacoes.forEach(nova => {
@@ -565,7 +564,7 @@ function atualizarAlertas(id_setor, isOpened = false) {
 
           // Pegar os últimos qtnnotifica itens de notificacoesNovas
           let novasNotificacoes = notificacoesNovas.slice(-qtnnotifica)
-          novasNotificacoes.reverse().forEach(exibir => {
+          novasNotificacoes.forEach(exibir => {
             adicionarNotificacaoNaInterface(exibir)
           })
         }
@@ -586,15 +585,21 @@ function adicionarNotificacaoNaInterface(novaNotificacao) {
 
   let dataHoraFormatada = `${dia}/${mes}/${ano} às ${horas}:${minutos}:${segundos}`
   let notifica = document.getElementById('notificacao')
-  notifica.innerHTML += `<div class="alertas">
-    <div class="mensagem_alerta">
-      <div class="icon-warning"></div>
-      <div>
-        <p class="nome_maquina">${novaNotificacao.nome_maquina}</p>
-        <p class="descricao_alerta">${novaNotificacao.descricao_alerta}</p>
-        <i class="data_hora">${dataHoraFormatada}</i>
+  if (novaNotificacao.titulo.includes('Processo')) {
+    color_alerta = 'orange'
+  } else {
+    color_alerta = 'red'
+  }
+  notifica.innerHTML += `
+  <div class="alertas">
+      <div class="mensagem_alerta">
+          <div style="color: ${color_alerta};" class="icon-warning"></div>
+          <div>
+              <p class="nome_maquina">${novaNotificacao.titulo}</p>
+              <p class="descricao_alerta">${novaNotificacao.descricao_alerta}</p>
+              <i class="data_hora">${dataHoraFormatada}</i>
+          </div>
       </div>
-    </div>
   </div>`
 }
 
