@@ -8,7 +8,7 @@ router.get('/listaProcessos/:id_setor', function (req, res) {
     processosController.listaProcessos(req, res);
 });
 
-router.put('/atualizaProcesso', function (req, res) {
+router.put('/atualizaProcesso/:ativo/:id_setor/:id_processo', function (req, res) {
     processosController.atualizaProcesso(req, res);
 });
 

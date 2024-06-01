@@ -47,7 +47,7 @@ function listaProcessos(id_setor) {
           card.innerHTML += `<div class="processo">
               <p style="margin-left: 5%;">${pj.titulo_processo}</p>
               <div class="switch__container">
-                  <input id="switch-flat${pj.fk_processo_card}" class="switch switch--flat" type="checkbox" ${isChecked}>
+                  <input id="switch-flat${pj.fk_processo_card}" class="switch switch--flat" type="checkbox" ${isChecked} onclick = "atualizaProcesso(${pj.fk_setor_card},${pj.fk_processo_card})">
                   <label for="switch-flat${pj.fk_processo_card}"></label>
               </div>
           </div>`;
@@ -58,16 +58,18 @@ function listaProcessos(id_setor) {
   });
 }
 
-function atualizaProcesso(ativo, id_setor,id_categoria) {
+function atualizaProcesso(id_setor, id_processo) {
 
-var switchRede = document.getElementById('switch-flat-redes');
-var switchPlataforma = document.getElementById('switch-flat-comunicacao');
-var switchStreaming = document.getElementById('switch-flat-streaming');
-var switchNoticias = document.getElementById('switch-flat-noticias');
-var switchJogos = document.getElementById('switch-flat-jogos');
+  var botao = document.getElementById(`switch-flat${id_processo}`);
+
+  if(botao.checked){
+    ativo = 1;
+  } else {
+    ativo = 0;
+  }
 
 
-  fetch(`/gerenciarProcessos/atualizaProcesso/${ativo}/${id_setor}/${id_categoria}}`, {
+  fetch(`/gerenciarProcessos/atualizaProcesso/${ativo}/${id_setor}/${id_processo}`, {
       method: 'PUT'
   })
   .then(function(resposta) {

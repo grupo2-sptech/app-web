@@ -6,7 +6,7 @@ function listaProcessos(id_setor) {
 
     console.log("PASSEI AQUI, ID_SETOR: ", id_setor);
 
-    query = `SELECT pj.titulo_processo, pj.fk_categoria, ctp.ativo, ctp.fk_processo_card
+    query = `SELECT pj.titulo_processo, pj.fk_categoria, ctp.ativo, ctp.fk_processo_card, ctp.fk_setor_card
              FROM card_tem_processo AS ctp
              JOIN processos_janelas AS pj
              ON ctp.fk_processo_card = pj.id_processo
@@ -15,10 +15,10 @@ function listaProcessos(id_setor) {
     return database.executar(query);
 }
 
-function atualizaProcesso(ativo, id_setor,id_categoria) {
+function atualizaProcesso(ativo,id_setor, id_processo) {
     let query;
 
-    query = `update card_tem_processo set ativo = ${ativo} where fk_setor_card = ${id_setor} and fk_categoria_card = ${id_categoria};`;
+    query = `update card_tem_processo set ativo = ${ativo} where fk_setor_card = ${id_setor} and fk_processo_card = ${id_processo};`;
 
     return database.executar(query);
 }
