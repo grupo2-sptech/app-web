@@ -252,6 +252,23 @@ function verificaAtividadeMaquinas() {
   maquinasDesligadas.innerHTML = quantidadeTotalCards - cardsAtivos.length
 }
 
+function filtrarMaquina() {
+  var listaMaquinas = document.getElementById('div_funcaoMaquina')
+  listaMaquinas.innerHTML = ''
+  let id_maquina = document.getElementById('inp_maquina').value
+  if (id_maquina == 'tudo') {
+    cardsMaquinas.forEach(maquina => {
+      listaMaquinas.innerHTML += maquina.card
+    })
+  } else {
+    cardsMaquinas.forEach(maquina => {
+      if (maquina.idMaquina == id_maquina) {
+        listaMaquinas.innerHTML += maquina.card
+      }
+    })
+  }
+}
+
 function abrirExcluir(id_maquina, nome_maquina) {
   let nomeMaquina = document.getElementById('span_nomeMaquina')
   let popupExcluir = document.getElementById('deletar_maquina')
