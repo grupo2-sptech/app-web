@@ -94,7 +94,6 @@ function atualizar_maquina_tempo_real(
           status.innerHTML = 'Ligado'
           pc.style.color = '#144a00'
           pc.style.animation = 'none'
-          verificaAtividadeMaquinas()
 
           // Atualiza cor e estilo do indicador de CPU
           atualizarCorIndicador(
@@ -118,7 +117,7 @@ function atualizar_maquina_tempo_real(
           status.innerHTML = 'Desligado'
           pc.style.color = 'black'
           pc.style.animation = 'none'
-          verificaAtividadeMaquinas()
+
           // Define todos os indicadores como inativos (cor cinza)
           ;[bolinha_cpu, bolinha_ram, bolinha_disco].forEach(bolinha => {
             bolinha.style.background = '#d2d2d2'
@@ -141,6 +140,7 @@ function atualizarCorIndicador(element, percent, limits) {
   element.style.animation = 'none'
 }
 
+let cardsMaquinas = []
 let id_maquinas = []
 function listarMaquinas(fksetor, acesso) {
   var listaMaquinas = document.getElementById('div_funcaoMaquina')
@@ -154,36 +154,41 @@ function listarMaquinas(fksetor, acesso) {
         resposta.json().then(maquinas => {
           listaMaquinas.innerHTML = ''
           maquinas.forEach(maquinas => {
-            listaMaquinas.innerHTML += `<div onclick="atualizar_grafico_tempo_real(${maquinas.id_maquina}); atualizarDadosDaMaquina(${maquinas.id_maquina}); cardSelecionado(${maquinas.id_maquina})"  id = "${maquinas.id_maquina}" class="card-acao">
-          <div class="icon-todos">
-            <div class="lixeira-lapis">
-                <div class="icon-trash1" onclick="abrirExcluir(${maquinas.id_maquina}, '${maquinas.nome_maquina}'); event.stopPropagation(); event.preventDefault();"></div>
-                <div class="icon-pencil" onclick="abrirEditar(${maquinas.id_maquina}, '${maquinas.modelo_maquina}', '${maquinas.nome_maquina}'); event.stopPropagation(); event.preventDefault();"></div>
+            let TodasMaquinas = {
+              idMaquina: maquinas.id_maquina,
+              card: `<div onclick="atualizar_grafico_tempo_real(${maquinas.id_maquina}); atualizarDadosDaMaquina(${maquinas.id_maquina}); cardSelecionado(${maquinas.id_maquina})"  id = "${maquinas.id_maquina}" class="card-acao">
+              <div class="icon-todos">
+                <div class="lixeira-lapis">
+                    <div class="icon-trash1" onclick="abrirExcluir(${maquinas.id_maquina}, '${maquinas.nome_maquina}'); event.stopPropagation(); event.preventDefault();"></div>
+                </div>
+               <div id="maquina_${maquinas.id_maquina}" class="icon-laptop1"></div>
             </div>
-           <div id="maquina_${maquinas.id_maquina}" class="icon-laptop1"></div>
-        </div>
-          <div class="descricao-laptop">
-            <div class="descricao-titulo">
-              <p>Nome: ${maquinas.nome_maquina}</p>
-              <p>Modelo: ${maquinas.modelo_maquina}</p>
-              <p>Status: <strong id="status_maquina${maquinas.id_maquina}"></strong></p>
-            </div>
-            <div class="descricao-status">
-              <div class="descricao-componenete">
-                <div class="bolinha" id="icone-cpu${maquinas.id_maquina}"></div>
-                <p>CPU</p>
+              <div class="descricao-laptop">
+                <div class="descricao-titulo">
+                  <p>Nome: ${maquinas.nome_maquina}</p>
+                  <p>Modelo: ${maquinas.modelo_maquina}</p>
+                  <p>Status: <strong id="status_maquina${maquinas.id_maquina}"></strong></p>
+                  <p id = "user${maquinas.id_maquina}">Usuário: </p>
+                </div>
+                <div class="descricao-status">
+                  <div class="descricao-componenete">
+                    <div class="bolinha" id="icone-cpu${maquinas.id_maquina}"></div>
+                    <p>CPU</p>
+                  </div>
+                  <div class="descricao-componenete">
+                    <div class="bolinha" id="icone-ram${maquinas.id_maquina}"></div>
+                    <p>Ram</p>
+                  </div>
+                  <div class="descricao-componenete">
+                    <div class="bolinha" id="icone-disco${maquinas.id_maquina}"></div>
+                    <p>Disco</p>
+                  </div>
+                </div>
               </div>
-              <div class="descricao-componenete">
-                <div class="bolinha" id="icone-ram${maquinas.id_maquina}"></div>
-                <p>Ram</p>
-              </div>
-              <div class="descricao-componenete">
-                <div class="bolinha" id="icone-disco${maquinas.id_maquina}"></div>
-                <p>Disco</p>
-              </div>
-            </div>
-          </div>
-        </div>`
+            </div>`
+            }
+            cardsMaquinas.push(TodasMaquinas)
+            listaMaquinas.innerHTML += TodasMaquinas.card
             setInterval(() => {
               atualizar_maquina_tempo_real(
                 maquinas.id_maquina,
@@ -201,9 +206,26 @@ function listarMaquinas(fksetor, acesso) {
     })
 }
 
-/* setTimeout(() => {
+setTimeout(() => {
   verificaAtividadeMaquinas()
-}, 3500) */
+}, 3500)
+
+function filtrarMaquina() {
+  var listaMaquinas = document.getElementById('div_funcaoMaquina')
+  listaMaquinas.innerHTML = ''
+  let id_maquina = document.getElementById('inp_maquina').value
+  if (id_maquina == 'tudo') {
+    cardsMaquinas.forEach(maquina => {
+      listaMaquinas.innerHTML += maquina.card
+    })
+  } else {
+    cardsMaquinas.forEach(maquina => {
+      if (maquina.idMaquina == id_maquina) {
+        listaMaquinas.innerHTML += maquina.card
+      }
+    })
+  }
+}
 
 function verificaAtividadeMaquinas() {
   let totalMaquinas = document.getElementById('total_maquinas')
@@ -225,66 +247,10 @@ function verificaAtividadeMaquinas() {
       cardsAtivos.push(card)
     }
   })
-
   totalMaquinas.innerHTML = quantidadeTotalCards
   maquinasLigadas.innerHTML = cardsAtivos.length
   maquinasDesligadas.innerHTML = quantidadeTotalCards - cardsAtivos.length
 }
-
-// Exibe a quantidade de cards ativos e a quantidade total de cards
-
-/* document.addEventListener('DOMContentLoaded', function () {
-  const inpMaquina = document.getElementById('inp_maquina')
-  const inpSetor = document.getElementById('inp_setor')
-
-  function preencherSelects(maquinas) {
-    const setores = new Set()
-
-    maquinas.forEach(maquina => {
-      const optionMaquina = document.createElement('option')
-      optionMaquina.value = maquina.id
-      optionMaquina.textContent = maquina.nome
-      inpMaquina.appendChild(optionMaquina)
-
-      setores.add(maquina.setor)
-    })
-
-    setores.forEach(setor => {
-      const optionSetor = document.createElement('option')
-      optionSetor.value = setor
-      optionSetor.textContent = setor
-      inpSetor.appendChild(optionSetor)
-    })
-  }
-
-  function filtrarDados(maquinas) {
-    const maquinaSelecionada = inpMaquina.value
-    const setorSelecionado = inpSetor.value
-
-    const resultado = maquinas.filter(maquina => {
-      return (
-        (maquinaSelecionada === '' || maquina.id == maquinaSelecionada) &&
-        (setorSelecionado === '' || maquina.setor === setorSelecionado)
-      )
-    })
-
-    console.log('Resultado do filtro:', resultado)
-    // Aqui você pode atualizar a UI com os resultados filtrados
-  }
-
-  inpMaquina.addEventListener('change', () => filtrarDados(maquinas))
-  inpSetor.addEventListener('change', () => filtrarDados(maquinas))
-
-  fetch('/dashboard/filtrar_maquinas/${maquinas}')
-  method: 'GET'
-    .then(response => response.json())
-    .then(maquinas => {
-      preencherSelects(maquinas)
-      inpMaquina.addEventListener('change', () => filtrarDados(maquinas))
-      inpSetor.addEventListener('change', () => filtrarDados(maquinas))
-    })
-    .catch(error => console.error('Erro ao buscar dados:', error))
-}) */
 
 function abrirExcluir(id_maquina, nome_maquina) {
   let nomeMaquina = document.getElementById('span_nomeMaquina')
@@ -1070,37 +1036,35 @@ function ocultarAcao(id) {
 }
 
 function listaProcessos(id_setor) {
-  var cardRedeSocial = document.getElementById('cardRedeSocial');
-  var cardPlataforma = document.getElementById('cardPlataforma');
-  var cardStreaming = document.getElementById('cardStreaming');
-  var cardNoticias = document.getElementById('cardNoticias');
-  var cardJogos = document.getElementById('cardJogos');
+  var cardRedeSocial = document.getElementById('cardRedeSocial')
+  var cardPlataforma = document.getElementById('cardPlataforma')
+  var cardStreaming = document.getElementById('cardStreaming')
+  var cardNoticias = document.getElementById('cardNoticias')
+  var cardJogos = document.getElementById('cardJogos')
 
   fetch(`listaProcesos/${id_setor}`, {
     method: 'GET'
   })
-  .then(function(resposta) {
-    if (!resposta.ok) {
-      throw new Error('Network response was not ok');
-    }
-    return resposta.json();
-  })
-  .then(function(data) {
-    data.forEach(function(pj) {
-      if (pj.fk_categoria == 1) {
-        cardRedeSocial.innerHTML += `<div class="processo">
+    .then(function (resposta) {
+      if (!resposta.ok) {
+        throw new Error('Network response was not ok')
+      }
+      return resposta.json()
+    })
+    .then(function (data) {
+      data.forEach(function (pj) {
+        if (pj.fk_categoria == 1) {
+          cardRedeSocial.innerHTML += `<div class="processo">
           <p style="margin-left: 5%;">${pj.nome}</p>
           <div class="switch__container" style="margin-right: 0;">
             <input id="switch-flat${pj.nome}" class="switch switch--flat" type="checkbox">
             <label for="switch-flat${pj.nome}"></label>
           </div>
-        </div>`;
-      }
-    });
-  })
-  .catch(function(error) {
-    console.error('Houve um problema com a solicitação fetch: ', error);
-  });
-};
-
-
+        </div>`
+        }
+      })
+    })
+    .catch(function (error) {
+      console.error('Houve um problema com a solicitação fetch: ', error)
+    })
+}
