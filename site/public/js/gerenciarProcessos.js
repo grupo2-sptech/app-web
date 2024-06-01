@@ -58,3 +58,22 @@ function listaProcessos(id_setor) {
   });
 }
 
+function atualizaProcesso(id_setor, id_processo, ativo) {
+  fetch(`/gerenciarProcessos/atualizaProcesso/${id_setor}/${id_processo}/${ativo}`, {
+      method: 'PUT'
+  })
+  .then(function(resposta) {
+      if (!resposta.ok) {
+          console.log('Erro na requisição fetch: ', resposta);
+          throw new Error('Network response was not ok');
+      }
+      return resposta.json();
+  })
+  .then(function(data) {
+      console.log(data);
+  })
+  .catch(function(error) {
+      console.error('Houve um problema com a solicitação fetch: ', error);
+  });
+}
+

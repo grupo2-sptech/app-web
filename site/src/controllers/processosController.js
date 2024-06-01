@@ -18,6 +18,23 @@ function listaProcessos(req, res) {
       });
 }
 
+function atualizaProcesso(req, res) {
+    var id_setor = req.params.id_setor;
+    var ativo = req.params.ativo;
+    var id_categoria = req.params.id_categoria;
+
+    processosdModel
+      .atualizaProcesso(ativo, id_setor,id_categoria)
+      .then(function (resultado) {
+        res.status(200).json(resultado);
+      })
+      .catch(erro => {
+        console.log(erro.sqlMessage);
+        res.status(500).json({ error: erro.sqlMessage });
+      });
+}
+
 module.exports = {
-    listaProcessos
+    listaProcessos,
+    atualizaProcesso
 };

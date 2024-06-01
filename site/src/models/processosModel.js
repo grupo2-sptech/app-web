@@ -15,6 +15,14 @@ function listaProcessos(id_setor) {
     return database.executar(query);
 }
 
+function atualizaProcesso(ativo, id_setor,id_categoria) {
+    let query;
+
+    query = `update card_tem_processo set ativo = ${ativo} where fk_setor_card = ${id_setor} and fk_categoria_card = ${id_categoria};`;
+
+    return database.executar(query);
+}
+
 module.exports = {
     listaProcessos
 };
