@@ -117,7 +117,6 @@ function atualizar_maquina_tempo_real(
           status.innerHTML = 'Desligado'
           pc.style.color = 'black'
           pc.style.animation = 'none'
-          verificaAtividadeMaquinas()
           // Define todos os indicadores como inativos (cor cinza)
           ;[bolinha_cpu, bolinha_ram, bolinha_disco].forEach(bolinha => {
             bolinha.style.background = '#d2d2d2'
