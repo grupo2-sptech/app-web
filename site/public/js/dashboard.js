@@ -433,6 +433,42 @@ function deletarMaquina(id_maquina) {
     })
 }
 
+function editarMaquina(id_maquina) {
+  let nome_maquina = document.getElementById('editar_nome_maquina').value
+  let modelo_maquina = document.getElementById('editar_modelo_maquina').value
+
+  if (nome_maquina == '' || modelo_maquina == '') {
+    preecha_campos_editar.style.display = 'block'
+  } else {
+    fetch(
+      `/dashboard/editar_maquina/${id_maquina}/${nome_maquina}/${modelo_maquina}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+    )
+      .then(function (resposta) {
+        if (resposta.ok) {
+          location.reload()
+        } else if (resposta.status == 404) {
+          window.alert('Máquina não encontrada (404).')
+        } else {
+          resposta.json().then(erro => {
+            throw new Error(
+              'Houve um erro ao tentar editar a máquina: ' + erro.error
+            )
+          })
+        }
+      })
+      .catch(function (erro) {
+        console.error('#ERRO: ', erro)
+        window.alert('Erro ao editar máquina: ' + erro.message)
+      })
+  }
+}
+
 let intervalo
 let id_maquina_pesquisa
 

@@ -20,6 +20,12 @@ router.get('/buscarPorData/:id_maquina/:data', function (req, res) {
 router.delete('/deletar_maquina/:id_maquina', function (req, res) {
   dashboardController.deletarMaquina(req, res)
 })
+router.put(
+  '/editar_maquina/:id_maquina/:nome_maquina/:modelo_maquina',
+  function (req, res) {
+    dashboardController.editarMaquina(req, res)
+  }
+)
 router.get('/validarSenha/:id_usuario/:senha', function (req, res) {
   dashboardController.validarSenha(req, res)
 })
@@ -38,9 +44,8 @@ router.get('/alerta/:id_setor', function (req, res) {
 router.post(
   '/cadastrar_maquina/:nome_maquina/:modelo_maquina/:id_setor/:id_empresa',
   function (req, res) {
-    dashboardController.cadastrar_maquina(req, res);
+    dashboardController.cadastrar_maquina(req, res)
   }
 )
-
 
 module.exports = router

@@ -148,6 +148,12 @@ async function deletarMaquina(id_maquina) {
   }
 }
 
+function editarMaquina(id_maquina, nome_maquina, modelo_maquina) {
+  let query = `Update maquina set nome_maquina = '${nome_maquina}', modelo_maquina = '${modelo_maquina}' where id_maquina = ${id_maquina}`
+
+  return database.executar(query)
+}
+
 function validarSenha(id_usuario, senha) {
   let query = `SELECT * from funcionario WHERE id_funcionario = ${id_usuario} AND senha_acesso = ${senha};`
 
@@ -281,5 +287,6 @@ module.exports = {
   listar_processos,
   cadastrar_maquina,
   atualizar_geral,
+  editarMaquina,
   alerta
 }

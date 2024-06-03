@@ -2,8 +2,8 @@ let processosModel = require('../models/processosModel');
 
 function listaProcessos(req, res) {
     var id_setor = req.params.id_setor;
-    console.log("PASSEI AQUI, ID_SETOR: ", id_setor);
-    processosModel
+/*     console.log("PASSEI AQUI, ID_SETOR: ", id_setor);
+ */    processosModel
       .listaProcessos(id_setor)
       .then(function (resultado) {
         if (resultado.length > 0) {

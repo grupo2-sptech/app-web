@@ -1,15 +1,20 @@
-var express = require('express');
-var router = express.Router();
+/** @format */
 
-var processosController = require('../controllers/processosController');
+var express = require('express')
+var router = express.Router()
+
+var processosController = require('../controllers/processosController')
 
 router.get('/listaProcessos/:id_setor', function (req, res) {
-    console.log("PASSEI AQUI, ID_SETOR: ", req.params.id_setor);
-    processosController.listaProcessos(req, res);
-});
+  /*     console.log("PASSEI AQUI, ID_SETOR: ", req.params.id_setor);
+   */ processosController.listaProcessos(req, res)
+})
 
-router.put('/atualizaProcesso/:ativo/:id_setor/:id_processo', function (req, res) {
-    processosController.atualizaProcesso(req, res);
-});
+router.put(
+  '/atualizaProcesso/:ativo/:id_setor/:id_processo',
+  function (req, res) {
+    processosController.atualizaProcesso(req, res)
+  }
+)
 
-module.exports = router;
+module.exports = router
