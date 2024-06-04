@@ -87,11 +87,16 @@
       </table>
     </div>
 
+    <div style="display: none; left: 38%;" id="pop-add-users" class="tela-lista-processos">
+      <div class="barra-lista">
+        <samp style="color: white; margin-left: 10px;">Edite informações da empresa</samp>
+        <div onclick="fechar_tela()" class="icon-plus xtela"></div>
+      </div>
       <div class="pop-edit">
         <div class="form">
             <div class="form-element">
                 <label for="nome">Nome do usuário</label>
-                <input type="text" id="nome_usuario" placeholder="Insira o nome do usuário">
+                <input type="text" id="nome_usuarioInput" placeholder="Insira o nome do usuário">
             </div>
             <div class="form-element">
                 <label for="modelo">E-mail do usuário</label>
@@ -116,7 +121,25 @@
                 Preecha todos os campos!
             </span>
         </div>
+      </div>
     </div>
+
+    <div style="display: none; left: 38%;" id="pop-add-delete" class="tela-lista-processos">
+      <div class="barra-lista">
+          <samp style="color: white; margin-left: 10px;">Deletar empresa</samp>
+          <div onclick="fechar_tela()" class="icon-plus xtela"></div>
+      </div>
+      <div class="pop-delete">
+          <div class="form">
+              <div class="form-element">
+                  <label for="modelo">Deseja excluir o usuário?</label>
+              </div>
+              <div class="form-element">
+                  <button onclick="deletarUsuario(this)" class="btm-confirmar">Confirmar</button>
+              </div>
+          </div>
+      </div>
+  </div>
 
     <div class="adicionarUsuario" id="adicionarUsuario">
       <h1>Adicionar Usuário</h1>
@@ -161,8 +184,8 @@
         <label for="setor">Permissão:</label>
         <select class="selectRotulos" name="" id="selectPermission">
           <option class="" value="" disabled selected>Selecione</option>
-          <option value="false">Usuário</option>
-          <option value="true">Administrador</option>
+          <option value="0">Usuário</option>
+          <option value="1">Administrador</option>
         </select>
       </div>
 
@@ -185,6 +208,7 @@
   let nome = sessionStorage.NOME_USUARIO
   let setor = sessionStorage.SETOR
   let empresa = sessionStorage.ID_EMPRESA
+  let user = sessoionStorage.ID_USUARIO
 
   function criarUsuario() {
       var novoNome = input_rotuloNome.value;
@@ -194,7 +218,7 @@
       var permissão = selectPermission.value;
       var setor = 200;
       var empresa = 100;
-      var permissaoTotal = true;
+      var permissaoTotal = 1;
 
       fetch("/gerenciarUsuario/cadastrarUsuario", {
         method: 'POST',
@@ -241,9 +265,13 @@
             <td>${usuario.email_funcionario}</td>
             <td>${setor}</td>
             <td>${usuario.cargo_funcionario}</td>
-            <td>${usuario.acesso_plataforma}</td>
-            <td><div class="icon-pencil"></div></td>
-            <td><div class="icon-trash"></div></td>
+            <td>${usuario.acesso_plataforma ? 'Permitido' : 'Negado'}</td>
+            <td>
+              <div onclick="editarUsuario('${usuario.id_funcionario}', '${usuario.nome_funcionario}', '${usuario.email_funcionario}', '${setor}', '${usuario.cargo_funcionario}', '${usuario.acesso_plataforma ? 'Permitido' : 'Negado'}')" class="icon-pencil"></div>
+            </td>
+            <td>
+              <div onclick="deletarUsuario('${usuario.id_funcionario}')" class="icon-trash"></div>
+            </td>
             `;
 
 // Adiciona a linha criada ao tbody
@@ -255,30 +283,82 @@
   }
 
 
-  function editarUsuario(nome, email, setor, cargo, acesso) {
-    nome_usuario.value = nome;
-    email_usuario.value = email;
+  function editarUsuario(nome_funcionario, email_funcionario, setor, cargo_funcionario, acesso_plataforma) {
+    let nome_usuario = document.getElementById('nome_usuario')
+    let email_usuario = document.getElementById('email_usuario')
+    let setor_usuario = document.getElementById('setor_usuario')
+    let cargo_usuario = document.getElementById('cargo_usuario')
+    let acesso_usuario = document.getElementById('acesso_usuario')
+
+    nome_usuarioInput.value = nome_funcionario;
+    email_usuario.value = email_funcionario;
     setor_usuario.value = setor;
-    cargo_usuario.value = cargo;
-    acesso_usuario.value = acesso;
-    
+    cargo_usuario.value = cargo_funcionario;
+    acesso_usuario.value = acesso_plataforma;
+
     document.getElementById('pop-add-users').style.display = 'flex'
-    document.querySelector('#pop-add-users button').setAttribute('onclick', `editarUsuario('${nome}', '${email}', '${setor}', '${cargo}', '${acesso}')`)
+    document.querySelector('#pop-add-users button').setAttribute('onclick', `updateUser('${nome_funcionario}', '${email_funcionario}', '${setor}', '${cargo_funcionario}', '${acesso_plataforma}')`)
     let lista = document.getElementById('deletar_maquina')
     let deletar = document.getElementById('lista-processos')
     
 }
 
+  function updateUser() {
+    var nome = nome_usuarioInput.value;
+    var email = email_usuario.value;
+    var setor = setor_usuario.value;
+    var cargo = cargo_usuario.value;
+    var acesso = acesso_usuario.value;  
+
+    fetch("/gerenciarUsuario/editarUsuario", {
+      method: 'PUT',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        nome: nome,
+        email: email,
+        setor: setor,
+        cargo: cargo,
+        acesso: acesso
+      }),
+   })
+    .then(response => response.json())
+    .catch(error => console.error('Error:', error));
+  }
+
 function deletarUsuario(id_funcionario) {
     document.getElementById('pop-add-delete').style.display = 'flex'
-    document.querySelector('#pop-add-delete button').setAttribute('onclick', `deletarEmpresa('${id_funcionario}')`)
+    document.querySelector('#pop-add-delete button').setAttribute('onclick', `excluirUsuario('${id_funcionario}')`)
     let lista = document.getElementById('deletar_maquina')
     let deletar = document.getElementById('lista-processos')
+    let usuario = '${usuario.id_funcionario}'
+    id_funcionario = usuario
+    console.log(id_funcionario)
 
 
     // lista.style.display = 'none';
     // deletar.style.display = 'none';
 }
+
+function excluirUsuario(id_funcionario) {
+    fetch(`/gerenciarUsuario/excluirUsuario/${id_funcionario}`, {
+      method: 'DELETE',
+      headers: {
+        "Content-Type": "application/json"
+      },
+    })
+    .then(response => response.json())
+    .catch(error => console.error('Error:', error));
+  }
+
+function fechar_tela() {
+    let add_maquina = document.getElementById('pop-add-users')
+    let deletar = document.getElementById('pop-add-delete')
+
+    add_maquina.style.display = 'none';
+    deletar.style.display = 'none';
+    }
 
   nome_usuario.innerHTML = nome;
 

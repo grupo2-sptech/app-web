@@ -26,18 +26,19 @@ function cadastrarUsuario (nome, email, senha, setor, empresa, cargo, permissao,
   return database.executar(instrucaoSql) 
 }
 
-  function editarUsuario(nome, email, senha, setor, empresa, cargo, permissao, permissao_total) {
+  function editarUsuario(nome, email, setor, cargo) {
   instrucaoSql = ''
-  instrucaoSql = `UPDATE funcionario SET nome_funcionario = '${nome}', email_funcionario = '${email}', senha_acesso = '${senha}', fk_setor = ${setor}, fk_empresa = ${empresa}, cargo_funcionario = '${cargo}', acesso_plataforma = ${permissao}, permissao_total = ${permissao_total}
+  instrucaoSql = `UPDATE funcionario SET nome_funcionario = '${nome}', email_funcionario = '${email}', fk_setor = ${setor}, cargo_funcionario = '${cargo}'
   WHERE email_funcionario = '${email}';
   `
+  console.log('model')
   console.log('Executando a instrução SQL: \n' + instrucaoSql)
   return database.executar(instrucaoSql)
 }
 
-  function excluirUsuario(idUsuario) {
+  function excluirUsuario(id_funcionario) {
   instrucaoSql = ''
-  instrucaoSql = `DELETE FROM funcionario WHERE funcionario_id = ${idUsuario};`
+  instrucaoSql = `DELETE FROM funcionario WHERE id_funcionario = ${id_funcionario};`
   console.log('Executando a instrução SQL: \n' + instrucaoSql)
   return database.executar(instrucaoSql)
 }

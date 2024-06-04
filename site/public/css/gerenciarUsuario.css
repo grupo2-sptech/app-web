@@ -199,3 +199,14 @@ tr {
 .botaoConfirmar:hover {
     background-color: #45A049;
 }
+
+
+.pop-edit {
+    height: 70%;
+    width: 100%;
+  }
+
+.pop-delete {
+    height: 30%;
+    width: 100%;
+}
