@@ -16,7 +16,7 @@ router.put('/editarUsuario', function (req, res) {
   gerenciarController.editarUsuario(req, res)
 })
 
-router.delete('/excluirUsuario/:idUsuario', function (req, res) {
+router.delete('/excluirUsuario/:id_funcionario', function (req, res) {
   gerenciarController.excluirUsuario(req, res)
 })
 
