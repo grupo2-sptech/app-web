@@ -18,6 +18,7 @@ var empresasRouter = require('./src/routes/empresas')
 var dashboardRouter = require('./src/routes/dashboard')
 var cadastroEmpresaRouter = require('./src/routes/cadastroEmpresa')
 var gerenciarUsuario = require('./src/routes/gerenciarUsuario')
+var gerenciarProcessos = require('./src/routes/gerenciarProcessos')
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
@@ -33,6 +34,7 @@ app.use('/empresas', empresasRouter)
 app.use('/dashboard', dashboardRouter)
 app.use('/cadastroEmpresa', cadastroEmpresaRouter)
 app.use('/gerenciarUsuario', gerenciarUsuario)
+app.use('/gerenciarProcessos', gerenciarProcessos)
 
 
 app.listen(PORTA, function () {

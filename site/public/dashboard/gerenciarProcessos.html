@@ -12,9 +12,10 @@
   <link rel="stylesheet" href="../css/gerenciarProcess.css">
   <script src="../js/dashboard.js"></script>
   <script src="../js/sessao.js"></script>
+  <script src="../js/gerenciarProcessos.js"></script>
 </head>
 
-<body>
+<body onload="listaProcessos(sessionStorage.SETOR)">
   <div id="menu" class="menuLateral">
     <a>
       <div class="logo">
@@ -31,27 +32,28 @@
           <div class="icon-stats-dots ico"></div>
           <span class="nome-acao">Dashboard</span>
         </a>
+        <a class="itensDaNav" href="gerenciarProcessos.html">
+          <div style="font-weight: bold;" class="icon-document-forbidden1 ico"></div>
+          <samp style="text-align: center;" class="nome-acao">Lista de Bloqueios</samp>
+        </a>
         <a class="itensDaNav" href="gerenciarUsuarios.html">
           <div class="ico">
             <img src="../assets/imgs/gerenciar_user.svg" alt="">
           </div>
           <samp style="text-align: center;" class="nome-acao">Adicionar<br>Usuário</samp>
         </a>
-        <!--  <a id="gerenciamento_user" class="itensDaNav" href="#">
+        <!-- <a id="gerenciamento_user" class="itensDaNav" href="#">
           <div>
             <img src="../assets/imgs/gerenciar_setor.png" alt="">
           </div>
           <samp style="text-align: center;" class="nome-acao">Adicionar<br>Usuário</samp>
         </a> -->
-        <a class="itensDaNav" href="gerenciarProcessos.html">
-          <div style="font-weight: bold;" class="icon-document-forbidden1 ico"></div>
-          <samp style="text-align: center;" class="nome-acao">Lista de Bloqueios</samp>
-        </a>
         <a class="itensDaNav" href="suporte.html">
           <div class="icon-support_agent ico"></div>
           <samp class="nome-acao">Suporte</samp>
         </a>
       </div>
+
       <a onclick="limparSessao()" class="itensDaNav">
         <div class="icon-log-in ico"></div>
         <samp class="nome-acao">Sair</samp>
@@ -70,88 +72,57 @@
     <div class="politicas">
       <div class="politicaPreDefinida">
         <h3 style="margin: 10px 0 0 30px ;">Politicas pré definidas</h3>
+
         <div class="cardsPoliticas">
 
-          <div class="cardPolitica">
-            <h4>Redes Sociais Ativas</h4>
-            <div class="processo">
-              <p style="margin-left: 5%;">Facebook</p>
+          <div class="cardPolitica" >
+            <h4 ">Redes Sociais Ativas</h4>
+            <div class="listaProcessos" id="cardRedeSocial">
+            
+        
 
-              <div class="switch__container" style="margin-right: 0;">
-                <input id="switch-flat" class="switch switch--flat" type="checkbox">
-                <label for="switch-flat"></label>
-              </div>
-              
             </div>
-            <div class="processo">
-              <p style="margin-left: 5%;">Instagram</p>
-
-              <div class="switch__container" style="margin-right: 0;">
-                <input id="switch-flat" class="switch switch--flat" type="checkbox">
-                <label for="switch-flat"></label>
-              </div>
-              
-            </div>
-            <div class="processo">
-              <p style="margin-left: 5%;">X</p>
-
-              <div class="switch__container" style="margin-right: 0;">
-                <input id="switch-flat" class="switch switch--flat" type="checkbox">
-                <label for="switch-flat"></label>
-              </div>
-              
-            </div>
-            <div class="processo">
-              <p style="margin-left: 5%;">Snapchat</p>
-
-              <div class="switch__container" style="margin-right: 0;">
-                <input id="switch-flat" class="switch switch--flat" type="checkbox">
-                <label for="switch-flat"></label>
-              </div>
-              
-            </div>
-            <div class="processo">
-              <p style="margin-left: 5%;">WhatsApp</p>
-
-              <div class="switch__container" style="margin-right: 0;">
-                <input id="switch-flat" class="switch switch--flat" type="checkbox">
-                <label for="switch-flat"></label>
-              </div>
-              
-            </div>
-            <div class="processo">
-              <p style="margin-left: 5%;">Linkedin</p>
-
-              <div class="switch__container" style="margin-right: 0;">
-                <input id="switch-flat" class="switch switch--flat" type="checkbox">
-                <label for="switch-flat"></label>
-              </div>
-              
-            </div>
-
+           
+            
           </div>
 
-          <div class="cardPolitica">
+          <div class="cardPolitica" >
             <h4>Plataforma de Comunicação</h4>
-            <p></p>
+            <div class="listaProcessos" id="cardPlataforma">
+
+            </div>
+           
+            
 
           </div>
 
-          <div class="cardPolitica">
+          <div class="cardPolitica" >
             <h4>Plataforma streaming</h4>
-            <p></p>
+            <div class="listaProcessos" id="cardStreaming">
+
+            </div>
+           
+            
 
           </div>
 
-          <div class="cardPolitica">
+          <div class="cardPolitica" >
             <h4>Plataforma de Notícias</h4>
-            <p></p>
+            <div class="listaProcessos" id="cardNoticias">
+
+            </div>
+           
+  
 
           </div>
 
-          <div class="cardPolitica">
+          <div class="cardPolitica" >
             <h4>Jogos</h4>
-            <p></p>
+            <div class="listaProcessos" id="cardJogos">
+
+            </div>
+           
+
 
           </div>
 
@@ -159,12 +130,12 @@
         </div>
       </div>
 
-      <div class="politicaCustomizada">
+      <!-- <div class="politicaCustomizada">
         <h3 style="margin: 10px 0 0 0; ">Seus bloqueios Ativos</h3>
         <div class="politicas_definidas">
           <div class="cardPoliticaDefinida"></div>
         </div>
-      </div>
+      </div> -->
     </div>
 
   </section>

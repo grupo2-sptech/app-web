@@ -150,6 +150,25 @@ function deletarMaquina(req, res) {
   }
 }
 
+function editarMaquina(req, res){
+  let id_maquina = req.params.id_maquina;
+  let nome_maquina = req.params.nome_maquina;
+  let modelo_maquina = req.params.modelo_maquina
+
+  if (id_maquina != undefined || nome_maquina != undefined || modelo_maquina != undefined) {
+    dashboardModel
+      .editarMaquina(id_maquina, nome_maquina, modelo_maquina)
+      .then(function (resultado) {
+        res.json(resultado);
+      })
+      .catch(function (erro) {
+        console.log('Houve um erro ao editar a máquina: ', erro);
+        res.status(500).json({ error: erro.message });
+      });
+  } else {
+    res.status(400).json({ error: 'ID da máquina não fornecido' });
+  }
+}
 
 function cadastrar_maquina(req, res) {
   let nome_maquina = req.params.nome_maquina;
@@ -221,6 +240,8 @@ function alerta(req, res) {
 
 
 
+
+
 module.exports = {
   listarMaquinas,
   cap_dados,
@@ -232,5 +253,6 @@ module.exports = {
   listar_processos,
   cadastrar_maquina,
   atualizar_geral,
+  editarMaquina,
   alerta
 }

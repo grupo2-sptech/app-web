@@ -68,7 +68,7 @@
       <div class="inputs">
         Selecione a máquina
         <select class="input_filtro" id="inp_maquina">
-          <option value="" disabled selected hidden>Nome da máquina</option>
+          <option value="tudo">Todas as Máquinas</option>
         </select>
       </div>
       <div id="campo_setor" class="inputs">
@@ -79,7 +79,7 @@
 
 
       </div>
-      <div class="icon-search"></div>
+      <div onclick="filtrarMaquina()" class="icon-search"></div>
       <img onclick="abrirNotifica()" src="../assets/imgs/notificacao.png" alt="">
       <div class="conta_notifica" id="contaNotifica">0</div>
     </div>
@@ -87,8 +87,8 @@
       <div class="cabecalio">
         <h4>Notificações</h4><i onclick="limparNotificacao()">Limpar</i>
       </div>
-      
-      <div  id="notificacao">
+
+      <div id="notificacao">
       </div>
     </div>
 
@@ -124,11 +124,10 @@
     </div>
 
     <div id="amostragem" class="amostragem">
-
       <div class="graficos">
-        <span style="margin: 1%; position: absolute; font-size: 12px; font-weight: bold;"
+        <span style="margin: 1%; margin-left: 30%; position: absolute; font-size: 12px; font-weight: bold;"
           id="nome_usuario_maquina"></span>
-        <div class="pesquisa">
+        <div style="display: none;" class="pesquisa">
           <div class="input_data">
             Pesquise o histórico de uso dessa maquina<br>
             Insira uma data
@@ -155,11 +154,11 @@
               <canvas id="myChartDisco"></canvas>
             </div>
             <div style="display: flex; flex-direction: column; align-items: center; z-index: 1000; margin-left: 70%;">
-              <div style="margin-left: 25px;" class="switch__container">
+              <div style="margin-right: 15px;" class="switch__container">
                 <input id="switch-flat1" class="switch switch--flat" type="checkbox">
                 <label for="switch-flat1"></label>
               </div>
-              <span style="text-align: center; margin-top: -30px; font-weight: bold;">Vizualização <br>Geral</span>
+              <span style="text-align: center; margin-top: -5px; font-weight: bold;">Vizualização <br>Geral</span>
             </div>
           </div>
         </div>
@@ -176,27 +175,34 @@
       </div>
       <div id="detathes" class="detalhes_maquinas">
         <div id="detalhes_hardware" style="display: none;" class="detalhes-hardware janelas-e-detalhamentos-hardware">
-          <h4>
-            Informações da maquina
-          </h4>
+          <h4>Informações da máquina</h4>
           <div class="corpo_inf">
-            <b><span>Informações do processador</span></b>
-            <span id="modelo">Modelo do processador: </span>
-            <span id="fabricante">Fabricante: </span>
-            <br>
-            <b><span>Informações da ram</span></b>
-            <span id="ram">Volume total de Ram: </span>
-            <br>
-            <b><span>Informações do Disco</span></b>
-            <span id="disco">Modelo: </span>
-            <span id="volume">Volume total: </span>
-            <br>
-            <b><span>Informações do sistema operacional</span></b>
-            <span id="sistema">Sistema operacional: </span>
-            <span id="arquitetura">Arquitetura: </span>
-          </div>
 
+            <b>Informações do processador</b>
+            <div class="info-section">
+              <span>Modelo do processador: </span><span id="modelo">-</span><br>
+              <span>Fabricante: </span><span id="fabricante">-</span>
+            </div>
+
+            <b>Informações da RAM</b>
+            <div class="info-section">
+              <span>Volume total de RAM: </span><span id="ram">-</span>
+            </div>
+
+            <b>Informações do Disco</b>
+            <div class="info-section">
+              <span>Modelo: </span><span id="disco">-</span><br>
+              <span>Volume total: </span><span id="volume">-</span>
+            </div>
+
+            <b>Informações do sistema operacional</b>
+            <div class="info-section">
+              <span>Sistema operacional: </span><span id="sistema">-</span><br>
+              <span>Arquitetura: </span><span id="arquitetura">-</span>
+            </div>
+          </div>
         </div>
+
         <div id="kpi" class="kpi_setor">
           <div class="informacoes_setor">
             <h4>Informações gerais do setor</h4>
@@ -210,9 +216,9 @@
               </thead>
               <tbody>
                 <tr>
-                  <td>6</td>
-                  <td>5</td>
-                  <td>1</td>
+                  <td id="total_maquinas">-</td>
+                  <td id="maquinas_ligadas">-</td>
+                  <td id="maquinas_desligadas">-</td>
                 </tr>
               </tbody>
             </table>
@@ -225,20 +231,16 @@
                 <th>Total</th>
               </tr>
               <tr>
-                <td>Tempo de atividade da máquina</td>
-                <td>15h</td>
-              </tr>
-              <tr>
                 <td>Quantidade de vezes que a RAM ultrapassou o limite no dia</td>
-                <td>15</td>
+                <td>-</td>
               </tr>
               <tr>
                 <td>Quantidade de vezes que a CPU ultrapassou o limite no dia</td>
-                <td>10</td>
+                <td>-</td>
               </tr>
               <tr>
                 <td>Com base em seu uso, quando o espaço em disco pode exceder o total disponível</td>
-                <td>15 dias</td>
+                <td>-</td>
               </tr>
             </table>
           </div>
@@ -304,7 +306,8 @@
         </div>
         <div class="selecao">
           <div id="selecionarD" onclick="mudarDadosD()" class="selecionar selecionar_hover"></div>
-          <div id="selecionarM" onclick="mudarDadosM()" class="selecionar"></div>
+          <!--           <div id="selecionarM" onclick="mudarDadosM()" class="selecionar"></div>
+ -->
           <div id="selecionarE" onclick="mudarDadosE()" class="selecionar"></div>
         </div>
       </div>
@@ -337,12 +340,11 @@
         <samp style="color: white; margin-left: 10px;">Deletar máquina</samp>
         <div onclick="fechar_tela()" class="icon-plus xtela"></div>
       </div>
+
       <div class="lista2">
         <p style="padding: 10px; text-align: justify;">Tem certeza de que deseja excluir a <strong
-            id="span_nomeMaquina"></strong>?<br><br> Esta é
-          uma operação irreversível, e todos
-          os registros históricos de hardware, incluindo configurações, logs, e outras informações associadas, serão
-          perdidos.
+            id="span_nomeMaquina"></strong>?<br><br> Esta é uma operação irreversível, e todos os registros históricos
+          de hardware, incluindo configurações, logs e outras informações associadas, serão perdidos.
         </p>
         <div style="display: flex; width: 100%; flex-direction: column; align-items: center;">
           <div>
@@ -384,6 +386,30 @@
         </div>
       </div>
     </div>
+    <div style="display: none;" id="editar_maquina" class="tela-lista-processos">
+      <div class="barra-lista">
+        <samp style="color: white; margin-left: 10px;">Editar Informações da máquina</samp>
+        <div onclick="fechar_tela()" class="icon-plus xtela"></div>
+      </div>
+      <div class="pop-maquina">
+        <div class="form">
+          <div class="form-element">
+            <label for="nome">Nome da máquina</label>
+            <input type="text" id="editar_nome_maquina">
+          </div>
+          <div class="form-element">
+            <label for="modelo">Modelo da máquina</label>
+            <input type="text" id="editar_modelo_maquina">
+          </div>
+          <div class="form-element">
+            <button onclick="editarMaquina(sessionStorage.IDMAQUINA)" class="btm-confirmar">Confirmar</button>
+          </div>
+          <span id="preecha_campos_editar" style="color: red; display: none; text-align: center;">
+            Preecha todos os campos!
+          </span>
+        </div>
+      </div>
+    </div>
     <div style="display: none;" id="containerAtendimento" class="containerAtendimento">
       <div id="suportCompleto" class="pop-up-completo">
         <div id="fecharAbaAtendimento" class="fecharAbaAtendimento" onclick="fecharAtendimento()">X</div>
@@ -403,26 +429,26 @@
   function mudarDados(targetId, displayValue) {
     let selD = document.getElementById('selecionarD');
     let selE = document.getElementById('selecionarE');
-    let selM = document.getElementById('selecionarM');
-
+    /*     let selM = document.getElementById('selecionarM');
+     */
     // Remover classe selecionada de todos os elementos
     selD.classList.remove('selecionar_hover');
     selE.classList.remove('selecionar_hover');
-    selM.classList.remove('selecionar_hover');
-
+    /*     selM.classList.remove('selecionar_hover');
+     */
     // Adicionar classe selecionada ao elemento alvo
     document.getElementById(targetId).classList.add('selecionar_hover');
 
     // Elementos das seções
     let div_kpi = document.getElementById('kpi');
     let div_detalhe = document.getElementById('detalhes_hardware');
-    let div_uso_maquina = document.getElementById('uso-maquina');
-
+    /*     let div_uso_maquina = document.getElementById('uso-maquina');
+     */
     // Definir visibilidade das seções
     div_kpi.style.display = displayValue === 'kpi' ? 'flex' : 'none';
     div_detalhe.style.display = displayValue === 'detalhes_hardware' ? 'flex' : 'none';
-    div_uso_maquina.style.display = displayValue === 'uso-maquina' ? 'flex' : 'none';
-  }
+/*     div_uso_maquina.style.display = displayValue === 'uso-maquina' ? 'flex' : 'none';
+ */  }
   function mudarDadosD() {
     mudarDados('selecionarD', 'kpi');
   }
@@ -431,16 +457,18 @@
     mudarDados('selecionarE', 'detalhes_hardware');
   }
 
-  function mudarDadosM() {
-    mudarDados('selecionarM', 'uso-maquina');
-  }
+  /*   function mudarDadosM() {
+      mudarDados('selecionarM', 'uso-maquina');
+    } */
 
 
   function adicionarmaquina() {
     document.getElementById('pop-add-maquinas').style.display = 'flex'
     let lista = document.getElementById('deletar_maquina')
+    let editar = document.getElementById('editar_maquina')
     let deletar = document.getElementById('lista-processos')
     lista.style.display = 'none';
+    editar.style.display = 'none';
     deletar.style.display = 'none';
   }
 
@@ -448,8 +476,10 @@
     let add_maquina = document.getElementById('pop-add-maquinas')
     let lista = document.getElementById('deletar_maquina')
     let deletar = document.getElementById('lista-processos')
+    let editar = document.getElementById('editar_maquina')
 
     add_maquina.style.display = 'none';
+    editar.style.display = 'none';
     lista.style.display = 'none';
     deletar.style.display = 'none';
   }

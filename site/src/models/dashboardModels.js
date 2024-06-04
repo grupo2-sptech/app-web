@@ -9,14 +9,18 @@ async function cadastrar_maquina(nome, modelo, id_setor, id_empresa) {
       INSERT INTO maquina (nome_maquina, modelo_maquina, fk_setor, fk_empresa)
       OUTPUT INSERTED.id_maquina
       VALUES (@param1, @param2, @param3, @param4);
-    `;
-    const result = await database.executar(query, [nome, modelo, id_setor, id_empresa]);
-    return result[0].id_maquina;
+    `
+    const result = await database.executar(query, [
+      nome,
+      modelo,
+      id_setor,
+      id_empresa
+    ])
+    return result[0].id_maquina
   } catch (error) {
-    throw error;
+    throw error
   }
 }
-
 
 function listarMaquinas(fk_setor, acesso) {
   /* var query = `SELECT
@@ -92,7 +96,7 @@ ORDER BY
   data_hora DESC;
 `
 
-  console.log(query);
+  console.log(query)
 
   if (acesso == 1) {
     query = `SELECT m.*, h.data_hora
@@ -124,29 +128,31 @@ function cap_dados(id_maquina) {
 
 async function deletarMaquina(id_maquina) {
   try {
+    const query_hardware = `DELETE FROM historico_hardware WHERE fk_maquina = @param1;`
+    const query_rede = `DELETE FROM rede WHERE fk_maquina = @param1;`
+    const query_componente = `DELETE FROM componente WHERE fk_maquina = @param1;`
+    const query_alerta = `DELETE FROM alerta WHERE fk_maquina = @param1;`
+    const query_uso_maquina = `DELETE FROM uso_maquina WHERE fk_maquina = @param1;`
+    const query_maquina = `DELETE FROM maquina WHERE id_maquina = @param1;`
 
-    const query_hardware = `DELETE FROM historico_hardware WHERE fk_maquina = @param1;`;
-    const query_rede = `DELETE FROM rede WHERE fk_maquina = @param1;`;
-    const query_componente = `DELETE FROM componente WHERE fk_maquina = @param1;`;
-    const query_alerta = `DELETE FROM alerta WHERE fk_maquina = @param1;`;
-    const query_uso_maquina = `DELETE FROM uso_maquina WHERE fk_maquina = @param1;`;
-    const query_maquina = `DELETE FROM maquina WHERE id_maquina = @param1;`;
-
-    await database.executar(query_hardware, [id_maquina]);
-    await database.executar(query_rede, [id_maquina]);
-    await database.executar(query_componente, [id_maquina]);
-    await database.executar(query_alerta, [id_maquina]);
-    await database.executar(query_uso_maquina, [id_maquina]);
-    await database.executar(query_maquina, [id_maquina]);
-    return { message: 'Máquina e dependências deletadas com sucesso' };
+    await database.executar(query_hardware, [id_maquina])
+    await database.executar(query_rede, [id_maquina])
+    await database.executar(query_componente, [id_maquina])
+    await database.executar(query_alerta, [id_maquina])
+    await database.executar(query_uso_maquina, [id_maquina])
+    await database.executar(query_maquina, [id_maquina])
+    return { message: 'Máquina e dependências deletadas com sucesso' }
   } catch (error) {
-    console.error('Erro ao deletar máquina:', error);
-    throw error;
+    console.error('Erro ao deletar máquina:', error)
+    throw error
   }
 }
 
+function editarMaquina(id_maquina, nome_maquina, modelo_maquina) {
+  let query = `Update maquina set nome_maquina = '${nome_maquina}', modelo_maquina = '${modelo_maquina}' where id_maquina = ${id_maquina}`
 
-
+  return database.executar(query)
+}
 
 function validarSenha(id_usuario, senha) {
   let query = `SELECT * from funcionario WHERE id_funcionario = ${id_usuario} AND senha_acesso = ${senha};`
@@ -181,19 +187,20 @@ LastRAMHistory AS (
     ORDER BY data_hora DESC
 )
 SELECT
-    TOP 1
-    lch.data_hora,
-    lch.cpu_ocupada,
-    lrh.ram_ocupada,
-    m.sistema_operacional,
-    m.nome_maquina,
-    m.arquitetura,
-    c_disco.tamanho_disponivel_gb AS memoria_disponivel_gb,
-    (c_disco.tamanho_total_gb - c_disco.tamanho_disponivel_gb) AS disco_ocupado_gb,
-    c_ram.tamanho_total_gb AS ram_total_gb,
-    c_cpu.fabricante,
-    c_disco.modelo AS modelo_disco,
-    m.memoria_total_maquina AS memoria_total_gb
+TOP 1
+lch.data_hora,
+lch.cpu_ocupada,
+lrh.ram_ocupada,
+m.sistema_operacional,
+m.nome_maquina,
+m.arquitetura,
+c_disco.tamanho_disponivel_gb AS memoria_disponivel_gb,
+(c_disco.tamanho_total_gb - c_disco.tamanho_disponivel_gb) AS disco_ocupado_gb,
+c_ram.tamanho_total_gb AS ram_total_gb,
+c_cpu.fabricante as fabricante_processador,
+c_cpu.modelo as modelo_processador,
+c_disco.modelo AS modelo_disco,
+m.memoria_total_maquina AS memoria_total_gb
 FROM setor AS s
 JOIN funcionario AS f ON s.id_setor = f.fk_setor
 JOIN maquina AS m ON s.id_setor = m.fk_setor
@@ -226,9 +233,8 @@ WHERE
   return database.executar(query)
 }
 
-
 function atualizar_geral(id_setor) {
-  let query;
+  let query
 
   query = `
   SELECT
@@ -250,21 +256,25 @@ AND
 GROUP BY
   c.id_categoria,
   c.nome;
-`;
+`
 
   return database.executar(query)
 }
 
 function alerta(id_setor) {
-  let query;
+  let query
 
   query = `
-  select m.nome_maquina,a.id_alerta, a.descricao_alerta, a.data_hora from alerta as a
-  join maquina as m on id_maquina = fk_maquina where fk_setor = ${id_setor}`;
+  SELECT m.nome_maquina, a.id_alerta, a.descricao_alerta, a.data_hora, a.titulo
+  FROM alerta AS a
+  JOIN maquina AS m ON m.id_maquina = a.fk_maquina
+  WHERE m.fk_setor = ${id_setor}
+    AND a.data_hora >= DATEADD(hour, -1, GETDATE())
+  ORDER BY a.data_hora DESC;
+  `
 
   return database.executar(query)
 }
-
 
 module.exports = {
   listarMaquinas,
@@ -277,5 +287,6 @@ module.exports = {
   listar_processos,
   cadastrar_maquina,
   atualizar_geral,
+  editarMaquina,
   alerta
 }
