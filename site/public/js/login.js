@@ -22,7 +22,6 @@ function voltar() {
 function entrar() {
   event.preventDefault()
   let div_carregar = document.getElementById('carregar')
-  div_carregar.style.display = 'block'
   mensagem_senha_incorreta.innerHTML = ''
   var senha = input_senha.value
   var email = input_email.value
@@ -31,6 +30,7 @@ function entrar() {
     mensagem_senha_incorreta.innerHTML = `Preencha todos os campos!`
     return false
   } else {
+    div_carregar.style.display = 'block'
     fetch('/usuarios/autenticar', {
       method: 'POST',
       headers: {

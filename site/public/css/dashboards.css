@@ -81,6 +81,33 @@ body {
   align-items: center;
 }
 
+.confirmacao {
+  background-color: green;
+  height: 30px;
+  margin-left: 88%;
+  margin-top: 1.5%;
+  z-index: 1000;
+  width: 120px;
+  font-size: 13px;
+  border-radius: 10px;
+  position: absolute;
+  color: white;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.gif_carregar img {
+  position: absolute;
+  width: 35px;
+  margin-left: 42.5%;
+}
+
+.gif_carregar {
+  display: none;
+}
+
 #itens_menu .nome-acao {
   display: none;
 }

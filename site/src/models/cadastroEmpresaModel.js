@@ -62,13 +62,55 @@ async function cadastrarEmpresa(nome, cnpj, email, enderecoId) {
   }
 }
 
-function deletarEmpresa(cnpj) {
-  let query_empresa = `
-    DELETE FROM empresa WHERE cnpj = @param1;
-  `
-  console.log(query_empresa)
-  return database.executar(query_empresa, [cnpj])
+async function deletarEmpresa(cnpj) {
+  try {
+    // Queries para deletar as dependências
+    const query_funcionario = `
+      DELETE FROM funcionario 
+      WHERE fk_empresa = (SELECT id_empresa FROM empresa WHERE cnpj = @param1);
+    `;
+    const query_maquina = `
+      DELETE FROM maquina 
+      WHERE fk_empresa = (SELECT id_empresa FROM empresa WHERE cnpj = @param1);
+    `;
+    const query_setor = `
+      DELETE FROM setor 
+      WHERE fk_empresa = (SELECT id_empresa FROM empresa WHERE cnpj = @param1);
+    `;
+    const query_setor_tem_categoria = `
+      DELETE FROM setor_tem_categoria 
+      WHERE fk_empresa = (SELECT id_empresa FROM empresa WHERE cnpj = @param1);
+    `;
+    const query_card_tem_processo = `
+      DELETE FROM card_tem_processo 
+      WHERE fk_empresa_card = (SELECT id_empresa FROM empresa WHERE cnpj = @param1);
+    `;
+    const query_historico_bloqueios = `
+      DELETE FROM historico_bloqueios 
+      WHERE fk_empresa = (SELECT id_empresa FROM empresa WHERE cnpj = @param1);
+    `;
+
+    // Deletar a empresa
+    const query_empresa = `
+      DELETE FROM empresa WHERE cnpj = @param1;
+    `;
+
+    // Executar as queries na ordem correta
+    await database.executar(query_funcionario, [cnpj]);
+    await database.executar(query_maquina, [cnpj]);
+    await database.executar(query_setor_tem_categoria, [cnpj]);
+    await database.executar(query_card_tem_processo, [cnpj]);
+    await database.executar(query_historico_bloqueios, [cnpj]);
+    await database.executar(query_setor, [cnpj]);
+    await database.executar(query_empresa, [cnpj]);
+
+    return { message: 'Empresa e dependências deletadas com sucesso' };
+  } catch (error) {
+    console.error('Erro ao deletar empresa:', error);
+    throw error;
+  }
 }
+
 
 function editarEmpresa(cnpj, nome, email, token, canal) {
   let query_editar = `

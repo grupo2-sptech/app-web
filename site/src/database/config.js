@@ -5,7 +5,7 @@ var sql = require('mssql')
 
 // CONEXÃO DO SQL SERVER - AZURE (NUVEM)
 var sqlServerConfig = {
-  server: '44.213.9.204',
+  server: '52.73.255.53',
   database: 'hardware_security2',
   user: 'sa',
   password: 'urubu100',

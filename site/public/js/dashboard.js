@@ -117,11 +117,11 @@ function atualizar_maquina_tempo_real(
           status.innerHTML = 'Desligado'
           pc.style.color = 'black'
           pc.style.animation = 'none'
-          // Define todos os indicadores como inativos (cor cinza)
-          ;[bolinha_cpu, bolinha_ram, bolinha_disco].forEach(bolinha => {
-            bolinha.style.background = '#d2d2d2'
-            bolinha.style.animation = 'none'
-          })
+            // Define todos os indicadores como inativos (cor cinza)
+            ;[bolinha_cpu, bolinha_ram, bolinha_disco].forEach(bolinha => {
+              bolinha.style.background = '#d2d2d2'
+              bolinha.style.animation = 'none'
+            })
         }
       })
     })
@@ -407,7 +407,22 @@ function listar_todos_processos() {
   })
 }
 
+function confirmacaoAcao(confirmacao) {
+  let div_confirma = document.getElementById('confirmacao')
+  let div_carregar = document.getElementById('carregar')
+
+  div_confirma.innerHTML = confirmacao
+  div_carregar.style.display = 'none';
+  div_confirma.style.display = 'flex';
+}
+
+function exibirCarregar() {
+  let div_carregar = document.getElementById('carregar')
+  div_carregar.style.display = 'block';
+}
+
 function deletarMaquina(id_maquina) {
+  exibirCarregar()
   fetch(`/dashboard/deletar_maquina/${id_maquina}`, {
     method: 'DELETE',
     headers: {
@@ -416,7 +431,10 @@ function deletarMaquina(id_maquina) {
   })
     .then(function (resposta) {
       if (resposta.ok) {
-        location.reload()
+        confirmacaoAcao('Máquina deletada!')
+        setTimeout(() => {
+          location.reload()
+        }, 1000);
       } else if (resposta.status == 404) {
         window.alert('Máquina não encontrada (404).')
       } else {
@@ -434,6 +452,7 @@ function deletarMaquina(id_maquina) {
 }
 
 function editarMaquina(id_maquina) {
+  exibirCarregar()
   let nome_maquina = document.getElementById('editar_nome_maquina').value
   let modelo_maquina = document.getElementById('editar_modelo_maquina').value
 
@@ -451,7 +470,10 @@ function editarMaquina(id_maquina) {
     )
       .then(function (resposta) {
         if (resposta.ok) {
-          location.reload()
+          confirmacaoAcao('Máquina Editada!')
+          setTimeout(() => {
+            location.reload()
+          }, 1000);
         } else if (resposta.status == 404) {
           window.alert('Máquina não encontrada (404).')
         } else {
@@ -1047,11 +1069,10 @@ function atualizarDadosDaMaquina(id_maquina) {
     cache: 'no-store'
   }).then(function (resposta) {
     resposta.json().then(informacoes => {
-      modelo.innerHTML = `  ${
-        informacoes[0].modelo_processador == ''
-          ? 'Indefinido'
-          : informacoes[0].modelo_processador
-      }`
+      modelo.innerHTML = `  ${informacoes[0].modelo_processador == ''
+        ? 'Indefinido'
+        : informacoes[0].modelo_processador
+        }`
       fabricante.innerHTML = `  ${informacoes[0].fabricante_processador}`
       ram.innerHTML = ` ${informacoes[0].ram_total_gb}`
       disco.innerHTML = ` ${informacoes[0].modelo_disco}`
