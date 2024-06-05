@@ -72,7 +72,8 @@
             <th></th>
             <th><span>Nome</span></th>
             <th><span>E-mail</span></th>
-            <th><span>Setor</span></th>
+            <!--             <th><span>Setor</span></th>
+ -->
             <th><span>Cargo</span></th>
             <!-- <th><span>Acesso</span></th> -->
             <th></th>
@@ -83,10 +84,9 @@
         </tbody>
       </table>
     </div>
-
     <div style="display: none; left: 38%;" id="pop-add-users" class="tela-lista-processos">
       <div class="barra-lista">
-        <samp style="color: white; margin-left: 10px;">Edite informações da empresa</samp>
+        <samp style="color: white; margin-left: 10px;">Edite informações do funcionário</samp>
         <div onclick="fechar_tela()" class="icon-plus xtela"></div>
       </div>
       <div class="pop-edit">
@@ -101,16 +101,26 @@
           </div>
           <div class="form-element">
             <label for="modelo">Setor</label>
-            <input type="text" id="setor_usuario" placeholder="Insira setor do usuário">
+            <select style="border: 1px solid; border-radius: 5px;" class="selectRotulos" name="" id="setor_usuario">
+              <option value="" disabled selected>Selecione</option>
+              <option value="210">Financeiro</option>
+              <option value="250">Produção</option>
+              <option value="200">Recursos Humanos</option>
+              <option value="290">Qualidade</option>
+              <option value="260">Logística</option>
+              <option value="220">TI</option>
+            </select>
+            <!--             <input type="text" id="setor_usuario" placeholder="Insira setor do usuário">
+ -->
           </div>
           <div class="form-element">
             <label for="modelo">Cargo</label>
             <input type="text" id="cargo_usuario" placeholder="Insira o cargo do usuário">
           </div>
-          <div class="form-element">
+          <!-- <div class="form-element">
             <label for="modelo">Acesso</label>
             <input type="text" id="acesso_usuario">
-          </div>
+          </div> -->
           <div class="form-element">
             <button onclick="editarUsuario()" class="btm-confirmar">Atualizar</button>
           </div>
@@ -206,17 +216,16 @@
   let nome = sessionStorage.NOME_USUARIO
   let setor = sessionStorage.SETOR
   let empresa = sessionStorage.ID_EMPRESA
-  let user = sessoionStorage.ID_USUARIO
-
+  /*   let user = sessoionStorage.ID_USUARIO
+   */
   function criarUsuario() {
     var novoNome = input_rotuloNome.value;
     var novoEmail = input_rotuloEmail.value;
     var novoCargo = input_rotuloCargo.value;
     var novaSenha = input_rotuloSenha.value;
     var permissão = selectPermission.value;
-    var setor = setor;
-    var empresa = empresa;
-    var permissaoTotal = 1;
+    var setor = sessionStorage.SETOR
+    var empresa = sessionStorage.ID_EMPRESA
 
     fetch("/gerenciarUsuario/cadastrarUsuario", {
       method: 'POST',
@@ -230,11 +239,10 @@
         senha: novaSenha,
         permissao: permissão,
         setor: setor,
-        empresa: empresa,
-        permissaoTotal: permissaoTotal,
+        empresa: empresa
       }),
     })
-      .then(response => response.json())
+      .then(response => response.json())(location.reload())
       .catch(error => console.error('Error:', error));
 
   }
@@ -261,7 +269,6 @@
             <td><div class="icon-user"></div></td>
             <td>${usuario.nome_funcionario}</td>
             <td>${usuario.email_funcionario}</td>
-            <td>${setor}</td>
             <td>${usuario.cargo_funcionario}</td>
             <td>
               <div onclick="editarUsuario('${usuario.id_funcionario}', '${usuario.nome_funcionario}', '${usuario.email_funcionario}', '${setor}', '${usuario.cargo_funcionario}', '${usuario.acesso_plataforma ? 'Permitido' : 'Negado'}')" class="icon-pencil"></div>
@@ -291,8 +298,8 @@
     email_usuario.value = email_funcionario;
     setor_usuario.value = setor;
     cargo_usuario.value = cargo_funcionario;
-    acesso_usuario.value = acesso_plataforma;
-
+    /*     acesso_usuario.value = acesso_plataforma;
+     */
     document.getElementById('pop-add-users').style.display = 'flex'
     document.querySelector('#pop-add-users button').setAttribute('onclick', `updateUser(${id_funcionario})`)
     let lista = document.getElementById('deletar_maquina')
@@ -305,8 +312,8 @@
     var email = email_usuario.value;
     var setor = setor_usuario.value;
     var cargo = cargo_usuario.value;
-    var acesso = acesso_usuario.value;
-
+    /*     var acesso = acesso_usuario.value;
+     */
     fetch("/gerenciarUsuario/editarUsuario", {
       method: 'PUT',
       headers: {
@@ -317,8 +324,8 @@
         email: email,
         setor: setor,
         cargo: cargo,
-        acesso: acesso,
-        id_funcionario: id_funcionario
+/*         acesso: acesso,
+ */        id_funcionario: id_funcionario
       }),
     })
       .then(response => response.json())

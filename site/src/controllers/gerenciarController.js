@@ -27,9 +27,8 @@ function listarUsuarios(req, res) {
   var empresa = req.body.empresa;
   var cargo = req.body.cargo;
   var permissao = req.body.permissao;
-  var permissao_total = req.body.permissaoTotal;
 
-  gerenciarModel.cadastrarUsuario(nome, email, senha, setor, empresa, cargo, permissao, permissao_total)
+  gerenciarModel.cadastrarUsuario(nome, email, senha, setor, empresa, cargo, permissao)
   .then(function (resultado) {
     if (resultado > 0) {
         res.status(201).send('Usuário cadastrado com sucesso!');

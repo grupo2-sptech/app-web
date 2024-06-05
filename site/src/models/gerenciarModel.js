@@ -16,10 +16,10 @@ function listarUsuarios(setor, empresa) {
   return database.executar(instrucaoSql)
 }
 
-function cadastrarUsuario (nome, email, senha, setor, empresa, cargo, permissao, permissao_total) {
+function cadastrarUsuario (nome, email, senha, setor, empresa, cargo, permissao) {
   instrucaoSql = ''
-  instrucaoSql = `INSERT INTO funcionario (nome_funcionario, email_funcionario, senha_acesso, fk_setor, fk_empresa, cargo_funcionario, acesso_plataforma, permissao_total)
-  VALUES ('${nome}', '${email}', '${senha}', ${setor}, ${empresa}, '${cargo}', ${permissao}, ${permissao_total});
+  instrucaoSql = `INSERT INTO funcionario (nome_funcionario, email_funcionario, senha_acesso, fk_setor, fk_empresa, cargo_funcionario, acesso_plataforma)
+  VALUES ('${nome}', '${email}', '${senha}', ${setor}, ${empresa}, '${cargo}', ${permissao});
   `
 
   console.log('Executando a instrução SQL: \n' + instrucaoSql)
