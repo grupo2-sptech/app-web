@@ -68,19 +68,23 @@ body {
   align-items: center;
 }
 
-table {
-  border-collapse: collapse;
+.menuGerenciar {
+  overflow-y: auto;
+  /* Permite rolagem vertical quando necessário */
+  overflow-x: hidden;
+  /* Oculta a rolagem horizontal */
+  margin-left: 1%;
+  width: 98%;
+  height: 85vh;
+  /* Define a altura como 80% da altura da viewport */
+  display: flex;
+  flex-direction: column;
 }
 
 table,
 th,
 td {
   border: none;
-}
-
-th {
-  background-color: white;
-  color: black;
 }
 
 th span {
@@ -92,14 +96,49 @@ td {
   font-size: 16px;
 }
 
+thead {
+  position: sticky;
+  top: 0;
+  background: #f1f1f1;
+  /* Cor de fundo do cabeçalho */
+  z-index: 1;
+  /* Garante que o cabeçalho fique acima do corpo */
+}
+
 .icon-user {
   font-size: 20px;
 }
 
 tr {
   height: 75px;
-  border: 1px solid black;
+  border: 1.5px solid black;
   box-shadow: -10px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.menuGerenciar::-webkit-scrollbar {
+  width: 10px;
+  /* largura da barra de rolagem */
+}
+
+.menuGerenciar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  /* cor de fundo da pista */
+}
+
+.menuGerenciar::-webkit-scrollbar-thumb {
+  background: #888;
+  /* cor do polegar */
+  border-radius: 5px;
+  /* borda arredondada para o polegar */
+}
+
+.menuGerenciar::-webkit-scrollbar-thumb:hover {
+  background: #555;
+  /* cor do polegar ao passar o mouse */
+}
+
+.icon-user {
+  font-size: 20px;
 }
 
 .adicionarUsuario {
@@ -208,11 +247,11 @@ tr {
 
 
 .pop-edit {
-    height: 70%;
-    width: 100%;
-  }
+  height: 70%;
+  width: 100%;
+}
 
 .pop-delete {
-    height: 30%;
-    width: 100%;
+  height: 30%;
+  width: 100%;
 }
