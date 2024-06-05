@@ -60,7 +60,7 @@ function listarUsuarios(req, res) {
       }
     })
     .catch(function (erro) {
-      console.log(nome, email, setor, cargo);
+      console.log(nome, email, setor, cargo, id_funcionario);
       console.log('Houve um erro ao editar o usuário: ', erro.sqlMessage);
       res.status(500).json(erro.sqlMessage);
     });

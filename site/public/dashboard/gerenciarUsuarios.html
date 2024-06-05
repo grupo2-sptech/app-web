@@ -214,8 +214,8 @@
     var novoCargo = input_rotuloCargo.value;
     var novaSenha = input_rotuloSenha.value;
     var permissão = selectPermission.value;
-    var setor = 200;
-    var empresa = 100;
+    var setor = setor;
+    var empresa = empresa;
     var permissaoTotal = 1;
 
     fetch("/gerenciarUsuario/cadastrarUsuario", {
@@ -294,13 +294,13 @@
     acesso_usuario.value = acesso_plataforma;
 
     document.getElementById('pop-add-users').style.display = 'flex'
-    document.querySelector('#pop-add-users button').setAttribute('onclick', `updateUser('${nome_funcionario}', '${email_funcionario}', '${setor}', '${cargo_funcionario}', '${acesso_plataforma}')`)
+    document.querySelector('#pop-add-users button').setAttribute('onclick', `updateUser(${id_funcionario})`)
     let lista = document.getElementById('deletar_maquina')
     let deletar = document.getElementById('lista-processos')
 
   }
 
-  function updateUser() {
+  function updateUser(id_funcionario) {
     var nome = nome_usuarioInput.value;
     var email = email_usuario.value;
     var setor = setor_usuario.value;
@@ -317,7 +317,8 @@
         email: email,
         setor: setor,
         cargo: cargo,
-        acesso: acesso
+        acesso: acesso,
+        id_funcionario: id_funcionario
       }),
     })
       .then(response => response.json())
