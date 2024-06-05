@@ -26,12 +26,11 @@ function cadastrarUsuario (nome, email, senha, setor, empresa, cargo, permissao,
   return database.executar(instrucaoSql) 
 }
 
-  function editarUsuario(nome, email, setor, cargo) {
+  function editarUsuario(id_funcionario ,nome, email, setor, cargo) {
   instrucaoSql = ''
   instrucaoSql = `UPDATE funcionario SET nome_funcionario = '${nome}', email_funcionario = '${email}', fk_setor = ${setor}, cargo_funcionario = '${cargo}'
-  WHERE email_funcionario = '${email}';
+  WHERE id_funcionario = '${id_funcionario}';
   `
-  console.log('model')
   console.log('Executando a instrução SQL: \n' + instrucaoSql)
   return database.executar(instrucaoSql)
 }

@@ -283,7 +283,7 @@
   }
 
 
-  function editarUsuario(nome_funcionario, email_funcionario, setor, cargo_funcionario, acesso_plataforma) {
+  function editarUsuario(id_funcionario, nome_funcionario, email_funcionario, setor, cargo_funcionario, acesso_plataforma) {
     let nome_usuario = document.getElementById('nome_usuario')
     let email_usuario = document.getElementById('email_usuario')
     let setor_usuario = document.getElementById('setor_usuario')
@@ -323,7 +323,8 @@
         acesso: acesso
       }),
    })
-    .then(response => response.json())
+    .then(response => response.json()) 
+    (location.reload())
     .catch(error => console.error('Error:', error));
   }
 

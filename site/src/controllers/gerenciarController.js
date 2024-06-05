@@ -49,8 +49,9 @@ function listarUsuarios(req, res) {
   var email = req.body.email;
   var setor = req.body.setor;
   var cargo = req.body.cargo;
+  var id_funcionario = req.body.id_funcionario;
 
-  gerenciarModel.editarUsuario(nome, email, setor, cargo)
+  gerenciarModel.editarUsuario(id_funcionario, nome, email, setor, cargo)
     .then(function (resultado) {
       if (resultado == 1) {
         res.status(201).send('Usuário editado com sucesso!');
@@ -59,7 +60,7 @@ function listarUsuarios(req, res) {
       }
     })
     .catch(function (erro) {
-      console.log(erro);
+      console.log(nome, email, setor, cargo);
       console.log('Houve um erro ao editar o usuário: ', erro.sqlMessage);
       res.status(500).json(erro.sqlMessage);
     });
