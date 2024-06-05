@@ -652,7 +652,7 @@ function adicionarNotificacaoNaInterface(novaNotificacao) {
       <div class="mensagem_alerta">
           <div style="color: ${color_alerta};" class="icon-warning"></div>
           <div>
-              <p class="nome_maquina">${novaNotificacao.titulo}</p>
+              <p class="nome_maquina">${novaNotificacao.titulo} da ${novaNotificacao.nome_maquina}</p>
               <p class="descricao_alerta">${novaNotificacao.descricao_alerta}</p>
               <i class="data_hora">${dataHoraFormatada}</i>
           </div>
