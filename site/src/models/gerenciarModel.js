@@ -35,11 +35,21 @@ function cadastrarUsuario (nome, email, senha, setor, empresa, cargo, permissao,
   return database.executar(instrucaoSql)
 }
 
-  function excluirUsuario(id_funcionario) {
-  instrucaoSql = ''
-  instrucaoSql = `DELETE FROM funcionario WHERE id_funcionario = ${id_funcionario};`
-  console.log('Executando a instrução SQL: \n' + instrucaoSql)
-  return database.executar(instrucaoSql)
+  async function excluirUsuario(id_funcionario) {
+
+    try {
+      const query_acesso = `DELETE FROM acesso_usuario WHERE fk_funcionario = ${id_funcionario};`
+      const query_usuario = `DELETE FROM funcionario WHERE id_funcionario = ${id_funcionario};`
+
+      await database.executar(query_acesso, [id_funcionario])
+      await database.executar(query_usuario, [id_funcionario])
+
+      return { message: 'Usuário e dependências deletados com sucesso' }
+    } catch (error) {
+      console.log('Erro ao deletar usuário:', error)
+      throw error
+    }
+  
 }
 
 module.exports = {
