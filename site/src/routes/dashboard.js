@@ -41,6 +41,12 @@ router.get('/grafico_geral/:id_setor', function (req, res) {
 router.get('/alerta/:id_setor', function (req, res) {
   dashboardController.alerta(req, res)
 })
+router.get('/atualizarDadosAlerta/:id_maquina', function (req, res) {
+  dashboardController.atualizarDadosAlerta(req, res)
+})
+router.get('/alerta/:id_setor', function (req, res) {
+  dashboardController.alerta(req, res)
+})
 router.post(
   '/cadastrar_maquina/:nome_maquina/:modelo_maquina/:id_setor/:id_empresa',
   function (req, res) {

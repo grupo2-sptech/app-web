@@ -1,6 +1,7 @@
 /** @format */
 
 let dashboardModel = require('../models/dashboardModels')
+const { param } = require('../routes/dashboard')
 
 function listarMaquinas(req, res) {
   var idUsuario = req.params.idUsuario
@@ -150,7 +151,7 @@ function deletarMaquina(req, res) {
   }
 }
 
-function editarMaquina(req, res){
+function editarMaquina(req, res) {
   let id_maquina = req.params.id_maquina;
   let nome_maquina = req.params.nome_maquina;
   let modelo_maquina = req.params.modelo_maquina
@@ -237,6 +238,25 @@ function alerta(req, res) {
   }
 }
 
+function atualizarDadosAlerta(req, res) {
+  let id_maquina = req.params.id_maquina;
+  console.log(id_maquina);
+  if (id_maquina != undefined) {
+    dashboardModel.atualizarDadosAlerta(id_maquina).then(result => {
+      if (result.length > 0) {
+        res.status(200).json(result)
+      } else {
+        res.status(204).send('Nenhum resultado encontrado')
+      }
+    }).catch(err => {
+      console.log(err);
+      res.status(500).json({ error: err.sqlMessage })
+    })
+  } else {
+    res.status(400).json({ error: 'Parâmetros inválidos' });
+  }
+}
+
 
 
 
@@ -254,5 +274,6 @@ module.exports = {
   cadastrar_maquina,
   atualizar_geral,
   editarMaquina,
+  atualizarDadosAlerta,
   alerta
 }

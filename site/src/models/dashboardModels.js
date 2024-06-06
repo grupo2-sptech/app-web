@@ -276,6 +276,29 @@ function alerta(id_setor) {
   return database.executar(query)
 }
 
+function atualizarDadosAlerta(id_maquina) {
+  let query = `SELECT 
+    (SELECT COUNT(*) 
+     FROM alerta 
+     WHERE titulo LIKE '%RAM%' 
+       AND fk_maquina = ${id_maquina} 
+       AND CONVERT(DATE, data_hora) = CONVERT(DATE, GETDATE())) AS ram,
+       
+    (SELECT COUNT(*) 
+     FROM alerta 
+     WHERE titulo LIKE '%CPU%' 
+       AND fk_maquina = ${id_maquina} 
+       AND CONVERT(DATE, data_hora) = CONVERT(DATE, GETDATE())) AS cpu,
+
+    (SELECT COUNT(*) 
+     FROM alerta 
+     WHERE titulo LIKE '%Processo%' 
+       AND fk_maquina = ${id_maquina} 
+       AND CONVERT(DATE, data_hora) = CONVERT(DATE, GETDATE())) AS processo;`;
+
+  return database.executar(query);
+}
+
 module.exports = {
   listarMaquinas,
   cap_dados,
@@ -288,5 +311,6 @@ module.exports = {
   cadastrar_maquina,
   atualizar_geral,
   editarMaquina,
+  atualizarDadosAlerta,
   alerta
 }

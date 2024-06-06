@@ -158,7 +158,7 @@ function listarMaquinas(fksetor, acesso) {
           maquinas.forEach(maquinas => {
             let TodasMaquinas = {
               idMaquina: maquinas.id_maquina,
-              card: `<div onclick="atualizar_grafico_tempo_real(${maquinas.id_maquina}); atualizarDadosDaMaquina(${maquinas.id_maquina}); cardSelecionado(${maquinas.id_maquina})"  id = "${maquinas.id_maquina}" class="card-acao">
+              card: `<div onclick="atualizar_grafico_tempo_real(${maquinas.id_maquina}); atualizarDadosDaMaquina(${maquinas.id_maquina}); cardSelecionado(${maquinas.id_maquina}); atualizarDadosAlerta(${maquinas.id_maquina})"  id = "${maquinas.id_maquina}" class="card-acao">
               <div class="icon-todos">
                 <div class="lixeira-lapis">
                     <div class="icon-trash1" onclick="abrirExcluir(${maquinas.id_maquina}, '${maquinas.nome_maquina}'); event.stopPropagation(); event.preventDefault();"></div>
@@ -1097,6 +1097,22 @@ function cardSelecionado(id_maquina) {
     id.style.border = '3px solid #2e4959'
     elementoSelecionado = id
   }
+}
+
+function atualizarDadosAlerta(idMaquina){
+  let ramLimite = document.getElementById('ram_limite')
+  let cpuLimite = document.getElementById('cpu_limite')
+  let bloqueio = document.getElementById('bloqueio')
+
+  fetch(`/dashboard/atualizarDadosAlerta/${idMaquina}`,{
+    method: 'GET'
+  }).then(function (result){
+    result.json().then(alertas =>{
+      ramLimite.innerHTML = alertas[0].ram
+      cpuLimite.innerHTML = alertas[0].cpu
+      bloqueio.innerHTML = alertas[0].processo
+    })
+  })
 }
 
 function mostrarAcao(id) {
