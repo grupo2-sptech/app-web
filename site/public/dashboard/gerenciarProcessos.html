@@ -64,8 +64,9 @@
     <div class="tituloPolitica">
       <h1>Gerenciar Politicas de Bloqueios</h1>
       <div class="salvar_politica" id="salvar">
-        <h3>Salvar</h3>
-        <img src="../assets/imgs/save.png" alt="">
+
+        <a onclick="AbrirAjuda()">Ajuda</a>
+        <img src="../assets/imgs/informacoes.png  " alt="">
       </div>
     </div>
 
@@ -75,53 +76,53 @@
 
         <div class="cardsPoliticas">
 
-          <div class="cardPolitica" >
-            <h4 ">Redes Sociais Ativas</h4>
+          <div class="cardPolitica">
+            <h4>Redes Sociais Ativas</h4>
             <div class="listaProcessos" id="cardRedeSocial">
-            
-        
+
+
 
             </div>
-           
-            
+
+
           </div>
 
-          <div class="cardPolitica" >
+          <div class="cardPolitica">
             <h4>Plataforma de Comunicação</h4>
             <div class="listaProcessos" id="cardPlataforma">
 
             </div>
-           
-            
+
+
 
           </div>
 
-          <div class="cardPolitica" >
+          <div class="cardPolitica">
             <h4>Plataforma streaming</h4>
             <div class="listaProcessos" id="cardStreaming">
 
             </div>
-           
-            
+
+
 
           </div>
 
-          <div class="cardPolitica" >
+          <div class="cardPolitica">
             <h4>Plataforma de Notícias</h4>
             <div class="listaProcessos" id="cardNoticias">
 
             </div>
-           
-  
+
+
 
           </div>
 
-          <div class="cardPolitica" >
+          <div class="cardPolitica">
             <h4>Jogos</h4>
             <div class="listaProcessos" id="cardJogos">
 
             </div>
-           
+
 
 
           </div>
@@ -139,12 +140,37 @@
     </div>
 
   </section>
-</body>
 
+
+
+  </div>
+
+  <div class="custom-div" id="div-custom" style="display: none;">
+    <h5>Gerenciamento de processos</h5>
+    <div class="texto-pop-up">
+      <p>Aqui você pode escolher quais processos e serviços deseja bloquear no setor.
+        Organizamos em seções variadas, cada uma representando uma categoria de serviços: <b>Redes Sociais, Comunicação,
+          Streaming, Notícias e Jogos. Cada serviço na lista possui um botão, onde você podera habilitar ou desabilitar
+          o bloqueio!</b>
+      </p>
+    </div>
+    <div>
+</body>
 
 </html>
 
 <script>
   let nome = sessionStorage.NOME_USUARIO
   nome_usuario.innerHTML = nome;
+
+  function AbrirAjuda() {
+    if (document.querySelector('.custom-div').style.display == 'block') {
+      document.querySelector('.custom-div').style.display = 'none'
+      
+    } else{
+      document.querySelector('.custom-div').style.display = 'block'
+    }
+  }
+  
+
 </script>
