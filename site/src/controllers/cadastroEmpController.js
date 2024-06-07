@@ -27,32 +27,33 @@ function autenticarEmpresa(req, res) {
 
 async function cadastrarEmpresa(req, res) {
     try {
-        // Extrair os dados do corpo da requisição
-        const { nomeServer: nome,
-            cnpjServer: cnpj,
-            emailEmpServer: email,
-            municipioServer: municipio,
-            cepServer: cep,
-            bairroServer: bairro,
-            ruaServer: logradouro,
-            numeroServer: numero,
-            complementoServer: complemento,
-            ufEmpServer: ufEmp
+        const {
+            nomeEmpVar: nome,
+            cnpjVar: cnpj,
+            emailEmpVar: email,
+            municipioVar: municipio,
+            cepVar: cep,
+            bairroVar: bairro,
+            ruaVar: logradouro,
+            numeroVar: numero,
+            complementoVar: complemento,
+            ufEmpVar: ufEmp,
+            nomeUserVar: nomeUser,
+            emailUserVar: emailUser,
+            loginVar: login,
+            senhaVar: senha,
+            setorVar: setor
         } = req.body;
 
-        // Cadastro do endereço
         const enderecoId = await empresaModel.cadastrarEndereco(
-            municipio,
-            bairro,
-            logradouro,
-            numero,
-            complemento,
-            cep,
-            ufEmp
+            municipio, bairro, logradouro, numero, complemento, cep, ufEmp
         );
 
-        // Cadastro da empresa com o ID do endereço
-        await empresaModel.cadastrarEmpresa(nome, cnpj, email, enderecoId);
+        const empresaId = await empresaModel.cadastrarEmpresa(nome, cnpj, email, enderecoId);
+
+        const setorId = await empresaModel.cadastrarStores(setor, empresaId);
+
+        await empresaModel.cadastrarFuncionario(nomeUser, emailUser, login, senha, "Gestor", setorId, empresaId);
 
         res.status(201).send("Empresa cadastrada com sucesso.");
     } catch (error) {
@@ -60,6 +61,7 @@ async function cadastrarEmpresa(req, res) {
         res.status(500).send("Erro ao cadastrar empresa.");
     }
 }
+
 
 
 // function autenticarEndereco(req, res) {

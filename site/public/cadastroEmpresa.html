@@ -94,8 +94,8 @@
 
         <div style="display: none; left: 38%;" id="pop-add-maquinas" class="tela-lista-processos">
             <div class="barra-lista">
-              <samp style="color: white; margin-left: 10px;">Edite informações da empresa</samp>
-              <div onclick="fechar_tela()" class="icon-plus xtela"></div>
+                <samp style="color: white; margin-left: 10px;">Edite informações da empresa</samp>
+                <div onclick="fechar_tela()" class="icon-plus xtela"></div>
             </div>
             <div class="pop-maquina">
                 <div class="form">
@@ -116,7 +116,7 @@
                         <input type="text" id="token_empresa" placeholder="Insira o novo Token">
                     </div>
                     <div class="form-element">
-                        <button onclick="editarEmpresa()" class="btm-confirmar">Atualizar</button> 
+                        <button onclick="editarEmpresa()" class="btm-confirmar">Atualizar</button>
                     </div>
                     <span id="preecha_campos_maquina" style="color: red; display: none; text-align: center;">
                         Preecha todos os campos!
@@ -154,18 +154,18 @@
                 <h4>Dados da Empresa</h4>
                 <div class="rotulosUsuario">
                     <div class="rotulos">
-                        <label for="nome">Nome da Empresa:</label>
+                        <label for="nomeEmp">Nome da Empresa:</label>
                         <input id="nomeEmp" class="inputRotulos" type="text" placeholder="Digite o nome da empresa"
                             required>
                     </div>
                     <div class="rotulos">
-                        <label for="email">CNPJ:</label>
-                        <input id="cnpj" class="inputRotulos" type="text" placeholder="Digite o CNPJ da empresa">
+                        <label for="cnpj">CNPJ:</label>
+                        <input maxlength="14" id="cnpj" class="inputRotulos" type="text" placeholder="Digite o CNPJ da empresa">
                     </div>
+                    
                     <div class="rotulos">
-                        <label for="setor">E-mail:</label>
-                        <input id="emailEmp" class="inputRotulos" type="text"
-                            placeholder="Digite o Email da empresa">
+                        <label for="emailEmp">E-mail:</label>
+                        <input id="emailEmp" class="inputRotulos" type="text" placeholder="Digite o Email da empresa">
                     </div>
                 </div>
             </div>
@@ -174,129 +174,170 @@
                 <h4>Endereço</h4>
                 <div class="rotulosUsuario">
                     <div class="rotulos">
-                        <label for="config1">UF:</label>
-                            <select style="width: 20%; height: auto; border-radius: 5px;" name="" id="ufEmp">
-                                <option value="1">AC</option>
-                                <option value="2">AL</option>
-                                <option value="3">AP</option>
-                                <option value="4">AM</option>
-                                <option value="5">BA</option>
-                                <option value="6">CE</option>
-                                <option value="7">DF</option>
-                                <option value="8">ES</option>
-                                <option value="9">GO</option>
-                                <option value="10">MA</option>
-                                <option value="11">MT</option>
-                                <option value="12">MS</option>
-                                <option value="13">MG</option>
-                                <option value="14">PA</option>
-                                <option value="15">PB</option>
-                                <option value="16">PR</option>
-                                <option value="17">PE</option>
-                                <option value="18">PI</option>
-                                <option value="19">RJ</option>
-                                <option value="20">RN</option>
-                                <option value="21">RS</option>
-                                <option value="22">RO</option>
-                                <option value="23">RR</option>
-                                <option value="24">SC</option>
-                                <option value="25">SP</option>
-                                <option value="26">SE</option>
-                                <option value="27">TO</option>
-                            </select>                        
+                        <label for="ufEmp">UF:</label>
+                        <select style="width: 20%; height: auto; border-radius: 5px;" id="ufEmp">
+                            <option value="" disabled selected>UF</option>
+                            <option value="1">AC</option>
+                            <option value="2">AL</option>
+                            <option value="3">AP</option>
+                            <option value="4">AM</option>
+                            <option value="5">BA</option>
+                            <option value="6">CE</option>
+                            <option value="7">DF</option>
+                            <option value="8">ES</option>
+                            <option value="9">GO</option>
+                            <option value="10">MA</option>
+                            <option value="11">MT</option>
+                            <option value="12">MS</option>
+                            <option value="13">MG</option>
+                            <option value="14">PA</option>
+                            <option value="15">PB</option>
+                            <option value="16">PR</option>
+                            <option value="17">PE</option>
+                            <option value="18">PI</option>
+                            <option value="19">RJ</option>
+                            <option value="20">RN</option>
+                            <option value="21">RS</option>
+                            <option value="22">RO</option>
+                            <option value="23">RR</option>
+                            <option value="24">SC</option>
+                            <option value="25">SP</option>
+                            <option value="26">SE</option>
+                            <option value="27">TO</option>
+                        </select>
                     </div>
                     <div class="rotulos">
-                        <label for="config1">Município:</label>
+                        <label for="municipioEmp">Município:</label>
                         <input id="municipioEmp" class="inputRotulos" type="text" placeholder="Digite o Município">
                     </div>
                     <div class="rotulos">
-                        <label for="config1">CEP:</label>
-                        <input id="cepEmp" class="inputRotulos" type="text" placeholder="Digite o CEP">
+                        <label for="cepEmp">CEP:</label>
+                        <input max="8" id="cepEmp" class="inputRotulos" type="number" placeholder="Digite o CEP">
                     </div>
                     <div class="rotulos">
-                        <label for="config1">Bairro:</label>
+                        <label for="bairroEmp">Bairro:</label>
                         <input id="bairroEmp" class="inputRotulos" type="text" placeholder="Digite o Bairro">
                     </div>
                     <div class="rotulos">
-                        <label for="config2">Logradouro:</label>
+                        <label for="ruaEmp">Logradouro:</label>
                         <input id="ruaEmp" class="inputRotulos" type="text" placeholder="Digite o Logradouro">
                     </div>
                 </div>
             </div>
+
             <div id="userPermissions" style="display: none;" class="user-permissions sections">
                 <h4>Endereço</h4>
                 <div class="rotulosUsuario">
                     <div class="rotulos">
-                        <label for="permissao1">Número:</label>
+                        <label for="numEmp">Número:</label>
                         <input id="numEmp" class="inputRotulos" type="text" placeholder="Digite o Número">
                     </div>
                     <div class="rotulos">
-                        <label for="permissao2">Complemento:</label>
+                        <label for="complementoEmp">Complemento:</label>
                         <input id="complementoEmp" class="inputRotulos" type="text" placeholder="Digite o Complemento">
                     </div>
                 </div>
             </div>
+
+            <div id="userCreate" style="display: none;" class="user-create sections">
+                <h4>Credenciais do Usuário</h4>
+                <div class="rotulosUsuario">
+                    <div class="rotulos">
+                        <label for="login">Nome:</label>
+                        <input id="inp_nome" class="inputRotulos" type="text" placeholder="Digite o nome">
+                    </div>
+                    <div class="rotulos">
+                        <label for="login">Email:</label>
+                        <input id="inp_email" class="inputRotulos" type="text" placeholder="Digite o email">
+                    </div>
+                    <div class="rotulos">
+                        <label for="login">Login:</label>
+                        <input id="inp_login" class="inputRotulos" type="text" placeholder="Digite o Login">
+                    </div>
+                    <div class="rotulos">
+                        <label for="senha">Senha:</label>
+                        <input id="inp_senha" class="inputRotulos" type="password" placeholder="Digite a senha">
+                    </div>
+                    <div class="rotulos">
+                        <label for="setor">Setor:</label>
+                        <select style="width: 60%; height: auto; border-radius: 5px;" id="id_setor">
+                            <option value="" disabled selected>Selecione o Setor</option>
+                            <option value="Produção">Produção</option>
+                            <option value="Financeiro">Financeiro</option>
+                            <option value="Recursos Humanos">Recursos Humanos</option>
+                            <option value="Qualidade">Qualidade</option>
+                            <option value="Logística">Logística</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
             <div class="tab-selection">
                 <div id="selectDetails" onclick="showDetails()" class="selecionar selecionar_hover"></div>
                 <div id="selectSettings" onclick="showSettings()" class="selecionar"></div>
                 <div id="selectPermissions" onclick="showPermissions()" class="selecionar"></div>
+                <div id="selectCreate" onclick="showCreate()" class="selecionar"></div>
             </div>
-
 
             <div style="display: flex; gap: 2rem; margin-top: 20px;">
                 <button class="botaoCancelar" id="botaoCancelar">Cancelar</button>
                 <button onclick="cadastrar()" class="botaoConfirmar">Confirmar</button>
             </div>
         </div>
-    </main>
 
-</body>
+        <script>
+            function fechar_tela() {
+                document.getElementById('pop-add-maquinas').style.display = 'none';
+                document.getElementById('pop-add-delete').style.display = 'none';
+            }
 
-</html>
+            function showDetails() {
+                document.getElementById('userDetails').style.display = 'block';
+                document.getElementById('userSettings').style.display = 'none';
+                document.getElementById('userPermissions').style.display = 'none';
+                document.getElementById('userCreate').style.display = 'none';
+                document.getElementById('selectDetails').classList.add('selecionar_hover');
+                document.getElementById('selectSettings').classList.remove('selecionar_hover');
+                document.getElementById('selectPermissions').classList.remove('selecionar_hover');
+                document.getElementById('selectCreate').classList.remove('selecionar_hover');
+            }
 
-<script>
+            function showSettings() {
+                document.getElementById('userDetails').style.display = 'none';
+                document.getElementById('userSettings').style.display = 'block';
+                document.getElementById('userPermissions').style.display = 'none';
+                document.getElementById('userCreate').style.display = 'none';
+                document.getElementById('selectDetails').classList.remove('selecionar_hover');
+                document.getElementById('selectSettings').classList.add('selecionar_hover');
+                document.getElementById('selectPermissions').classList.remove('selecionar_hover');
+                document.getElementById('selectCreate').classList.remove('selecionar_hover');
+            }
 
-    function fechar_tela() {
-        let add_maquina = document.getElementById('pop-add-maquinas')
-        let deletar = document.getElementById('pop-add-delete')
+            function showPermissions() {
+                document.getElementById('userDetails').style.display = 'none';
+                document.getElementById('userSettings').style.display = 'none';
+                document.getElementById('userPermissions').style.display = 'block';
+                document.getElementById('userCreate').style.display = 'none';
+                document.getElementById('selectDetails').classList.remove('selecionar_hover');
+                document.getElementById('selectSettings').classList.remove('selecionar_hover');
+                document.getElementById('selectPermissions').classList.add('selecionar_hover');
+                document.getElementById('selectCreate').classList.remove('selecionar_hover');
+            }
 
-        add_maquina.style.display = 'none';
-        deletar.style.display = 'none';
-    }
+            function showCreate() {
+                document.getElementById('userDetails').style.display = 'none';
+                document.getElementById('userSettings').style.display = 'none';
+                document.getElementById('userPermissions').style.display = 'none';
+                document.getElementById('userCreate').style.display = 'block';
+                document.getElementById('selectDetails').classList.remove('selecionar_hover');
+                document.getElementById('selectSettings').classList.remove('selecionar_hover');
+                document.getElementById('selectPermissions').classList.remove('selecionar_hover');
+                document.getElementById('selectCreate').classList.add('selecionar_hover');
+            }
+
+            document.addEventListener('DOMContentLoaded', function () {
+                showDetails();
+            });
 
 
-    let nome = sessionStorage.NOME_USUARIO
-    nome_usuario.innerHTML = nome;
-    function showDetails() {
-        document.getElementById('userDetails').style.display = 'block';
-        document.getElementById('userSettings').style.display = 'none';
-        document.getElementById('userPermissions').style.display = 'none';
-        document.getElementById('selectDetails').classList.add('selecionar_hover');
-        document.getElementById('selectSettings').classList.remove('selecionar_hover');
-        document.getElementById('selectPermissions').classList.remove('selecionar_hover');
-    }
-
-    function showSettings() {
-        document.getElementById('userDetails').style.display = 'none';
-        document.getElementById('userSettings').style.display = 'block';
-        document.getElementById('userPermissions').style.display = 'none';
-        document.getElementById('selectDetails').classList.remove('selecionar_hover');
-        document.getElementById('selectSettings').classList.add('selecionar_hover');
-        document.getElementById('selectPermissions').classList.remove('selecionar_hover');
-    }
-
-    function showPermissions() {
-        document.getElementById('userDetails').style.display = 'none';
-        document.getElementById('userSettings').style.display = 'none';
-        document.getElementById('userPermissions').style.display = 'block';
-        document.getElementById('selectDetails').classList.remove('selecionar_hover');
-        document.getElementById('selectSettings').classList.remove('selecionar_hover');
-        document.getElementById('selectPermissions').classList.add('selecionar_hover');
-    }
-
-    // Exibe a primeira aba por padrão
-    document.addEventListener('DOMContentLoaded', function () {
-        showDetails();
-    });
-
-</script>
+        </script>

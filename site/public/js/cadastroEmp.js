@@ -10,6 +10,11 @@ function cadastrar() {
     var ruaVar = ruaEmp.value;
     var numeroVar = numEmp.value;
     var complementoVar = complementoEmp.value;
+    var nomeUserVar = inp_nome.value;
+    var emailUserVar = inp_email.value;
+    var senhaVar = inp_senha.value;
+    var loginVar = inp_login.value;
+    var setorVar = id_setor.value;
 
     fetch("/cadastroEmpresa/cadastrarEmpresa", {
         method: "POST",
@@ -17,55 +22,60 @@ function cadastrar() {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            nomeServer: nomeEmpVar,
-            cnpjServer: cnpjVar,
-            emailEmpServer: emailEmpVar,
-            ufEmpServer: ufEmpVar,
-            municipioServer: municipioVar,
-            cepServer: cepVar,
-            bairroServer: bairroVar,
-            ruaServer: ruaVar,
-            numeroServer: numeroVar,
-            complementoServer: complementoVar,
+            nomeEmpVar,
+            cnpjVar,
+            emailEmpVar,
+            ufEmpVar,
+            municipioVar,
+            cepVar,
+            bairroVar,
+            ruaVar,
+            numeroVar,
+            complementoVar,
+            nomeUserVar,
+            emailUserVar,
+            loginVar,
+            senhaVar,
+            setorVar
         }),
     })
-        .then(function (resposta) {
-            if (!resposta.ok) {
-                alert("Essa empresa já foi cadastrada")
-            }
-            return resposta.json();
-        })
-        .then(function (data) {
-            console.log("Resposta do servidor:", data);
-            window.onload();
-            ocultarAdicionarUsuario()
-            nomeEmp.value = ""
-            cnpj.value = ""
-            emailEmp.value = ""
-            ufEmp.value = ""
-            municipioEmp.value = ""
-            cepEmp.value = ""
-            bairroEmp.value = ""
-            ruaEmp.value = ""
-            numEmp.value = ""
-            complementoEmp.value = "" // Talvez seja melhor chamar outra função aqui, dependendo do que você deseja fazer após o cadastro ser realizado com sucesso
-        })
-        .catch(function (erro) {
-            window.onload();
-            ocultarAdicionarUsuario()
-            nomeEmp.value = ""
-            cnpj.value = ""
-            emailEmp.value = ""
-            ufEmp.value = ""
-            municipioEmp.value = ""
-            cepEmp.value = ""
-            bairroEmp.value = ""
-            ruaEmp.value = ""
-            numEmp.value = ""
-            complementoEmp.value = ""// Talvez seja melhor chamar outra função aqui, dependendo do que você deseja fazer após o cadastro ser realizado com sucesso
-        });
+    .then(function (resposta) {
+        if (!resposta.ok) {
+            alert("Essa empresa já foi cadastrada");
+        }
+        return resposta.json();
+    })
+    .then(function (data) {
+        console.log("Resposta do servidor:", data);
+        resetForm();
+        location.reload();
+    })
+    .catch(function (erro) {
+        console.error("Erro:", erro);
+        resetForm();
+        location.reload();
+    });
+
+    function resetForm() {
+        nomeEmp.value = "";
+        cnpj.value = "";
+        emailEmp.value = "";
+        ufEmp.value = "";
+        municipioEmp.value = "";
+        cepEmp.value = "";
+        bairroEmp.value = "";
+        ruaEmp.value = "";
+        numEmp.value = "";
+        complementoEmp.value = "";
+        inp_senha.value = "";
+        inp_login.value = "";
+        inp_nome.value = "";
+        inp_email.value = "";
+    }
+
     return false; // Isso previne que o formulário seja submetido
 }
+
 
 
 function editarEmpresa(cnpjVar, nome, email, canal, token) {

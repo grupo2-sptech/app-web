@@ -50,17 +50,61 @@ async function cadastrarEndereco(
   }
 }
 
+
+async function cadastrarStores(setor, id_empresa) {
+  try {
+    const queries = [
+      { query: `INSERT INTO setor (nome_setor, fk_empresa) VALUES ('Produção', @param1)`, params: [id_empresa] },
+      { query: `INSERT INTO setor (nome_setor, fk_empresa) VALUES ('Financeiro', @param1)`, params: [id_empresa] },
+      { query: `INSERT INTO setor (nome_setor, fk_empresa) VALUES ('Recursos Humanos', @param1)`, params: [id_empresa] },
+      { query: `INSERT INTO setor (nome_setor, fk_empresa) VALUES ('Qualidade', @param1)`, params: [id_empresa] },
+      { query: `INSERT INTO setor (nome_setor, fk_empresa) VALUES ('Logística', @param1)`, params: [id_empresa] },
+    ];
+
+    for (let { query, params } of queries) {
+      await database.executar(query, params);
+    }
+
+    const querySetor = `
+      SELECT id_setor FROM setor WHERE nome_setor = @param1 AND fk_empresa = @param2;
+    `;
+    const result = await database.executar(querySetor, [setor, id_empresa]);
+
+    return result[0].id_setor;
+  } catch (error) {
+    throw error;
+  }
+}
+
+
+async function cadastrarFuncionario(nomeUser, emailUser, login, senha, cargo, setorId, empresaId) {
+  try {
+    const query = `
+      INSERT INTO funcionario (nome_funcionario, email_funcionario, login_acesso, senha_acesso, fk_setor, fk_empresa, cargo_funcionario, acesso_plataforma)
+      VALUES (@param1, @param2, @param3, @param4, @param5, @param6, @param7, 1);
+    `;
+    await database.executar(query, [nomeUser, emailUser, login, senha, setorId, empresaId, cargo]);
+  } catch (error) {
+    throw error;
+  }
+}
+
+
+
 async function cadastrarEmpresa(nome, cnpj, email, enderecoId) {
   try {
     const query = `
       INSERT INTO empresa (nome_empresa, cnpj, email, fk_endereco)
       VALUES (@param1, @param2, @param3, @param4);
-    `
-    await database.executar(query, [nome, cnpj, email, enderecoId])
+      SELECT SCOPE_IDENTITY() AS empresaId;
+    `;
+    const result = await database.executar(query, [nome, cnpj, email, enderecoId]);
+    return result[0].empresaId; // Retorna o ID da empresa inserida
   } catch (error) {
-    throw error
+    throw error;
   }
 }
+
 
 async function deletarEmpresa(cnpj) {
   try {
@@ -126,5 +170,7 @@ module.exports = {
   cadastrarEmpresa,
   cadastrarEndereco,
   deletarEmpresa,
-  editarEmpresa
+  editarEmpresa,
+  cadastrarStores,
+  cadastrarFuncionario
 }
