@@ -22,13 +22,14 @@ function listarUsuarios(req, res) {
   function cadastrarUsuario(req, res) {
   var nome = req.body.nome;
   var email = req.body.email;
+  var login = req.body.login;
   var senha = req.body.senha;
   var setor = req.body.setor;
   var empresa = req.body.empresa;
   var cargo = req.body.cargo;
   var permissao = req.body.permissao;
 
-  gerenciarModel.cadastrarUsuario(nome, email, senha, setor, empresa, cargo, permissao)
+  gerenciarModel.cadastrarUsuario(nome, email, login, senha, setor, empresa, cargo, permissao)
   .then(function (resultado) {
     if (resultado > 0) {
         res.status(201).send('Usuário cadastrado com sucesso!');

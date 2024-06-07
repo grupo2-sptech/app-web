@@ -8,6 +8,7 @@ function listarUsuarios(setor, empresa) {
   nome_funcionario,
   email_funcionario,
   cargo_funcionario,
+  login_acesso,
   acesso_plataforma
   FROM funcionario
   WHERE fk_setor = ${setor} AND fk_empresa = ${empresa};
@@ -16,10 +17,10 @@ function listarUsuarios(setor, empresa) {
   return database.executar(instrucaoSql)
 }
 
-function cadastrarUsuario (nome, email, senha, setor, empresa, cargo, permissao) {
+function cadastrarUsuario (nome, email, login, senha, setor, empresa, cargo, permissao) {
   instrucaoSql = ''
-  instrucaoSql = `INSERT INTO funcionario (nome_funcionario, email_funcionario, senha_acesso, fk_setor, fk_empresa, cargo_funcionario, acesso_plataforma)
-  VALUES ('${nome}', '${email}', '${senha}', ${setor}, ${empresa}, '${cargo}', ${permissao});
+  instrucaoSql = `INSERT INTO funcionario (nome_funcionario, email_funcionario, login_acesso, senha_acesso, fk_setor, fk_empresa, cargo_funcionario, acesso_plataforma)
+  VALUES ('${nome}', '${email}', '${login}', '${senha}', ${setor}, ${empresa}, '${cargo}', ${permissao});
   `
 
   console.log('Executando a instrução SQL: \n' + instrucaoSql)

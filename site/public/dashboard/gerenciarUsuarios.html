@@ -75,6 +75,7 @@
             <!--             <th><span>Setor</span></th>
  -->
             <th><span>Cargo</span></th>
+            <th><span>Login</span></th>
             <!-- <th><span>Acesso</span></th> -->
             <th></th>
             <th></th>
@@ -115,7 +116,11 @@
           </div>
           <div class="form-element">
             <label for="modelo">Cargo</label>
-            <input type="text" id="cargo_usuario" placeholder="Insira o cargo do usuário">
+            <select style="border: 1px solid; border-radius: 5px;" class="selectRotulos" name="" id="cargo_usuario">
+              <option value="" disabled selected>Selecione</option>
+              <option value="Analista">Analista</option>
+              <option value="Gestor">Gestor</option>
+            </select>
           </div>
           <!-- <div class="form-element">
             <label for="modelo">Acesso</label>
@@ -172,18 +177,32 @@
           <label for="setor">Setor:</label>
           <select class="selectRotulos" name="" id="selectSector">
             <option class="" value="" disabled selected>Selecione o Setor</option>
-            <option value="1">Financeiro</option>
+            <option value="210">Financeiro</option>
+            <option value="250">Produção</option>
+            <option value="200">Recursos Humanos</option>
+            <option value="290">Qualidade</option>
+            <option value="260">Logística</option>
+            <option value="220">TI</option>
           </select>
         </div>
 
         <div class="rotulos">
           <label for="Cargo">Cargo:</label>
-          <input class="inputRotulos" id="input_rotuloCargo" type="text" placeholder="Informe o Cargo">
+          <select class="selectRotulos" id="selectCargo">
+          <option value="" disabled selected>Selecione o Cargo</option>
+          <option value="Analista">Analista</option>
+          <option value="Gestor">Gestor</option>
+        </select>
+        </div>
+
+        <div class="rotulos">
+          <label for="Login">Login:</label>
+          <input class="inputRotulos" id="input_rotuloLogin" type="text" placeholder="Insira o login">
         </div>
 
         <div class="rotulos">
           <label for="Cargo">Senha:</label>
-          <input class="inputRotulos" id="input_rotuloSenha" type="text" placeholder="Defina a senha de acesso">
+          <input class="inputRotulos" id="input_rotuloSenha" type="password" placeholder="Defina a senha de acesso">
         </div>
       </div>
 
@@ -221,7 +240,8 @@
   function criarUsuario() {
     var novoNome = input_rotuloNome.value;
     var novoEmail = input_rotuloEmail.value;
-    var novoCargo = input_rotuloCargo.value;
+    var novoCargo = selectCargo.value;
+    var novoLogin = input_rotuloLogin.value;
     var novaSenha = input_rotuloSenha.value;
     var permissão = selectPermission.value;
     var setor = sessionStorage.SETOR
@@ -236,6 +256,7 @@
         nome: novoNome,
         email: novoEmail,
         cargo: novoCargo,
+        login: novoLogin,
         senha: novaSenha,
         permissao: permissão,
         setor: setor,
@@ -270,6 +291,7 @@
             <td>${usuario.nome_funcionario}</td>
             <td>${usuario.email_funcionario}</td>
             <td>${usuario.cargo_funcionario}</td>
+            <td>${usuario.login_acesso}</td>
             <td>
               <div onclick="editarUsuario('${usuario.id_funcionario}', '${usuario.nome_funcionario}', '${usuario.email_funcionario}', '${setor}', '${usuario.cargo_funcionario}', '${usuario.acesso_plataforma ? 'Permitido' : 'Negado'}')" class="icon-pencil"></div>
             </td>
@@ -355,6 +377,7 @@
       },
     })
       .then(response => response.json())
+      (location.reload())
       .catch(error => console.error('Error:', error));
   }
 
