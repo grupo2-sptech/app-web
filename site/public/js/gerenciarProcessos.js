@@ -98,9 +98,12 @@ function sugerirProcesso(id_setor, nome_sugestao) {
           throw new Error('Network response was not ok');
       }
       input_sugestao.value = '';
+
+      alertaSugestao();
       listarSugestoes(id_setor);
       return resposta.json();
 
+    
   })
   .then(function(data) {
       console.log(data);
@@ -162,3 +165,21 @@ tabela.innerHTML = `<tr>
   });
 }
 
+function alertaSugestao() {
+    const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+      });
+      Toast.fire({
+        icon: "info",
+        iconColor: "#9FC131",
+        title: "Sugestão enviada com sucesso!"
+      });
+}
