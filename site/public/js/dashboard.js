@@ -453,7 +453,6 @@ function deletarMaquina(id_maquina) {
 }
 
 function editarMaquina(id_maquina) {
-  exibirCarregar()
   let nome_maquina = document.getElementById('editar_nome_maquina').value
   let modelo_maquina = document.getElementById('editar_modelo_maquina').value
 
@@ -461,7 +460,7 @@ function editarMaquina(id_maquina) {
     preecha_campos_editar.style.display = 'block'
   } else {
     fetch(
-      `/dashboard/editar_maquina/${id_maquina}/${nome_maquina}/${modelo_maquina}`,
+      `/dashboard/editar_maquina/${id_maquina}/${nome_maquina}/${modelo_maquina}/${sessionStorage.NOME_USUARIO}`,
       {
         method: 'PUT',
         headers: {
@@ -471,10 +470,10 @@ function editarMaquina(id_maquina) {
     )
       .then(function (resposta) {
         if (resposta.ok) {
-          confirmacaoAcao('Máquina Editada!')
+          alertaConfirma('Máquina Editada com sucesso!', "success")
           setTimeout(() => {
             location.reload()
-          }, 1000);
+          }, 3000);
         } else if (resposta.status == 404) {
           window.alert('Máquina não encontrada (404).')
         } else {
@@ -662,17 +661,26 @@ function adicionarNotificacaoNaInterface(novaNotificacao) {
 
   let dataHoraFormatada = `${dia}/${mes}/${ano} às ${horas}:${minutos}:${segundos}`
   let notifica = document.getElementById('notificacao')
+  let color_alerta
+  let icon
   if (novaNotificacao.titulo.includes('Processo')) {
     color_alerta = 'orange'
+    icon = "icon-warning"
   } else if (novaNotificacao.titulo.includes('cadastrada')) {
     color_alerta = 'green'
+    icon = 'icon-plus1'
+
+  } else if (novaNotificacao.titulo.includes('editada')) {
+    color_alerta = 'green'
+    icon = 'icon-pencil2'
   } else {
     color_alerta = 'red'
+    icon = "icon-warning"
   }
   notifica.innerHTML += `
   <div class="alertas">
       <div class="mensagem_alerta">
-          <div style="color: ${color_alerta};" class="icon-warning"></div>
+          <div style="color: ${color_alerta};" class="${icon}"></div>
           <div>
               <p class="nome_maquina">${novaNotificacao.nome_maquina} - ${novaNotificacao.titulo}</p>
               <p class="descricao_alerta">${novaNotificacao.descricao_alerta}</p>

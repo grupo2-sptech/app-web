@@ -21,7 +21,7 @@ router.delete('/deletar_maquina/:id_maquina', function (req, res) {
   dashboardController.deletarMaquina(req, res)
 })
 router.put(
-  '/editar_maquina/:id_maquina/:nome_maquina/:modelo_maquina',
+  '/editar_maquina/:id_maquina/:nome_maquina/:modelo_maquina/:usuario',
   function (req, res) {
     dashboardController.editarMaquina(req, res)
   }

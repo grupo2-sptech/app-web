@@ -146,7 +146,7 @@ const config1 = {
 }
 
 const data3 = {
-  labels: ['Redes Sociais', 'Streaming', 'Notícia', 'Jogos', 'Comunicação'],
+
   datasets: [
     {
       label: 'Quantidade de ',
@@ -156,6 +156,7 @@ const data3 = {
     }
   ]
 }
+
 
 const config3 = {
   type: 'bar',
@@ -174,9 +175,12 @@ const config3 = {
           font: {
             size: 13
           }
+        },
+        ticks: {
+          stepSize: 1
         }
       },
-      x:{
+      x: {
         title: {
           display: true,
           text: 'Categorias',

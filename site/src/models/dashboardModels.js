@@ -306,6 +306,13 @@ function alertaCadastro(id) {
   return database.executar(query);
 }
 
+function alertaEdit(id_maquina, responsavel) {
+  let query = `insert into alerta (fk_maquina, descricao_alerta, data_hora, titulo) values (${id_maquina}, 'Informamos que o funcionario ${responsavel} editou a Máquina com o codigo: ${id_maquina}', GETDATE(), 'Máquina editada com sucesso!');
+`
+
+  return database.executar(query);
+}
+
 module.exports = {
   listarMaquinas,
   cap_dados,
@@ -320,5 +327,6 @@ module.exports = {
   editarMaquina,
   atualizarDadosAlerta,
   alertaCadastro,
+  alertaEdit,
   alerta
 }

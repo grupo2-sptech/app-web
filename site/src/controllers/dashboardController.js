@@ -151,17 +151,19 @@ function deletarMaquina(req, res) {
   }
 }
 
-function editarMaquina(req, res) {
+async function editarMaquina(req, res) {
   let id_maquina = req.params.id_maquina;
   let nome_maquina = req.params.nome_maquina;
   let modelo_maquina = req.params.modelo_maquina
+  let user = req.params.usuario
 
   if (id_maquina != undefined || nome_maquina != undefined || modelo_maquina != undefined) {
-    dashboardModel
+   await dashboardModel
       .editarMaquina(id_maquina, nome_maquina, modelo_maquina)
       .then(function (resultado) {
         res.json(resultado);
       })
+      await dashboardModel.alertaEdit(id_maquina, user)
       .catch(function (erro) {
         console.log('Houve um erro ao editar a máquina: ', erro);
         res.status(500).json({ error: erro.message });
@@ -178,14 +180,14 @@ async function cadastrar_maquina(req, res) {
   let id_empresa = req.params.id_empresa;
 
   if (nome_maquina != undefined && modelo_maquina != undefined && id_setor != undefined && id_empresa != undefined) {
-   let idServer;
+    let idServer;
     await dashboardModel
       .cadastrar_maquina(nome_maquina, modelo_maquina, id_setor, id_empresa)
       .then(resp => {
         idServer = resp
         res.json({ id: resp });
       })
-      await dashboardModel.alertaCadastro(idServer)
+    await dashboardModel.alertaCadastro(idServer)
       .catch(erro => {
         console.log(erro.sqlMessage);
         res.status(500).json({ error: erro.sqlMessage });

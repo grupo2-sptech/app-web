@@ -27,14 +27,14 @@
                 <strong style="font-size: 12px;" id="nome_usuario"></strong>
             </div>
             <div style="height: 60%; justify-content: space-around; display: flex; flex-direction: column;">
-                <a class="itensDaNav" href="#">
+               <!--  <a class="itensDaNav" href="#">
                     <div class="icon-stats-dots ico"></div>
                     <span class="nome-acao">Dashboard</span>
                 </a>
                 <a class="itensDaNav" href="#">
                     <div style="font-weight: bold;" class="icon-office ico"></div>
                     <samp style="text-align: center;" class="nome-acao">Lista de Bloqueios</samp>
-                </a>
+                </a> -->
                 <!--   <a class="itensDaNav" href="#">
                     <div class="ico">
                         <img src="../assets/imgs/gerenciar_user.svg" alt="">
@@ -97,7 +97,7 @@
                 <samp style="color: white; margin-left: 10px;">Edite informações da empresa</samp>
                 <div onclick="fechar_tela()" class="icon-plus xtela"></div>
             </div>
-            <div class="pop-maquina">
+            <div style="height: 60%;" class="pop-maquina">
                 <div class="form">
                     <div class="form-element">
                         <label for="nome">Nome da empresa</label>
@@ -339,5 +339,6 @@
                 showDetails();
             });
 
-
+            let nome = sessionStorage.NOME_USUARIO
+            nome_usuario.innerHTML = nome;
         </script>

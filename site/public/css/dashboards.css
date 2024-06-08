@@ -244,16 +244,20 @@ body {
   position: absolute;
   width: 20%;
   z-index: 100;
-  max-height: 200px;
+  max-height: 250px;
   overflow-x: scroll;
   background-color: white;
-  margin-top: 2%;
+  margin-top: 2.5%;
   border-radius: 0 0 20px 20px;
   margin-left: 70%;
   padding: 0.5rem;
   align-items: center;
   flex-direction: column;
   box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.2);
+}
+
+.notifica::-webkit-scrollbar {
+  width: 10px;
 }
 
 .notifica .cabecalio {
@@ -319,9 +323,10 @@ body {
   text-align: left;
 }
 
-.icon-warning {
+.icon-warning,
+.icon-plus1,
+.icon-pencil2 {
   margin-top: 12px;
-  color: #e3a700da;
   font-size: 20px;
   margin-left: 10px;
 }
@@ -802,7 +807,7 @@ th {
 }
 
 .pop-maquina {
-  height: 50%;
+  height: 30%;
   width: 100%;
 }
 

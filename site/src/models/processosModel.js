@@ -36,7 +36,10 @@ function sugerirProcesso(id_setor, nome_sugestao) {
 function listarSugestoes(id_setor) {
   let query
 
-  query = `SELECT nome_sugestao, status FROM sugestao WHERE fk_setor = ${id_setor};`
+  query = `SELECT nome_sugestao, status 
+FROM sugestao 
+WHERE fk_setor = ${id_setor} 
+ORDER BY id_sugestao DESC;`
 
   return database.executar(query)
 }
