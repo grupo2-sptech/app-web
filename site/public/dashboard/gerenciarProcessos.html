@@ -5,17 +5,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hardware Security</title>
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.1/dist/sweetalert2.min.css" rel="stylesheet">
   <link rel="stylesheet" href="../css/dashboards.css" />
   <link rel="stylesheet" href="../css/gerenciarUsuario.css">
   <link rel="stylesheet" href="../assets/icons/style.css" />
   <link rel="stylesheet" href="../css/gerenciarProcessos.css">
   <link rel="stylesheet" href="../css/gerenciarProcess.css">
+
   <script src="../js/dashboard.js"></script>
   <script src="../js/sessao.js"></script>
   <script src="../js/gerenciarProcessos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.1/dist/sweetalert2.all.min.js"></script>
 </head>
 
-<body onload="listaProcessos(sessionStorage.SETOR)">
+<body onload="listaProcessos(sessionStorage.SETOR),listarSugestoes(sessionStorage.SETOR)">
   <div id="menu" class="menuLateral">
     <a>
       <div class="logo">
@@ -131,12 +134,35 @@
         </div>
       </div>
 
-      <!-- <div class="politicaCustomizada">
-        <h3 style="margin: 10px 0 0 0; ">Seus bloqueios Ativos</h3>
+      <div class="politicaCustomizada">
+
         <div class="politicas_definidas">
-          <div class="cardPoliticaDefinida"></div>
+          <div class="cardPoliticaDefinida">
+
+            <div class="sugestao">
+              <h1>Indique Novos Bloqueios</h1>
+              <p>Você conhece algum aplicativo que deveria ser bloqueado e não está na nossa lista? 
+                Ajude-nos a tornar nossa plataforma mais eficaz! 
+                Utilize este espaço para sugerir novos aplicativos que você acha que devem ser bloqueados. 
+                Sua colaboração é muito importante para mantermos um ambiente seguro e produtivo para todos.</p>
+                <div class="sugestao_filha">
+                  <input class="input_sugestao" type="text" name="" id="input_sugestao" placeholder="Nome do aplicativo/site">
+                  <button class="botao_sugestao" onclick="sugerirProcesso(sessionStorage.SETOR,input_sugestao.value)">Enviar</button>
+                </div>
+            </div>
+            <h1>Status de sugestões</h1>
+            <div class="tabela_sugestao">
+              
+              <table class="table_status" id="tabela_sugestao">
+                
+                
+
+              </table>
+            </div>
+            
+          </div>
         </div>
-      </div> -->
+      </div>
     </div>
 
   </section>

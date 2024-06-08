@@ -25,7 +25,25 @@ function atualizaProcesso(ativo, id_setor, id_processo) {
   return database.executar(query)
 }
 
+function sugerirProcesso(id_setor, nome_sugestao) {
+  let query
+
+  query = `insert into sugestao (status, fk_setor, nome_sugestao) values (0,${id_setor}, '${nome_sugestao}');`
+
+  return database.executar(query)
+}
+
+function listarSugestoes(id_setor) {
+  let query
+
+  query = `SELECT nome_sugestao, status FROM sugestao WHERE fk_setor = ${id_setor};`
+
+  return database.executar(query)
+}
+
 module.exports = {
   listaProcessos,
-  atualizaProcesso
+  atualizaProcesso,
+  sugerirProcesso,
+  listarSugestoes
 }

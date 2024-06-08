@@ -87,3 +87,99 @@ function atualizaProcesso(id_setor, id_processo) {
   });
 }
 
+function sugerirProcesso(id_setor, nome_sugestao) {
+    
+  fetch(`/gerenciarProcessos/sugerirProcesso/${id_setor}/${nome_sugestao}`, {
+      method: 'POST'
+  })
+  .then(function(resposta) {
+      if (!resposta.ok) {
+          console.log('Erro na requisição fetch: ', resposta);
+          throw new Error('Network response was not ok');
+      }
+      input_sugestao.value = '';
+
+      alertaSugestao();
+      listarSugestoes(id_setor);
+      return resposta.json();
+
+    
+  })
+  .then(function(data) {
+      console.log(data);
+
+  })
+  .catch(function(error) {
+      console.error('Houve um problema com a solicitação fetch: ', error);
+  });
+}
+
+function listarSugestoes(id_setor) {
+
+var tabela = document.getElementById('tabela_sugestao');
+tabela.innerHTML = '';
+tabela.innerHTML = `<tr>
+<th>Nome</th>
+<th>Status</th>
+</tr>`
+
+
+  fetch(`/gerenciarProcessos/listarSugestoes/${id_setor}`, {
+      method: 'GET'
+  })
+  .then(function(resposta) {
+      if (!resposta.ok) {
+          console.log('Erro na requisição fetch: ', resposta);
+          throw new Error('Network response was not ok');
+      }
+      return resposta.json();
+  })
+  .then(function(data) {
+      console.log(data);
+
+        data.forEach(function(sugestao) {
+            var status;
+            switch (sugestao.status) {
+                case 0:
+                    status = 'Pendente';
+                    break;
+                case 1:
+                    status = 'Aprovado';
+                    break;
+                case 2:
+                    status = 'Rejeitado';
+                    break;
+                default:
+                    return; // Caso a categoria não seja reconhecida, ignore
+            }
+    
+            tabela.innerHTML += `<tr>
+                <td>${sugestao.nome_sugestao}</td>
+                <td>${status}</td>
+            </tr>`;
+        });
+
+  })
+  .catch(function(error) {
+      console.error('Houve um problema com a solicitação fetch: ', error);
+  });
+}
+
+function alertaSugestao() {
+    const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+      });
+      Toast.fire({
+        icon: "info",
+        iconColor: "#9FC131",
+        title: "Sugestão enviada com sucesso!"
+      });
+}

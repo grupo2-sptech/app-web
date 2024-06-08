@@ -34,7 +34,40 @@ function atualizaProcesso(req, res) {
       });
 }
 
+function sugerirProcesso(req, res) {
+    var id_setor = req.params.id_setor;
+    var nome_sugestao = req.params.nome_sugestao;
+    processosModel
+      .sugerirProcesso(id_setor, nome_sugestao)
+      .then(function (resultado) {
+        res.status(200).json(resultado);
+      })
+      .catch(erro => {
+        console.log(erro.sqlMessage);
+        res.status(500).json({ error: erro.sqlMessage });
+      });
+}
+
+function listarSugestoes(req, res) {
+  var id_setor = req.params.id_setor;
+    processosModel
+      .listarSugestoes(id_setor)
+      .then(function (resultado) {
+        if (resultado.length > 0) {
+          res.status(200).json(resultado);
+        } else {
+          res.status(204).send('Nenhum resultado encontrado!');
+        }
+      })
+      .catch(erro => {
+        console.log(erro.sqlMessage);
+        res.status(500).json({ error: erro.sqlMessage });
+      });
+}
+
 module.exports = {
     listaProcessos,
-    atualizaProcesso
+    atualizaProcesso,
+    sugerirProcesso,
+    listarSugestoes
 };

@@ -2,6 +2,11 @@
 
 var alertas = []
 
+
+
+
+const Swal = require('sweetalert2')
+
 function obterdados(idAquario) {
   fetch(`/medidas/tempo-real/${idAquario}`)
     .then(resposta => {
