@@ -98,7 +98,94 @@ body {
     width: 95%;
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
     background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
+
+.sugestao {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 40%;
+}
+
+.cardPoliticaDefinida h1 {
+    margin: 10px;
+    font-size: 18px;
+}
+
+.cardPoliticaDefinida p{
+    margin: 5px 10px 15px 10px;
+    font-size: 12px;
+    padding: 10px;
+    text-align: justify;
+}
+
+.sugestao_filha {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 10%;
+    justify-content: center;
+    gap: 5%;
+}
+
+.input_sugestao {
+    border: 1px solid #333; 
+    border-radius: 10px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1); 
+    padding: 10px; 
+    font-size: 16px; 
+    width: 40%; 
+    box-sizing: border-box; 
+    transition: border-color 0.3s, box-shadow 0.3s; 
+}
+
+
+.input_sugestao:focus {
+    border-color: #007BFF; 
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2), 0 0 8px rgba(0, 123, 255, 0.5); 
+    outline: none; 
+}
+
+.input_sugestao::placeholder {
+    color: #999; 
+    opacity: 1; 
+    font-style: italic; 
+    font-size: 12px; 
+}
+
+.botao_sugestao {
+    background-color: #007BFF; 
+    color: #fff; 
+    border: none; 
+    width: 100px; 
+    height: 30px; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    font-size: 16px; 
+    font-weight: bold; 
+    transition: background-color 0.3s, box-shadow 0.3s; 
+}
+
+.botao_sugestao:hover {
+    background-color: #0056b3; 
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3); 
+}
+
+.botao_sugestao:active {
+    background-color: #004085; 
+    box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3); 
+    transform: translateY(2px); 
+}
+
+.botao_sugestao:focus {
+    outline: none; 
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5); 
+}
+
 
 .listaProcessos {
     width: 100%;
