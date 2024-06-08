@@ -96,12 +96,13 @@ body {
     border-radius: 20px;
     height: 94%;
     width: 95%;
-    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 2px 2px 2px 2px rgba(0.4, 0.4, 0.4, 0.6);
     background-color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-top: 13%;
 }
 
 .sugestao {
@@ -118,9 +119,9 @@ body {
 
 .cardPoliticaDefinida p{
     margin: 5px 10px 15px 10px;
-    font-size: 12px;
+    font-size: 14px;
     padding: 10px;
-    text-align: justify;
+    text-align: center;
 }
 
 .sugestao_filha {
@@ -184,6 +185,45 @@ body {
 .botao_sugestao:focus {
     outline: none; 
     box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5); 
+}
+
+.tabela_sugestao{
+    width: 80%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: auto;
+    max-height: 40%;
+}
+
+.tabela_sugestao::-webkit-scrollbar{
+    width: 10px;
+    height: 50px;
+}
+
+.table_status {
+    width: 100%;
+    overflow: auto;
+    padding-top: 15%;
+}
+
+.table_status th {
+    background-color: #2e4959;
+    color: white;
+    text-align: center;
+    height: 5px;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.table_status th, .table_status td {
+    height: 20px;
+}
+
+.table_status tr {
+    height: 20px; 
 }
 
 

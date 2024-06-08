@@ -13,9 +13,10 @@
   <script src="../js/dashboard.js"></script>
   <script src="../js/sessao.js"></script>
   <script src="../js/gerenciarProcessos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
-<body onload="listaProcessos(sessionStorage.SETOR)">
+<body onload="listaProcessos(sessionStorage.SETOR),listarSugestoes(sessionStorage.SETOR)">
   <div id="menu" class="menuLateral">
     <a>
       <div class="logo">
@@ -143,14 +144,20 @@
                 Utilize este espaço para sugerir novos aplicativos que você acha que devem ser bloqueados. 
                 Sua colaboração é muito importante para mantermos um ambiente seguro e produtivo para todos.</p>
                 <div class="sugestao_filha">
-                  <input class="input_sugestao" type="text" name="" id="" placeholder="Nome do aplicativo/site">
-                  <button class="botao_sugestao">Enviar</button>
+                  <input class="input_sugestao" type="text" name="" id="input_sugestao" placeholder="Nome do aplicativo/site">
+                  <button class="botao_sugestao" onclick="sugerirProcesso(sessionStorage.SETOR,input_sugestao.value)">Enviar</button>
                 </div>
             </div>
+            <h1>Status de sugestões</h1>
             <div class="tabela_sugestao">
               
+              <table class="table_status" id="tabela_sugestao">
+                
+                
+
+              </table>
             </div>
-            <div></div>
+            
           </div>
         </div>
       </div>

@@ -17,4 +17,15 @@ router.put(
   }
 )
 
+router.post(
+  '/sugerirProcesso/:id_setor/:nome_sugestao',
+  function (req, res) {
+    processosController.sugerirProcesso(req, res)
+  }
+)
+
+router.get('/listarSugestoes/:id_setor', function (req, res) {
+  processosController.listarSugestoes(req, res)
+})
+
 module.exports = router
