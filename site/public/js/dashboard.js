@@ -345,9 +345,10 @@ function cadastrarMaquina() {
       .then(resposta => resposta.json())
       .then(dado => {
         if (dado.id !== undefined) {
-          campo.innerHTML = `Cadastro realizado com sucesso!<br>Código de cadastro da máquina: <strong>${dado.id}</strong>`
-          campo.style.display = 'block'
-          campo.style.color = 'black'
+          alertaConfirma("Máquina Cadastrada com sucesso!", "success",)
+          setTimeout(() => {
+            location.reload()
+          }, 2000);
         } else {
           campo.innerHTML = 'Erro ao obter o Código de cadastro.'
           campo.style.display = 'block'
@@ -431,10 +432,10 @@ function deletarMaquina(id_maquina) {
   })
     .then(function (resposta) {
       if (resposta.ok) {
-        confirmacaoAcao('Máquina deletada!')
+        alertaConfirma("Máquina deletada com sucesso!", "error")
         setTimeout(() => {
           location.reload()
-        }, 1000);
+        }, 3000);
       } else if (resposta.status == 404) {
         window.alert('Máquina não encontrada (404).')
       } else {
@@ -489,6 +490,25 @@ function editarMaquina(id_maquina) {
         window.alert('Erro ao editar máquina: ' + erro.message)
       })
   }
+}
+
+function alertaConfirma(message, ico) {
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.onmouseenter = Swal.stopTimer;
+      toast.onmouseleave = Swal.resumeTimer;
+    }
+  });
+  Toast.fire({
+    icon: ico,
+    iconColor: "#9FC131",
+    title: message
+  });
 }
 
 let intervalo
@@ -644,6 +664,8 @@ function adicionarNotificacaoNaInterface(novaNotificacao) {
   let notifica = document.getElementById('notificacao')
   if (novaNotificacao.titulo.includes('Processo')) {
     color_alerta = 'orange'
+  } else if (novaNotificacao.titulo.includes('cadastrada')) {
+    color_alerta = 'green'
   } else {
     color_alerta = 'red'
   }
@@ -652,7 +674,7 @@ function adicionarNotificacaoNaInterface(novaNotificacao) {
       <div class="mensagem_alerta">
           <div style="color: ${color_alerta};" class="icon-warning"></div>
           <div>
-              <p class="nome_maquina">${novaNotificacao.titulo} da ${novaNotificacao.nome_maquina}</p>
+              <p class="nome_maquina">${novaNotificacao.nome_maquina} - ${novaNotificacao.titulo}</p>
               <p class="descricao_alerta">${novaNotificacao.descricao_alerta}</p>
               <i class="data_hora">${dataHoraFormatada}</i>
           </div>
@@ -1099,15 +1121,15 @@ function cardSelecionado(id_maquina) {
   }
 }
 
-function atualizarDadosAlerta(idMaquina){
+function atualizarDadosAlerta(idMaquina) {
   let ramLimite = document.getElementById('ram_limite')
   let cpuLimite = document.getElementById('cpu_limite')
   let bloqueio = document.getElementById('bloqueio')
 
-  fetch(`/dashboard/atualizarDadosAlerta/${idMaquina}`,{
+  fetch(`/dashboard/atualizarDadosAlerta/${idMaquina}`, {
     method: 'GET'
-  }).then(function (result){
-    result.json().then(alertas =>{
+  }).then(function (result) {
+    result.json().then(alertas => {
       ramLimite.innerHTML = alertas[0].ram
       cpuLimite.innerHTML = alertas[0].cpu
       bloqueio.innerHTML = alertas[0].processo

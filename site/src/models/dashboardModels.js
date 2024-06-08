@@ -299,6 +299,13 @@ function atualizarDadosAlerta(id_maquina) {
   return database.executar(query);
 }
 
+function alertaCadastro(id) {
+  let query = `insert into alerta (fk_maquina, descricao_alerta, data_hora, titulo) values (${id}, 'Pré cadastro realizado com sucesso, código de cadastro gerado: ${id}', GETDATE(), 'Máquina cadastrada com sucesso!');
+`
+
+  return database.executar(query);
+}
+
 module.exports = {
   listarMaquinas,
   cap_dados,
@@ -312,5 +319,6 @@ module.exports = {
   atualizar_geral,
   editarMaquina,
   atualizarDadosAlerta,
+  alertaCadastro,
   alerta
 }

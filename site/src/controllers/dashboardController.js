@@ -171,18 +171,21 @@ function editarMaquina(req, res) {
   }
 }
 
-function cadastrar_maquina(req, res) {
+async function cadastrar_maquina(req, res) {
   let nome_maquina = req.params.nome_maquina;
   let modelo_maquina = req.params.modelo_maquina;
   let id_setor = req.params.id_setor;
   let id_empresa = req.params.id_empresa;
 
   if (nome_maquina != undefined && modelo_maquina != undefined && id_setor != undefined && id_empresa != undefined) {
-    dashboardModel
+   let idServer;
+    await dashboardModel
       .cadastrar_maquina(nome_maquina, modelo_maquina, id_setor, id_empresa)
       .then(resp => {
+        idServer = resp
         res.json({ id: resp });
       })
+      await dashboardModel.alertaCadastro(idServer)
       .catch(erro => {
         console.log(erro.sqlMessage);
         res.status(500).json({ error: erro.sqlMessage });
