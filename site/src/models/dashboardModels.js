@@ -133,13 +133,18 @@ async function deletarMaquina(id_maquina) {
     const query_componente = `DELETE FROM componente WHERE fk_maquina = @param1;`
     const query_alerta = `DELETE FROM alerta WHERE fk_maquina = @param1;`
     const query_uso_maquina = `DELETE FROM uso_maquina WHERE fk_maquina = @param1;`
+    const query_reinicio = `DELETE FROM historico_reinicializacao WHERE fk_maquina = @param1;`
+    const query_dispositivo = `DELETE FROM dispositivos_conectados WHERE fk_maquina = @param1;`
     const query_maquina = `DELETE FROM maquina WHERE id_maquina = @param1;`
+    
 
     await database.executar(query_hardware, [id_maquina])
     await database.executar(query_rede, [id_maquina])
     await database.executar(query_componente, [id_maquina])
     await database.executar(query_alerta, [id_maquina])
     await database.executar(query_uso_maquina, [id_maquina])
+    await database.executar(query_reinicio, [id_maquina])
+    await database.executar(query_dispositivo, [id_maquina])
     await database.executar(query_maquina, [id_maquina])
     return { message: 'Máquina e dependências deletadas com sucesso' }
   } catch (error) {
