@@ -164,7 +164,9 @@ function listarMaquinas(fksetor, acesso) {
                     <div class="icon-trash1" onclick="abrirExcluir(${maquinas.id_maquina}, '${maquinas.nome_maquina}'); event.stopPropagation(); event.preventDefault();"></div>
                     <div class="icon-pencil" onclick="abrirEditar(${maquinas.id_maquina}, '${maquinas.modelo_maquina}', '${maquinas.nome_maquina}'); event.stopPropagation(); event.preventDefault();"></div>
                 </div>
-               <div id="maquina_${maquinas.id_maquina}" class="icon-laptop1"></div>
+               <div id="maquina_${maquinas.id_maquina}">
+               <img src="../assets/imgs/imagem_computador.png" alt="" style="width: 120px;">
+               </div>
             </div>
               <div class="descricao-laptop">
                 <div class="descricao-titulo">
