@@ -584,7 +584,6 @@ function abrirNotifica() {
   } else {
     div_notifica.style.display = 'flex'
     contadorNotifica(0) // Zerar o contador
-    exibirNotificacoes() // Exibir notificações quando a div é aberta
   }
 }
 
@@ -608,6 +607,7 @@ function atualizarAlertas(id_setor) {
           id: dado.id_alerta, // Supondo que cada notificação tem um ID único
           nome_maquina: dado.nome_maquina,
           descricao_alerta: dado.descricao_alerta,
+          id_maquina: dado.fk_maquina,
           data_hora: dado.data_hora,
           titulo: dado.titulo
         }))
@@ -684,16 +684,17 @@ function adicionarNotificacaoNaInterface(novaNotificacao) {
   }
 
   notifica.innerHTML += `
-    <div class="alertas">
-      <div class="mensagem_alerta">
-        <div style="color: ${color_alerta};" class="${icon}"></div>
-        <div>
-          <p class="nome_maquina">${novaNotificacao.nome_maquina} - ${novaNotificacao.titulo}</p>
-          <p class="descricao_alerta">${novaNotificacao.descricao_alerta}</p>
-          <i class="data_hora">${dataHoraFormatada}</i>
-        </div>
-      </div>
-    </div>`;
+<div onclick="atualizar_grafico_tempo_real(${novaNotificacao.id_maquina}); atualizarDadosDaMaquina(${novaNotificacao.id_maquina}); cardSelecionado(${novaNotificacao.id_maquina}); atualizarDadosAlerta(${novaNotificacao.id_maquina})" class="alertas">
+  <div class="mensagem_alerta">
+    <div style="color: ${color_alerta};" class="${icon}"></div>
+    <div>
+      <p class="nome_maquina">${novaNotificacao.nome_maquina} - ${novaNotificacao.titulo}</p>
+      <p class="descricao_alerta">${novaNotificacao.descricao_alerta}</p>
+      <i class="data_hora">${dataHoraFormatada}</i>
+    </div>
+  </div>
+</div>
+`;
 }
 
 

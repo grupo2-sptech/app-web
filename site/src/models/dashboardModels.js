@@ -270,7 +270,7 @@ function alerta(id_setor) {
   let query
 
   query = `
-  SELECT m.nome_maquina, a.id_alerta, a.descricao_alerta, a.data_hora, a.titulo
+  SELECT m.nome_maquina, a.id_alerta, a.descricao_alerta, a.data_hora, a.titulo, a.fk_maquina
   FROM alerta AS a
   JOIN maquina AS m ON m.id_maquina = a.fk_maquina
   WHERE m.fk_setor = ${id_setor}
