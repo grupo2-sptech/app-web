@@ -232,7 +232,38 @@ body {
   box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
 }
 
-.superior-filtro img {
+
+.instalacao-app {
+  width: 20%;
+  height: 20px;
+  position: absolute;
+  margin-right: 68%;
+  font-size: 13px;
+  font-weight: bold;
+  color: #2e4959;
+  }
+  
+.instalacao-app a {
+
+    color: #2e4959;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+  
+  }
+
+.superior-filtro .imagem-dowload {
+  width: 13px;
+  margin-left: 3px;
+  position: absolute;
+  margin-top: 1.5px;
+  /* justify-content: center; */
+  /* align-items: center; */
+  cursor: pointer;
+
+}
+
+.superior-filtro .notificacao {
   width: 35px;
   position: absolute;
   margin-left: 68%;
