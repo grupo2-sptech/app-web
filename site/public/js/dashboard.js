@@ -161,8 +161,8 @@ function listarMaquinas(fksetor, acesso) {
               card: `<div onclick="atualizar_grafico_tempo_real(${maquinas.id_maquina}); atualizarDadosDaMaquina(${maquinas.id_maquina}); cardSelecionado(${maquinas.id_maquina}); atualizarDadosAlerta(${maquinas.id_maquina})"  id = "${maquinas.id_maquina}" class="card-acao">
               <div class="icon-todos">
                 <div class="lixeira-lapis">
-                    <div class="icon-trash1" onclick="abrirExcluir(${maquinas.id_maquina}, '${maquinas.nome_maquina}'); event.stopPropagation(); event.preventDefault();"></div>
-                    <div class="icon-pencil" onclick="abrirEditar(${maquinas.id_maquina}, '${maquinas.modelo_maquina}', '${maquinas.nome_maquina}'); event.stopPropagation(); event.preventDefault();"></div>
+                    <div  onclick="abrirExcluir(${maquinas.id_maquina}, '${maquinas.nome_maquina}'); event.stopPropagation(); event.preventDefault();"><img src="../assets/icon/lixeira.png" alt="" width="20px"></div>
+                    <div  onclick="abrirEditar(${maquinas.id_maquina}, '${maquinas.modelo_maquina}', '${maquinas.nome_maquina}'); event.stopPropagation(); event.preventDefault();"><img src="../assets/icon/lapis.png" alt="" width="20px"></div>
                 </div>
                <div id="maquina_${maquinas.id_maquina}">
                <img src="../assets/imgs/imagem_computador.png" alt="" style="width: 120px;">
