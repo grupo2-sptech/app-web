@@ -584,7 +584,6 @@ function abrirNotifica() {
   } else {
     div_notifica.style.display = 'flex'
     contadorNotifica(0) // Zerar o contador
-    exibirNotificacoes() // Exibir notificações quando a div é aberta
   }
 }
 
@@ -608,6 +607,7 @@ function atualizarAlertas(id_setor) {
           id: dado.id_alerta, // Supondo que cada notificação tem um ID único
           nome_maquina: dado.nome_maquina,
           descricao_alerta: dado.descricao_alerta,
+          id_maquina: dado.fk_maquina,
           data_hora: dado.data_hora,
           titulo: dado.titulo
         }))
@@ -651,44 +651,52 @@ function atualizarAlertas(id_setor) {
 
 // Função para adicionar uma notificação na interface
 function adicionarNotificacaoNaInterface(novaNotificacao) {
-  let dataHora = new Date(novaNotificacao.data_hora)
-  let dia = String(dataHora.getDate()).padStart(2, '0')
-  let mes = String(dataHora.getMonth() + 1).padStart(2, '0') // Meses começam do 0
-  let ano = dataHora.getFullYear()
-  let horas = String(dataHora.getHours()).padStart(2, '0')
-  let minutos = String(dataHora.getMinutes()).padStart(2, '0')
-  let segundos = String(dataHora.getSeconds()).padStart(2, '0')
-
-  let dataHoraFormatada = `${dia}/${mes}/${ano} às ${horas}:${minutos}:${segundos}`
-  let notifica = document.getElementById('notificacao')
-  let color_alerta
-  let icon
-  if (novaNotificacao.titulo.includes('Processo')) {
-    color_alerta = 'orange'
-    icon = "icon-warning"
-  } else if (novaNotificacao.titulo.includes('cadastrada')) {
-    color_alerta = 'green'
-    icon = 'icon-plus1'
-
-  } else if (novaNotificacao.titulo.includes('editada')) {
-    color_alerta = 'green'
-    icon = 'icon-pencil2'
-  } else {
-    color_alerta = 'red'
-    icon = "icon-warning"
+  if (!novaNotificacao || !novaNotificacao.titulo) {
+    console.warn("A notificação é nula ou não possui um título válido.");
+    return;
   }
+
+  let dataHora = new Date(novaNotificacao.data_hora);
+  let dia = String(dataHora.getDate()).padStart(2, '0');
+  let mes = String(dataHora.getMonth() + 1).padStart(2, '0'); // Meses começam do 0
+  let ano = dataHora.getFullYear();
+  let horas = String(dataHora.getHours()).padStart(2, '0');
+  let minutos = String(dataHora.getMinutes()).padStart(2, '0');
+  let segundos = String(dataHora.getSeconds()).padStart(2, '0');
+
+  let dataHoraFormatada = `${dia}/${mes}/${ano} às ${horas}:${minutos}:${segundos}`;
+  let notifica = document.getElementById('notificacao');
+  let color_alerta;
+  let icon;
+
+  if (novaNotificacao.titulo.includes('Processo')) {
+    color_alerta = 'orange';
+    icon = 'icon-warning';
+  } else if (novaNotificacao.titulo.includes('cadastrada')) {
+    color_alerta = 'green';
+    icon = 'icon-plus1';
+  } else if (novaNotificacao.titulo.includes('editada')) {
+    color_alerta = 'green';
+    icon = 'icon-pencil2';
+  } else {
+    color_alerta = 'red';
+    icon = 'icon-warning';
+  }
+
   notifica.innerHTML += `
-  <div class="alertas">
-      <div class="mensagem_alerta">
-          <div style="color: ${color_alerta};" class="${icon}"></div>
-          <div>
-              <p class="nome_maquina">${novaNotificacao.nome_maquina} - ${novaNotificacao.titulo}</p>
-              <p class="descricao_alerta">${novaNotificacao.descricao_alerta}</p>
-              <i class="data_hora">${dataHoraFormatada}</i>
-          </div>
-      </div>
-  </div>`
+<div onclick="atualizar_grafico_tempo_real(${novaNotificacao.id_maquina}); atualizarDadosDaMaquina(${novaNotificacao.id_maquina}); cardSelecionado(${novaNotificacao.id_maquina}); atualizarDadosAlerta(${novaNotificacao.id_maquina})" class="alertas">
+  <div class="mensagem_alerta">
+    <div style="color: ${color_alerta};" class="${icon}"></div>
+    <div>
+      <p class="nome_maquina">${novaNotificacao.nome_maquina} - ${novaNotificacao.titulo}</p>
+      <p class="descricao_alerta">${novaNotificacao.descricao_alerta}</p>
+      <i class="data_hora">${dataHoraFormatada}</i>
+    </div>
+  </div>
+</div>
+`;
 }
+
 
 // Verificação contínua a cada segundo para atualizações de alertas
 setInterval(() => {

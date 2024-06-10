@@ -53,8 +53,10 @@ async function cadastrarEmpresa(req, res) {
 
         const setorId = await empresaModel.cadastrarStores(setor, empresaId);
 
-        await empresaModel.cadastrarFuncionario(nomeUser, emailUser, login, senha, "Gestor", setorId, empresaId);
-
+/*         const
+ */
+/*         await empresaModel.cadastrarFuncionario(nomeUser, emailUser, login, senha, "Gestor", setorId, empresaId);
+ */
         res.status(201).send("Empresa cadastrada com sucesso.");
     } catch (error) {
         console.error(error);

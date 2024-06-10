@@ -339,9 +339,15 @@ body {
   height: auto;
   font-size: 10px;
   text-align: left;
+  cursor: pointer;
   background-color: #e9e9e9;
   border-radius: 5px;
   box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
+  transition: 300ms;
+}
+
+.alertas:hover {
+ scale: 1.03;
 }
 
 .mensagem_alerta {
